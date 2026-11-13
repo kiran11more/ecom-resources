@@ -179,7 +179,6 @@ const RAIL_SECTIONS = [
 <script is:inline>
   (function () {
     const railItems = document.querySelectorAll('.rail-item');
-    const badge = document.getElementById('rail-active-badge');
     const scrollTopBtn = document.getElementById('rail-scroll-top');
 
     // 1. Back to Top Click
@@ -189,29 +188,7 @@ const RAIL_SECTIONS = [
       });
     }
 
-    // 2. Click Handler on Rail Items: Smooth Scroll with Header Offset
-    railItems.forEach((item) => {
-      item.addEventListener('click', (e) => {
-        const id = item.getAttribute('data-rail-id');
-        if (!id) return;
-        const target = document.getElementById(id);
-        if (target) {
-          e.preventDefault();
-          const headerOffset = 140;
-          const elementPosition = target.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth',
-          });
-
-          setActiveItem(id);
-        }
-      });
-    });
-
-    // 3. Set Active Item Styling (Pure White on Orange, Never Disappears on Hover!)
+    // 2. Set Active Item Styling (Pure White on Orange)
     function setActiveItem(activeId) {
       railItems.forEach((item) => {
         const id = item.getAttribute('data-rail-id');
@@ -220,27 +197,26 @@ const RAIL_SECTIONS = [
       });
     }
 
-    // 4. Scrollspy via IntersectionObserver
+    // 3. Click Handler on Rail Items (Native smooth scroll, zero forced reflow)
+    railItems.forEach((item) => {
+      item.addEventListener('click', (e) => {
+        const id = item.getAttribute('data-rail-id');
+        if (!id) return;
+        const target = document.getElementById(id);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+          setActiveItem(id);
+        }
+      });
+    });
+
+    // 4. Zero-Reflow Scrollspy via native IntersectionObserver
     const observerOptions = {
       root: null,
-      rootMargin: '-140px 0px -55% 0px',
+      rootMargin: '-20% 0px -70% 0px',
       threshold: 0,
     };
-
-    const sectionIds = [
-      'everyday-tools',
-      'currency-exchange-rates',
-      'product-research',
-      'cross-border-information',
-      'email-marketing',
-      'advertising-platforms',
-      'store-opening',
-      'sourcing',
-      'warehouse-logistics',
-      'videos-social',
-      'legal-services',
-      'accounting',
-    ];
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -250,9 +226,12 @@ const RAIL_SECTIONS = [
       });
     }, observerOptions);
 
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
+    railItems.forEach((item) => {
+      const id = item.getAttribute('data-rail-id');
+      if (id) {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      }
     });
   })();
 </script>

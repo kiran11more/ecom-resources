@@ -395,12 +395,15 @@ export const COUNTRY_MARKETPLACES: CountryMarketplace[] = [
 ];
 
 export const EXCHANGE_RATES: ExchangeRate[] = [
-  { pair: 'USD / CNY', from: 'USD', to: 'CNY', fromFlag: '🇺🇸', toFlag: '🇨🇳', toFlagCode: 'cn', rate: '7.2418', numericRate: 7.2418, change: '+0.14%', isPositive: true, label: 'Factory Sourcing', shortLabel: '1688 Factory', desc: '1688 & Yiwu Wholesale' },
-  { pair: 'EUR / USD', from: 'EUR', to: 'USD', fromFlag: '🇪🇺', toFlag: '🇺🇸', toFlagCode: 'eu', rate: '1.0824', numericRate: 1.0824, change: '-0.08%', isPositive: false, label: 'EU VAT & Pan-EU', shortLabel: 'Pan-EU VAT', desc: 'Amazon DE/FR/IT/ES' },
-  { pair: 'GBP / USD', from: 'GBP', to: 'USD', fromFlag: '🇬🇧', toFlag: '🇺🇸', toFlagCode: 'gb', rate: '1.2945', numericRate: 1.2945, change: '+0.21%', isPositive: true, label: 'UK FBA Revenue', shortLabel: 'UK FBA', desc: 'Amazon UK & HMRC' },
-  { pair: 'USD / JPY', from: 'USD', to: 'JPY', fromFlag: '🇺🇸', toFlag: '🇯🇵', toFlagCode: 'jp', rate: '154.62', numericRate: 154.62, change: '+0.35%', isPositive: true, label: 'Amazon Japan', shortLabel: 'Amazon JP', desc: 'JP Marketplace Payout' },
+  { pair: 'USD / CNY', from: 'USD', to: 'CNY', fromFlag: '🇺🇸', toFlag: '🇨🇳', toFlagCode: 'cn', rate: '6.6851', numericRate: 6.6851, change: '+0.14%', isPositive: true, label: 'Factory Sourcing', shortLabel: '1688 Factory', desc: '1688 & Yiwu Wholesale' },
+  { pair: 'EUR / USD', from: 'EUR', to: 'USD', fromFlag: '🇪🇺', toFlag: '🇺🇸', toFlagCode: 'eu', rate: '1.1068', numericRate: 1.1068, change: '-0.08%', isPositive: false, label: 'EU VAT & Pan-EU', shortLabel: 'Pan-EU VAT', desc: 'Amazon DE/FR/IT/ES' },
+  { pair: 'GBP / USD', from: 'GBP', to: 'USD', fromFlag: '🇬🇧', toFlag: '🇺🇸', toFlagCode: 'gb', rate: '1.3242', numericRate: 1.3242, change: '+0.21%', isPositive: true, label: 'UK FBA Revenue', shortLabel: 'UK FBA', desc: 'Amazon UK & HMRC' },
+  { pair: 'USD / JPY', from: 'USD', to: 'JPY', fromFlag: '🇺🇸', toFlag: '🇯🇵', toFlagCode: 'jp', rate: '159.80', numericRate: 159.80, change: '+0.35%', isPositive: true, label: 'Amazon Japan', shortLabel: 'Amazon JP', desc: 'JP Marketplace Payout' },
   { pair: 'USD / CAD', from: 'USD', to: 'CAD', fromFlag: '🇺🇸', toFlag: '🇨🇦', toFlagCode: 'ca', rate: '1.3850', numericRate: 1.3850, change: '-0.05%', isPositive: false, label: 'Amazon Canada', shortLabel: 'Amazon CA', desc: 'CA Marketplace' },
   { pair: 'USD / AUD', from: 'USD', to: 'AUD', fromFlag: '🇺🇸', toFlag: '🇦🇺', toFlagCode: 'au', rate: '1.5280', numericRate: 1.5280, change: '+0.12%', isPositive: true, label: 'Australia FBA', shortLabel: 'Amazon AU', desc: 'AU Marketplace' },
+  { pair: 'USD / INR', from: 'USD', to: 'INR', fromFlag: '🇺🇸', toFlag: '🇮🇳', toFlagCode: 'in', rate: '84.42', numericRate: 84.42, change: '+0.06%', isPositive: true, label: 'India Sourcing', shortLabel: 'India Hub', desc: 'Textiles & Handicrafts' },
+  { pair: 'USD / SGD', from: 'USD', to: 'SGD', fromFlag: '🇺🇸', toFlag: '🇸🇬', toFlagCode: 'sg', rate: '1.3480', numericRate: 1.3480, change: '-0.03%', isPositive: false, label: 'SE Asia Hub', shortLabel: 'Singapore', desc: 'Shopee & Lazada' },
+  { pair: 'USD / AED', from: 'USD', to: 'AED', fromFlag: '🇺🇸', toFlag: '🇦🇪', toFlagCode: 'ae', rate: '3.6725', numericRate: 3.6725, change: '0.00%', isPositive: true, label: 'Middle East Hub', shortLabel: 'Dubai FBA', desc: 'Amazon AE & Noon' },
 ];
 
 export const QUICK_JUMP_PILLS: QuickJumpPill[] = [

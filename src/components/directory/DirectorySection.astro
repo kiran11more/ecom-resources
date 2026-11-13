@@ -215,9 +215,9 @@ function getFaviconUrl(urlStr: string): string {
       </div>
 
       <div class="flex items-center gap-2 shrink-0">
-        <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full flex items-center gap-1.5 w-fit">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span id="directory-fx-label">Live Market Feed</span>
+        <span id="directory-fx-pill" class="text-xs font-semibold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/[0.06] border border-slate-200 dark:border-white/10 px-3 py-1 rounded-full flex items-center gap-1.5 w-fit transition-colors">
+          <span id="directory-fx-dot" class="w-2 h-2 rounded-full bg-slate-400"></span>
+          <span id="directory-fx-label">Checking FX...</span>
         </span>
       </div>
     </div>
@@ -246,32 +246,57 @@ function getFaviconUrl(urlStr: string): string {
       </div>
 
       <!-- Live Calculation Outputs -->
-      <div class="flex items-center gap-2 sm:gap-3 overflow-x-auto no-scrollbar text-xs">
-        <div class="px-2.5 py-1 rounded-lg bg-white dark:bg-[#131924] border border-slate-200/70 dark:border-white/10 flex items-center gap-1.5 shrink-0">
+      <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar text-xs">
+        <div class="px-2 py-1 rounded-lg bg-white dark:bg-[#131924] border border-slate-200/70 dark:border-white/10 flex items-center gap-1 shrink-0">
           <span class="text-xs">🇨🇳</span>
-          <span class="font-mono font-bold text-slate-900 dark:text-white" id="fx-val-cny">7,241.80</span>
-          <span class="text-[10px] text-slate-500">CNY (1688)</span>
+          <span class="font-mono font-bold text-slate-900 dark:text-white" id="fx-val-cny">6,685.10</span>
+          <span class="text-[10px] text-slate-500">CNY</span>
         </div>
-        <div class="px-2.5 py-1 rounded-lg bg-white dark:bg-[#131924] border border-slate-200/70 dark:border-white/10 flex items-center gap-1.5 shrink-0">
+        <div class="px-2 py-1 rounded-lg bg-white dark:bg-[#131924] border border-slate-200/70 dark:border-white/10 flex items-center gap-1 shrink-0">
           <span class="text-xs">🇪🇺</span>
-          <span class="font-mono font-bold text-slate-900 dark:text-white" id="fx-val-eur">923.85</span>
-          <span class="text-[10px] text-slate-500">EUR (EU)</span>
+          <span class="font-mono font-bold text-slate-900 dark:text-white" id="fx-val-eur">903.50</span>
+          <span class="text-[10px] text-slate-500">EUR</span>
         </div>
-        <div class="px-2.5 py-1 rounded-lg bg-white dark:bg-[#131924] border border-slate-200/70 dark:border-white/10 flex items-center gap-1.5 shrink-0">
+        <div class="px-2 py-1 rounded-lg bg-white dark:bg-[#131924] border border-slate-200/70 dark:border-white/10 flex items-center gap-1 shrink-0">
           <span class="text-xs">🇬🇧</span>
-          <span class="font-mono font-bold text-slate-900 dark:text-white" id="fx-val-gbp">772.50</span>
-          <span class="text-[10px] text-slate-500">GBP (UK)</span>
+          <span class="font-mono font-bold text-slate-900 dark:text-white" id="fx-val-gbp">755.15</span>
+          <span class="text-[10px] text-slate-500">GBP</span>
         </div>
-        <div class="px-2.5 py-1 rounded-lg bg-white dark:bg-[#131924] border border-slate-200/70 dark:border-white/10 flex items-center gap-1.5 shrink-0">
+        <div class="px-2 py-1 rounded-lg bg-white dark:bg-[#131924] border border-slate-200/70 dark:border-white/10 flex items-center gap-1 shrink-0">
           <span class="text-xs">🇯🇵</span>
-          <span class="font-mono font-bold text-slate-900 dark:text-white" id="fx-val-jpy">154,620</span>
-          <span class="text-[10px] text-slate-500">JPY (JP)</span>
+          <span class="font-mono font-bold text-slate-900 dark:text-white" id="fx-val-jpy">159,800</span>
+          <span class="text-[10px] text-slate-500">JPY</span>
+        </div>
+        <div class="px-2 py-1 rounded-lg bg-white dark:bg-[#131924] border border-slate-200/70 dark:border-white/10 flex items-center gap-1 shrink-0">
+          <span class="text-xs">🇨🇦</span>
+          <span class="font-mono font-bold text-slate-900 dark:text-white" id="fx-val-cad">1,385.00</span>
+          <span class="text-[10px] text-slate-500">CAD</span>
+        </div>
+        <div class="px-2 py-1 rounded-lg bg-white dark:bg-[#131924] border border-slate-200/70 dark:border-white/10 flex items-center gap-1 shrink-0">
+          <span class="text-xs">🇦🇺</span>
+          <span class="font-mono font-bold text-slate-900 dark:text-white" id="fx-val-aud">1,528.00</span>
+          <span class="text-[10px] text-slate-500">AUD</span>
+        </div>
+        <div class="px-2 py-1 rounded-lg bg-white dark:bg-[#131924] border border-slate-200/70 dark:border-white/10 flex items-center gap-1 shrink-0">
+          <span class="text-xs">🇮🇳</span>
+          <span class="font-mono font-bold text-slate-900 dark:text-white" id="fx-val-inr">84,420</span>
+          <span class="text-[10px] text-slate-500">INR</span>
+        </div>
+        <div class="px-2 py-1 rounded-lg bg-white dark:bg-[#131924] border border-slate-200/70 dark:border-white/10 flex items-center gap-1 shrink-0">
+          <span class="text-xs">🇸🇬</span>
+          <span class="font-mono font-bold text-slate-900 dark:text-white" id="fx-val-sgd">1,348.00</span>
+          <span class="text-[10px] text-slate-500">SGD</span>
+        </div>
+        <div class="px-2 py-1 rounded-lg bg-white dark:bg-[#131924] border border-slate-200/70 dark:border-white/10 flex items-center gap-1 shrink-0">
+          <span class="text-xs">🇦🇪</span>
+          <span class="font-mono font-bold text-slate-900 dark:text-white" id="fx-val-aed">3,672.50</span>
+          <span class="text-[10px] text-slate-500">AED</span>
         </div>
       </div>
     </div>
 
-    <!-- 6-Column Currency Rate Cards (Fintech Style) -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
+    <!-- Currency Rate Cards Grid (Fintech Style) -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-9 gap-2.5 sm:gap-3">
       {EXCHANGE_RATES.map((rate) => (
         <div class="p-3 rounded-xl bg-slate-50/70 dark:bg-dark-elevated/50 border border-slate-200/70 dark:border-white/[0.05] hover:border-brand-orange/40 transition-all flex flex-col justify-between group">
           <div class="flex items-center justify-between gap-1 mb-1.5">
@@ -286,7 +311,7 @@ function getFaviconUrl(urlStr: string): string {
           </div>
 
           <div>
-            <div class="text-[11px] font-bold text-slate-600 dark:text-slate-300 truncate">
+            <div class="text-[11px] font-bold text-slate-600 dark:text-slate-300 truncate whitespace-nowrap">
               {rate.pair}
             </div>
             <div class="text-base sm:text-lg font-mono font-extrabold text-slate-900 dark:text-white tracking-tight mt-0.5" data-fx-pair={rate.pair}>
@@ -696,120 +721,277 @@ function getFaviconUrl(urlStr: string): string {
       });
     }
 
-    // 3. Real-Time Currency FX Engine (Live Interbank Feed + Converter)
+    // 3. Real-Time Currency FX Engine (Coinbase Spot + Open.er-api Fallback + 60s Polling)
     const fxInput = document.getElementById('fx-calc-input');
-    const cnyOutput = document.getElementById('fx-val-cny');
-    const eurOutput = document.getElementById('fx-val-eur');
-    const gbpOutput = document.getElementById('fx-val-gbp');
-    const jpyOutput = document.getElementById('fx-val-jpy');
-    const bentoFxLabel = document.getElementById('bento-fx-label');
-    const directoryFxLabel = document.getElementById('directory-fx-label');
 
     // Baseline fallback rates
-    const liveFx = {
-      cny: 7.2418,
-      eur: 0.92385, // USD to EUR
-      gbp: 0.7725,  // USD to GBP
-      jpy: 154.62,
-      cad: 1.3850,
-      aud: 1.5280,
+    let currentRates = {
+      CNY: 6.6851,
+      EUR: 0.903491,
+      GBP: 0.755149,
+      JPY: 159.80,
+      CAD: 1.3850,
+      AUD: 1.5280,
+      INR: 84.42,
+      SGD: 1.3480,
+      AED: 3.6725,
     };
 
-    function updateFxConversion() {
-      if (!fxInput) return;
-      const amount = parseFloat(fxInput.value) || 0;
-      if (cnyOutput) cnyOutput.textContent = (amount * liveFx.cny).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      if (eurOutput) eurOutput.textContent = (amount * liveFx.eur).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      if (gbpOutput) gbpOutput.textContent = (amount * liveFx.gbp).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      if (jpyOutput) jpyOutput.textContent = Math.round(amount * liveFx.jpy).toLocaleString('en-US');
+    function setFxStatus(status, timestamp) {
+      const isLive = status === 'live';
+      let badgeText = 'Offline Ref';
+      if (isLive) {
+        const d = timestamp ? new Date(timestamp) : new Date();
+        const hours = String(d.getHours()).padStart(2, '0');
+        const minutes = String(d.getMinutes()).padStart(2, '0');
+        badgeText = `Live Spot • ${hours}:${minutes}`;
+      }
+
+      const bentoLabel = document.getElementById('bento-fx-label');
+      const directoryLabel = document.getElementById('directory-fx-label');
+      const bentoDot = document.getElementById('bento-fx-dot');
+      const directoryDot = document.getElementById('directory-fx-dot');
+      const bentoPill = document.getElementById('bento-fx-pill');
+      const directoryPill = document.getElementById('directory-fx-pill');
+
+      if (bentoLabel) bentoLabel.textContent = badgeText;
+      if (directoryLabel) directoryLabel.textContent = badgeText;
+
+      if (isLive) {
+        if (bentoDot) bentoDot.className = 'w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse';
+        if (directoryDot) directoryDot.className = 'w-2 h-2 rounded-full bg-emerald-500 animate-pulse';
+
+        if (bentoPill) {
+          bentoPill.className = 'text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full flex items-center gap-1 transition-colors';
+        }
+        if (directoryPill) {
+          directoryPill.className = 'text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full flex items-center gap-1.5 w-fit transition-colors';
+        }
+      } else {
+        if (bentoDot) bentoDot.className = 'w-1.5 h-1.5 rounded-full bg-amber-500';
+        if (directoryDot) directoryDot.className = 'w-2 h-2 rounded-full bg-amber-500';
+
+        if (bentoPill) {
+          bentoPill.className = 'text-[10px] font-semibold text-amber-600 dark:text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full flex items-center gap-1 transition-colors';
+        }
+        if (directoryPill) {
+          directoryPill.className = 'text-xs font-semibold text-amber-600 dark:text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full flex items-center gap-1.5 w-fit transition-colors';
+        }
+      }
     }
 
-    function applyLiveRates(rates) {
-      if (!rates) return;
-      if (rates.CNY) liveFx.cny = rates.CNY;
-      if (rates.EUR) liveFx.eur = rates.EUR;
-      if (rates.GBP) liveFx.gbp = rates.GBP;
-      if (rates.JPY) liveFx.jpy = rates.JPY;
-      if (rates.CAD) liveFx.cad = rates.CAD;
-      if (rates.AUD) liveFx.aud = rates.AUD;
+    function updateFxConversion() {
+      const inputEl = document.getElementById('fx-calc-input');
+      if (!inputEl) return;
+      const amount = parseFloat(inputEl.value) || 0;
 
-      // Update all rate display cards on page (both Bento box and Directory section)
-      const pairMaps = {
-        'USD / CNY': liveFx.cny.toFixed(4),
-        'EUR / USD': (1 / liveFx.eur).toFixed(4),
-        'GBP / USD': (1 / liveFx.gbp).toFixed(4),
-        'USD / JPY': liveFx.jpy.toFixed(2),
-        'USD / CAD': liveFx.cad.toFixed(4),
-        'USD / AUD': liveFx.aud.toFixed(4),
+      const outputs = {
+        'fx-val-cny': (amount * (currentRates.CNY || 6.6851)).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+        'fx-val-eur': (amount * (currentRates.EUR || 0.9035)).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+        'fx-val-gbp': (amount * (currentRates.GBP || 0.7551)).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+        'fx-val-jpy': Math.round(amount * (currentRates.JPY || 159.80)).toLocaleString('en-US'),
+        'fx-val-cad': (amount * (currentRates.CAD || 1.3850)).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+        'fx-val-aud': (amount * (currentRates.AUD || 1.5280)).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+        'fx-val-inr': (amount * (currentRates.INR || 84.42)).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+        'fx-val-sgd': (amount * (currentRates.SGD || 1.3480)).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+        'fx-val-aed': (amount * (currentRates.AED || 3.6725)).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
       };
 
-      Object.entries(pairMaps).forEach(([pair, val]) => {
-        document.querySelectorAll(`[data-fx-pair="${pair}"]`).forEach((el) => {
-          el.textContent = val;
-        });
+      Object.entries(outputs).forEach(([id, formatted]) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = formatted;
+      });
+    }
+
+    function applyLiveRates(rates, timestamp) {
+      if (!rates || typeof rates !== 'object') return false;
+
+      // Merge into current rates
+      Object.keys(currentRates).forEach((cur) => {
+        if (typeof rates[cur] === 'number' && rates[cur] > 0) {
+          currentRates[cur] = rates[cur];
+        }
       });
 
-      // Recalculate converter values
+      // Target mapping matching exact user requirements:
+      // USD / CNY -> CNY.toFixed(4)
+      // EUR / USD -> (1 / EUR).toFixed(4)
+      // GBP / USD -> (1 / GBP).toFixed(4)
+      // USD / JPY -> JPY.toFixed(2)
+      const pairMap = {
+        'USD/CNY': currentRates.CNY ? currentRates.CNY.toFixed(4) : null,
+        'EUR/USD': currentRates.EUR ? (1 / currentRates.EUR).toFixed(4) : null,
+        'GBP/USD': currentRates.GBP ? (1 / currentRates.GBP).toFixed(4) : null,
+        'USD/JPY': currentRates.JPY ? currentRates.JPY.toFixed(2) : null,
+        'USD/CAD': currentRates.CAD ? currentRates.CAD.toFixed(4) : null,
+        'USD/AUD': currentRates.AUD ? currentRates.AUD.toFixed(4) : null,
+        'USD/INR': currentRates.INR ? currentRates.INR.toFixed(2) : null,
+        'USD/SGD': currentRates.SGD ? currentRates.SGD.toFixed(4) : null,
+        'USD/AED': currentRates.AED ? currentRates.AED.toFixed(4) : null,
+      };
+
+      // Update every [data-fx-pair] element across BentoDashboard and DirectorySection
+      document.querySelectorAll('[data-fx-pair]').forEach((el) => {
+        const rawPair = el.getAttribute('data-fx-pair') || '';
+        const normalized = rawPair.replace(/\s+/g, '').toUpperCase();
+
+        if (pairMap[normalized]) {
+          el.textContent = pairMap[normalized];
+        } else {
+          // Generic handler for other currency pairs
+          const parts = normalized.split('/');
+          if (parts.length === 2) {
+            const [base, quote] = parts;
+            if (base === 'USD' && currentRates[quote]) {
+              el.textContent = currentRates[quote] >= 50 ? currentRates[quote].toFixed(2) : currentRates[quote].toFixed(4);
+            } else if (quote === 'USD' && currentRates[base]) {
+              el.textContent = (1 / currentRates[base]).toFixed(4);
+            }
+          }
+        }
+      });
+
+      // Recalculate quick converter output values
       updateFxConversion();
 
-      // Update live status badges with time
-      const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      if (bentoFxLabel) bentoFxLabel.textContent = `Live (${timeStr})`;
-      if (directoryFxLabel) directoryFxLabel.textContent = `Live Market Feed (${timeStr})`;
+      // Only mark Live if real rates were successfully written
+      setFxStatus('live', timestamp || Date.now());
+      return true;
+    }
+
+    const CACHE_KEY = 'ecom_fx_spot_v2';
+    const CACHE_TTL_MS = 60 * 1000; // 60 seconds TTL
+
+    async function fetchFromCoinbase() {
+      const res = await fetch('https://api.coinbase.com/v2/exchange-rates?currency=USD');
+      if (!res.ok) throw new Error('Coinbase HTTP ' + res.status);
+      const data = await res.json();
+      const raw = (data && data.data && data.data.rates) || (data && data.rates);
+      if (!raw || typeof raw !== 'object') throw new Error('Invalid Coinbase payload');
+
+      const parsed = {};
+      ['CNY', 'EUR', 'GBP', 'JPY', 'CAD', 'AUD', 'INR', 'SGD', 'AED'].forEach((k) => {
+        if (raw[k] !== undefined) {
+          const val = typeof raw[k] === 'number' ? raw[k] : parseFloat(raw[k]);
+          if (!isNaN(val) && val > 0) {
+            parsed[k] = val;
+          }
+        }
+      });
+
+      if (!parsed.CNY || !parsed.EUR) throw new Error('Incomplete Coinbase rates');
+      return parsed;
+    }
+
+    async function fetchFromOpenErApi() {
+      const res = await fetch('https://open.er-api.com/v6/latest/USD');
+      if (!res.ok) throw new Error('Open.er-api HTTP ' + res.status);
+      const data = await res.json();
+      if (!data || data.result !== 'success' || !data.rates) throw new Error('Invalid Open.er-api payload');
+
+      const parsed = {};
+      ['CNY', 'EUR', 'GBP', 'JPY', 'CAD', 'AUD', 'INR', 'SGD', 'AED'].forEach((k) => {
+        if (data.rates[k] !== undefined) {
+          const val = typeof data.rates[k] === 'number' ? data.rates[k] : parseFloat(data.rates[k]);
+          if (!isNaN(val) && val > 0) {
+            parsed[k] = val;
+          }
+        }
+      });
+
+      if (!parsed.CNY || !parsed.EUR) throw new Error('Incomplete Open.er-api rates');
+      return parsed;
     }
 
     async function fetchLiveExchangeRates() {
-      const CACHE_KEY = 'ecom_live_fx_v1';
-      const CACHE_TIME_KEY = 'ecom_live_fx_time';
-      const now = Date.now();
-      const cached = sessionStorage.getItem(CACHE_KEY);
-      const cachedTime = sessionStorage.getItem(CACHE_TIME_KEY);
+      let fetchedRates = null;
+      let timestamp = Date.now();
 
-      // Use 15-minute cache if available
-      if (cached && cachedTime && (now - parseInt(cachedTime, 10) < 15 * 60 * 1000)) {
+      // 1. Primary endpoint: api.coinbase.com (true intraday real-time spot rates)
+      try {
+        fetchedRates = await fetchFromCoinbase();
+        timestamp = Date.now();
+      } catch (cbErr) {
+        console.warn('Primary Coinbase FX API failed, trying open.er-api fallback...', cbErr);
+        // 2. Fallback endpoint: open.er-api.com
         try {
-          applyLiveRates(JSON.parse(cached));
-          return;
+          fetchedRates = await fetchFromOpenErApi();
+          timestamp = Date.now();
+        } catch (fbErr) {
+          console.warn('Fallback FX API (open.er-api) failed.', fbErr);
+        }
+      }
+
+      if (fetchedRates) {
+        try {
+          localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp, rates: fetchedRates }));
         } catch (_) {}
+        applyLiveRates(fetchedRates, timestamp);
+        return true;
       }
 
+      // Check if we have recent cached rates
       try {
-        // Primary API: open.er-api.com (No API key, free, fast, CORS enabled)
-        const res = await fetch('https://open.er-api.com/v6/latest/USD');
-        if (res.ok) {
-          const data = await res.json();
-          if (data && data.rates) {
-            sessionStorage.setItem(CACHE_KEY, JSON.stringify(data.rates));
-            sessionStorage.setItem(CACHE_TIME_KEY, now.toString());
-            applyLiveRates(data.rates);
-            return;
+        const cachedRaw = localStorage.getItem(CACHE_KEY);
+        if (cachedRaw) {
+          const cached = JSON.parse(cachedRaw);
+          if (cached && cached.rates && cached.timestamp) {
+            applyLiveRates(cached.rates, cached.timestamp);
+            return true;
           }
         }
-      } catch (err) {
-        console.warn('Primary FX API error, attempting fallback...', err);
-      }
+      } catch (_) {}
 
-      try {
-        // Fallback API: European Central Bank via frankfurter.dev
-        const resFallback = await fetch('https://api.frankfurter.dev/v1/latest?base=USD');
-        if (resFallback.ok) {
-          const dataFallback = await resFallback.json();
-          if (dataFallback && dataFallback.rates) {
-            sessionStorage.setItem(CACHE_KEY, JSON.stringify(dataFallback.rates));
-            sessionStorage.setItem(CACHE_TIME_KEY, now.toString());
-            applyLiveRates(dataFallback.rates);
-          }
-        }
-      } catch (err2) {
-        console.warn('Fallback FX API unreachable, staying on baseline rates.', err2);
-      }
+      setFxStatus('offline');
+      return false;
     }
+
+    // Clear legacy caches
+    try {
+      localStorage.removeItem('ecom_fx_rates_v1');
+      sessionStorage.removeItem('ecom_live_fx_v1');
+      sessionStorage.removeItem('ecom_live_fx_time');
+    } catch (_) {}
+
+    // 1. Instant Cache Hydration (<60s TTL)
+    try {
+      const cachedRaw = localStorage.getItem(CACHE_KEY);
+      if (cachedRaw) {
+        const cached = JSON.parse(cachedRaw);
+        if (cached && cached.rates && (Date.now() - cached.timestamp < CACHE_TTL_MS)) {
+          applyLiveRates(cached.rates, cached.timestamp);
+        }
+      }
+    } catch (_) {}
+
+    // 2. Fetch fresh rates immediately
+    fetchLiveExchangeRates();
+
+    // 3. 60-Second Polling while tab is visible
+    setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        fetchLiveExchangeRates();
+      }
+    }, 60000);
+
+    // 4. Tab Visibility Change Listener
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        try {
+          const cachedRaw = localStorage.getItem(CACHE_KEY);
+          if (cachedRaw) {
+            const cached = JSON.parse(cachedRaw);
+            if (cached && cached.rates && (Date.now() - cached.timestamp < CACHE_TTL_MS)) {
+              return; // Cache still fresh
+            }
+          }
+        } catch (_) {}
+        fetchLiveExchangeRates();
+      }
+    });
 
     if (fxInput) {
       fxInput.addEventListener('input', updateFxConversion);
     }
-
-    // Initialize real-time rates
-    fetchLiveExchangeRates();
   })();
 </script>
