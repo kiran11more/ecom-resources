@@ -40,7 +40,7 @@ const RAIL_SECTIONS = [
       {
         RAIL_SECTIONS.map((sec, idx) => (
           <a
-            href={`#${sec.id}`}
+            href={`/#${sec.id}`}
             data-rail-id={sec.id}
             class={`rail-item flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all font-medium ${idx === 0 ? 'rail-active' : ''}`}
           >
@@ -76,7 +76,7 @@ const RAIL_SECTIONS = [
       </button>
 
       <a
-        href="#everyday-tools"
+        href="/#everyday-tools"
         title="Jump to Everyday Tools"
         class="flex-1 flex items-center justify-center gap-1 py-1.5 px-2 rounded-lg text-[11px] font-bold text-brand-orange bg-brand-orange/10 hover:bg-brand-orange/20 transition-colors"
       >

@@ -32,6 +32,7 @@ function getFaviconUrl(urlStr: string): string {
 }
 ---
 
+<div id="quick-directory" class="scroll-mt-36 pointer-events-none"></div>
 <div id="directory-stream" class="space-y-8 sm:space-y-10 w-full min-w-0" aria-label="Verified Resource Directory">
   <!-- Section Quick-Filter & Directory Navigator Bar -->
   <div class="bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs transition-colors">
@@ -67,49 +68,49 @@ function getFaviconUrl(urlStr: string): string {
     <!-- Category Jump Links (Anchored to Sections) -->
     <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-3 text-xs">
       <a
-        href="#everyday-tools"
+        href="/#everyday-tools"
         class="px-3 py-1.5 rounded-lg font-semibold transition-all bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/20 whitespace-nowrap text-xs"
       >
         Everyday Tools ({everydayTools.length})
       </a>
       <a
-        href="#browser-extensions"
+        href="/#browser-extensions"
         class="px-3 py-1.5 rounded-lg font-bold transition-all bg-brand-orange/15 text-brand-orange hover:bg-brand-orange/25 whitespace-nowrap text-xs border border-brand-orange/30"
       >
         Extensions & Deals ({(RECOMMENDED_EXTENSIONS?.length || 0) + (OFFSITE_DEAL_PLATFORMS?.length || 0)})
       </a>
       <a
-        href="#currency-rates"
+        href="/#currency-rates"
         class="px-3 py-1.5 rounded-lg font-semibold transition-all bg-teal-500/10 text-teal-700 dark:text-teal-300 hover:bg-teal-500/20 whitespace-nowrap text-xs"
       >
         Currency Rates
       </a>
       <a
-        href="#product-research"
+        href="/#product-research"
         class="px-3 py-1.5 rounded-lg font-semibold transition-all bg-blue-500/10 text-blue-700 dark:text-blue-300 hover:bg-blue-500/20 whitespace-nowrap text-xs"
       >
         Product Research ({productResearchTools.length})
       </a>
       <a
-        href="#cross-border-information"
+        href="/#cross-border-information"
         class="px-3 py-1.5 rounded-lg font-semibold transition-all bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-500/20 whitespace-nowrap text-xs"
       >
         Cross-Border Info ({crossBorderInfo.length})
       </a>
       <a
-        href="#email-marketing"
+        href="/#email-marketing"
         class="px-3 py-1.5 rounded-lg font-semibold transition-all bg-amber-500/10 text-amber-700 dark:text-amber-300 hover:bg-amber-500/20 whitespace-nowrap text-xs"
       >
         Email Marketing ({emailMarketing.length})
       </a>
       <a
-        href="#advertising-platforms"
+        href="/#advertising-platforms"
         class="px-3 py-1.5 rounded-lg font-semibold transition-all bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:bg-rose-500/20 whitespace-nowrap text-xs"
       >
         Advertising PPC ({advertisingPlatforms.length})
       </a>
       <a
-        href="#directory-matrix"
+        href="/#directory-matrix"
         class="px-3 py-1.5 rounded-lg font-semibold transition-all bg-purple-500/10 text-purple-700 dark:text-purple-300 hover:bg-purple-500/20 whitespace-nowrap text-xs"
       >
         Services Hub Matrix
@@ -499,6 +500,8 @@ function getFaviconUrl(urlStr: string): string {
   </section>
 
   <!-- SECTION 4: Advertising Platforms & Paid Traffic (Flat Section, 3-Column Clean Cards) -->
+  <div id="marketing" class="scroll-mt-36 pointer-events-none"></div>
+  <div id="marketing-advertising" class="scroll-mt-36 pointer-events-none"></div>
   <section id="advertising-platforms" class="space-y-4 scroll-mt-36" aria-label="Advertising Platforms Section">
     <div class="flex items-center justify-between pb-2 border-b border-slate-200/90 dark:border-white/[0.08]">
       <div class="flex items-center gap-3">
@@ -548,7 +551,7 @@ function getFaviconUrl(urlStr: string): string {
       </span>
     </div>
 
-    <!-- The 6 Matrix Rows (AMZ123 Page 2 Layout, 100% Readable!) -->
+    <!-- The 10 Matrix Rows (AMZ123 Page 2 Layout, 100% Readable!) -->
     <div class="divide-y divide-slate-100 dark:divide-white/[0.05] text-xs sm:text-sm">
       <!-- Row 1: Store Opening -->
       <div id="store-opening" class="py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 scroll-mt-36">
@@ -587,6 +590,7 @@ function getFaviconUrl(urlStr: string): string {
       </div>
 
       <!-- Row 3: Freight & Logistics -->
+      <div id="logistics" class="scroll-mt-36 pointer-events-none"></div>
       <div id="warehouse-logistics" class="py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 scroll-mt-36">
         <div class="w-36 shrink-0 font-bold text-orange-600 dark:text-orange-400 flex items-center gap-1.5">
           <span>Logistics & 3PL:</span>
@@ -623,6 +627,8 @@ function getFaviconUrl(urlStr: string): string {
       </div>
 
       <!-- Row 5: Legal & Trademark -->
+      <div id="legal-ip" class="scroll-mt-36 pointer-events-none"></div>
+      <div id="trademark" class="scroll-mt-36 pointer-events-none"></div>
       <div id="legal-services" class="py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 scroll-mt-36">
         <div class="w-36 shrink-0 font-bold text-purple-600 dark:text-purple-400 flex items-center gap-1.5">
           <span>Legal & IP:</span>
@@ -655,6 +661,102 @@ function getFaviconUrl(urlStr: string): string {
               </a>
             );
           })}
+        </div>
+      </div>
+
+      <!-- Row 7: Photography & 3D Media -->
+      <div id="photography" class="py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 scroll-mt-36">
+        <div class="w-36 shrink-0 font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5">
+          <span>Photography:</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3 flex-1">
+          <a href="/resources/billo" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+            <img src="https://www.google.com/s2/favicons?domain=billo.app&sz=64" alt="" class="w-3.5 h-3.5 object-contain rounded-xs shrink-0" loading="lazy" onerror="this.style.display='none'" />
+            <span>Billo UGC Videos</span>
+          </a>
+          <a href="https://soona.co" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+            <img src="https://www.google.com/s2/favicons?domain=soona.co&sz=64" alt="" class="w-3.5 h-3.5 object-contain rounded-xs shrink-0" loading="lazy" onerror="this.style.display='none'" />
+            <span>Soona Virtual Studio</span>
+          </a>
+          <a href="https://www.pixelz.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+            <img src="https://www.google.com/s2/favicons?domain=pixelz.com&sz=64" alt="" class="w-3.5 h-3.5 object-contain rounded-xs shrink-0" loading="lazy" onerror="this.style.display='none'" />
+            <span>Pixelz Retouching</span>
+          </a>
+          <a href="https://www.1688.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+            <img src="https://www.google.com/s2/favicons?domain=1688.com&sz=64" alt="" class="w-3.5 h-3.5 object-contain rounded-xs shrink-0" loading="lazy" onerror="this.style.display='none'" />
+            <span>1688 Image Search</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Row 8: Website & Store Builders -->
+      <div id="website" class="py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 scroll-mt-36">
+        <div class="w-36 shrink-0 font-bold text-blue-600 dark:text-blue-400 flex items-center gap-1.5">
+          <span>Website & D2C:</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3 flex-1">
+          <a href="/resources/shopify" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+            <img src="https://www.google.com/s2/favicons?domain=shopify.com&sz=64" alt="" class="w-3.5 h-3.5 object-contain rounded-xs shrink-0" loading="lazy" onerror="this.style.display='none'" />
+            <span>Shopify Platform</span>
+          </a>
+          <a href="https://woocommerce.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+            <img src="https://www.google.com/s2/favicons?domain=woocommerce.com&sz=64" alt="" class="w-3.5 h-3.5 object-contain rounded-xs shrink-0" loading="lazy" onerror="this.style.display='none'" />
+            <span>WooCommerce</span>
+          </a>
+          <a href="https://www.bigcommerce.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+            <img src="https://www.google.com/s2/favicons?domain=bigcommerce.com&sz=64" alt="" class="w-3.5 h-3.5 object-contain rounded-xs shrink-0" loading="lazy" onerror="this.style.display='none'" />
+            <span>BigCommerce</span>
+          </a>
+          <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+            <img src="https://www.google.com/s2/favicons?domain=stripe.com&sz=64" alt="" class="w-3.5 h-3.5 object-contain rounded-xs shrink-0" loading="lazy" onerror="this.style.display='none'" />
+            <span>Stripe Payments</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Row 9: Seller Training & Playbooks -->
+      <div id="training" class="py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 scroll-mt-36">
+        <div class="w-36 shrink-0 font-bold text-amber-600 dark:text-amber-400 flex items-center gap-1.5">
+          <span>Seller Training:</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3 flex-1">
+          <a href="https://sell.amazon.com/learn" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+            <img src="https://www.google.com/s2/favicons?domain=amazon.com&sz=64" alt="" class="w-3.5 h-3.5 object-contain rounded-xs shrink-0" loading="lazy" onerror="this.style.display='none'" />
+            <span>Amazon Seller University</span>
+          </a>
+          <a href="/resources/helium-10" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+            <img src="https://www.google.com/s2/favicons?domain=helium10.com&sz=64" alt="" class="w-3.5 h-3.5 object-contain rounded-xs shrink-0" loading="lazy" onerror="this.style.display='none'" />
+            <span>Helium 10 Academy</span>
+          </a>
+          <a href="/resources/jungle-scout" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+            <img src="https://www.google.com/s2/favicons?domain=junglescout.com&sz=64" alt="" class="w-3.5 h-3.5 object-contain rounded-xs shrink-0" loading="lazy" onerror="this.style.display='none'" />
+            <span>Freedom Ticket (JS)</span>
+          </a>
+          <a href="https://www.ecomcrew.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+            <img src="https://www.google.com/s2/favicons?domain=ecomcrew.com&sz=64" alt="" class="w-3.5 h-3.5 object-contain rounded-xs shrink-0" loading="lazy" onerror="this.style.display='none'" />
+            <span>EcomCrew Guides</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Row 10: Cross-Border Guides & Lookups -->
+      <div id="guides" class="py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 scroll-mt-36">
+        <div class="w-36 shrink-0 font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+          <span>Seller Guides:</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3 flex-1">
+          <a href="/tools/cbm-calculator" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+            <span>📦 CBM Container Planner</span>
+          </a>
+          <a href="/tools/time-converter" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+            <span>🌐 Timezone Call Windows</span>
+          </a>
+          <a href="/information/country-codes" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+            <span>🗺️ Country ISO & Dials</span>
+          </a>
+          <a href="/information/world-port-codes" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+            <span>🚢 Seaport LOCODE Index</span>
+          </a>
         </div>
       </div>
     </div>

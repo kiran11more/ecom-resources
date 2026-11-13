@@ -1,0 +1,363 @@
+---
+// Seller News & Market Bulletins Modal
+const NEWS_ITEMS = [
+  {
+    id: 'fba-fees-2026',
+    title: 'Amazon US FBA Fee & Inbound Placement Updates',
+    category: 'FBA Policy',
+    categoryColor: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20',
+    date: 'Updated Nov 2026',
+    source: 'Amazon Seller Central',
+    summary: 'Amazon has revised inbound placement service fee structures with zero-fee incentives for sellers shipping split shipments across 4+ regional fulfillment centers. Check your carton distribution settings in Seller Central.',
+    url: 'https://sellercentral.amazon.com',
+  },
+  {
+    id: 'tiktok-onboarding',
+    title: 'TikTok Shop Cross-Border Seller Onboarding Guide',
+    category: 'Social Commerce',
+    categoryColor: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20',
+    date: 'Live Advisory',
+    source: 'TikTok Shop Seller Center',
+    summary: 'TikTok Shop has opened direct registration pathways for verified US, UK, and SEA cross-border entities with established local fulfillment or Amazon Multi-Channel Fulfillment (MCF) logistics.',
+    url: 'https://seller.tiktok.com',
+  },
+  {
+    id: 'freight-rate-watch',
+    title: 'Yantian & Ningbo Ocean Freight Rate Watch',
+    category: 'Logistics & Ports',
+    categoryColor: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20',
+    date: 'Weekly Index',
+    source: 'Freightos Baltic Index (FBX)',
+    summary: 'Transpacific Eastbound (TPEB) spot container rates from South China hubs (Yantian CNYTN, Ningbo CNNGB) show seasonal demand stability. Track carrier spot quotes and bunker adjustment factors.',
+    url: 'https://fbx.freightos.com/',
+  },
+  {
+    id: 'eu-vat-epr-2026',
+    title: 'EU VAT & EPR Compliance Deadlines 2026',
+    category: 'Compliance & Tax',
+    categoryColor: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20',
+    date: 'Regulatory Deadline',
+    source: 'European Commission Portal',
+    summary: 'Germany and France enforce updated Extended Producer Responsibility (EPR) packaging waste registration audits. Unregistered ASINs face automated catalog suspension on Amazon DE and FR.',
+    url: 'https://europa.eu/youreurope/business/taxation/vat/vat-digital-age/index_en.htm',
+  },
+  {
+    id: 'google-trends-q4',
+    title: 'Google Trends Q4 Seasonal Demand Movers',
+    category: 'Market Research',
+    categoryColor: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20',
+    date: 'Trending Signal',
+    source: 'Google Trends Global',
+    summary: 'High-velocity search surges identified for smart home gifts, winter thermal apparel, and holiday organizational products. Align Amazon PPC bids and Google Shopping campaign budgets.',
+    url: 'https://trends.google.com/trends/',
+  },
+  {
+    id: 'customs-de-minimis',
+    title: 'US Customs Section 321 De Minimis Updates',
+    category: 'Customs & Tariffs',
+    categoryColor: 'bg-teal-500/10 text-teal-600 dark:text-teal-400 border-teal-500/20',
+    date: 'Trade Policy',
+    source: 'US Customs & Border Protection',
+    summary: 'CBP requires stricter Advance Electronic Data (AED) and 10-digit HTS descriptions for cross-border direct-to-consumer postal and courier air freight shipments under $800 value.',
+    url: 'https://www.cbp.gov/trade/basic-import-export/e-commerce',
+  },
+];
+---
+
+<!-- News & Bulletins Modal -->
+<div
+  id="news-modal"
+  class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 overflow-y-auto"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="news-modal-title"
+>
+  <!-- Backdrop Overlay -->
+  <div
+    data-close-news-modal
+    class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity cursor-pointer"
+  ></div>
+
+  <!-- Modal Dialog Container -->
+  <div class="relative w-full max-w-2xl bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/10 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden z-10 transition-all my-auto max-h-[90vh] flex flex-col">
+    <!-- Modal Header -->
+    <div class="p-4 sm:p-6 border-b border-slate-100 dark:border-white/[0.06] flex items-start justify-between gap-4 shrink-0 bg-slate-50/70 dark:bg-white/[0.02]">
+      <div class="flex items-center gap-3">
+        <span class="w-10 h-10 rounded-xl bg-brand-orange/15 text-brand-orange flex items-center justify-center text-lg shrink-0">
+          📰
+        </span>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <h3 id="news-modal-title" class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              Global Seller News & Market Bulletins
+            </h3>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-brand-orange/15 text-brand-orange border border-brand-orange/30 uppercase tracking-wider">
+              {NEWS_ITEMS.length} Bulletins
+            </span>
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            Curated policy changes, ocean freight updates, and regulatory alerts for cross-border merchants.
+          </p>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        data-close-news-modal
+        aria-label="Close modal"
+        class="p-2 -mr-1 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors cursor-pointer shrink-0"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Filter & Search Toolbar -->
+    <div class="p-3 sm:p-4 border-b border-slate-100 dark:border-white/[0.06] flex flex-col sm:flex-row gap-2.5 items-center justify-between shrink-0 bg-white dark:bg-[#131924]">
+      <div class="relative w-full sm:w-64">
+        <input
+          type="search"
+          id="news-modal-search"
+          placeholder="Filter headlines or keywords..."
+          class="w-full pl-8 pr-3 py-1.5 text-xs bg-slate-50 dark:bg-dark-elevated text-slate-900 dark:text-white placeholder-slate-400 rounded-xl border border-slate-200 dark:border-white/10 focus:outline-none focus:border-brand-orange"
+        />
+        <svg class="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+
+      <div class="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto no-scrollbar text-[11px]">
+        <button
+          type="button"
+          data-news-cat="all"
+          class="news-cat-btn active-news-cat px-2.5 py-1 rounded-lg font-bold bg-brand-orange text-white cursor-pointer transition-colors"
+        >
+          All (6)
+        </button>
+        <button
+          type="button"
+          data-news-cat="FBA Policy"
+          class="news-cat-btn px-2.5 py-1 rounded-lg font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.05] cursor-pointer transition-colors whitespace-nowrap"
+        >
+          FBA Policy
+        </button>
+        <button
+          type="button"
+          data-news-cat="Social Commerce"
+          class="news-cat-btn px-2.5 py-1 rounded-lg font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.05] cursor-pointer transition-colors whitespace-nowrap"
+        >
+          Social
+        </button>
+        <button
+          type="button"
+          data-news-cat="Logistics & Ports"
+          class="news-cat-btn px-2.5 py-1 rounded-lg font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.05] cursor-pointer transition-colors whitespace-nowrap"
+        >
+          Freight
+        </button>
+        <button
+          type="button"
+          data-news-cat="Compliance & Tax"
+          class="news-cat-btn px-2.5 py-1 rounded-lg font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.05] cursor-pointer transition-colors whitespace-nowrap"
+        >
+          Tax / VAT
+        </button>
+      </div>
+    </div>
+
+    <!-- News Cards Scrollable List -->
+    <div id="news-cards-list" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-3.5 no-scrollbar">
+      {NEWS_ITEMS.map((item) => (
+        <article
+          class="news-card group p-4 rounded-2xl bg-slate-50/70 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/10 hover:border-brand-orange/40 transition-all space-y-2.5"
+          data-category={item.category}
+          data-text={`${item.title} ${item.summary} ${item.source} ${item.category}`.toLowerCase()}
+        >
+          <div class="flex items-center justify-between gap-2 flex-wrap">
+            <div class="flex items-center gap-2">
+              <span class={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${item.categoryColor}`}>
+                {item.category}
+              </span>
+              <span class="text-[11px] text-slate-400 font-mono">
+                {item.date}
+              </span>
+            </div>
+
+            <span class="text-[11px] text-slate-500 dark:text-slate-400 font-medium bg-slate-100 dark:bg-white/[0.05] px-2 py-0.5 rounded">
+              Source: {item.source}
+            </span>
+          </div>
+
+          <div>
+            <h4 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors">
+              {item.title}
+            </h4>
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
+              {item.summary}
+            </p>
+          </div>
+
+          <div class="pt-1 flex items-center justify-between">
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-orange hover:text-brand-orangeHover transition-colors"
+            >
+              <span>Open Official Portal</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+
+            <button
+              type="button"
+              class="copy-news-btn text-[11px] text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors flex items-center gap-1 cursor-pointer"
+              data-copy={`${item.title} — Source: ${item.source} (${item.url})`}
+            >
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+              <span>Copy</span>
+            </button>
+          </div>
+        </article>
+      ))}
+
+      <div id="no-news-results" class="hidden p-8 text-center">
+        <p class="text-sm font-semibold text-slate-700 dark:text-slate-300">No matching headlines found</p>
+        <p class="text-xs text-slate-400 mt-1">Try another keyword or select All categories</p>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="p-3.5 sm:p-4 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400 bg-slate-50/70 dark:bg-white/[0.02] shrink-0">
+      <div class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span class="text-[11px]">Updated daily by Ecom Resources Editorial Desk</span>
+      </div>
+      <button
+        type="button"
+        data-close-news-modal
+        class="px-3.5 py-1.5 rounded-xl bg-slate-200 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/15 text-slate-800 dark:text-white font-bold text-xs transition-colors cursor-pointer"
+      >
+        Done
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- News Modal Control Script -->
+<script is:inline>
+  (function () {
+    const modal = document.getElementById('news-modal');
+    if (!modal) return;
+
+    function openNewsModal() {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      const search = document.getElementById('news-modal-search');
+      if (search) setTimeout(() => search.focus(), 50);
+    }
+
+    function closeNewsModal() {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    window.openNewsModal = openNewsModal;
+    window.closeNewsModal = closeNewsModal;
+
+    // Click triggers
+    document.addEventListener('click', (e) => {
+      const target = e.target instanceof Element ? e.target : e.target?.parentElement;
+      if (!target) return;
+
+      if (target.closest('[data-open-news-modal]')) {
+        e.preventDefault();
+        openNewsModal();
+      }
+
+      if (target.closest('[data-close-news-modal]')) {
+        e.preventDefault();
+        closeNewsModal();
+      }
+
+      const copyBtn = target.closest('.copy-news-btn');
+      if (copyBtn) {
+        const text = copyBtn.getAttribute('data-copy');
+        if (text && navigator.clipboard) {
+          navigator.clipboard.writeText(text);
+          const original = copyBtn.innerHTML;
+          copyBtn.innerHTML = '<span class="text-emerald-500 font-bold">✓ Copied</span>';
+          setTimeout(() => {
+            copyBtn.innerHTML = original;
+          }, 1500);
+        }
+      }
+    });
+
+    // Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeNewsModal();
+      }
+    });
+
+    // Search and Category Filter
+    const searchInput = document.getElementById('news-modal-search');
+    const catBtns = document.querySelectorAll('.news-cat-btn');
+    const cards = document.querySelectorAll('.news-card');
+    const noResults = document.getElementById('no-news-results');
+
+    let currentCat = 'all';
+    let currentQuery = '';
+
+    function filterNews() {
+      let visibleCount = 0;
+      cards.forEach((card) => {
+        const cat = card.getAttribute('data-category') || '';
+        const text = card.getAttribute('data-text') || '';
+
+        const matchesCat = currentCat === 'all' || cat.toLowerCase() === currentCat.toLowerCase();
+        const matchesQuery = !currentQuery || text.includes(currentQuery);
+
+        if (matchesCat && matchesQuery) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      if (noResults) {
+        if (visibleCount === 0) noResults.classList.remove('hidden');
+        else noResults.classList.add('hidden');
+      }
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        currentQuery = searchInput.value.trim().toLowerCase();
+        filterNews();
+      });
+    }
+
+    catBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        catBtns.forEach((b) => {
+          b.classList.remove('bg-brand-orange', 'text-white', 'font-bold');
+          b.classList.add('text-slate-600', 'dark:text-slate-300', 'font-medium');
+        });
+        btn.classList.add('bg-brand-orange', 'text-white', 'font-bold');
+        btn.classList.remove('text-slate-600', 'dark:text-slate-300', 'font-medium');
+
+        currentCat = btn.getAttribute('data-news-cat') || 'all';
+        filterNews();
+      });
+    });
+  })();
+</script>

@@ -1,0 +1,256 @@
+---
+// Seller Login & Workspace Modal
+---
+
+<div
+  id="login-modal"
+  class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 overflow-y-auto"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="login-modal-title"
+>
+  <!-- Backdrop Overlay -->
+  <div
+    data-close-login-modal
+    class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity cursor-pointer"
+  ></div>
+
+  <!-- Modal Dialog Container -->
+  <div class="relative w-full max-w-md bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/10 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden z-10 transition-all my-auto">
+    <!-- Modal Header -->
+    <div class="p-5 sm:p-6 border-b border-slate-100 dark:border-white/[0.06] flex items-start justify-between gap-4 bg-slate-50/70 dark:bg-white/[0.02]">
+      <div class="flex items-center gap-3">
+        <span class="w-10 h-10 rounded-xl bg-brand-orange/15 text-brand-orange flex items-center justify-center text-lg shrink-0">
+          🔐
+        </span>
+        <div>
+          <h3 id="login-modal-title" class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+            Seller Account Sign In
+          </h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            Access your cross-border workspace and team dashboards.
+          </p>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        data-close-login-modal
+        aria-label="Close modal"
+        class="p-2 -mr-1 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="p-5 sm:p-6 space-y-4">
+      <!-- 1. Live Demo Walkthrough Highlight Card -->
+      <div class="p-4 rounded-2xl bg-gradient-to-br from-brand-orange/10 via-amber-500/5 to-transparent border border-brand-orange/30 dark:border-brand-orange/20 space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="flex items-center gap-1.5 text-xs font-bold text-brand-orange">
+            <span class="w-2 h-2 rounded-full bg-brand-orange animate-ping"></span>
+            <span>Live Walkthrough Mode</span>
+          </span>
+          <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-brand-orange/20 text-brand-orange">
+            Instant Demo
+          </span>
+        </div>
+        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+          Testing or presenting? Instantly activate the Pro Seller Workspace with Keystatic CMS & FBA tools without creating credentials.
+        </p>
+        <button
+          type="button"
+          id="launch-demo-workspace-btn"
+          class="w-full py-2.5 px-4 bg-brand-orange hover:bg-brand-orangeHover text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2"
+        >
+          <span>🚀 Launch Demo Workspace →</span>
+        </button>
+      </div>
+
+      <!-- Divider -->
+      <div class="relative flex items-center justify-center">
+        <div class="border-t border-slate-200 dark:border-white/10 w-full"></div>
+        <span class="bg-white dark:bg-[#131924] px-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wider shrink-0">
+          Or Sign In with Email
+        </span>
+      </div>
+
+      <!-- 2. Standard Email/Password Form -->
+      <form id="seller-login-form" class="space-y-3.5">
+        <div>
+          <label for="login-email" class="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-1">
+            Work Email Address
+          </label>
+          <input
+            type="email"
+            id="login-email"
+            name="email"
+            required
+            placeholder="seller@yourstore.com"
+            class="w-full px-3.5 py-2 text-xs sm:text-sm bg-slate-50 dark:bg-dark-elevated text-slate-900 dark:text-white placeholder-slate-400 rounded-xl border border-slate-200 dark:border-white/10 focus:outline-none focus:border-brand-orange dark:focus:border-brand-orange transition-colors"
+          />
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label for="login-password" class="text-xs font-bold text-slate-700 dark:text-slate-200">
+              Password
+            </label>
+            <a
+              href="mailto:support@ecomresources.com?subject=Password%20Reset%20Request"
+              class="text-[11px] text-brand-orange hover:underline"
+            >
+              Forgot password?
+            </a>
+          </div>
+          <input
+            type="password"
+            id="login-password"
+            name="password"
+            required
+            placeholder="••••••••"
+            class="w-full px-3.5 py-2 text-xs sm:text-sm bg-slate-50 dark:bg-dark-elevated text-slate-900 dark:text-white placeholder-slate-400 rounded-xl border border-slate-200 dark:border-white/10 focus:outline-none focus:border-brand-orange dark:focus:border-brand-orange transition-colors"
+          />
+        </div>
+
+        <div class="flex items-center gap-2 pt-0.5">
+          <input
+            type="checkbox"
+            id="login-remember"
+            name="remember"
+            checked
+            class="w-4 h-4 rounded text-brand-orange focus:ring-brand-orange border-slate-300 dark:border-white/20 bg-slate-50 dark:bg-dark-elevated cursor-pointer"
+          />
+          <label for="login-remember" class="text-xs text-slate-600 dark:text-slate-400 cursor-pointer">
+            Remember this browser for 30 days
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          id="login-submit-btn"
+          class="w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm transition-all cursor-pointer flex items-center justify-center gap-1.5"
+        >
+          <span>Sign In to Workspace</span>
+        </button>
+      </form>
+
+      <!-- Divider -->
+      <div class="relative flex items-center justify-center">
+        <div class="border-t border-slate-200 dark:border-white/10 w-full"></div>
+        <span class="bg-white dark:bg-[#131924] px-3 text-[10px] font-semibold text-slate-400 uppercase tracking-wider shrink-0">
+          Or Continue With
+        </span>
+      </div>
+
+      <!-- 3. Company SSO / GitHub CMS Button -->
+      <a
+        href="/keystatic"
+        id="sso-login-btn"
+        class="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-100 font-semibold text-xs rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer"
+      >
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+        </svg>
+        <span>Sign in with Company SSO / GitHub CMS</span>
+      </a>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="p-3.5 sm:p-4 border-t border-slate-100 dark:border-white/[0.06] text-center text-[11px] text-slate-400 bg-slate-50/70 dark:bg-white/[0.02]">
+      By signing in, you agree to Ecom Resources Terms of Service & Privacy Policy.
+    </div>
+  </div>
+</div>
+
+<!-- Login Modal Control Script -->
+<script is:inline>
+  (function () {
+    const modal = document.getElementById('login-modal');
+    if (!modal) return;
+
+    function openLoginModal() {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      const emailInput = document.getElementById('login-email');
+      if (emailInput) setTimeout(() => emailInput.focus(), 50);
+    }
+
+    function closeLoginModal() {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    window.openLoginModal = openLoginModal;
+    window.closeLoginModal = closeLoginModal;
+
+    // Trigger listeners
+    document.addEventListener('click', (e) => {
+      const target = e.target instanceof Element ? e.target : e.target?.parentElement;
+      if (!target) return;
+
+      if (target.closest('[data-open-login-modal]')) {
+        e.preventDefault();
+        openLoginModal();
+      }
+
+      if (target.closest('[data-close-login-modal]')) {
+        e.preventDefault();
+        closeLoginModal();
+      }
+    });
+
+    // Escape key listener
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeLoginModal();
+      }
+    });
+
+    // Auth activate helper
+    function activateSession(name) {
+      const displayName = name || 'Demo Seller';
+      sessionStorage.setItem('ecom_logged_in', 'true');
+      sessionStorage.setItem('ecom_user_name', displayName);
+      closeLoginModal();
+      window.dispatchEvent(
+        new CustomEvent('ecom-auth-change', {
+          detail: { loggedIn: true, user: displayName },
+        })
+      );
+    }
+
+    // 1. One-click Demo Workspace button
+    const demoBtn = document.getElementById('launch-demo-workspace-btn');
+    if (demoBtn) {
+      demoBtn.addEventListener('click', () => {
+        activateSession('Demo Seller');
+      });
+    }
+
+    // 2. Email/Password form submit
+    const form = document.getElementById('seller-login-form');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('login-email')?.value || '';
+        const namePart = email.split('@')[0] || 'Demo Seller';
+        const formatted = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+        activateSession(formatted);
+      });
+    }
+
+    // 3. SSO button activates demo session before navigating
+    const ssoBtn = document.getElementById('sso-login-btn');
+    if (ssoBtn) {
+      ssoBtn.addEventListener('click', () => {
+        sessionStorage.setItem('ecom_logged_in', 'true');
+        sessionStorage.setItem('ecom_user_name', 'GitHub Admin');
+      });
+    }
+  })();
+</script>

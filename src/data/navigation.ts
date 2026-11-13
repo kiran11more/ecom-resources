@@ -7,6 +7,7 @@ export interface SubCategory {
 export interface NavCategory {
   name: string;
   slug: string;
+  url?: string;
   children?: SubCategory[];
 }
 
@@ -55,6 +56,7 @@ export interface CountryMarketplace {
 export interface QuickJumpPill {
   name: string;
   slug: string;
+  url?: string;
   badge?: string;
 }
 
@@ -118,59 +120,66 @@ export const TOP_NAV_CATEGORIES: NavCategory[] = [
   {
     name: 'Store Opening',
     slug: 'store-opening',
+    url: '/#store-opening',
     children: [
-      { name: 'Amazon Store', slug: 'amazon-store' },
-      { name: 'eBay', slug: 'ebay' },
-      { name: 'TikTok Shop', slug: 'tiktok' },
+      { name: 'Amazon Store', slug: 'amazon-store', url: '/#store-opening' },
+      { name: 'eBay', slug: 'ebay', url: '/#store-opening' },
+      { name: 'TikTok Shop', slug: 'tiktok', url: '/#store-opening' },
     ],
   },
-  { name: 'Sourcing', slug: 'sourcing' },
+  { name: 'Sourcing', slug: 'sourcing', url: '/#sourcing' },
   {
     name: 'Marketing & Advertising',
-    slug: 'marketing-advertising',
+    slug: 'marketing',
+    url: '/#marketing',
     children: [
-      { name: 'Amazon PPC', slug: 'amazon-ppc' },
-      { name: 'Google PPC', slug: 'google-ppc' },
-      { name: 'Meta / Facebook PPC', slug: 'meta-facebook-ppc' },
+      { name: 'Amazon PPC', slug: 'amazon-ppc', url: '/#marketing' },
+      { name: 'Google PPC', slug: 'google-ppc', url: '/#marketing' },
+      { name: 'Meta / Facebook PPC', slug: 'meta-facebook-ppc', url: '/#marketing' },
     ],
   },
   {
     name: 'Videos & Social',
     slug: 'videos-social',
+    url: '/#videos-social',
     children: [
-      { name: 'Influencers', slug: 'influencers' },
-      { name: 'UGC Creators', slug: 'ugc-creators' },
-      { name: 'Instagram', slug: 'instagram' },
-      { name: 'TikTok', slug: 'tiktok-social' },
-      { name: 'Twitter / X', slug: 'twitter-x' },
-      { name: 'YouTube', slug: 'youtube' },
+      { name: 'Influencers', slug: 'influencers', url: '/resources/modash' },
+      { name: 'UGC Creators', slug: 'ugc-creators', url: '/resources/billo' },
+      { name: 'Instagram', slug: 'instagram', url: '/#videos-social' },
+      { name: 'TikTok', slug: 'tiktok-social', url: '/#videos-social' },
+      { name: 'Twitter / X', slug: 'twitter-x', url: '/#videos-social' },
+      { name: 'YouTube', slug: 'youtube', url: '/#videos-social' },
     ],
   },
-  { name: 'Photography', slug: 'photography' },
-  { name: 'Website', slug: 'website' },
-  { name: 'Warehouse & Logistics', slug: 'warehouse-logistics' },
-  { name: 'Accounting', slug: 'accounting' },
-  { name: 'Training', slug: 'training' },
+  { name: 'Photography', slug: 'photography', url: '/#photography' },
+  { name: 'Website', slug: 'website', url: '/#website' },
+  { name: 'Warehouse & Logistics', slug: 'logistics', url: '/#logistics' },
+  { name: 'Accounting', slug: 'accounting', url: '/#accounting' },
+  { name: 'Training', slug: 'training', url: '/#training' },
   {
     name: 'Legal Services',
     slug: 'legal-services',
+    url: '/#legal-services',
     children: [
-      { name: 'Trademark', slug: 'trademark-services' },
-      { name: 'Legal Compliance', slug: 'legal' },
+      { name: 'Trademark', slug: 'trademark', url: '/#legal-ip' },
+      { name: 'Legal Compliance', slug: 'legal', url: '/resources/legalzoom' },
     ],
   },
-  { name: 'Trademark', slug: 'trademark' },
-  { name: 'Stock Clearance', slug: 'stock-clearance' },
-  { name: 'Guides', slug: 'guides' },
+  { name: 'Trademark', slug: 'trademark', url: '/#legal-ip' },
+  { name: 'Stock Clearance', slug: 'stock-clearance', url: '/#stock-clearance' },
+  { name: 'Guides', slug: 'guides', url: '/#guides' },
   {
     name: 'Tools',
     slug: 'tools',
+    url: '/tools',
     children: [
       { name: 'Measurement Converter', slug: 'measurement-converter', url: '/tools/measurement-converter' },
       { name: 'Time Converter', slug: 'time-converter', url: '/tools/time-converter' },
       { name: 'ChatGPT Prompts', slug: 'chatgpt-prompts', url: '/tools/chatgpt-prompts' },
       { name: 'Amazon Revenue Calculator', slug: 'amazon-revenue-calculator', url: '/tools/amazon-revenue-calculator' },
       { name: 'IP Address Checker', slug: 'ip-checker', url: '/tools/ip-checker' },
+      { name: 'CBM & Carton Planner', slug: 'cbm-calculator', url: '/tools/cbm-calculator' },
+      { name: 'FBA Profit Calculator', slug: 'fba-calculator', url: '/tools/fba-calculator' },
       { name: 'All Tools Hub', slug: 'tools', url: '/tools' },
     ],
   },
@@ -205,7 +214,7 @@ export const SIDEBAR_CATEGORIES: SidebarCategory[] = [
       { name: 'ChatGPT Prompts', slug: 'chatgpt-prompts', url: '/tools/chatgpt-prompts' },
       { name: 'Amazon Revenue Calculator', slug: 'amazon-revenue-calculator', url: '/tools/amazon-revenue-calculator' },
       { name: 'IP Address Checker', slug: 'ip-checker', url: '/tools/ip-checker' },
-      { name: 'Currency Exchange Rates', slug: 'currency-exchange-rates', url: '#currency-exchange-rates' },
+      { name: 'Currency Exchange Rates', slug: 'currency-exchange-rates', url: '/#currency-exchange-rates' },
     ],
   },
   {
@@ -427,20 +436,20 @@ export const EXCHANGE_RATES: ExchangeRate[] = [
 ];
 
 export const QUICK_JUMP_PILLS: QuickJumpPill[] = [
-  { name: 'All Resources', slug: 'all', badge: '500+' },
-  { name: 'Chrome Extensions', slug: 'browser-extensions', badge: 'Hot' },
-  { name: 'Deals & Coupons', slug: 'browser-extensions', badge: 'Deals' },
-  { name: 'Amazon Best Sellers', slug: 'product-research', badge: 'Hot' },
-  { name: 'Revenue Calculator', slug: 'amazon-revenue-calculator' },
-  { name: 'Currency Rates', slug: 'currency-exchange-rates' },
-  { name: 'Google Trends', slug: 'google-trends' },
-  { name: 'World Port Codes', slug: 'world-port-codes' },
-  { name: 'Unit Converters', slug: 'measurement-conversion' },
-  { name: 'Email Marketing', slug: 'email-marketing' },
-  { name: 'Advertising PPC', slug: 'advertising-platforms' },
-  { name: 'Country Codes', slug: 'country-codes' },
-  { name: 'AI Prompts', slug: 'chatgpt-prompts', badge: 'AI' },
-  { name: 'Sourcing Factories', slug: 'sourcing' },
+  { name: 'All Resources', slug: 'quick-directory', url: '/#quick-directory', badge: '500+' },
+  { name: 'Chrome Extensions', slug: 'browser-extensions', url: '/#browser-extensions', badge: 'Hot' },
+  { name: 'Deals & Coupons', slug: 'stock-clearance', url: '/#stock-clearance', badge: 'Deals' },
+  { name: 'Amazon Best Sellers', slug: 'product-research', url: '/#product-research', badge: 'Hot' },
+  { name: 'Revenue Calculator', slug: 'amazon-revenue-calculator', url: '/tools/amazon-revenue-calculator' },
+  { name: 'Currency Rates', slug: 'currency-rates', url: '/#currency-rates' },
+  { name: 'Google Trends', slug: 'google-trends', url: 'https://trends.google.com/trends/' },
+  { name: 'World Port Codes', slug: 'world-port-codes', url: '/information/world-port-codes' },
+  { name: 'Unit Converters', slug: 'measurement-converter', url: '/tools/measurement-converter' },
+  { name: 'Email Marketing', slug: 'email-marketing', url: '/#email-marketing' },
+  { name: 'Advertising PPC', slug: 'advertising-platforms', url: '/#advertising-platforms' },
+  { name: 'Country Codes', slug: 'country-codes', url: '/information/country-codes' },
+  { name: 'AI Prompts', slug: 'chatgpt-prompts', url: '/tools/chatgpt-prompts', badge: 'AI' },
+  { name: 'Sourcing Factories', slug: 'sourcing', url: '/#sourcing' },
 ];
 
 // Complete Directory of Resources is defined and maintained in ./resources.ts (re-exported above)

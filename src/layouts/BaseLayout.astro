@@ -2,6 +2,8 @@
 import '../styles/global.css';
 import MobileDrawer from '../components/navigation/MobileDrawer.astro';
 import ListResourceModal from '../components/modals/ListResourceModal.astro';
+import NewsModal from '../components/modals/NewsModal.astro';
+import LoginModal from '../components/modals/LoginModal.astro';
 import { DIRECTORY_RESOURCES } from '../data/resources';
 
 interface Props {
@@ -77,6 +79,69 @@ const searchIndex = DIRECTORY_RESOURCES.map((r) => ({
     <slot />
     <MobileDrawer />
     <ListResourceModal />
+    <NewsModal />
+    <LoginModal />
     <script type="application/json" id="directory-search-index" set:html={JSON.stringify(searchIndex)} />
+
+    <!-- Global Workspace Auth State Synchronization Script -->
+    <script is:inline>
+      (function () {
+        function syncAuthState() {
+          const isLoggedIn = sessionStorage.getItem('ecom_logged_in') === 'true';
+          const userName = sessionStorage.getItem('ecom_user_name') || 'Demo Seller';
+
+          // Header Elements
+          const headerLoginBtn = document.getElementById('header-login-btn');
+          const headerWsDropdown = document.getElementById('header-workspace-dropdown');
+          const headerUserDisplay = document.getElementById('header-user-display');
+          const headerWsLabel = document.getElementById('header-workspace-label');
+
+          if (headerLoginBtn && headerWsDropdown) {
+            if (isLoggedIn) {
+              headerLoginBtn.classList.add('hidden');
+              headerWsDropdown.classList.remove('hidden');
+              if (headerUserDisplay) headerUserDisplay.textContent = userName;
+              if (headerWsLabel) headerWsLabel.textContent = `${userName.split(' ')[0]} ▾`;
+            } else {
+              headerLoginBtn.classList.remove('hidden');
+              headerWsDropdown.classList.add('hidden');
+            }
+          }
+
+          // Mobile Drawer Elements
+          const mobileLoginBtn = document.getElementById('mobile-drawer-login-btn');
+          const mobileWsPanel = document.getElementById('mobile-drawer-workspace-panel');
+          const mobileWsUser = document.getElementById('mobile-workspace-user');
+
+          if (mobileLoginBtn && mobileWsPanel) {
+            if (isLoggedIn) {
+              mobileLoginBtn.classList.add('hidden');
+              mobileWsPanel.classList.remove('hidden');
+              if (mobileWsUser) mobileWsUser.textContent = userName;
+            } else {
+              mobileLoginBtn.classList.remove('hidden');
+              mobileWsPanel.classList.add('hidden');
+            }
+          }
+        }
+
+        // Attach global sign-out listeners
+        document.addEventListener('click', (e) => {
+          const target = e.target instanceof Element ? e.target : e.target?.parentElement;
+          if (!target) return;
+
+          if (target.closest('#header-signout-btn') || target.closest('#mobile-drawer-signout-btn')) {
+            e.preventDefault();
+            sessionStorage.removeItem('ecom_logged_in');
+            sessionStorage.removeItem('ecom_user_name');
+            syncAuthState();
+          }
+        });
+
+        window.addEventListener('ecom-auth-change', syncAuthState);
+        document.addEventListener('DOMContentLoaded', syncAuthState);
+        syncAuthState();
+      })();
+    </script>
   </body>
 </html>

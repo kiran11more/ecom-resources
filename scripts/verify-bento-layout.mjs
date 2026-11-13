@@ -19,12 +19,12 @@ if (html.includes('grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-3 my-auto')) {
 }
 
 // Check Live FX pill button in Market Clocks header
-const hasHref = html.includes('href="#currency-rates"');
+const hasHref = html.includes('href="/#currency-rates"') || html.includes('href="#currency-rates"');
 const hasText = html.includes('Live FX ↓') || html.includes('Live FX');
 if (hasHref && hasText) {
   console.log('✓ Market Clocks header contains "Live FX ↓" smooth-scroll button');
 } else {
-  console.error('✗ Market Clocks header missing "Live FX ↓" button linking to #currency-rates');
+  console.error('✗ Market Clocks header missing "Live FX ↓" button linking to /#currency-rates');
   process.exit(1);
 }
 
