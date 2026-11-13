@@ -81,6 +81,21 @@ const searchIndex = DIRECTORY_RESOURCES.map((r) => ({
     <ListResourceModal />
     <NewsModal />
     <LoginModal />
+
+    <!-- Global Desktop-Only Back-to-Top Floating Button -->
+    <button
+      type="button"
+      id="global-back-to-top"
+      aria-label="Scroll back to top"
+      title="Back to Top"
+      class="hidden lg:flex items-center gap-1.5 fixed bottom-6 right-6 z-40 px-3.5 py-2 rounded-full bg-white/95 dark:bg-[#131924]/95 text-slate-700 dark:text-slate-200 hover:text-brand-orange dark:hover:text-brand-orange border border-slate-200/90 dark:border-white/15 shadow-xl hover:shadow-2xl hover:border-brand-orange/40 backdrop-blur-md transition-all duration-300 transform opacity-0 translate-y-3 pointer-events-none cursor-pointer group"
+    >
+      <svg class="w-4 h-4 text-brand-orange group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+      </svg>
+      <span class="text-xs font-bold tracking-wide">Top</span>
+    </button>
+
     <script type="application/json" id="directory-search-index" set:html={JSON.stringify(searchIndex)} />
 
     <!-- Global Workspace Auth State Synchronization Script -->
@@ -141,6 +156,24 @@ const searchIndex = DIRECTORY_RESOURCES.map((r) => ({
         window.addEventListener('ecom-auth-change', syncAuthState);
         document.addEventListener('DOMContentLoaded', syncAuthState);
         syncAuthState();
+
+        // Global Desktop Back-to-Top Handler
+        const backToTopBtn = document.getElementById('global-back-to-top');
+        if (backToTopBtn) {
+          window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+              backToTopBtn.classList.remove('opacity-0', 'translate-y-3', 'pointer-events-none');
+              backToTopBtn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+            } else {
+              backToTopBtn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+              backToTopBtn.classList.add('opacity-0', 'translate-y-3', 'pointer-events-none');
+            }
+          }, { passive: true });
+
+          backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        }
       })();
     </script>
   </body>

@@ -218,6 +218,30 @@ if (html.includes('id="mobile-drawer-workspace-panel"') && html.includes('id="mo
   process.exit(1);
 }
 
+// 6. Verify Extensions Badge Polish & Global Desktop Back-to-Top
+console.log('\n[6] Verifying Extensions Badge & Global Desktop Back-to-Top Button...');
+if (html.includes('34 Vetted Tools') && html.includes('whitespace-nowrap shrink-0')) {
+  console.log('✓ "34 Vetted Tools" badge has whitespace-nowrap and shrink-0 to prevent text squishing');
+} else {
+  console.error('✗ "34 Vetted Tools" badge missing whitespace-nowrap shrink-0');
+  process.exit(1);
+}
+
+const subpageHtml = fs.readFileSync(path.resolve('dist/information/country-codes/index.html'), 'utf8');
+if (html.includes('id="global-back-to-top"') && subpageHtml.includes('id="global-back-to-top"')) {
+  console.log('✓ Global Back-to-Top button (#global-back-to-top) present across homepage and subpages');
+} else {
+  console.error('✗ Missing #global-back-to-top button in global layout');
+  process.exit(1);
+}
+
+if (html.includes('id="global-back-to-top"') && html.includes('hidden lg:flex')) {
+  console.log('✓ Back-to-Top button is properly scoped to desktop only (hidden lg:flex)');
+} else {
+  console.error('✗ Back-to-Top button missing desktop breakpoint class hidden lg:flex');
+  process.exit(1);
+}
+
 console.log('\n======================================================');
 console.log('ALL HEADER MENU, NEWS TICKER & MODAL CHECKS PASSED 100%!');
 console.log('======================================================');
