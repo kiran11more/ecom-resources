@@ -115,75 +115,574 @@ export interface DealPlatform {
   verified?: boolean;
 }
 
-// Mapped from Sheet1 of ecomresources - sitemap.xlsx
-export const TOP_NAV_CATEGORIES: NavCategory[] = [
+export interface MegaNavTool {
+  name: string;
+  description: string;
+  url: string;
+  isExternal?: boolean;
+  pricing?: 'Free' | 'Freemium' | 'Paid' | 'Live FX';
+  iconUrl?: string;
+  iconEmoji?: string;
+}
+
+export interface MegaNavUtility {
+  name: string;
+  description: string;
+  url: string;
+  iconEmoji?: string;
+}
+
+export interface MegaNavItem {
+  name: string;
+  shortName?: string;
+  slug: string;
+  url: string;
+  align?: 'left' | 'right';
+  panelWidthClass?: string;
+  quickTags?: { name: string; url: string }[];
+  featuredItems?: MegaNavTool[];
+  quickUtilities?: MegaNavUtility[];
+  previewCards?: {
+    name: string;
+    description: string;
+    url: string;
+    iconEmoji: string;
+    badge: string;
+  }[];
+  toolGrid?: {
+    name: string;
+    description: string;
+    url: string;
+    pricing: 'Free' | 'Live FX';
+    iconEmoji: string;
+  }[];
+  footerLabel: string;
+  footerCount?: string;
+}
+
+export const MEGA_NAV_ITEMS: MegaNavItem[] = [
   {
     name: 'Store Opening',
     slug: 'store-opening',
     url: '/#store-opening',
-    children: [
-      { name: 'Amazon Store', slug: 'amazon-store', url: '/#store-opening' },
-      { name: 'eBay', slug: 'ebay', url: '/#store-opening' },
-      { name: 'TikTok Shop', slug: 'tiktok', url: '/#store-opening' },
+    align: 'left',
+    quickTags: [
+      { name: 'Amazon Store', url: '/#store-opening' },
+      { name: 'eBay', url: '/#store-opening' },
+      { name: 'TikTok Shop', url: '/#store-opening' },
+      { name: 'Walmart', url: '/#store-opening' },
+      { name: 'Shopify', url: '/#store-opening' },
     ],
+    featuredItems: [
+      {
+        name: 'Amazon Seller Central',
+        description: 'Official portal for global FBA & merchant fulfilled selling',
+        url: 'https://sellercentral.amazon.com',
+        isExternal: true,
+        pricing: 'Free',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=amazon.com&sz=64',
+      },
+      {
+        name: 'TikTok Shop',
+        description: 'Fastest growing social commerce platform for viral sales',
+        url: 'https://seller.tiktok.com',
+        isExternal: true,
+        pricing: 'Free',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=tiktok.com&sz=64',
+      },
+      {
+        name: 'Walmart Marketplace',
+        description: 'Curated marketplace with lower fee structures & WFS fulfillment',
+        url: '/resources/walmart-marketplace',
+        isExternal: false,
+        pricing: 'Free',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=walmart.com&sz=64',
+      },
+      {
+        name: 'Shopify',
+        description: 'Leading global DTC commerce and headless store engine',
+        url: '/resources/shopify',
+        isExternal: false,
+        pricing: 'Freemium',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=shopify.com&sz=64',
+      },
+      {
+        name: 'eBay Seller Portal',
+        description: 'Global marketplace reach across 190+ consumer markets',
+        url: 'https://www.ebay.com/sl/sell',
+        isExternal: true,
+        pricing: 'Free',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=ebay.com&sz=64',
+      },
+    ],
+    footerLabel: 'View All in Store Opening',
+    footerCount: '5+ Platforms',
   },
-  { name: 'Sourcing', slug: 'sourcing', url: '/#sourcing' },
   {
-    name: 'Marketing & Advertising',
+    name: 'Sourcing & Factories',
+    shortName: 'Sourcing',
+    slug: 'sourcing',
+    url: '/#sourcing',
+    align: 'left',
+    quickTags: [
+      { name: '1688 Factory Wholesale', url: '/resources/1688' },
+      { name: 'Alibaba B2B', url: '/resources/alibaba' },
+      { name: 'Global Sources', url: '/resources/global-sources' },
+      { name: 'Canton Fair', url: 'https://www.cantonfair.org.cn/en-US/' },
+      { name: 'Yiwugo', url: '/resources/yiwugo' },
+      { name: 'Made-in-China', url: '/resources/made-in-china' },
+    ],
+    featuredItems: [
+      {
+        name: '1688',
+        description: 'Direct factory-price wholesale marketplace in China',
+        url: '/resources/1688',
+        isExternal: false,
+        pricing: 'Free',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=1688.com&sz=64',
+      },
+      {
+        name: 'Alibaba.com',
+        description: 'World\'s largest cross-border B2B wholesale platform',
+        url: '/resources/alibaba',
+        isExternal: false,
+        pricing: 'Free',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=alibaba.com&sz=64',
+      },
+      {
+        name: 'Global Sources',
+        description: 'Vetted OEM/ODM manufacturers & verified trade shows',
+        url: '/resources/global-sources',
+        isExternal: false,
+        pricing: 'Free',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=globalsources.com&sz=64',
+      },
+      {
+        name: 'Yiwugo',
+        description: 'Online gateway to Yiwu International Trade City',
+        url: '/resources/yiwugo',
+        isExternal: false,
+        pricing: 'Free',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=yiwugo.com&sz=64',
+      },
+      {
+        name: 'Made-in-China',
+        description: 'Comprehensive supplier directory with SGS audit reports',
+        url: '/resources/made-in-china',
+        isExternal: false,
+        pricing: 'Free',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=made-in-china.com&sz=64',
+      },
+    ],
+    footerLabel: 'View All Sourcing Platforms',
+    footerCount: '6+ Hubs',
+  },
+  {
+    name: 'Marketing & Ads',
     slug: 'marketing',
     url: '/#marketing',
-    children: [
-      { name: 'Amazon PPC', slug: 'amazon-ppc', url: '/#marketing' },
-      { name: 'Google PPC', slug: 'google-ppc', url: '/#marketing' },
-      { name: 'Meta / Facebook PPC', slug: 'meta-facebook-ppc', url: '/#marketing' },
+    align: 'left',
+    quickTags: [
+      { name: 'Amazon PPC', url: '/#advertising-platforms' },
+      { name: 'Google PPC', url: '/#advertising-platforms' },
+      { name: 'Influencers', url: '/resources/modash' },
+      { name: 'UGC Creators', url: '/resources/billo' },
+      { name: 'Email Marketing', url: '/#email-marketing' },
     ],
+    featuredItems: [
+      {
+        name: 'Amazon Ads',
+        description: 'Sponsored Products, Brands & DSP advertising suite',
+        url: 'https://advertising.amazon.com',
+        isExternal: true,
+        pricing: 'Paid',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=amazon.com&sz=64',
+      },
+      {
+        name: 'Google Ads',
+        description: 'Intent-based search, shopping, and Performance Max ads',
+        url: 'https://ads.google.com',
+        isExternal: true,
+        pricing: 'Paid',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=google.com&sz=64',
+      },
+      {
+        name: 'Modash',
+        description: 'Discover & vet 250M+ global Instagram & TikTok creators',
+        url: '/resources/modash',
+        isExternal: false,
+        pricing: 'Freemium',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=modash.io&sz=64',
+      },
+      {
+        name: 'Billo',
+        description: 'Custom UGC video creator platform for high-converting ads',
+        url: '/resources/billo',
+        isExternal: false,
+        pricing: 'Paid',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=billo.app&sz=64',
+      },
+      {
+        name: 'ActiveCampaign',
+        description: 'Omnichannel automated email marketing & customer journeys',
+        url: '/resources/activecampaign',
+        isExternal: false,
+        pricing: 'Freemium',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=activecampaign.com&sz=64',
+      },
+    ],
+    footerLabel: 'View All in Marketing & Ads',
+    footerCount: '11+ Tools',
   },
   {
     name: 'Videos & Social',
     slug: 'videos-social',
     url: '/#videos-social',
-    children: [
-      { name: 'Influencers', slug: 'influencers', url: '/resources/modash' },
-      { name: 'UGC Creators', slug: 'ugc-creators', url: '/resources/billo' },
-      { name: 'Instagram', slug: 'instagram', url: '/#videos-social' },
-      { name: 'TikTok', slug: 'tiktok-social', url: '/#videos-social' },
-      { name: 'Twitter / X', slug: 'twitter-x', url: '/#videos-social' },
-      { name: 'YouTube', slug: 'youtube', url: '/#videos-social' },
+    align: 'left',
+    quickTags: [
+      { name: 'Meta / Facebook', url: '/#videos-social' },
+      { name: 'Instagram', url: '/#videos-social' },
+      { name: 'TikTok', url: '/#videos-social' },
+      { name: 'Twitter / X', url: '/#videos-social' },
+      { name: 'YouTube', url: '/#videos-social' },
     ],
+    featuredItems: [
+      {
+        name: 'TikTok Creative Center',
+        description: 'Top trending songs, hashtags, and viral video analytics',
+        url: 'https://ads.tiktok.com/business/creativecenter/',
+        isExternal: true,
+        pricing: 'Free',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=tiktok.com&sz=64',
+      },
+      {
+        name: 'Meta Business Suite',
+        description: 'Unified ad & content management for Facebook & Instagram',
+        url: 'https://business.facebook.com',
+        isExternal: true,
+        pricing: 'Free',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=meta.com&sz=64',
+      },
+      {
+        name: 'YouTube Creator Studio',
+        description: 'Channel analytics, video optimization & Shorts management',
+        url: 'https://studio.youtube.com',
+        isExternal: true,
+        pricing: 'Free',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=youtube.com&sz=64',
+      },
+      {
+        name: 'Twitter / X Business',
+        description: 'Real-time engagement, brand announcements & verified ads',
+        url: 'https://business.x.com',
+        isExternal: true,
+        pricing: 'Free',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=x.com&sz=64',
+      },
+      {
+        name: 'Instagram Business',
+        description: 'Visual storefronts, Reels growth & direct shopping tags',
+        url: 'https://business.instagram.com',
+        isExternal: true,
+        pricing: 'Free',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=instagram.com&sz=64',
+      },
+    ],
+    footerLabel: 'View All Video & Social Tools',
+    footerCount: '6+ Tools',
   },
-  { name: 'Photography', slug: 'photography', url: '/#photography' },
-  { name: 'Website', slug: 'website', url: '/#website' },
-  { name: 'Warehouse & Logistics', slug: 'logistics', url: '/#logistics' },
-  { name: 'Accounting', slug: 'accounting', url: '/#accounting' },
-  { name: 'Training', slug: 'training', url: '/#training' },
   {
-    name: 'Legal Services',
-    slug: 'legal-services',
-    url: '/#legal-services',
-    children: [
-      { name: 'Trademark', slug: 'trademark', url: '/#legal-ip' },
-      { name: 'Legal Compliance', slug: 'legal', url: '/resources/legalzoom' },
+    name: 'Logistics & Warehouse',
+    shortName: 'Logistics',
+    slug: 'logistics',
+    url: '/#logistics',
+    align: 'left',
+    quickTags: [
+      { name: 'Ocean Freight', url: '/#logistics' },
+      { name: 'Air Cargo', url: '/#logistics' },
+      { name: 'FBA Inbound', url: '/#logistics' },
+      { name: '3PL Warehousing', url: '/#logistics' },
+      { name: 'Tracking', url: '/#logistics' },
     ],
+    featuredItems: [
+      {
+        name: 'Freightos FBX',
+        description: 'Real-time global ocean container freight benchmark index',
+        url: '/resources/freightos',
+        isExternal: false,
+        pricing: 'Free',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=freightos.com&sz=64',
+      },
+      {
+        name: 'Flexport',
+        description: 'Modern freight forwarding & end-to-end supply chain tech',
+        url: '/resources/flexport',
+        isExternal: false,
+        pricing: 'Paid',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=flexport.com&sz=64',
+      },
+      {
+        name: 'ShipBob',
+        description: 'Omnichannel fulfillment with distributed US/EU/UK 3PL hubs',
+        url: '/resources/shipbob',
+        isExternal: false,
+        pricing: 'Paid',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=shipbob.com&sz=64',
+      },
+      {
+        name: 'YunExpress',
+        description: 'Direct cross-border B2C parcel courier to 220+ countries',
+        url: '/resources/yunexpress',
+        isExternal: false,
+        pricing: 'Paid',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=yunexpress.com&sz=64',
+      },
+      {
+        name: 'Amazon FBA Inbound',
+        description: 'Official carrier partner pickup & automated fulfillment',
+        url: 'https://sellercentral.amazon.com/fba',
+        isExternal: true,
+        pricing: 'Paid',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=amazon.com&sz=64',
+      },
+    ],
+    quickUtilities: [
+      {
+        name: 'World Sea & Air Port Codes',
+        description: 'UN/LOCODE directory of 50+ freight ports & air cargo hubs',
+        url: '/information/world-port-codes',
+        iconEmoji: '⚓',
+      },
+      {
+        name: 'CBM Container Planner',
+        description: 'Calculate volume, carton packing & container loading',
+        url: '/tools/cbm-calculator',
+        iconEmoji: '📦',
+      },
+    ],
+    footerLabel: 'View All Logistics & 3PL Services',
+    footerCount: '7+ Services',
   },
-  { name: 'Trademark', slug: 'trademark', url: '/#legal-ip' },
-  { name: 'Stock Clearance', slug: 'stock-clearance', url: '/#stock-clearance' },
-  { name: 'Guides', slug: 'guides', url: '/#guides' },
+  {
+    name: 'Accounting & Legal',
+    slug: 'accounting',
+    url: '/#accounting',
+    align: 'left',
+    quickTags: [
+      { name: 'Accounting & VAT', url: '/#accounting' },
+      { name: 'Trademark & IP', url: '/#legal-ip' },
+      { name: 'Legal Services', url: '/#legal-services' },
+      { name: 'Tax Compliance', url: '/#accounting' },
+    ],
+    featuredItems: [
+      {
+        name: 'QuickBooks Online',
+        description: 'Automated bookkeeping, multi-currency invoices & tax reports',
+        url: '/resources/quickbooks-online',
+        isExternal: false,
+        pricing: 'Paid',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=intuit.com&sz=64',
+      },
+      {
+        name: 'Xero',
+        description: 'Cloud accounting with seamless Amazon & Shopify bank feeds',
+        url: '/resources/xero',
+        isExternal: false,
+        pricing: 'Paid',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=xero.com&sz=64',
+      },
+      {
+        name: 'Avalara',
+        description: 'Global automated sales tax, EU VAT & customs duty calculations',
+        url: '/resources/avalara',
+        isExternal: false,
+        pricing: 'Paid',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=avalara.com&sz=64',
+      },
+      {
+        name: 'LegalZoom',
+        description: 'US LLC business formation, registered agent & corporate legal',
+        url: '/resources/legalzoom',
+        isExternal: false,
+        pricing: 'Paid',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=legalzoom.com&sz=64',
+      },
+      {
+        name: 'Amazon Brand Registry',
+        description: 'Protect IP, fight counterfeiters & unlock A+ content',
+        url: '/resources/amazon-brand-registry',
+        isExternal: false,
+        pricing: 'Free',
+        iconUrl: 'https://www.google.com/s2/favicons?domain=amazon.com&sz=64',
+      },
+    ],
+    footerLabel: 'View All Accounting & Legal Tools',
+    footerCount: '8+ Tools',
+  },
+  {
+    name: 'Seller Guides & Media',
+    shortName: 'Guides & Media',
+    slug: 'guides',
+    url: '/#guides',
+    align: 'left',
+    quickTags: [
+      { name: 'Photography', url: '/#photography' },
+      { name: 'Website Builders', url: '/#website' },
+      { name: 'Seller Training', url: '/#training' },
+      { name: 'Stock Clearance', url: '/#stock-clearance' },
+      { name: 'Playbooks & Guides', url: '/#guides' },
+    ],
+    previewCards: [
+      {
+        name: 'Product Photography & Renders',
+        description: '3D renders, studio product photography & white-background assets',
+        url: '/#photography',
+        iconEmoji: '📸',
+        badge: 'Studio',
+      },
+      {
+        name: 'Website & Store Builders',
+        description: 'Shopify, WooCommerce, and headless e-commerce store engines',
+        url: '/#website',
+        iconEmoji: '🛒',
+        badge: 'Storefront',
+      },
+      {
+        name: 'Seller Training & Masterclasses',
+        description: 'Vetted Amazon, TikTok Shop, and cross-border seller coaching',
+        url: '/#training',
+        iconEmoji: '🎓',
+        badge: 'Courses',
+      },
+      {
+        name: 'Stock Clearance & Deal Sites',
+        description: 'Overstock liquidation, flash deals & off-site clearance channels',
+        url: '/#stock-clearance',
+        iconEmoji: '🏷️',
+        badge: 'Deals',
+      },
+      {
+        name: 'Seller Playbooks & Compliance',
+        description: 'FBA inbound placement guidelines, customs & VAT compliance rules',
+        url: '/#guides',
+        iconEmoji: '📚',
+        badge: 'Playbooks',
+      },
+    ],
+    footerLabel: 'Explore All Media & Knowledge Hubs',
+    footerCount: '5 Hubs',
+  },
+  {
+    name: 'Cross-Border Info',
+    slug: 'cross-border-info',
+    url: '/information/country-codes',
+    align: 'right',
+    previewCards: [
+      {
+        name: 'Country & ISO Codes',
+        description: 'Searchable table of 65+ countries, ISO-2/3, dialing codes & currencies with 1-click copy',
+        url: '/information/country-codes',
+        iconEmoji: '🌐',
+        badge: '65+ Countries',
+      },
+      {
+        name: 'World Sea & Air Port Codes',
+        description: 'Instant UN/LOCODE freight directory of 50+ major sea ports and air cargo hubs',
+        url: '/information/world-port-codes',
+        iconEmoji: '⚓',
+        badge: '50+ Ports',
+      },
+      {
+        name: 'Global Business Timezones',
+        description: 'Live synchronized local business clocks across 25+ seller and factory hubs',
+        url: '/information/global-timezone',
+        iconEmoji: '🕒',
+        badge: '25+ Clocks',
+      },
+    ],
+    footerLabel: 'Explore All Cross-Border Information',
+    footerCount: '3 Directories',
+  },
   {
     name: 'Tools',
     slug: 'tools',
     url: '/tools',
-    children: [
-      { name: 'Measurement Converter', slug: 'measurement-converter', url: '/tools/measurement-converter' },
-      { name: 'Time Converter', slug: 'time-converter', url: '/tools/time-converter' },
-      { name: 'ChatGPT Prompts', slug: 'chatgpt-prompts', url: '/tools/chatgpt-prompts' },
-      { name: 'Amazon Revenue Calculator', slug: 'amazon-revenue-calculator', url: '/tools/amazon-revenue-calculator' },
-      { name: 'IP Address Checker', slug: 'ip-checker', url: '/tools/ip-checker' },
-      { name: 'CBM & Carton Planner', slug: 'cbm-calculator', url: '/tools/cbm-calculator' },
-      { name: 'FBA Profit Calculator', slug: 'fba-calculator', url: '/tools/fba-calculator' },
-      { name: 'All Tools Hub', slug: 'tools', url: '/tools' },
+    align: 'right',
+    panelWidthClass: 'min-w-[360px] sm:min-w-[500px]',
+    toolGrid: [
+      {
+        name: 'FBA Profit Calculator',
+        description: 'Real-time FBA fees & net margin calculations',
+        url: '/tools/fba-calculator',
+        pricing: 'Free',
+        iconEmoji: '🧮',
+      },
+      {
+        name: 'CBM Container Planner',
+        description: 'Box CBM, volumetric weight & container packing',
+        url: '/tools/cbm-calculator',
+        pricing: 'Free',
+        iconEmoji: '📦',
+      },
+      {
+        name: 'Measurement Converter',
+        description: 'Instant length, weight, area, volume & temp',
+        url: '/tools/measurement-converter',
+        pricing: 'Free',
+        iconEmoji: '📐',
+      },
+      {
+        name: 'Global Time Converter',
+        description: 'Timezone conversion between China, US, and EU',
+        url: '/tools/time-converter',
+        pricing: 'Free',
+        iconEmoji: '⏱️',
+      },
+      {
+        name: 'ChatGPT Seller Prompts',
+        description: '50+ prompt templates for listings & PPC',
+        url: '/tools/chatgpt-prompts',
+        pricing: 'Free',
+        iconEmoji: '🤖',
+      },
+      {
+        name: 'IP Address Checker',
+        description: 'Verify seller connection IP, DNS leaks & proxy',
+        url: '/tools/ip-checker',
+        pricing: 'Free',
+        iconEmoji: '🛡️',
+      },
+      {
+        name: 'Real-Time FX Rates',
+        description: 'Live exchange rates for USD, CNY, EUR, GBP, JPY',
+        url: '/#currency-exchange-rates',
+        pricing: 'Live FX',
+        iconEmoji: '💱',
+      },
+      {
+        name: 'Amazon Revenue Calc',
+        description: 'Calculate gross sales, referral fees & margins',
+        url: '/tools/amazon-revenue-calculator',
+        pricing: 'Free',
+        iconEmoji: '📊',
+      },
     ],
+    footerLabel: 'View All Calculators & Utilities Hub',
+    footerCount: '8 Utilities',
   },
 ];
+
+// Top Navigation Categories mapped with sub-items for mobile drawer compatibility
+export const TOP_NAV_CATEGORIES: NavCategory[] = MEGA_NAV_ITEMS.map((item) => ({
+  name: item.name,
+  slug: item.slug,
+  url: item.url,
+  children: [
+    ...(item.quickTags ? item.quickTags.map((t) => ({ name: t.name, slug: t.url.replace(/.*#/, '') || item.slug, url: t.url })) : []),
+    ...(item.previewCards ? item.previewCards.map((p) => ({ name: p.name, slug: p.url.replace(/^\//, '').replace(/\//g, '-'), url: p.url })) : []),
+    ...(item.toolGrid ? item.toolGrid.map((t) => ({ name: t.name, slug: t.url.replace(/^\//, '').replace(/\//g, '-'), url: t.url })) : []),
+  ],
+}));
 
 export const SIDEBAR_CATEGORIES: SidebarCategory[] = [
   {
