@@ -3,50 +3,100 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/layout/Header.astro';
 import Footer from '../../components/layout/Footer.astro';
 
-const PROMPT_CATEGORIES = [
-  'All',
-  'Listing Optimization',
-  'Customer Reviews',
-  'Supplier Negotiation',
-  'PPC & Keywords',
-  'Product Research',
+const CATEGORIES = [
+  'All Prompts',
+  'Amazon Listing SEO',
+  'PPC & Keyword Clustering',
+  'Supplier Sourcing & 1688/Alibaba RFQ Outreach',
+  'Customer Support & Negative Review Replies',
+  'TikTok & UGC Video Hook Scripts',
 ];
 
-const PROMPTS = [
+interface PromptItem {
+  id: string;
+  category: string;
+  title: string;
+  description: string;
+  tags: string[];
+  prompt: string;
+}
+
+const PROMPTS: PromptItem[] = [
+  // ==========================================
+  // Category 1: Amazon Listing SEO
+  // ==========================================
   {
-    id: 'amazon-bullet-points',
-    category: 'Listing Optimization',
-    title: 'High-Converting Amazon Bullet Points (5 Feature Hooks)',
-    description: 'Generates 5 conversion-optimized Amazon listing bullet points that balance customer emotional benefits with strict Amazon character limit guidelines.',
-    tags: ['Amazon SEO', 'Copywriting', 'Conversion Rate'],
-    prompt: `Act as a world-class Amazon e-commerce direct-response copywriter. I am launching a private label product in the [Niche / Category] niche.
+    id: 'amazon-title-bullets-seo',
+    category: 'Amazon Listing SEO',
+    title: 'Listing Title & 5 Feature Bullets SEO Generator',
+    description: 'Constructs an algorithmic 180-200 character Amazon title and 5 conversion-optimized feature bullets balancing search volume with high CTR hooks.',
+    tags: ['Amazon SEO', 'Title Optimization', 'A9 Algorithm', 'Bullets'],
+    prompt: `Act as an expert Amazon SEO and conversion copywriter specializing in the A9/COSMO ranking algorithm.
 
-Product Name: [Product Name]
-Primary Target Audience: [Target Audience, e.g. Busy working moms, fitness enthusiasts]
-Top 3 Core Materials & Specifications: [Specs, e.g. 18/8 food-grade stainless steel, BPA-free, 32oz]
-Main Customer Pain Points It Solves: [Pain Points, e.g. Leaks during transport, hard to clean, poor insulation]
+Product: [PRODUCT_NAME]
+Brand Name: [BRAND_NAME]
+Top 5 Primary Keyword Phrases: [PRIMARY_KEYWORDS]
+Core Material & Technical Specs: [MATERIAL_SPECS]
+Main Customer Benefit / Problem Solved: [KEY_BENEFIT]
+Target Persona: [TARGET_AUDIENCE]
 
-Write 5 distinct Amazon listing bullet points following this formula:
-1. Start each bullet point with a 2-4 word UPPERCASE HOOK highlighting the core benefit.
-2. Follow with 2-3 sentences explaining the tangible feature and how it makes the customer's daily life easier or better.
-3. Keep each bullet point under 220 characters to ensure maximum mobile readability and prevent truncation.
-4. Seamlessly incorporate high-intent search keywords naturally without keyword stuffing or robotic repetition.
-5. End bullet 5 with an explicit reassurance regarding quality inspection, customer satisfaction, or hassle-free replacement.`,
+Please generate:
+1. THREE (3) High-Converting Amazon Listing Titles:
+   - Length: Strictly between 170 and 195 characters.
+   - Formula: [BRAND_NAME] + [PRIMARY_KEYWORD] + [CORE_SPEC_SIZE] + [KEY_BENEFIT] + [TARGET_AUDIENCE].
+   - Ensure title reads naturally to human buyers while front-loading the #1 search volume phrase in the first 60 characters for mobile display.
+
+2. FIVE (5) Feature Bullet Points:
+   - Bullet 1: [CORE_USP] — Primary feature solving the buyer's #1 headache.
+   - Bullet 2: [MATERIALS_DURABILITY] — Premium materials, food-grade or safety certifications.
+   - Bullet 3: [USER_EXPERIENCE] — Ergonomics, ease of cleaning, daily convenience.
+   - Bullet 4: [VERSATILITY_COMPATIBILITY] — In-the-box contents, multi-scenario use.
+   - Bullet 5: [BRAND_GUARANTEE] — Quality control testing, warranty, dedicated customer care.
+   - Format: Start each bullet with a punchy 2-4 word UPPERCASE HOOK. Keep each bullet under 220 characters for mobile readability.`,
+  },
+  {
+    id: 'aplus-brand-story-ebc',
+    category: 'Amazon Listing SEO',
+    title: 'A+ Content (EBC) Brand Story & Comparison Table Copy',
+    description: 'Generates structured copy for Amazon A+ Content modules including Brand Story, 3-Card Value Proposition, and Product Comparison Grid.',
+    tags: ['A+ Content', 'EBC', 'Brand Story', 'Comparison Grid'],
+    prompt: `Act as an Amazon Brand Story and Enhanced Brand Content (A+ Content) strategist. I want to build a high-converting A+ Content layout for our product.
+
+Brand Name: [BRAND_NAME]
+Brand Mission & Origin: [BRAND_MISSION]
+Hero Product: [HERO_PRODUCT]
+Top 3 Supporting Catalog Products: [CATALOG_PRODUCTS]
+Top 3 Differentiators vs Competitors: [COMPETITIVE_DIFFERENTIATORS]
+
+Generate modular copy for the following standard Amazon A+ Content modules:
+1. Brand Story Module:
+   - Headline: Engaging 6-8 word hook.
+   - Paragraph (100 words): Why our brand was founded and how we solve customer frustrations.
+   - Brand Values: 3 bullet points with punchy subheaders (e.g., Sustainable Sourcing, Rigorous Quality Testing, Customer-First Design).
+
+2. Three-Card Feature Highlight Module:
+   - Card 1: Title + 40-word copy focusing on Engineering / Material superiority.
+   - Card 2: Title + 40-word copy focusing on Daily Ergonomics / Usability.
+   - Card 3: Title + 40-word copy focusing on Safety / Longevity.
+
+3. Cross-Selling Product Comparison Table:
+   - 4 Column Headers: [HERO_PRODUCT] and 3 Catalog Variants.
+   - 5 Comparison Rows: Key Specification, Best For, Capacity, Material, Dishwasher Safe (Yes/No).`,
   },
   {
     id: 'backend-search-terms',
-    category: 'Listing Optimization',
+    category: 'Amazon Listing SEO',
     title: 'Amazon Backend Search Terms & Synonyms Extractor',
     description: 'Generates clean, deduped 249-byte backend search terms (Generic Keywords) following Amazon Seller Central indexing policies.',
-    tags: ['Amazon SEO', 'Backend Keywords', 'A9 Algorithm'],
+    tags: ['Amazon SEO', 'Backend Keywords', 'A9 Algorithm', 'Indexing'],
     prompt: `Act as an Amazon A9/COSMO Search Algorithm specialist. I need to generate an optimized string for Amazon's "Generic Keywords" (Backend Search Terms) field.
 
-My Product: [Product Name / Short Description]
-Keywords Already Used in My Title & Bullets (DO NOT repeat these):
-[List of existing title/bullet keywords, e.g. stainless steel water bottle, insulated flask, 32 oz]
+My Product: [PRODUCT_NAME]
+Keywords Already Used in Title & Bullets (DO NOT repeat these):
+[EXISTING_INDEXED_KEYWORDS]
 
-Top Customer Use Cases & Misspellings:
-[e.g. gym workout tumbler, hiking thermos, canteen, leakproof sport cup]
+Target Use Cases & Common Misspellings:
+[USE_CASES_AND_SYNONYMS]
 
 Please provide:
 1. Exactly ONE single space-separated string containing unique, high-volume secondary keywords, long-tail synonyms, intended use terms, and audience descriptors.
@@ -57,88 +107,38 @@ Please provide:
 6. Display the exact character count and byte length below the string.`,
   },
   {
-    id: 'negative-review-response',
-    category: 'Customer Reviews',
-    title: 'De-escalating 1-Star Negative Review & Return Response',
-    description: 'Polite, empathetic, and Amazon Terms of Service (TOS) compliant message to resolve an unhappy buyer without review manipulation.',
-    tags: ['Customer Support', 'Reputation', 'TOS Compliant'],
-    prompt: `Act as a senior customer experience director for an established e-commerce brand. A customer left a critical 1-star review on our Amazon storefront.
+    id: 'amazon-product-description-faq',
+    category: 'Amazon Listing SEO',
+    title: 'Amazon Product Description & Buyer FAQ Builder',
+    description: 'Crafts an HTML-formatted mobile product description and 5 buyer objection-busting FAQs to eliminate pre-purchase hesitation.',
+    tags: ['Product Description', 'Buyer FAQ', 'Conversion Rate'],
+    prompt: `Act as an e-commerce conversion rate optimization copywriter. Write an Amazon Product Description and 5 Buyer FAQs for our product.
 
-Product: [Product Name]
-Customer Complaint: "[Paste the customer's negative review or message here]"
-Our Resolution Offer: [e.g. Immediate free replacement or full hassle-free refund]
+Product Name: [PRODUCT_NAME]
+Primary Use Cases: [PRIMARY_USE_CASES]
+Included Accessories: [INCLUDED_ACCESSORIES]
+Common Pre-Purchase Objections: [COMMON_OBJECTIONS]
 
-Write a professional, deeply empathetic response following Amazon's Buyer-Seller Messaging policies:
-1. Genuinely acknowledge and validate their frustration without making excuses or blaming shipping carriers.
-2. Express our brand's strict commitment to quality and explain that this isolated issue does not reflect our standard.
-3. Provide a clear, zero-friction path to an immediate full refund or replacement.
-4. Strictly adhere to Amazon Terms of Service: DO NOT explicitly ask the buyer to remove, edit, or alter their review in exchange for compensation.
-5. Keep the tone warm, respectful, concise, and sincere.`,
+Please produce:
+1. Product Description:
+   - Word count: 150-200 words.
+   - Format: Use basic permitted HTML (<p>, <b>, <br>) with clear paragraph breaks.
+   - Tone: Inspiring, trustworthy, problem-solving.
+
+2. Five (5) Buyer FAQs:
+   - FAQ 1 (Compatibility / Sizing): Clear answer with exact measurements.
+   - FAQ 2 (Care / Cleaning): Dishwasher safety or maintenance instructions.
+   - FAQ 3 (Durability / Materials): Explain why it won't break or rust.
+   - FAQ 4 (Warranty / Replacements): Step-by-step reassurance on customer support.
+   - FAQ 5 (Package Contents): Exact breakdown of everything inside the box.`,
   },
-  {
-    id: 'competitor-review-mining',
-    category: 'Product Research',
-    title: 'Competitor Review Sentiment & Defect Mining',
-    description: 'Analyzes competitor 1-star and 2-star reviews to identify recurring product flaws, unmet customer needs, and differentiation angles.',
-    tags: ['Product Research', 'Competitor Analysis', 'Differentiation'],
-    prompt: `Act as an expert product development engineer and e-commerce consumer researcher. Below are several customer reviews extracted from our top 3 competitors in the [Product Niche] market:
 
-Competitor Reviews:
-"""
-[Paste 5 to 15 competitor reviews here, particularly 1-star, 2-star, and 3-star reviews]
-"""
-
-Analyze these reviews and provide a structured briefing:
-1. Top 3 Most Frequent Product Defects or Failures (e.g. zipper breaks, paint chips, inconsistent sizing).
-2. Emotional Frustrations (What is the customer trying to accomplish when the product fails them?).
-3. Specific Engineering or Material Improvements: Exact modifications we can instruct our factory to make (e.g. switch from zinc alloy to 304 stainless steel, add double-stitched reinforcement).
-4. The "Hero Angle" for Our Marketing: A punchy, single-sentence USP (Unique Selling Proposition) that highlights how our product solves their #1 pain point.`,
-  },
-  {
-    id: 'supplier-rfq-negotiation',
-    category: 'Supplier Negotiation',
-    title: 'Professional Supplier RFQ & Pricing Negotiation Email',
-    description: 'Formal Request for Quotation (RFQ) email to Chinese and global manufacturers on 1688, Alibaba, or Made-in-China.',
-    tags: ['1688 Sourcing', 'Alibaba', 'Supplier RFQ'],
-    prompt: `Act as an international supply chain procurement director for an expanding retail brand. I am contacting a prospective manufacturing partner on [Alibaba / 1688 / Made-in-China] for the first time.
-
-Target Product: [Describe product, dimensions, and specifications]
-Initial Trial Order Volume: [e.g. 500 units]
-Follow-up Projected Volume: [e.g. 3,000 units / quarter]
-Target Destination Port / Zip Code: [e.g. Long Beach, CA or DDP to Ontario, CA 91761]
-
-Write a professional, culturally astute inquiry letter to the factory sales manager covering:
-1. Brief introduction of our brand as an established multi-channel seller with strong repeat purchasing volume.
-2. Request for FOB and EXW unit pricing tiers at 500, 1,000, and 3,000 units.
-3. Sample ordering procedure: Cost per sample, customization lead time, and express DHL/FedEx shipping cost.
-4. Master carton packaging specifications: Units per inner/master carton, carton dimensions (cm), gross weight (kg), and pallet configuration.
-5. Standard payment terms (e.g. 30% deposit upon PO, 70% balance post-third-party inspection before bill of lading release).
-6. Request their official company catalog, ISO/BSCI audit certificates, and direct WeChat / WhatsApp contact information.`,
-  },
-  {
-    id: 'factory-defect-claim',
-    category: 'Supplier Negotiation',
-    title: 'Factory Defect Claim & Compensation Request',
-    description: 'Firm yet diplomatic claim letter to an overseas supplier when a batch inspection or customer feedback detects defects.',
-    tags: ['Quality Control', 'Dispute Resolution', 'Supplier Relations'],
-    prompt: `Act as a procurement and quality assurance manager. Our third-party inspection agency (or Amazon warehouse returns) detected quality defects in our recent production run from [Supplier Name].
-
-Order PO Number: [PO #1042]
-Total Batch Size: [e.g. 2,000 units]
-Defect Identified: [Describe defect, e.g. 8% of units exhibit stitching unraveling along the top handle]
-Evidence Available: [e.g. High-res inspection photos, video demonstration, customer return reports]
-Desired Resolution: [e.g. Credit deduction on next order, or replacement units produced free of charge]
-
-Write a respectful, firm, and relationship-preserving letter to the factory manager:
-1. Acknowledge our mutual appreciation for our long-term supplier relationship.
-2. Objectively detail the inspection findings and attach photographic proof.
-3. Explain the business impact on our storefront (Amazon account health risk, return processing fees).
-4. Propose our fair compensation solution (credit or remake) in a collaborative spirit.
-5. Request a Corrective Action Plan (CAP) detailing what changes their production floor will institute to guarantee this never occurs on future runs.`,
-  },
+  // ==========================================
+  // Category 2: PPC & Keyword Clustering
+  // ==========================================
   {
     id: 'ppc-negative-keywords',
-    category: 'PPC & Keywords',
+    category: 'PPC & Keyword Clustering',
     title: 'Amazon PPC Search Term Audit & Negative Keyword Extractor',
     description: 'Audits raw Amazon Search Term Reports to identify wasteful, non-converting spend to add as Negative Exact.',
     tags: ['Amazon PPC', 'ACOS Reduction', 'Negative Keywords'],
@@ -146,10 +146,7 @@ Write a respectful, firm, and relationship-preserving letter to the factory mana
 
 Search Term Data (Customer Search Term | Clicks | Spend | Orders | Sales):
 """
-[Paste your raw PPC search term rows here, e.g.:
-travel mug large | 24 | $38.50 | 0 | $0.00
-camping thermos | 18 | $29.00 | 0 | $0.00
-yeti replacement lid | 12 | $19.20 | 0 | $0.00
+[PASTE_SEARCH_TERM_REPORT_ROWS]
 """
 
 Analyze this search term performance and provide:
@@ -159,17 +156,157 @@ Analyze this search term performance and provide:
 4. Total estimated ad budget saved per month by pruning these terms.`,
   },
   {
+    id: 'ppc-keyword-clustering-architecture',
+    category: 'PPC & Keyword Clustering',
+    title: 'PPC Keyword Semantic Clustering & Campaign Architecture',
+    description: 'Groups a master list of raw keywords into tightly organized thematic ad groups by match type and buyer purchase intent.',
+    tags: ['PPC Architecture', 'Semantic Clustering', 'Ad Groups', 'Sponsored Products'],
+    prompt: `Act as an advanced Amazon PPC campaign architect. I have a master list of harvested customer search queries for my product:
+
+Product: [PRODUCT_NAME]
+Master Keyword List:
+"""
+[PASTE_RAW_KEYWORDS_LIST]
+"""
+
+Organize these keywords into a high-performance campaign structure:
+1. Cluster 1: Branded Keywords (Exact Match only).
+2. Cluster 2: High-Intent Root Keywords (Single thematic core, e.g. "insulated travel tumbler").
+3. Cluster 3: Feature & Material Keywords (e.g. "stainless steel", "leakproof", "32oz").
+4. Cluster 4: Audience & Scenario Keywords (e.g. "gym water bottle", "commuter coffee mug").
+5. Cluster 5: Competitor ASIN & Brand Conquesting Targets.
+
+For each cluster, specify:
+- Recommended Match Type (Exact, Phrase, or Broad).
+- Suggested Starting Default Bid relative to category average (Aggressive, Moderate, or Conservative).
+- The strategic objective (Rank Defense, High-Volume Discovery, or Low-ACOS Harvesting).`,
+  },
+  {
+    id: 'sponsored-brands-video-headlines',
+    category: 'PPC & Keyword Clustering',
+    title: 'Sponsored Brands Headline Copy & 15s Video Script Cues',
+    description: 'Generates 5 high-CTR headline taglines and a storyboard script for Sponsored Brands Video ads to drive immediate mobile clicks.',
+    tags: ['Sponsored Brands', 'Video Ads', 'Mobile CTR', 'Copywriting'],
+    prompt: `Act as an Amazon Sponsored Brands Creative Director. I am launching Sponsored Brands Video (SBV) and Sponsored Brands Header ads.
+
+Product Name: [PRODUCT_NAME]
+Core Value Proposition: [CORE_USP]
+Promotional Offer / Discount: [DISCOUNT_OFFER]
+Target Keyword Theme: [TARGET_KEYWORD_THEME]
+
+Generate:
+1. FIVE (5) High-CTR Sponsored Brands Headlines:
+   - Length: Strictly under 50 characters each.
+   - Style: Direct, benefit-driven, action-oriented (no clickbait).
+
+2. A 15-Second Sponsored Brands Video Storyboard:
+   - [0:00 - 0:02] Hook: Visual demonstration of the customer's painful struggle.
+   - [0:02 - 0:07] Product In Action: Crisp, seamless solution demonstration with bold on-screen captions (80% of buyers watch with sound muted).
+   - [0:07 - 0:11] Key Feature Close-up: Zoom in on premium texture, leakproof seal, or ergonomic handle.
+   - [0:11 - 0:15] Brand Outro & Call to Action: Clean logo end-card with strong "Shop Now on Amazon" prompt.`,
+  },
+
+  // ==========================================
+  // Category 3: Supplier Sourcing & RFQ Outreach
+  // ==========================================
+  {
+    id: 'supplier-rfq-negotiation',
+    category: 'Supplier Sourcing & 1688/Alibaba RFQ Outreach',
+    title: 'Professional Supplier RFQ & Pricing Tier Inquiry',
+    description: 'Formal Request for Quotation (RFQ) email to Chinese and global manufacturers on 1688, Alibaba, or Made-in-China.',
+    tags: ['1688 Sourcing', 'Alibaba', 'Supplier RFQ', 'Negotiation'],
+    prompt: `Act as an international supply chain procurement director for an expanding retail brand. I am contacting a prospective manufacturing partner on [SOURCING_PLATFORM] for the first time.
+
+Target Product: [PRODUCT_SPECIFICATIONS]
+Initial Trial Order Volume: [TRIAL_ORDER_UNITS]
+Follow-up Projected Annual Volume: [ANNUAL_PROJECTED_UNITS]
+Target Destination Port / Zip Code: [DESTINATION_PORT_OR_ZIP]
+
+Write a professional, culturally astute inquiry letter to the factory sales manager covering:
+1. Brief introduction of our brand as an established multi-channel seller with strong repeat purchasing volume.
+2. Request for FOB and EXW unit pricing tiers at 500, 1,000, 3,000, and 5,000 units.
+3. Sample ordering procedure: Cost per custom prototype, sample lead time, and express DHL/FedEx shipping quote.
+4. Master carton packaging specifications: Units per inner/master carton, carton dimensions (cm), gross weight (kg), and palletization options.
+5. Standard payment terms (e.g. 30% deposit upon PO issuance, 70% balance post-third-party QC inspection before bill of lading release).
+6. Request their official company catalog, ISO/BSCI audit certificates, and direct WeChat / WhatsApp contact information.`,
+  },
+  {
+    id: 'factory-defect-claim',
+    category: 'Supplier Sourcing & 1688/Alibaba RFQ Outreach',
+    title: 'Factory Defect Claim & Compensation Request',
+    description: 'Firm yet diplomatic claim letter to an overseas supplier when a batch inspection or customer feedback detects defects.',
+    tags: ['Quality Control', 'Dispute Resolution', 'Supplier Relations'],
+    prompt: `Act as a procurement and quality assurance manager. Our third-party inspection agency (or Amazon warehouse returns) detected quality defects in our recent production run from [SUPPLIER_NAME].
+
+Order PO Number: [PO_NUMBER]
+Total Batch Size: [TOTAL_BATCH_UNITS]
+Defect Identified: [DEFECT_DESCRIPTION]
+Evidence Available: [INSPECTION_PHOTOS_VIDEOS]
+Desired Resolution: [DESIRED_COMPENSATION]
+
+Write a respectful, firm, and relationship-preserving letter to the factory manager:
+1. Acknowledge our mutual appreciation for our long-term supplier relationship.
+2. Objectively detail the inspection findings and attach photographic proof.
+3. Explain the business impact on our storefront (Amazon account health risk, return processing fees).
+4. Propose our fair compensation solution (credit deduction on next PO or remake of defective units) in a collaborative spirit.
+5. Request a Corrective Action Plan (CAP) detailing what changes their production floor will institute to guarantee this never occurs on future runs.`,
+  },
+  {
+    id: 'chinese-wechat-direct-inquiry',
+    category: 'Supplier Sourcing & 1688/Alibaba RFQ Outreach',
+    title: '1688 Direct Chinese Manufacturer WeChat Outreach',
+    description: 'Bilingual Chinese (Mandarin) and English messaging script to contact factory bosses directly on WeChat or 1688 Aliwangwang.',
+    tags: ['1688 Direct', 'WeChat Outreach', 'Bilingual', 'Chinese Factory'],
+    prompt: `Act as a native bilingual supply chain sourcing manager based in Shenzhen. I want to message a Chinese factory manager on WeChat or 1688 Aliwangwang directly about manufacturing our product.
+
+Product Description: [PRODUCT_DESCRIPTION]
+Target Order Quantity: [ORDER_QUANTITY]
+Customization Needed: [CUSTOM_LOGO_PACKAGING]
+Target Unit Price (RMB ¥ or USD $): [TARGET_UNIT_PRICE]
+
+Generate a polite, concise, and business-fluent message in both Simplified Chinese (with Pinyin guide) and English:
+1. Polite opening greeting address to the factory manager (Boss / Manager).
+2. Direct statement of our product requirement with reference to their factory catalog.
+3. Inquire whether they are the original source factory (源头工厂) or a trading trading agent.
+4. Request their EXW factory unit quote (出厂含税/不含税价) for trial batch of [ORDER_QUANTITY] pieces.
+5. Inquire about proofing sample fees (打样费) and sample turnaround time (打样周期).
+6. Closing invitation to exchange WeChat voice notes or factory video walk-through.`,
+  },
+
+  // ==========================================
+  // Category 4: Customer Support & Review Replies
+  // ==========================================
+  {
+    id: 'negative-review-response',
+    category: 'Customer Support & Negative Review Replies',
+    title: 'De-escalating 1-Star Negative Review & Return Response',
+    description: 'Polite, empathetic, and Amazon Terms of Service (TOS) compliant message to resolve an unhappy buyer without review manipulation.',
+    tags: ['Customer Support', 'Reputation', 'TOS Compliant'],
+    prompt: `Act as a senior customer experience director for an established e-commerce brand. A customer left a critical 1-star review on our Amazon storefront.
+
+Product: [PRODUCT_NAME]
+Customer Complaint: "[PASTE_CUSTOMER_COMPLAINT]"
+Our Resolution Offer: [RESOLUTION_OFFER]
+
+Write a professional, deeply empathetic response following Amazon's Buyer-Seller Messaging policies:
+1. Genuinely acknowledge and validate their frustration without making excuses or blaming shipping carriers.
+2. Express our brand's strict commitment to quality and explain that this isolated issue does not reflect our standard.
+3. Provide a clear, zero-friction path to an immediate full refund or replacement.
+4. Strictly adhere to Amazon Terms of Service: DO NOT explicitly ask the buyer to remove, edit, or alter their review in exchange for compensation.
+5. Keep the tone warm, respectful, concise, and sincere.`,
+  },
+  {
     id: 'product-insert-card',
-    category: 'Customer Reviews',
+    category: 'Customer Support & Negative Review Replies',
     title: 'Amazon TOS-Compliant Product Insert Thank-You Card',
     description: 'Crafts an engaging, brand-building packaging insert card that boosts customer satisfaction and warranty registrations without violating review policies.',
     tags: ['Packaging Inserts', 'Warranty Registration', 'Brand Loyalty'],
     prompt: `Act as a branding and packaging designer for a modern direct-to-consumer Amazon brand.
 
-Brand Name: [Brand Name]
-Product: [Product Name]
-Customer Support Email / Website: [Support Link or Warranty URL]
-Warranty / VIP Offer: [e.g. Extended 1-Year Free Warranty registration, VIP Customer Club]
+Brand Name: [BRAND_NAME]
+Product: [PRODUCT_NAME]
+Customer Support Email / Website: [SUPPORT_EMAIL_OR_URL]
+Warranty / VIP Offer: [WARRANTY_VIP_OFFER]
 
 Write the copy for a premium two-sided printed packaging insert card (3.5" × 2"):
 
@@ -182,12 +319,129 @@ Side B (Back - Care, Support & Warranty):
 - Friendly customer service invitation: "Something not 100% perfect? Before you get frustrated, reach out to our real human support team directly."
 - Strictly adhere to Amazon Terms of Service: Do NOT offer gift cards, rebates, or free gifts in exchange for 5-star reviews. Do NOT direct unhappy buyers to email while telling happy buyers to leave reviews on Amazon. Maintain neutral, helpful support copy.`,
   },
+  {
+    id: 'delayed-shipment-apology',
+    category: 'Customer Support & Negative Review Replies',
+    title: 'Supply Chain Delay & Out-of-Stock Apology Email',
+    description: 'Proactive, transparent communication to customers when customs port congestion or production delays cause delivery backorders.',
+    tags: ['Customer Support', 'Delay Apology', 'Retention'],
+    prompt: `Act as a Head of Customer Experience for a DTC e-commerce brand. Due to port congestion / supply chain delays, our customer orders for [PRODUCT_NAME] are delayed by [DELAY_DURATION].
+
+Order Number: [ORDER_NUMBER]
+Customer Name: [CUSTOMER_NAME]
+Product: [PRODUCT_NAME]
+New Expected Delivery Window: [NEW_DELIVERY_WINDOW]
+Compensation / Courtesy Offer: [COMPENSATION_OFFER]
+
+Draft a heartfelt, transparent, and reassuring email to the affected buyers:
+1. Lead with complete honesty: clearly inform them of the delay in the first two sentences.
+2. Explain the root cause in simple, relatable terms without technical logistics jargon.
+3. Reassure them of our product quality: explain that we refused to rush manufacturing at the expense of safety.
+4. Give them full control:
+   - Option A: Keep order with automatic priority dispatch + complimentary [COMPENSATION_OFFER].
+   - Option B: Instant 1-click full cancellation and 100% refund if they cannot wait.
+5. Warm, humble closing with direct sign-off from the brand founders.`,
+  },
+
+  // ==========================================
+  // Category 5: TikTok & UGC Video Hook Scripts
+  // ==========================================
+  {
+    id: 'tiktok-ugc-hooks',
+    category: 'TikTok & UGC Video Hook Scripts',
+    title: 'TikTok Shop & Reels Viral 3-Second Problem Hook Scripts',
+    description: 'Generates 5 scroll-stopping 3-second problem hooks and high-converting 30-second video scripts for TikTok Shop and Instagram Reels.',
+    tags: ['TikTok Shop', 'Viral Hooks', 'UGC Scripts', 'Social Commerce'],
+    prompt: `Act as a viral social commerce director managing multi-million-dollar TikTok Shop campaigns. I need high-energy UGC video scripts that stop users mid-scroll in the first 3 seconds and convert to direct affiliate sales.
+
+Product Name: [PRODUCT_NAME]
+What It Does: [ONE_SENTENCE_EXPLANATION]
+Competitor / Old Way of Doing It: [OLD_PAINFUL_WAY]
+Our Solution: [OUR_SUPERIOR_SOLUTION]
+Target Audience: [TARGET_AUDIENCE]
+
+Provide:
+1. FIVE (5) High-CTR 3-Second Opening Hooks:
+   - Hook 1 (Negative / Warning Hook): "Stop scrolling if you still use..."
+   - Hook 2 (Secret / Hack Hook): "Amazon definitely didn't want you to find this..."
+   - Hook 3 (Visual Demonstration Hook): "Watch what happens when I..."
+   - Hook 4 (Relatable Problem Hook): "Tell me I'm not the only one whose..."
+   - Hook 5 (Before vs After Shock Hook): "This $25 Amazon gadget replaced my $300..."
+
+2. ONE (1) Full 30-Second UGC Video Script (A-Roll & B-Roll Breakdown):
+   - [0:00 - 0:03] The Hook (High energy visual demonstration).
+   - [0:03 - 0:10] The Agitation (Show the relatable annoying problem).
+   - [0:10 - 0:20] The Reveal & Demonstration (Show how effortless and satisfying the product is in action).
+   - [0:20 - 0:25] The Social Proof (Mention customer reviews or stock selling out).
+   - [0:25 - 0:30] Call to Action (Direct viewer to the yellow shopping cart icon on TikTok Shop / link in bio).`,
+  },
+  {
+    id: 'tiktok-creator-brief',
+    category: 'TikTok & UGC Video Hook Scripts',
+    title: 'Creator UGC Outreach & Product Demo Creative Brief',
+    description: 'Professional creative brief to send creators and affiliate influencers outlining dos/don\'ts, angle requirements, and TikTok Shop tagging.',
+    tags: ['Influencer Outreach', 'TikTok Shop', 'Creative Brief'],
+    prompt: `Act as an Influencer Marketing Director for an e-commerce brand. I am reaching out to TikTok and Instagram creators to send free product samples in exchange for shoppable video reviews.
+
+Brand Name: [BRAND_NAME]
+Product: [PRODUCT_NAME]
+Retail Value: [RETAIL_VALUE]
+Affiliate Commission Offered: [AFFILIATE_COMMISSION_PERCENTAGE]
+
+Write a warm, concise, and creator-friendly Creative Brief covering:
+1. Friendly Invitation: Express genuine admiration for their content style.
+2. The Offer: Free sample delivered to their door + top-tier affiliate commission rates.
+3. Content Guidelines & Angles:
+   - Authentic, un-staged natural lighting.
+   - Show the unboxing reaction, genuine hands-on testing, and real result.
+   - Emphasize the #1 "satisfying" feature on camera.
+4. What to Avoid: No corporate speak, no reading from a script, no competitor brand comparisons.
+5. TikTok Shop Instructions: How to tag the product in the TikTok Shop Showcase and include our campaign hashtag.
+6. Simple Next Step: "Reply with your shipping address and color preference so we can dispatch your package today!"`,
+  },
+  {
+    id: 'tiktok-live-selling-script',
+    category: 'TikTok & UGC Video Hook Scripts',
+    title: 'TikTok Shop Live Stream Host Selling Script & Urgency Triggers',
+    description: 'High-energy 15-minute modular script for TikTok Shop live stream hosts to trigger flash sales, pin product vouchers, and drive impulse buys.',
+    tags: ['TikTok Live', 'Live Shopping', 'Flash Sale', 'Urgency Hooks'],
+    prompt: `Act as a top-grossing TikTok Shop Live Stream Producer. Write a dynamic, high-energy 15-minute host script for an interactive live shopping session.
+
+Product Name: [PRODUCT_NAME]
+Special Live-Only Price: [LIVE_ONLY_PRICE]
+Regular Price: [REGULAR_PRICE]
+Limited Stock Available: [AVAILABLE_STOCK_COUNT]
+Gift With Purchase: [FREE_GIFT_ITEM]
+
+Structure the live host script into 4 repeatable segments:
+1. Minute 0-3: The Traffic Grab & Pin Voucher Trigger
+   - Host greetings, pinning the Yellow Shopping Bag (Pill #1).
+   - "Tap the screen to 10k likes and I unlock an extra $5 off voucher right now!"
+
+2. Minute 3-8: The Hero Stress Test & Problem Demonstration
+   - Dramatic physical test (scratching, dropping, shaking, or pouring to prove quality).
+   - Address top chat comments and handle skepticism in real-time.
+
+3. Minute 8-12: The Flash Deal Drop & Countdown
+   - Announce only [AVAILABLE_STOCK_COUNT] units left at [LIVE_ONLY_PRICE].
+   - 60-second verbal countdown with sound effect cue.
+
+4. Minute 12-15: Unboxing & Free Gift Reveal
+   - Show the unboxing experience and reveal the bonus [FREE_GIFT_ITEM] included for buyers who check out in this cycle.`,
+  },
 ];
+
+// Helper to format bracketed variables like [VARIABLE_NAME] into subtle styled accent pills
+function formatPromptWithPills(rawText: string) {
+  return rawText.replace(/\[([A-Za-z0-9_ /#$%\-–?:]+)\]/g, (_match, p1) => {
+    return `<span class="prompt-variable inline-block px-1.5 py-0.5 mx-0.5 text-[11px] font-mono font-semibold rounded-md bg-brand-orange/10 dark:bg-brand-orange/20 text-brand-orange border border-brand-orange/30 shadow-2xs">[${p1}]</span>`;
+  });
+}
 ---
 
 <BaseLayout
   title="ChatGPT & AI Prompts Library for E-Commerce Sellers — Ecom Resources"
-  description="Free copy-and-paste ChatGPT prompt templates for Amazon sellers: High-converting bullet points, backend keywords, negative review replies, and factory RFQ negotiations."
+  description="16+ free copy-and-paste ChatGPT prompt templates for Amazon sellers: High-converting bullet points, backend keywords, negative review replies, and factory RFQ negotiations."
 >
   <Header />
 
@@ -215,12 +469,12 @@ Side B (Back - Care, Support & Warranty):
           </h1>
         </div>
         <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-          Copy-and-paste prompt templates engineered for Amazon A9 algorithm indexing, customer dispute resolution, and factory negotiations.
+          16+ copy-and-paste prompt templates engineered for Amazon A9 algorithm indexing, customer dispute resolution, and factory negotiations.
         </p>
       </div>
 
       <div class="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-brand-orange/15 text-brand-orange border border-brand-orange/30 shrink-0 self-start sm:self-auto">
-        <span>{PROMPTS.length} Verified Prompts</span>
+        <span id="prompt-count-badge">{PROMPTS.length} Verified Prompts</span>
       </div>
     </div>
 
@@ -231,7 +485,7 @@ Side B (Back - Care, Support & Warranty):
         <input
           type="search"
           id="prompt-search-input"
-          placeholder="Search prompts by keyword, Amazon listing, supplier, review..."
+          placeholder="Search 16+ prompts by keyword, Amazon listing, PPC, supplier, review, TikTok..."
           class="w-full pl-9 pr-4 py-2 text-xs sm:text-sm bg-slate-50 dark:bg-dark-elevated text-slate-900 dark:text-slate-100 placeholder-slate-400 rounded-xl border border-slate-200 dark:border-white/10 focus:outline-none focus:border-brand-orange transition-colors"
         />
         <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -239,9 +493,9 @@ Side B (Back - Care, Support & Warranty):
         </svg>
       </div>
 
-      <!-- Category Filter Pills -->
+      <!-- 5 Category Tabs -->
       <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar pb-1 text-xs">
-        {PROMPT_CATEGORIES.map((cat, idx) => (
+        {CATEGORIES.map((cat, idx) => (
           <button
             type="button"
             data-cat-filter={cat}
@@ -299,9 +553,12 @@ Side B (Back - Care, Support & Warranty):
             </button>
           </div>
 
-          <!-- Prompt Monospace Code Display -->
+          <!-- Raw Plain Text for Clean Clipboard Copying -->
+          <textarea id={`raw-prompt-${p.id}`} class="hidden" readonly aria-hidden="true">{p.prompt}</textarea>
+
+          <!-- Prompt Monospace Code Display with Bracketed Variable Accent Pills -->
           <div class="relative rounded-xl bg-slate-50 dark:bg-dark-elevated border border-slate-200/70 dark:border-white/[0.05] p-4 text-xs font-mono text-slate-800 dark:text-slate-200 overflow-x-auto leading-relaxed whitespace-pre-wrap select-all">
-            <pre id={`prompt-text-${p.id}`} class="font-mono">{p.prompt}</pre>
+            <div class="font-mono" set:html={formatPromptWithPills(p.prompt)} />
           </div>
         </article>
       ))}
@@ -334,16 +591,18 @@ Side B (Back - Care, Support & Warranty):
     copyButtons.forEach((btn) => {
       btn.addEventListener('click', () => {
         const targetId = btn.getAttribute('data-clipboard-target');
-        const textEl = document.getElementById(`prompt-text-${targetId}`);
+        const rawEl = document.getElementById(`raw-prompt-${targetId}`);
         const label = btn.querySelector('.btn-copy-label');
-        if (!textEl) return;
+        if (!rawEl) return;
 
-        navigator.clipboard.writeText(textEl.textContent || '').then(() => {
-          if (label) label.textContent = 'Copied!';
+        navigator.clipboard.writeText(rawEl.value || '').then(() => {
+          if (label) label.textContent = '✓ Copied!';
           btn.classList.add('bg-emerald-600', 'text-white');
+          btn.classList.remove('dark:bg-white', 'dark:text-slate-900', 'bg-slate-900');
           setTimeout(() => {
             if (label) label.textContent = 'Copy Prompt';
             btn.classList.remove('bg-emerald-600', 'text-white');
+            btn.classList.add('bg-slate-900', 'dark:bg-white', 'dark:text-slate-900');
           }, 2000);
         });
       });
@@ -354,8 +613,9 @@ Side B (Back - Care, Support & Warranty):
     const catButtons = document.querySelectorAll('.prompt-cat-btn');
     const cards = document.querySelectorAll('.prompt-card');
     const noResults = document.getElementById('no-prompt-results');
+    const countBadge = document.getElementById('prompt-count-badge');
 
-    let currentCategory = 'All';
+    let currentCategory = 'All Prompts';
 
     function filterPrompts() {
       const q = (searchInput?.value || '').trim().toLowerCase();
@@ -367,7 +627,7 @@ Side B (Back - Care, Support & Warranty):
         const desc = card.getAttribute('data-desc') || '';
         const prompt = card.getAttribute('data-prompt') || '';
 
-        const catMatches = currentCategory === 'All' || cat === currentCategory;
+        const catMatches = currentCategory === 'All Prompts' || cat === currentCategory;
         const queryMatches = !q || title.includes(q) || desc.includes(q) || prompt.includes(q);
 
         if (catMatches && queryMatches) {
@@ -381,6 +641,10 @@ Side B (Back - Care, Support & Warranty):
       if (noResults) {
         noResults.classList.toggle('hidden', visibleCount > 0);
       }
+
+      if (countBadge) {
+        countBadge.textContent = `${visibleCount} Verified Prompt${visibleCount === 1 ? '' : 's'}`;
+      }
     }
 
     if (searchInput) {
@@ -391,7 +655,7 @@ Side B (Back - Care, Support & Warranty):
       btn.addEventListener('click', () => {
         catButtons.forEach(b => b.classList.remove('prompt-cat-active'));
         btn.classList.add('prompt-cat-active');
-        currentCategory = btn.getAttribute('data-cat-filter') || 'All';
+        currentCategory = btn.getAttribute('data-cat-filter') || 'All Prompts';
         filterPrompts();
       });
     });

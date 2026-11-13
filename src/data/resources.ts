@@ -17,6 +17,7 @@ export interface DirectoryResource {
   discountText?: string;
   rating?: number;
   iconName?: string;
+  iconDomain?: string;
   tags?: string[];
   targetAudience?: string;
 }
@@ -52,6 +53,7 @@ export const DIRECTORY_RESOURCES: DirectoryResource[] = Object.entries(resourceF
       discountText: data.discountText || undefined,
       rating: typeof data.rating === 'number' ? data.rating : 4.8,
       iconName: data.iconName || undefined,
+      iconDomain: data.iconDomain || undefined,
       tags: Array.isArray(data.tags) ? data.tags : [],
       targetAudience: data.targetAudience || undefined,
     };

@@ -1,0 +1,515 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+
+interface PortHubItem {
+  code: string; // UN/LOCODE or IATA code
+  name: string;
+  facility: string; // Terminal details
+  country: string;
+  countryCode: string;
+  type: 'Sea Port' | 'Air Cargo';
+  tradeLane: string;
+  region: 'China & Asia' | 'North America' | 'Europe' | 'Middle East';
+  fbaRelevance: string;
+  isTopGateway?: boolean;
+}
+
+const PORTS_AND_HUBS: PortHubItem[] = [
+  // 1. China & East Asia (Major Factory Sourcing & Container Gateways)
+  { code: 'CNYTN', name: 'Shenzhen - Yantian Port', facility: 'Yantian International Container Terminals (YICT)', country: 'China', countryCode: 'cn', type: 'Sea Port', tradeLane: 'Transpacific Eastbound & Europe Express', region: 'China & Asia', fbaRelevance: 'Primary Amazon US West Coast Direct Vessel Port', isTopGateway: true },
+  { code: 'CNSZX', name: 'Shenzhen - Chiwan / Shekou', facility: 'Shekou Container Terminal (SCT) & Chiwan Port', country: 'China', countryCode: 'cn', type: 'Sea Port', tradeLane: 'Intra-Asia, Transpacific & Middle East', region: 'China & Asia', fbaRelevance: 'Major Pearl River Delta Export Terminal', isTopGateway: true },
+  { code: 'CNNGB', name: 'Ningbo-Zhoushan Port', facility: 'Beilun, Meishan & Chuanshan Port Zones', country: 'China', countryCode: 'cn', type: 'Sea Port', tradeLane: 'Transpacific, Europe & South America', region: 'China & Asia', fbaRelevance: 'World #1 Port by Cargo Tonnage; Yiwu Sourcing Hub', isTopGateway: true },
+  { code: 'CNSHA', name: 'Shanghai Port', facility: 'Yangshan Deepwater Port & Waigaoqiao Terminals', country: 'China', countryCode: 'cn', type: 'Sea Port', tradeLane: 'Transpacific, Europe & Global Network', region: 'China & Asia', fbaRelevance: 'World #1 Container Port; Yangtze River Delta Export', isTopGateway: true },
+  { code: 'CNTAO', name: 'Qingdao Port', facility: 'Qianwan Container Terminal (QQCT)', country: 'China', countryCode: 'cn', type: 'Sea Port', tradeLane: 'Transpacific, Japan & Korea Express', region: 'China & Asia', fbaRelevance: 'Northern China Export Gateway (Shandong / Henan)', isTopGateway: true },
+  { code: 'CNXMN', name: 'Xiamen Port', facility: 'Haicang & Dongdu Port Areas', country: 'China', countryCode: 'cn', type: 'Sea Port', tradeLane: 'Transpacific & Southeast Asia', region: 'China & Asia', fbaRelevance: 'Fujian Province Manufacturing & Footwear Gateway', isTopGateway: true },
+  { code: 'CNNAN', name: 'Guangzhou - Nansha Port', facility: 'Nansha International Container Terminal', country: 'China', countryCode: 'cn', type: 'Sea Port', tradeLane: 'Intra-Asia, Africa & Transpacific', region: 'China & Asia', fbaRelevance: 'Central Guangdong Manufacturing Outlet', isTopGateway: true },
+  { code: 'CNTXG', name: 'Tianjin - Xingang Port', facility: 'Tianjin Port Pacific & Five Continents', country: 'China', countryCode: 'cn', type: 'Sea Port', tradeLane: 'Northern China to US & Europe', region: 'China & Asia', fbaRelevance: 'Beijing-Tianjin-Hebei Industrial Hub', isTopGateway: true },
+  { code: 'HKHKG', name: 'Hong Kong Port', facility: 'Kwai Tsing Container Terminals (9 Terminals)', country: 'Hong Kong', countryCode: 'hk', type: 'Sea Port', tradeLane: 'Global Transshipment Hub', region: 'China & Asia', fbaRelevance: 'Duty-free Transshipment & Dangerous Goods (DG)', isTopGateway: true },
+  { code: 'KRPUS', name: 'Busan Port', facility: 'Busan New Port (PNC, BNMT)', country: 'South Korea', countryCode: 'kr', type: 'Sea Port', tradeLane: 'Transpacific Feeder & Transshipment', region: 'China & Asia', fbaRelevance: 'Key Transshipment Node for North China & Japan', isTopGateway: true },
+  { code: 'SGSGP', name: 'Singapore Port', facility: 'PSA Singapore (Tuas Mega Port & Pasir Panjang)', country: 'Singapore', countryCode: 'sg', type: 'Sea Port', tradeLane: 'Global Transshipment Crossroads', region: 'China & Asia', fbaRelevance: 'Southeast Asia Hub for Shopee, Lazada & FBA', isTopGateway: true },
+  { code: 'MYPKG', name: 'Port Klang', facility: 'Westports & Northport Terminals', country: 'Malaysia', countryCode: 'my', type: 'Sea Port', tradeLane: 'Strait of Malacca Transshipment', region: 'China & Asia', fbaRelevance: 'Malaysia Manufacturing & Cross-Border Gateway' },
+  { code: 'MYTPP', name: 'Tanjung Pelepas (PTP)', facility: 'Pelabuhan Tanjung Pelepas Terminal', country: 'Malaysia', countryCode: 'my', type: 'Sea Port', tradeLane: 'Maersk Hub & Southeast Asia Direct', region: 'China & Asia', fbaRelevance: 'Cost-Effective Transshipment Center' },
+  { code: 'TWKHH', name: 'Kaohsiung Port', facility: 'Kaohsiung Harbor Container Terminals', country: 'Taiwan', countryCode: 'tw', type: 'Sea Port', tradeLane: 'Transpacific & East Asia Express', region: 'China & Asia', fbaRelevance: 'Taiwan Electronics & Hardware Export' },
+  { code: 'JPTYO', name: 'Tokyo Port', facility: 'Ohi & Aomi Container Terminals', country: 'Japan', countryCode: 'jp', type: 'Sea Port', tradeLane: 'Intra-Asia & Transpacific', region: 'China & Asia', fbaRelevance: 'Amazon Japan FBA Inbound Gateway', isTopGateway: true },
+  { code: 'JPYOK', name: 'Yokohama Port', facility: 'Minami Honmoku Container Terminal', country: 'Japan', countryCode: 'jp', type: 'Sea Port', tradeLane: 'Transpacific Deepwater Gateway', region: 'China & Asia', fbaRelevance: 'Greater Tokyo Kanto Region Inbound' },
+  { code: 'VNSGN', name: 'Ho Chi Minh City - Cat Lai', facility: 'Tan Cang - Cat Lai Terminal', country: 'Vietnam', countryCode: 'vn', type: 'Sea Port', tradeLane: 'Transpacific & Intra-Asia', region: 'China & Asia', fbaRelevance: 'Southern Vietnam Furniture, Apparel & Tech', isTopGateway: true },
+  { code: 'VNCMT', name: 'Cai Mep Deepwater Port', facility: 'Tan Cang - Cai Mep (TCIT / TCTT)', country: 'Vietnam', countryCode: 'vn', type: 'Sea Port', tradeLane: 'Direct Call to US West Coast & Europe', region: 'China & Asia', fbaRelevance: 'Fastest Direct Sourcing Vessel from Vietnam', isTopGateway: true },
+  { code: 'VNHPH', name: 'Haiphong Port', facility: 'Lach Huyen Deep-Sea Terminal', country: 'Vietnam', countryCode: 'vn', type: 'Sea Port', tradeLane: 'Northern Vietnam to US & Europe', region: 'China & Asia', fbaRelevance: 'Hanoi Tech Corridor (Electronics & Audio)' },
+  { code: 'THLCH', name: 'Laem Chabang Port', facility: 'Hutchison Ports Laem Chabang', country: 'Thailand', countryCode: 'th', type: 'Sea Port', tradeLane: 'Southeast Asia to US & Europe', region: 'China & Asia', fbaRelevance: 'Eastern Economic Corridor Industrial Hub' },
+  { code: 'INNSA', name: 'Nhava Sheva (JNPT)', facility: 'Jawaharlal Nehru Port Trust (Mumbai)', country: 'India', countryCode: 'in', type: 'Sea Port', tradeLane: 'India to US East Coast & Europe', region: 'China & Asia', fbaRelevance: 'India #1 Container Gateway for Textiles & Crafts', isTopGateway: true },
+  { code: 'INMUN', name: 'Mundra Port', facility: 'Adani Ports Container Terminals (APSEZ)', country: 'India', countryCode: 'in', type: 'Sea Port', tradeLane: 'India to Middle East, US & Europe', region: 'China & Asia', fbaRelevance: 'Largest Private Commercial Port in India' },
+
+  // 2. North America (Primary Amazon FBA, Walmart & DTC Inbound Destinations)
+  { code: 'USLAX', name: 'Port of Los Angeles', facility: 'Pier 400 (APM), TraPac, West Basin Container', country: 'United States', countryCode: 'us', type: 'Sea Port', tradeLane: 'Transpacific Inbound (11-14 Days Transit)', region: 'North America', fbaRelevance: 'Prime Gateway for Southern California FBA (ONT8, LGB8, LAX9)', isTopGateway: true },
+  { code: 'USLGB', name: 'Port of Long Beach', facility: 'Long Beach Container Terminal (LBCT Pier E)', country: 'United States', countryCode: 'us', type: 'Sea Port', tradeLane: 'Transpacific Fully Automated Terminal', region: 'North America', fbaRelevance: 'Key Gateway for Amazon FBA & Inland Empire 3PL', isTopGateway: true },
+  { code: 'USOAK', name: 'Port of Oakland', facility: 'Oakland International Container Terminal (OICT)', country: 'United States', countryCode: 'us', type: 'Sea Port', tradeLane: 'Transpacific US West Coast (Northern California)', region: 'North America', fbaRelevance: 'Northern CA FBA Centers (OAK4, SMF1, SCK4)' },
+  { code: 'USSEA', name: 'Port of Seattle / Tacoma', facility: 'Northwest Seaport Alliance (NWSA)', country: 'United States', countryCode: 'us', type: 'Sea Port', tradeLane: 'Transpacific Pacific Northwest Inbound', region: 'North America', fbaRelevance: 'Pacific Northwest Amazon Hubs (BFI4, GEG1)' },
+  { code: 'USNYC', name: 'Port of New York & New Jersey', facility: 'Maher Terminals, APM Elizabeth, Port Newark', country: 'United States', countryCode: 'us', type: 'Sea Port', tradeLane: 'All-Water via Panama Canal & Transatlantic', region: 'North America', fbaRelevance: 'US East Coast Gateway for NJ/PA FBA (TEB9, EWR4, ABE8)', isTopGateway: true },
+  { code: 'USSAV', name: 'Port of Savannah', facility: 'Garden City Terminal (Single-Terminal Mega Hub)', country: 'United States', countryCode: 'us', type: 'Sea Port', tradeLane: 'All-Water Transpacific & Transatlantic', region: 'North America', fbaRelevance: 'Fastest-Growing East Coast Hub for Southeast FBA', isTopGateway: true },
+  { code: 'USCHS', name: 'Port of Charleston', facility: 'Wando Welch & Hugh K. Leatherman Terminals', country: 'United States', countryCode: 'us', type: 'Sea Port', tradeLane: 'Transpacific All-Water to Southeast US', region: 'North America', fbaRelevance: 'Deepest Harbor on US East Coast (52 ft)' },
+  { code: 'USORF', name: 'Port of Virginia (Norfolk)', facility: 'Norfolk International Terminals (NIT)', country: 'United States', countryCode: 'us', type: 'Sea Port', tradeLane: 'US Mid-Atlantic Rail & Ocean Gateway', region: 'North America', fbaRelevance: 'Mid-Atlantic FBA & High-Velocity Intermodal Rail' },
+  { code: 'USHOU', name: 'Port of Houston', facility: 'Bayport & Barbours Cut Container Terminals', country: 'United States', countryCode: 'us', type: 'Sea Port', tradeLane: 'US Gulf Coast via Panama Canal', region: 'North America', fbaRelevance: 'Texas & Central US Distribution (SAT1, DFW7)' },
+  { code: 'CAVAN', name: 'Port of Vancouver', facility: 'Deltaport & Centerm Terminals', country: 'Canada', countryCode: 'ca', type: 'Sea Port', tradeLane: 'Transpacific Canada Pacific Gateway', region: 'North America', fbaRelevance: 'Canada #1 Container Port for Amazon CA FBA (YVR4)', isTopGateway: true },
+  { code: 'CAPRR', name: 'Prince Rupert Port', facility: 'Fairview Container Terminal', country: 'Canada', countryCode: 'ca', type: 'Sea Port', tradeLane: 'Fastest Ocean Route from Asia to US Midwest', region: 'North America', fbaRelevance: 'Direct CN Rail to Chicago, Memphis & Toronto' },
+  { code: 'CAMTR', name: 'Port of Montreal', facility: 'Cast & Racine Container Terminals', country: 'Canada', countryCode: 'ca', type: 'Sea Port', tradeLane: 'Transatlantic & St. Lawrence Seaway', region: 'North America', fbaRelevance: 'Quebec & Eastern Canada Amazon Inbound' },
+
+  // 3. Europe (Pan-EU Sourcing, Customs Clearance & VAT Gateways)
+  { code: 'NLRTM', name: 'Port of Rotterdam', facility: 'Maasvlakte I & II (APM, ECT Delta, RWG)', country: 'Netherlands', countryCode: 'nl', type: 'Sea Port', tradeLane: 'Asia-Europe Direct & Transatlantic', region: 'Europe', fbaRelevance: 'Europe #1 Container Port; Article 23 VAT Postponement', isTopGateway: true },
+  { code: 'BEANR', name: 'Port of Antwerp-Bruges', facility: 'Europa & Deurganck Terminals', country: 'Belgium', countryCode: 'be', type: 'Sea Port', tradeLane: 'Asia-Europe & Intra-European Short Sea', region: 'Europe', fbaRelevance: 'Central European Distribution Hub & Chemical/3PL', isTopGateway: true },
+  { code: 'DEHAM', name: 'Port of Hamburg', facility: 'HHLA Burchardkai & Altenwerder (CTA)', country: 'Germany', countryCode: 'de', type: 'Sea Port', tradeLane: 'Asia-Europe & Baltic Transshipment', region: 'Europe', fbaRelevance: 'Germany Amazon FBA Direct Ocean Entry (HAM2, DTM2)', isTopGateway: true },
+  { code: 'DEBRV', name: 'Bremerhaven Port', facility: 'North Sea Terminal Bremerhaven (NTB)', country: 'Germany', countryCode: 'de', type: 'Sea Port', tradeLane: 'Automotive & Container North Sea Hub', region: 'Europe', fbaRelevance: 'German & Central European Logistics Entry' },
+  { code: 'GBFXT', name: 'Port of Felixstowe', facility: 'Trinity & Berths 8 & 9 Container Terminals', country: 'United Kingdom', countryCode: 'gb', type: 'Sea Port', tradeLane: 'Asia-Europe to UK', region: 'Europe', fbaRelevance: 'Handles 40%+ of all UK Containerized Imports & UK FBA', isTopGateway: true },
+  { code: 'GBSOU', name: 'Port of Southampton', facility: 'DP World Southampton', country: 'United Kingdom', countryCode: 'gb', type: 'Sea Port', tradeLane: 'Asia-Europe to Southern UK', region: 'Europe', fbaRelevance: 'Secondary UK Inbound Gateway with Rail Direct to Midlands' },
+  { code: 'GBLON', name: 'London Gateway Port', facility: 'DP World London Gateway (Thames Estuary)', country: 'United Kingdom', countryCode: 'gb', type: 'Sea Port', tradeLane: 'Deepwater Port Close to London Consumer Market', region: 'Europe', fbaRelevance: 'Modern Port & Massive Integrated Logistics Park' },
+  { code: 'ESVLC', name: 'Valencia Port', facility: 'Noatum & MSC Container Terminals', country: 'Spain', countryCode: 'es', type: 'Sea Port', tradeLane: 'Mediterranean Sea Hub', region: 'Europe', fbaRelevance: 'Spain Amazon FBA (MAD4, BCN1) Gateway' },
+  { code: 'GRPIR', name: 'Piraeus Port (COSCO)', facility: 'Piraeus Container Terminal (PCT)', country: 'Greece', countryCode: 'gr', type: 'Sea Port', tradeLane: 'Suez Canal to Central Europe (Silk Road Hub)', region: 'Europe', fbaRelevance: 'Fastest Ocean Connection from Suez to Balkans/EU' },
+  { code: 'PLGDN', name: 'Port of Gdansk', facility: 'Baltic Hub (DCT Gdansk Deepwater Terminal)', country: 'Poland', countryCode: 'pl', type: 'Sea Port', tradeLane: 'Direct Ocean Deepwater Calls from Asia', region: 'Europe', fbaRelevance: 'Eastern Europe & Poland Amazon FBA Gateway (WRO1)' },
+
+  // 4. Middle East Logistics Gateways
+  { code: 'AEJEA', name: 'Jebel Ali Port (Dubai)', facility: 'DP World Jebel Ali (Terminals 1, 2, 3, 4)', country: 'United Arab Emirates', countryCode: 'ae', type: 'Sea Port', tradeLane: 'Middle East, Africa & South Asia Transshipment', region: 'Middle East', fbaRelevance: 'Middle East #1 Port for Amazon AE & Noon FBN', isTopGateway: true },
+  { code: 'SADMM', name: 'King Abdulaziz Port (Dammam)', facility: 'Saudi Global Ports (SGP)', country: 'Saudi Arabia', countryCode: 'sa', type: 'Sea Port', tradeLane: 'Arabian Gulf Gateway', region: 'Middle East', fbaRelevance: 'Eastern Province & Riyadh Rail Supply Link' },
+
+  // 5. Major Global Air Cargo Hubs (Express Air & Time-Sensitive E-Com)
+  { code: 'CNPVG', name: 'Shanghai Pudong Airport', facility: 'Pudong International Cargo Terminal (PACTL)', country: 'China', countryCode: 'cn', type: 'Air Cargo', tradeLane: 'Transpacific & Europe Air Express', region: 'China & Asia', fbaRelevance: 'World #3 Air Cargo Hub; Critical for Yangtze Electronics', isTopGateway: true },
+  { code: 'HKHKG-A', name: 'Hong Kong International Airport', facility: 'SuperTerminal 1 (HACTL) & AAT', country: 'Hong Kong', countryCode: 'hk', type: 'Air Cargo', tradeLane: 'Global Express Air Hub', region: 'China & Asia', fbaRelevance: 'World #1 Busiest Air Cargo Airport; Lithium Battery Air Freight', isTopGateway: true },
+  { code: 'CNSZX-A', name: 'Shenzhen Bao\'an Airport', facility: 'International Cargo Center (ICC)', country: 'China', countryCode: 'cn', type: 'Air Cargo', tradeLane: 'Cross-Border E-Com Direct Air Line', region: 'China & Asia', fbaRelevance: 'Dedicated Shein, Temu, and Amazon Air Export Hub', isTopGateway: true },
+  { code: 'CNCAN-A', name: 'Guangzhou Baiyun Airport', facility: 'Baiyun Air Cargo Terminal', country: 'China', countryCode: 'cn', type: 'Air Cargo', tradeLane: 'Cross-Border Air to US, Europe & SE Asia', region: 'China & Asia', fbaRelevance: 'FedEx Asia-Pacific Hub & South China Air Gateway', isTopGateway: true },
+  { code: 'CNOZH-A', name: 'Zhengzhou Xinzheng Airport', facility: 'Cargolux Hub & Central China Cargo Terminal', country: 'China', countryCode: 'cn', type: 'Air Cargo', tradeLane: 'Transpacific Air & European Air Silk Road', region: 'China & Asia', fbaRelevance: 'Foxconn iPhone Air Hub & Cross-Border Air E-Commerce' },
+  { code: 'KRICN-A', name: 'Seoul Incheon Airport', facility: 'Incheon Cargo Terminal (Asiana & Korean Air Hub)', country: 'South Korea', countryCode: 'kr', type: 'Air Cargo', tradeLane: 'Transpacific Transshipment Air Hub', region: 'China & Asia', fbaRelevance: 'Fast Air Transfer Hub for North China Express Cargo' },
+  { code: 'JPNRT-A', name: 'Tokyo Narita Airport', facility: 'Nippon Cargo Airlines & JAL Cargo Center', country: 'Japan', countryCode: 'jp', type: 'Air Cargo', tradeLane: 'Transpacific Air Hub', region: 'China & Asia', fbaRelevance: 'High-Value Electronics & Amazon Japan Air Express' },
+  { code: 'TWTPE-A', name: 'Taipei Taoyuan Airport', facility: 'Taoyuan Air Cargo Terminal (TACT)', country: 'Taiwan', countryCode: 'tw', type: 'Air Cargo', tradeLane: 'Transpacific Air Express', region: 'China & Asia', fbaRelevance: 'Semiconductors & High-Tech Hardware Air Gateway' },
+  { code: 'SGSIN-A', name: 'Singapore Changi Airport', facility: 'Changi Airfreight Centre (CAC)', country: 'Singapore', countryCode: 'sg', type: 'Air Cargo', tradeLane: 'Southeast Asia Hub', region: 'China & Asia', fbaRelevance: '24/7 Free Trade Zone for Transshipment Air Cargo' },
+  { code: 'USANC-A', name: 'Anchorage Ted Stevens Airport', facility: 'Global Transpacific Refueling & Cargo Hub', country: 'United States', countryCode: 'us', type: 'Air Cargo', tradeLane: 'Asia to North America Air Bridge', region: 'North America', fbaRelevance: 'Where 80% of Asia-to-US Air Cargo refuels and clears customs', isTopGateway: true },
+  { code: 'USMEM-A', name: 'Memphis SuperHub (FedEx)', facility: 'FedEx World Hub (MEM)', country: 'United States', countryCode: 'us', type: 'Air Cargo', tradeLane: 'North American Overnight Delivery', region: 'North America', fbaRelevance: 'FedEx Global Hub; Next-day FBA delivery across US', isTopGateway: true },
+  { code: 'USSDF-A', name: 'Louisville Worldport (UPS)', facility: 'UPS Worldport All-Points Terminal', country: 'United States', countryCode: 'us', type: 'Air Cargo', tradeLane: 'North American Express Parcel Network', region: 'North America', fbaRelevance: 'UPS Global Hub; Automated Sorting for 400k packages/hr', isTopGateway: true },
+  { code: 'USLAX-A', name: 'Los Angeles International Airport', facility: 'Imperial Cargo Complex', country: 'United States', countryCode: 'us', type: 'Air Cargo', tradeLane: 'Transpacific Direct Air Inbound', region: 'North America', fbaRelevance: 'Primary Air Gateway for Southern California FBA' },
+  { code: 'USORD-A', name: 'Chicago O\'Hare Airport', facility: 'Northeast Cargo Center', country: 'United States', countryCode: 'us', type: 'Air Cargo', tradeLane: 'Midwest Air Cargo Gateway', region: 'North America', fbaRelevance: 'Central Hub for US Midwest FBA Warehouses (MDW2, ORD1)' },
+  { code: 'USJFK-A', name: 'New York JFK Airport', facility: 'JFK Air Cargo Facilities (Building 77/78)', country: 'United States', countryCode: 'us', type: 'Air Cargo', tradeLane: 'Transatlantic & Latin America Air Freight', region: 'North America', fbaRelevance: 'Tri-State Area Air Import Hub' },
+  { code: 'DEFRA-A', name: 'Frankfurt Airport', facility: 'Frankfurt CargoCity (South & North)', country: 'Germany', countryCode: 'de', type: 'Air Cargo', tradeLane: 'Europe #1 Airfreight Gateway', region: 'Europe', fbaRelevance: 'Lufthansa Cargo Hub & Pan-European Air Distribution', isTopGateway: true },
+  { code: 'GBLHR-A', name: 'London Heathrow Airport', facility: 'World Cargo Centre (Heathrow Cargo)', country: 'United Kingdom', countryCode: 'gb', type: 'Air Cargo', tradeLane: 'UK Air Trade Bridge', region: 'Europe', fbaRelevance: 'Handles 65%+ of all UK Air Cargo & High-Value Imports', isTopGateway: true },
+  { code: 'NLAMS-A', name: 'Amsterdam Airport Schiphol', facility: 'Schiphol Cargo World', country: 'Netherlands', countryCode: 'nl', type: 'Air Cargo', tradeLane: 'Central European Airfreight', region: 'Europe', fbaRelevance: 'Fast Customs bonded trucking to Germany, France & UK' },
+  { code: 'AEDXB-A', name: 'Dubai International (DXB / DWC)', facility: 'Emirates SkyCargo Mega Terminal', country: 'United Arab Emirates', countryCode: 'ae', type: 'Air Cargo', tradeLane: 'East-West Global Air Crossroads', region: 'Middle East', fbaRelevance: 'Global multimodal Sea-Air transshipment connecting Asia to Europe', isTopGateway: true },
+];
+---
+
+<BaseLayout
+  title="World Sea & Air Port Codes (UN/LOCODE Freight Directory) — Ecom Resources"
+  description="Instant UN/LOCODE seaport & airport cargo directory for Amazon FBA and 3PL freight forwarders. Lookup Yantian (CNYTN), Ningbo (CNNGB), LA (USLAX), Long Beach (USLGB), and major air hubs."
+>
+  <Header />
+
+  <!-- Breadcrumbs -->
+  <nav aria-label="Breadcrumb" class="w-full bg-white dark:bg-[#131924] border-b border-slate-200/80 dark:border-white/[0.06] py-3">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+      <a href="/" class="hover:text-brand-orange transition-colors">Home</a>
+      <span>/</span>
+      <span class="text-slate-400">Information</span>
+      <span>/</span>
+      <span class="text-slate-900 dark:text-white font-semibold">World Port Codes (UN/LOCODE)</span>
+    </div>
+  </nav>
+
+  <main class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8 flex-1">
+    <!-- Header Hero Showcase -->
+    <section class="bg-gradient-to-br from-white via-slate-50 to-cyan-50/30 dark:from-slate-950 dark:via-dark-card dark:to-[#0A1420] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-5 sm:p-7 shadow-xs">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2.5">
+            <span class="w-10 h-10 rounded-xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center font-bold text-lg shrink-0">
+              ⚓
+            </span>
+            <div>
+              <div class="flex items-center gap-2">
+                <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                  World Sea & Air Port Codes (UN/LOCODE)
+                </h1>
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30 hidden sm:inline-block">
+                  UN/CEFACT Standard
+                </span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+                Standard 5-letter UN/LOCODE freight directory of major container ports and air cargo hubs used in cross-border e-commerce, Amazon FBA shipping, and bills of lading.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Summary Stats -->
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0 self-start md:self-auto flex-wrap">
+          <div class="bg-white/80 dark:bg-white/[0.05] border border-slate-200/80 dark:border-white/10 rounded-xl px-3 py-1.5 shadow-2xs text-center">
+            <span class="text-xs text-slate-400 block font-medium">Total Hubs</span>
+            <span class="text-base font-bold text-slate-900 dark:text-white font-mono">{PORTS_AND_HUBS.length}</span>
+          </div>
+          <div class="bg-white/80 dark:bg-white/[0.05] border border-slate-200/80 dark:border-white/10 rounded-xl px-3 py-1.5 shadow-2xs text-center">
+            <span class="text-xs text-slate-400 block font-medium">Sea Ports</span>
+            <span class="text-base font-bold text-blue-600 dark:text-blue-400 font-mono">{PORTS_AND_HUBS.filter(p => p.type === 'Sea Port').length}</span>
+          </div>
+          <div class="bg-white/80 dark:bg-white/[0.05] border border-slate-200/80 dark:border-white/10 rounded-xl px-3 py-1.5 shadow-2xs text-center">
+            <span class="text-xs text-slate-400 block font-medium">Air Cargo</span>
+            <span class="text-base font-bold text-purple-600 dark:text-purple-400 font-mono">{PORTS_AND_HUBS.filter(p => p.type === 'Air Cargo').length}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search & Type Filter Bar -->
+    <section class="bg-white dark:bg-dark-card border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs space-y-4">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <!-- Live Keyword Search -->
+        <div class="relative flex-1 min-w-0 max-w-md">
+          <input
+            type="search"
+            id="port-search-input"
+            placeholder="Search by code (e.g. CNYTN, USLAX), port name, country, or trade lane..."
+            class="w-full pl-9 pr-4 py-2 text-xs sm:text-sm bg-slate-50 dark:bg-dark-elevated text-slate-900 dark:text-white placeholder-slate-400 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange/30 transition-all"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+
+        <!-- Filter Count Indicator -->
+        <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+          <span>Showing <strong id="port-match-count" class="text-slate-900 dark:text-white">{PORTS_AND_HUBS.length}</strong> of {PORTS_AND_HUBS.length} hubs</span>
+          <button
+            type="button"
+            id="reset-port-filter-btn"
+            class="hidden text-brand-orange hover:underline font-semibold cursor-pointer"
+          >
+            Clear Search
+          </button>
+        </div>
+      </div>
+
+      <!-- Filter Pills -->
+      <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-1 border-t border-slate-100 dark:border-white/[0.05]">
+        <button
+          type="button"
+          data-filter="all"
+          class="port-filter-btn active-port-filter px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap bg-brand-orange text-white shadow-xs"
+        >
+          All Hubs ({PORTS_AND_HUBS.length})
+        </button>
+        <button
+          type="button"
+          data-filter="Sea Port"
+          class="port-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5"
+        >
+          <span>🚢 Sea Ports</span>
+          <span class="text-[10px] px-1 py-0.2 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 font-mono font-bold">
+            {PORTS_AND_HUBS.filter(p => p.type === 'Sea Port').length}
+          </span>
+        </button>
+        <button
+          type="button"
+          data-filter="Air Cargo"
+          class="port-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5"
+        >
+          <span>✈️ Air Cargo</span>
+          <span class="text-[10px] px-1 py-0.2 rounded bg-purple-500/10 text-purple-600 dark:text-purple-400 font-mono font-bold">
+            {PORTS_AND_HUBS.filter(p => p.type === 'Air Cargo').length}
+          </span>
+        </button>
+        <button
+          type="button"
+          data-filter="China & Asia"
+          class="port-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all cursor-pointer whitespace-nowrap"
+        >
+          🇨🇳 China & Asia ({PORTS_AND_HUBS.filter(p => p.region === 'China & Asia').length})
+        </button>
+        <button
+          type="button"
+          data-filter="North America"
+          class="port-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all cursor-pointer whitespace-nowrap"
+        >
+          🇺🇸 North America ({PORTS_AND_HUBS.filter(p => p.region === 'North America').length})
+        </button>
+        <button
+          type="button"
+          data-filter="Europe"
+          class="port-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all cursor-pointer whitespace-nowrap"
+        >
+          🇪🇺 Europe ({PORTS_AND_HUBS.filter(p => p.region === 'Europe').length})
+        </button>
+      </div>
+    </section>
+
+    <!-- Reference Table Container -->
+    <div class="bg-white dark:bg-dark-card border border-slate-200/90 dark:border-white/[0.08] rounded-2xl overflow-hidden shadow-xs">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="bg-slate-50/90 dark:bg-white/[0.03] border-b border-slate-200/80 dark:border-white/[0.06] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider text-[11px]">
+              <th scope="col" class="py-3 px-3 sm:px-4">UN/LOCODE</th>
+              <th scope="col" class="py-3 px-3.5 sm:px-4">Port / Hub Name</th>
+              <th scope="col" class="py-3 px-3">Country</th>
+              <th scope="col" class="py-3 px-3">Type</th>
+              <th scope="col" class="py-3 px-3.5 sm:px-4 hidden lg:table-cell">Trade Lane & FBA Application</th>
+            </tr>
+          </thead>
+          <tbody id="port-table-body" class="divide-y divide-slate-100 dark:divide-white/[0.04]">
+            {
+              PORTS_AND_HUBS.map((port) => {
+                const cleanCode = port.code.replace(/-A$/, '');
+                const flagCode = port.countryCode.toLowerCase();
+                const searchKeywords = `${port.code} ${cleanCode} ${port.name} ${port.facility} ${port.country} ${port.type} ${port.tradeLane} ${port.region} ${port.fbaRelevance}`.toLowerCase();
+                const isAir = port.type === 'Air Cargo';
+
+                return (
+                  <tr
+                    class="port-row hover:bg-slate-50/80 dark:hover:bg-white/[0.02] transition-colors group"
+                    data-search={searchKeywords}
+                    data-type={port.type}
+                    data-region={port.region}
+                  >
+                    <!-- UN/LOCODE with 1-click copy -->
+                    <td class="py-3 px-3 sm:px-4 font-mono font-bold">
+                      <button
+                        type="button"
+                        class="copy-port-btn inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 dark:bg-white/[0.06] hover:bg-brand-orange/15 hover:text-brand-orange dark:hover:bg-brand-orange/20 border border-slate-200/80 dark:border-white/10 transition-all cursor-pointer font-bold text-xs group"
+                        data-copy={cleanCode}
+                        title={`Click to copy code: ${cleanCode}`}
+                      >
+                        <span class="tracking-wide text-slate-900 dark:text-white group-hover:text-brand-orange">{cleanCode}</span>
+                        <svg class="w-3 h-3 text-slate-400 group-hover:text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                      </button>
+                    </td>
+
+                    <!-- Port / Hub Name -->
+                    <td class="py-3 px-3.5 sm:px-4 font-semibold text-slate-900 dark:text-white">
+                      <div>
+                        <div class="flex items-center gap-2">
+                          <span class="text-xs sm:text-sm group-hover:text-brand-orange transition-colors">
+                            {port.name}
+                          </span>
+                          {port.isTopGateway && (
+                            <span class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 hidden sm:inline-block">
+                              Top Hub
+                            </span>
+                          )}
+                        </div>
+                        <span class="text-[11px] text-slate-400 dark:text-slate-500 font-normal block truncate max-w-sm">
+                          {port.facility}
+                        </span>
+                      </div>
+                    </td>
+
+                    <!-- Country with Flag -->
+                    <td class="py-3 px-3">
+                      <div class="flex items-center gap-2">
+                        <div class="w-5 h-3.5 rounded-2xs overflow-hidden shadow-2xs border border-black/10 dark:border-white/10 shrink-0">
+                          <img
+                            src={`https://flagcdn.com/w40/${flagCode}.png`}
+                            srcset={`https://flagcdn.com/w80/${flagCode}.png 2x`}
+                            alt={`${port.country} flag`}
+                            class="w-full h-full object-cover select-none"
+                            loading="lazy"
+                          />
+                        </div>
+                        <span class="text-xs text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                          {port.country}
+                        </span>
+                      </div>
+                    </td>
+
+                    <!-- Facility Type Badge -->
+                    <td class="py-3 px-3">
+                      <span class={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold ${
+                        isAir
+                          ? 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20'
+                          : 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20'
+                      }`}>
+                        <span>{isAir ? '✈️' : '🚢'}</span>
+                        <span>{port.type}</span>
+                      </span>
+                    </td>
+
+                    <!-- Trade Lane & FBA Relevance -->
+                    <td class="py-3 px-3.5 sm:px-4 hidden lg:table-cell text-xs text-slate-600 dark:text-slate-300">
+                      <div>
+                        <span class="font-semibold text-slate-800 dark:text-slate-200 block truncate">{port.tradeLane}</span>
+                        <span class="text-[11px] text-slate-400 dark:text-slate-500 block truncate">{port.fbaRelevance}</span>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- No Results State -->
+      <div id="no-port-results" class="hidden p-8 text-center">
+        <div class="text-3xl mb-2">🔍</div>
+        <h3 class="text-sm font-bold text-slate-900 dark:text-white">No port codes found</h3>
+        <p class="text-xs text-slate-400 mt-1">Try searching by UN/LOCODE (e.g. CNYTN, USLAX), port name, country, or trade lane.</p>
+      </div>
+    </div>
+
+    <!-- Educational Freight & Transit Knowledge Cards -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-slate-200/80 dark:border-white/[0.08]">
+      <div class="bg-white dark:bg-dark-card border border-slate-200/90 dark:border-white/[0.08] rounded-xl p-4 shadow-2xs">
+        <div class="flex items-center gap-2 mb-2 font-bold text-sm text-slate-900 dark:text-white">
+          <span class="text-brand-orange">🚢</span>
+          <span>Transpacific Sea Transit Guide</span>
+        </div>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+          Standard ocean transit from Yantian/Ningbo to US West Coast (LA/Long Beach) is <strong>11–14 days</strong>; all-water to US East Coast (Savannah/NY) via Panama Canal is <strong>24–30 days</strong>.
+        </p>
+      </div>
+
+      <div class="bg-white dark:bg-dark-card border border-slate-200/90 dark:border-white/[0.08] rounded-xl p-4 shadow-2xs">
+        <div class="flex items-center gap-2 mb-2 font-bold text-sm text-slate-900 dark:text-white">
+          <span class="text-cyan-500">📜</span>
+          <span>Decoding UN/LOCODE Syntax</span>
+        </div>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+          A UN/LOCODE is 5 alphanumeric characters: the first 2 letters designate the country (ISO 3166-1, e.g. <code class="font-mono text-cyan-600">CN</code>), and the remaining 3 identify the port (<code class="font-mono text-cyan-600">YTN</code> for Yantian).
+        </p>
+      </div>
+
+      <div class="bg-white dark:bg-dark-card border border-slate-200/90 dark:border-white/[0.08] rounded-xl p-4 shadow-2xs">
+        <div class="flex items-center gap-2 mb-2 font-bold text-sm text-slate-900 dark:text-white">
+          <span class="text-purple-500">✈️</span>
+          <span>Air Freight vs Sea Container</span>
+        </div>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+          Major air hubs like <code class="font-mono text-purple-500">PVG</code> and <code class="font-mono text-purple-500">HKG</code> provide 3–5 day airport-to-door delivery for urgent product launches and holiday stockouts.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <!-- Instant Search, Pill Filter, and 1-Click Copy Script -->
+  <script is:inline>
+    (function () {
+      const searchInput = document.getElementById('port-search-input');
+      const tableBody = document.getElementById('port-table-body');
+      const rows = tableBody ? Array.from(tableBody.querySelectorAll('.port-row')) : [];
+      const matchCountEl = document.getElementById('port-match-count');
+      const resetBtn = document.getElementById('reset-port-filter-btn');
+      const noResultsEl = document.getElementById('no-port-results');
+      const filterPills = document.querySelectorAll('.port-filter-btn');
+
+      let currentFilter = 'all';
+      let currentQuery = '';
+
+      function filterTable() {
+        const query = currentQuery.trim().toLowerCase();
+        let visibleCount = 0;
+
+        rows.forEach((row) => {
+          const rowSearch = row.getAttribute('data-search') || '';
+          const rowType = row.getAttribute('data-type') || '';
+          const rowRegion = row.getAttribute('data-region') || '';
+
+          let matchesFilter = false;
+          if (currentFilter === 'all') {
+            matchesFilter = true;
+          } else if (currentFilter === 'Sea Port' || currentFilter === 'Air Cargo') {
+            matchesFilter = rowType === currentFilter;
+          } else {
+            matchesFilter = rowRegion === currentFilter;
+          }
+
+          const matchesQuery = !query || rowSearch.includes(query);
+
+          if (matchesFilter && matchesQuery) {
+            row.style.display = '';
+            visibleCount++;
+          } else {
+            row.style.display = 'none';
+          }
+        });
+
+        if (matchCountEl) {
+          matchCountEl.textContent = String(visibleCount);
+        }
+
+        if (noResultsEl) {
+          noResultsEl.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        if (resetBtn) {
+          resetBtn.style.display = query || currentFilter !== 'all' ? 'inline-block' : 'none';
+        }
+      }
+
+      // Search input event
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          currentQuery = e.target.value;
+          filterTable();
+        });
+      }
+
+      // Filter pills events
+      filterPills.forEach((pill) => {
+        pill.addEventListener('click', () => {
+          filterPills.forEach((p) => {
+            p.classList.remove('active-port-filter', 'bg-brand-orange', 'text-white', 'shadow-xs');
+            p.classList.add('text-slate-600', 'dark:text-slate-300');
+          });
+
+          pill.classList.add('active-port-filter', 'bg-brand-orange', 'text-white', 'shadow-xs');
+          pill.classList.remove('text-slate-600', 'dark:text-slate-300');
+
+          currentFilter = pill.getAttribute('data-filter') || 'all';
+          filterTable();
+        });
+      });
+
+      // Reset button
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (searchInput) searchInput.value = '';
+          currentQuery = '';
+          currentFilter = 'all';
+          filterPills.forEach((p, i) => {
+            if (i === 0) {
+              p.classList.add('active-port-filter', 'bg-brand-orange', 'text-white', 'shadow-xs');
+              p.classList.remove('text-slate-600', 'dark:text-slate-300');
+            } else {
+              p.classList.remove('active-port-filter', 'bg-brand-orange', 'text-white', 'shadow-xs');
+              p.classList.add('text-slate-600', 'dark:text-slate-300');
+            }
+          });
+          filterTable();
+        });
+      }
+
+      // Copy Code Button Logic
+      const copyButtons = document.querySelectorAll('.copy-port-btn');
+      copyButtons.forEach((btn) => {
+        btn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          const val = btn.getAttribute('data-copy');
+          if (!val) return;
+
+          try {
+            await navigator.clipboard.writeText(val);
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = `<span class="text-emerald-600 dark:text-emerald-400 font-bold">✓ Copied!</span>`;
+            btn.classList.add('ring-2', 'ring-emerald-500/40', 'bg-emerald-50', 'dark:bg-emerald-950/40');
+
+            setTimeout(() => {
+              btn.innerHTML = originalHTML;
+              btn.classList.remove('ring-2', 'ring-emerald-500/40', 'bg-emerald-50', 'dark:bg-emerald-950/40');
+            }, 1400);
+          } catch (err) {
+            console.error('Failed to copy port code', err);
+          }
+        });
+      });
+    })();
+  </script>
+</BaseLayout>

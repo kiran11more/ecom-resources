@@ -35,11 +35,14 @@ import { SIDEBAR_CATEGORIES, TOP_NAV_CATEGORIES } from '../../data/navigation';
 
     <!-- Panel Search Bar -->
     <div class="px-4 py-3 border-b border-slate-200/60 dark:border-dark-border/80 shrink-0">
-      <form action="/search" method="get" class="relative">
+      <form action="/search" method="get" id="mobile-drawer-search-form" class="relative">
         <input
           type="search"
+          id="mobile-drawer-search-input"
           name="q"
-          placeholder="Search tools, calculators, ports..."
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="Search 59+ tools, calculators, ports..."
           class="w-full pl-9 pr-4 py-2 text-xs bg-slate-100 dark:bg-[#131924] text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 rounded-xl border border-slate-200 dark:border-white/10 focus:outline-none focus:border-brand-orange dark:focus:border-brand-orange transition-colors"
         />
         <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -48,8 +51,40 @@ import { SIDEBAR_CATEGORIES, TOP_NAV_CATEGORIES } from '../../data/navigation';
       </form>
     </div>
 
-    <!-- Panel Middle: Scrollable Navigation -->
-    <div class="flex-1 overflow-y-auto px-4 py-3 space-y-1 no-scrollbar">
+    <!-- Panel Middle: Search Results Container (Replaces nav tree when searching) -->
+    <div id="mobile-drawer-search-container" class="hidden flex-1 overflow-y-auto px-4 py-3 space-y-2 no-scrollbar">
+      <div class="flex items-center justify-between text-[11px] font-semibold text-slate-400 dark:text-slate-500 px-1 border-b border-slate-200/60 dark:border-dark-border/80 pb-2">
+        <span id="mobile-drawer-search-count">Matches</span>
+        <button
+          type="button"
+          id="mobile-drawer-search-clear"
+          class="text-brand-orange hover:underline text-[10px] cursor-pointer"
+        >
+          Clear
+        </button>
+      </div>
+
+      <!-- Injected Result Rows -->
+      <div id="mobile-drawer-search-list" class="space-y-1"></div>
+
+      <!-- Empty State -->
+      <div id="mobile-drawer-search-empty" class="hidden py-8 px-4 text-center">
+        <div class="text-2xl mb-1.5">🔍</div>
+        <p class="text-xs font-semibold text-slate-800 dark:text-slate-200" id="mobile-drawer-empty-text">No matching tools found</p>
+        <p class="text-[11px] text-slate-400 dark:text-slate-500 mt-1">Try keywords like Amazon, Sourcing, Helium 10, or FBA</p>
+        <button
+          type="button"
+          data-open-submit-modal
+          onclick="window.closeMobileDrawer && window.closeMobileDrawer()"
+          class="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-brand-orange hover:text-brand-orangeHover transition-colors cursor-pointer"
+        >
+          <span>+ Submit a Missing Tool</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Panel Middle: Scrollable Navigation Tree -->
+    <div id="mobile-drawer-nav-tree" class="flex-1 overflow-y-auto px-4 py-3 space-y-1 no-scrollbar">
       <!-- Quick Hub Links: Tools & Information -->
       <div class="pb-2 space-y-1 border-b border-slate-200/60 dark:border-dark-border/80 mb-2">
         <a
@@ -100,7 +135,7 @@ import { SIDEBAR_CATEGORIES, TOP_NAV_CATEGORIES } from '../../data/navigation';
                     {nav.children?.map((sub) => (
                       <li>
                         <a
-                          href={`/#${sub.slug}`}
+                          href={sub.url || `/#${sub.slug}`}
                           class="block py-1.5 px-2 rounded text-xs text-slate-600 dark:text-slate-400 hover:text-brand-orange dark:hover:text-brand-orange transition-colors truncate"
                         >
                           {sub.name}
@@ -147,7 +182,7 @@ import { SIDEBAR_CATEGORIES, TOP_NAV_CATEGORIES } from '../../data/navigation';
                     {cat.items?.map((sub) => (
                       <li>
                         <a
-                          href={`/#${sub.slug}`}
+                          href={sub.url || `/#${sub.slug}`}
                           class="block py-1.5 px-2 rounded text-xs text-slate-600 dark:text-slate-400 hover:text-brand-orange dark:hover:text-brand-orange transition-colors truncate"
                         >
                           {sub.name}
@@ -186,12 +221,14 @@ import { SIDEBAR_CATEGORIES, TOP_NAV_CATEGORIES } from '../../data/navigation';
         <span>Login / Register</span>
       </a>
 
-      <a
-        href="#submit"
-        class="w-full flex items-center justify-center py-2.5 px-4 rounded-xl bg-brand-orange hover:bg-brand-orangeHover text-white text-xs font-bold uppercase tracking-wider shadow-sm transition-colors"
+      <button
+        type="button"
+        data-open-submit-modal
+        onclick="window.closeMobileDrawer && window.closeMobileDrawer()"
+        class="w-full flex items-center justify-center py-2.5 px-4 rounded-xl bg-brand-orange hover:bg-brand-orangeHover text-white text-xs font-bold uppercase tracking-wider shadow-sm transition-colors cursor-pointer"
       >
         List Resource
-      </a>
+      </button>
     </div>
   </aside>
 </div>
@@ -248,5 +285,166 @@ import { SIDEBAR_CATEGORIES, TOP_NAV_CATEGORIES } from '../../data/navigation';
     drawer.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', closeDrawer);
     });
+
+    // --- Mobile Drawer Live Search ---
+    const searchForm = document.getElementById('mobile-drawer-search-form');
+    const searchInput = document.getElementById('mobile-drawer-search-input');
+    const navTree = document.getElementById('mobile-drawer-nav-tree');
+    const searchContainer = document.getElementById('mobile-drawer-search-container');
+    const searchList = document.getElementById('mobile-drawer-search-list');
+    const searchCount = document.getElementById('mobile-drawer-search-count');
+    const searchEmpty = document.getElementById('mobile-drawer-search-empty');
+    const searchEmptyText = document.getElementById('mobile-drawer-empty-text');
+    const clearBtn = document.getElementById('mobile-drawer-search-clear');
+
+    let cachedIndex = null;
+    function getSearchIndex() {
+      if (!cachedIndex) {
+        const el = document.getElementById('directory-search-index');
+        if (el) {
+          try {
+            cachedIndex = JSON.parse(el.textContent || '[]');
+          } catch (err) {
+            console.error('Error parsing search index in drawer:', err);
+            cachedIndex = [];
+          }
+        }
+      }
+      return cachedIndex || [];
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function filterResources(query) {
+      const q = query.trim().toLowerCase();
+      if (!q) return [];
+      const tokens = q.split(/\s+/).filter(Boolean);
+      const index = getSearchIndex();
+      return index.filter((item) => {
+        const haystack = `${item.name} ${item.category} ${item.description || ''} ${item.pricing || ''} ${(item.tags || []).join(' ')}`.toLowerCase();
+        return tokens.every((token) => haystack.includes(token));
+      });
+    }
+
+    function renderDrawerResultItem(item) {
+      const targetHref = item.internalUrl || (item.hasDetailPage ? `/resources/${item.slug}` : item.url);
+      const isExternal = !item.internalUrl && !item.hasDetailPage;
+      const targetAttr = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
+
+      const pricingClasses = {
+        Free: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20',
+        Freemium: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20',
+        Paid: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20',
+        Promo: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20',
+      }[item.pricing] || 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20';
+
+      const verifiedSvg = item.isVerified
+        ? `<span class="inline-flex items-center text-blue-500 shrink-0" title="Verified Resource">
+             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"/></svg>
+           </span>`
+        : '';
+
+      const iconSvg = isExternal
+        ? `<svg class="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>`
+        : `<svg class="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>`;
+
+      return `
+        <a
+          href="${targetHref}"
+          ${targetAttr}
+          data-drawer-result-link
+          class="flex items-start justify-between gap-2.5 p-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.03] hover:bg-slate-100 dark:hover:bg-white/[0.06] border border-slate-200/50 dark:border-white/5 transition-colors"
+        >
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <span class="font-bold text-xs text-slate-900 dark:text-white">
+                ${escapeHtml(item.name)}
+              </span>
+              ${verifiedSvg}
+              <span class="text-[10px] font-semibold px-1.5 py-0.2 rounded border ${pricingClasses}">
+                ${escapeHtml(item.pricing || 'Free')}
+              </span>
+              <span class="text-[10px] font-medium text-slate-500 dark:text-slate-400 bg-white dark:bg-white/[0.05] px-1.5 py-0.2 rounded truncate max-w-[130px]">
+                ${escapeHtml(item.category)}
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">
+              ${escapeHtml(item.description || '')}
+            </p>
+          </div>
+          ${iconSvg}
+        </a>
+      `;
+    }
+
+    function clearSearch() {
+      if (searchInput) searchInput.value = '';
+      if (navTree) navTree.classList.remove('hidden');
+      if (searchContainer) searchContainer.classList.add('hidden');
+      if (searchList) searchList.innerHTML = '';
+      if (searchEmpty) searchEmpty.classList.add('hidden');
+    }
+
+    if (clearBtn) clearBtn.addEventListener('click', clearSearch);
+
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        const q = searchInput.value.trim();
+        if (!q) {
+          clearSearch();
+          return;
+        }
+
+        if (navTree) navTree.classList.add('hidden');
+        if (searchContainer) searchContainer.classList.remove('hidden');
+
+        const results = filterResources(q);
+        if (searchCount) {
+          searchCount.textContent = `${results.length} tool${results.length === 1 ? '' : 's'} found`;
+        }
+
+        if (results.length > 0) {
+          if (searchList) {
+            searchList.classList.remove('hidden');
+            searchList.innerHTML = results.map(renderDrawerResultItem).join('');
+            // Hook click handlers so result clicks close the drawer
+            searchList.querySelectorAll('a[data-drawer-result-link]').forEach((a) => {
+              a.addEventListener('click', closeDrawer);
+            });
+          }
+          if (searchEmpty) searchEmpty.classList.add('hidden');
+        } else {
+          if (searchList) searchList.classList.add('hidden');
+          if (searchEmpty) searchEmpty.classList.remove('hidden');
+          if (searchEmptyText) searchEmptyText.textContent = `No tools found for "${q}"`;
+        }
+      });
+    }
+
+    if (searchForm) {
+      searchForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const q = searchInput?.value.trim() || '';
+        const results = filterResources(q);
+        if (results.length > 0) {
+          const top = results[0];
+          const href = top.hasDetailPage ? (top.internalUrl || `/resources/${top.slug}`) : top.url;
+          closeDrawer();
+          if (top.hasDetailPage) {
+            window.location.href = href;
+          } else {
+            window.open(href, '_blank', 'noopener,noreferrer');
+          }
+        }
+      });
+    }
   })();
 </script>

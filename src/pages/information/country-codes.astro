@@ -1,0 +1,505 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+
+// 70+ Key Cross-Border E-Commerce, Sourcing & Manufacturing Countries
+interface CountryCodeItem {
+  name: string;
+  code: string; // ISO-2
+  iso3: string;
+  dial: string;
+  currency: string;
+  currencySymbol: string;
+  region: 'Asia-Pacific' | 'North America' | 'Europe' | 'Middle East & LATAM';
+  hubType: string;
+  isPopular?: boolean;
+}
+
+const COUNTRIES: CountryCodeItem[] = [
+  // 1. North America
+  { name: 'United States', code: 'US', iso3: 'USA', dial: '+1', currency: 'USD', currencySymbol: '$', region: 'North America', hubType: 'Primary E-Com Market', isPopular: true },
+  { name: 'Canada', code: 'CA', iso3: 'CAN', dial: '+1', currency: 'CAD', currencySymbol: 'CA$', region: 'North America', hubType: 'Major Amazon & Shopify Market', isPopular: true },
+
+  // 2. Asia-Pacific
+  { name: 'China', code: 'CN', iso3: 'CHN', dial: '+86', currency: 'CNY', currencySymbol: '¥', region: 'Asia-Pacific', hubType: 'Global Manufacturing & 1688 Hub', isPopular: true },
+  { name: 'Hong Kong', code: 'HK', iso3: 'HKG', dial: '+852', currency: 'HKD', currencySymbol: 'HK$', region: 'Asia-Pacific', hubType: 'Global Air Cargo & Finance Hub', isPopular: true },
+  { name: 'Taiwan', code: 'TW', iso3: 'TWN', dial: '+886', currency: 'TWD', currencySymbol: 'NT$', region: 'Asia-Pacific', hubType: 'High-Tech & Electronics Hub', isPopular: true },
+  { name: 'Japan', code: 'JP', iso3: 'JPN', dial: '+81', currency: 'JPY', currencySymbol: '¥', region: 'Asia-Pacific', hubType: 'Top Amazon & Rakuten Market', isPopular: true },
+  { name: 'South Korea', code: 'KR', iso3: 'KOR', dial: '+82', currency: 'KRW', currencySymbol: '₩', region: 'Asia-Pacific', hubType: 'Coupang & Consumer Tech Hub', isPopular: true },
+  { name: 'Singapore', code: 'SG', iso3: 'SGP', dial: '+65', currency: 'SGD', currencySymbol: 'S$', region: 'Asia-Pacific', hubType: 'Southeast Asia Regional HQ', isPopular: true },
+  { name: 'Vietnam', code: 'VN', iso3: 'VNM', dial: '+84', currency: 'VND', currencySymbol: '₫', region: 'Asia-Pacific', hubType: 'Apparel & Sourcing Alternative', isPopular: true },
+  { name: 'India', code: 'IN', iso3: 'IND', dial: '+91', currency: 'INR', currencySymbol: '₹', region: 'Asia-Pacific', hubType: 'Textiles, Crafts & IT Hub', isPopular: true },
+  { name: 'Australia', code: 'AU', iso3: 'AUS', dial: '+61', currency: 'AUD', currencySymbol: 'A$', region: 'Asia-Pacific', hubType: 'Fast-Growing Amazon Market', isPopular: true },
+  { name: 'New Zealand', code: 'NZ', iso3: 'NZL', dial: '+64', currency: 'NZD', currencySymbol: 'NZ$', region: 'Asia-Pacific', hubType: 'Oceania Regional Market' },
+  { name: 'Malaysia', code: 'MY', iso3: 'MYS', dial: '+60', currency: 'MYR', currencySymbol: 'RM', region: 'Asia-Pacific', hubType: 'Shopee & Lazada Logistics Hub' },
+  { name: 'Thailand', code: 'TH', iso3: 'THA', dial: '+66', currency: 'THB', currencySymbol: '฿', region: 'Asia-Pacific', hubType: 'Auto Parts & Food Packaging' },
+  { name: 'Indonesia', code: 'ID', iso3: 'IDN', dial: '+62', currency: 'IDR', currencySymbol: 'Rp', region: 'Asia-Pacific', hubType: 'TikTok Shop & Tokopedia Market' },
+  { name: 'Philippines', code: 'PH', iso3: 'PHL', dial: '+63', currency: 'PHP', currencySymbol: '₱', region: 'Asia-Pacific', hubType: 'BPO, Virtual Staff & E-Com' },
+  { name: 'Pakistan', code: 'PK', iso3: 'PAK', dial: '+92', currency: 'PKR', currencySymbol: '₨', region: 'Asia-Pacific', hubType: 'Surgical Gear & Sports Goods' },
+  { name: 'Bangladesh', code: 'BD', iso3: 'BGD', dial: '+880', currency: 'BDT', currencySymbol: '৳', region: 'Asia-Pacific', hubType: 'Apparel & Garment Manufacturing' },
+  { name: 'Sri Lanka', code: 'LK', iso3: 'LKA', dial: '+94', currency: 'LKR', currencySymbol: 'Rs', region: 'Asia-Pacific', hubType: 'Apparel & Rubber Products' },
+  { name: 'Cambodia', code: 'KH', iso3: 'KHM', dial: '+855', currency: 'KHR', currencySymbol: '៛', region: 'Asia-Pacific', hubType: 'Garments & Footwear Sourcing' },
+  { name: 'Kazakhstan', code: 'KZ', iso3: 'KAZ', dial: '+7', currency: 'KZT', currencySymbol: '₸', region: 'Asia-Pacific', hubType: 'Central Asia Transit Hub' },
+
+  // 3. Europe
+  { name: 'United Kingdom', code: 'GB', iso3: 'GBR', dial: '+44', currency: 'GBP', currencySymbol: '£', region: 'Europe', hubType: 'Europe #1 E-Commerce Market', isPopular: true },
+  { name: 'Germany', code: 'DE', iso3: 'DEU', dial: '+49', currency: 'EUR', currencySymbol: '€', region: 'Europe', hubType: 'EU #1 Amazon Marketplace & 3PL', isPopular: true },
+  { name: 'France', code: 'FR', iso3: 'FRA', dial: '+33', currency: 'EUR', currencySymbol: '€', region: 'Europe', hubType: 'Pan-EU Fulfillment Center', isPopular: true },
+  { name: 'Italy', code: 'IT', iso3: 'ITA', dial: '+39', currency: 'EUR', currencySymbol: '€', region: 'Europe', hubType: 'Major Amazon & Fashion Market', isPopular: true },
+  { name: 'Spain', code: 'ES', iso3: 'ESP', dial: '+34', currency: 'EUR', currencySymbol: '€', region: 'Europe', hubType: 'Southern Europe Logistics Gate', isPopular: true },
+  { name: 'Netherlands', code: 'NL', iso3: 'NLD', dial: '+31', currency: 'EUR', currencySymbol: '€', region: 'Europe', hubType: 'European Customs & Port Gateway', isPopular: true },
+  { name: 'Poland', code: 'PL', iso3: 'POL', dial: '+48', currency: 'PLN', currencySymbol: 'zł', region: 'Europe', hubType: 'Allegro Hub & Amazon Warehousing', isPopular: true },
+  { name: 'Sweden', code: 'SE', iso3: 'SWE', dial: '+46', currency: 'SEK', currencySymbol: 'kr', region: 'Europe', hubType: 'Nordic E-Commerce Gateway' },
+  { name: 'Belgium', code: 'BE', iso3: 'BEL', dial: '+32', currency: 'EUR', currencySymbol: '€', region: 'Europe', hubType: 'Central EU Air Freight & 3PL' },
+  { name: 'Switzerland', code: 'CH', iso3: 'CHE', dial: '+41', currency: 'CHF', currencySymbol: 'CHF', region: 'Europe', hubType: 'High-AOV Luxury Market' },
+  { name: 'Austria', code: 'AT', iso3: 'AUT', dial: '+43', currency: 'EUR', currencySymbol: '€', region: 'Europe', hubType: 'Central Europe Fulfillment' },
+  { name: 'Ireland', code: 'IE', iso3: 'IRL', dial: '+353', currency: 'EUR', currencySymbol: '€', region: 'Europe', hubType: 'Tech & Cross-Border Headquarters' },
+  { name: 'Czech Republic', code: 'CZ', iso3: 'CZE', dial: '+420', currency: 'CZK', currencySymbol: 'Kč', region: 'Europe', hubType: 'Central Europe Amazon Fulfillment' },
+  { name: 'Denmark', code: 'DK', iso3: 'DNK', dial: '+45', currency: 'DKK', currencySymbol: 'kr', region: 'Europe', hubType: 'Nordic Digital Commerce' },
+  { name: 'Norway', code: 'NO', iso3: 'NOR', dial: '+47', currency: 'NOK', currencySymbol: 'kr', region: 'Europe', hubType: 'High-Income Nordic Market' },
+  { name: 'Finland', code: 'FI', iso3: 'FIN', dial: '+358', currency: 'EUR', currencySymbol: '€', region: 'Europe', hubType: 'Northern European Consumer Hub' },
+  { name: 'Portugal', code: 'PT', iso3: 'PRT', dial: '+351', currency: 'EUR', currencySymbol: '€', region: 'Europe', hubType: 'Iberian Peninsula Fulfillment' },
+  { name: 'Greece', code: 'GR', iso3: 'GRC', dial: '+30', currency: 'EUR', currencySymbol: '€', region: 'Europe', hubType: 'Piraeus Port & Mediterranean' },
+  { name: 'Romania', code: 'RO', iso3: 'ROU', dial: '+40', currency: 'RON', currencySymbol: 'lei', region: 'Europe', hubType: 'Eastern European E-Com Growth' },
+  { name: 'Hungary', code: 'HU', iso3: 'HUN', dial: '+36', currency: 'HUF', currencySymbol: 'Ft', region: 'Europe', hubType: 'Central European Cross-Docking' },
+  { name: 'Turkey', code: 'TR', iso3: 'TUR', dial: '+90', currency: 'TRY', currencySymbol: '₺', region: 'Europe', hubType: 'Nearshore Textiles & Amazon TR', isPopular: true },
+  { name: 'Luxembourg', code: 'LU', iso3: 'LUX', dial: '+352', currency: 'EUR', currencySymbol: '€', region: 'Europe', hubType: 'Amazon European HQ & Tax Hub' },
+  { name: 'Slovakia', code: 'SK', iso3: 'SVK', dial: '+421', currency: 'EUR', currencySymbol: '€', region: 'Europe', hubType: 'Automotive & Electronics Parts' },
+  { name: 'Bulgaria', code: 'BG', iso3: 'BGR', dial: '+359', currency: 'BGN', currencySymbol: 'лв', region: 'Europe', hubType: 'Southeast Europe Sourcing' },
+  { name: 'Croatia', code: 'HR', iso3: 'HRV', dial: '+385', currency: 'EUR', currencySymbol: '€', region: 'Europe', hubType: 'Adriatic Shipping Gateway' },
+  { name: 'Lithuania', code: 'LT', iso3: 'LTU', dial: '+370', currency: 'EUR', currencySymbol: '€', region: 'Europe', hubType: 'Baltic Logistics & FinTech' },
+  { name: 'Slovenia', code: 'SI', iso3: 'SVN', dial: '+386', currency: 'EUR', currencySymbol: '€', region: 'Europe', hubType: 'Koper Port Maritime Hub' },
+  { name: 'Latvia', code: 'LV', iso3: 'LVA', dial: '+371', currency: 'EUR', currencySymbol: '€', region: 'Europe', hubType: 'Baltic Fulfillment Node' },
+  { name: 'Estonia', code: 'EE', iso3: 'EST', dial: '+372', currency: 'EUR', currencySymbol: '€', region: 'Europe', hubType: 'E-Residency & Digital Commerce' },
+  { name: 'Cyprus', code: 'CY', iso3: 'CYP', dial: '+357', currency: 'EUR', currencySymbol: '€', region: 'Europe', hubType: 'Eastern Mediterranean Shipping' },
+  { name: 'Malta', code: 'MT', iso3: 'MLT', dial: '+356', currency: 'EUR', currencySymbol: '€', region: 'Europe', hubType: 'Mediterranean Free Port' },
+
+  // 4. Middle East & LATAM
+  { name: 'Mexico', code: 'MX', iso3: 'MEX', dial: '+52', currency: 'MXN', currencySymbol: '$', region: 'Middle East & LATAM', hubType: 'Nearshoring to US & Amazon MX', isPopular: true },
+  { name: 'Brazil', code: 'BR', iso3: 'BRA', dial: '+55', currency: 'BRL', currencySymbol: 'R$', region: 'Middle East & LATAM', hubType: 'LATAM #1 E-Commerce Market', isPopular: true },
+  { name: 'United Arab Emirates', code: 'AE', iso3: 'ARE', dial: '+971', currency: 'AED', currencySymbol: 'AED', region: 'Middle East & LATAM', hubType: 'Amazon AE, Noon & Jebel Ali Hub', isPopular: true },
+  { name: 'Saudi Arabia', code: 'SA', iso3: 'SAU', dial: '+966', currency: 'SAR', currencySymbol: 'SAR', region: 'Middle East & LATAM', hubType: 'Amazon SA & Gulf High-AOV', isPopular: true },
+  { name: 'Israel', code: 'IL', iso3: 'ISR', dial: '+972', currency: 'ILS', currencySymbol: '₪', region: 'Middle East & LATAM', hubType: 'Tech & Cross-Border DTC' },
+  { name: 'Chile', code: 'CL', iso3: 'CHL', dial: '+56', currency: 'CLP', currencySymbol: '$', region: 'Middle East & LATAM', hubType: 'South America Pacific Gateway' },
+  { name: 'Colombia', code: 'CO', iso3: 'COL', dial: '+57', currency: 'COP', currencySymbol: '$', region: 'Middle East & LATAM', hubType: 'MercadoLibre & Andean Hub' },
+  { name: 'Argentina', code: 'AR', iso3: 'ARG', dial: '+54', currency: 'ARS', currencySymbol: '$', region: 'Middle East & LATAM', hubType: 'MercadoLibre Sourcing Base' },
+  { name: 'Peru', code: 'PE', iso3: 'PER', dial: '+51', currency: 'PEN', currencySymbol: 'S/', region: 'Middle East & LATAM', hubType: 'Pima Cotton & Minerals' },
+  { name: 'Egypt', code: 'EG', iso3: 'EGY', dial: '+20', currency: 'EGP', currencySymbol: 'E£', region: 'Middle East & LATAM', hubType: 'Amazon Egypt & Suez Canal' },
+  { name: 'South Africa', code: 'ZA', iso3: 'ZAF', dial: '+27', currency: 'ZAR', currencySymbol: 'R', region: 'Middle East & LATAM', hubType: 'Amazon South Africa Market', isPopular: true },
+  { name: 'Qatar', code: 'QA', iso3: 'QAT', dial: '+974', currency: 'QAR', currencySymbol: 'QR', region: 'Middle East & LATAM', hubType: 'Air Cargo Transit Hub' },
+  { name: 'Kuwait', code: 'KW', iso3: 'KWT', dial: '+965', currency: 'KWD', currencySymbol: 'KD', region: 'Middle East & LATAM', hubType: 'Gulf Consumer Market' },
+  { name: 'Bahrain', code: 'BH', iso3: 'BHR', dial: '+973', currency: 'BHD', currencySymbol: 'BD', region: 'Middle East & LATAM', hubType: 'Bahrain Logistics Hub' },
+  { name: 'Oman', code: 'OM', iso3: 'OMN', dial: '+968', currency: 'OMR', currencySymbol: 'OMR', region: 'Middle East & LATAM', hubType: 'Salalah Port Gateway' },
+  { name: 'Morocco', code: 'MA', iso3: 'MAR', dial: '+212', currency: 'MAD', currencySymbol: 'DH', region: 'Middle East & LATAM', hubType: 'Tanger Med & Nearshore Apparel' },
+  { name: 'Costa Rica', code: 'CR', iso3: 'CRI', dial: '+506', currency: 'CRC', currencySymbol: '₡', region: 'Middle East & LATAM', hubType: 'Central America Medical/Tech' },
+  { name: 'Panama', code: 'PA', iso3: 'PAN', dial: '+507', currency: 'USD', currencySymbol: '$', region: 'Middle East & LATAM', hubType: 'Panama Canal & Colon Free Zone' },
+];
+---
+
+<BaseLayout
+  title="Country & ISO Codes Directory (ISO 3166-1) — Ecom Resources"
+  description="Searchable reference directory of 70+ cross-border e-commerce countries with official ISO-2, ISO-3, international dialing codes, and local currencies. Instant 1-click copy."
+>
+  <Header />
+
+  <!-- Breadcrumbs -->
+  <nav aria-label="Breadcrumb" class="w-full bg-white dark:bg-[#131924] border-b border-slate-200/80 dark:border-white/[0.06] py-3">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+      <a href="/" class="hover:text-brand-orange transition-colors">Home</a>
+      <span>/</span>
+      <span class="text-slate-400">Information</span>
+      <span>/</span>
+      <span class="text-slate-900 dark:text-white font-semibold">Country & ISO Codes</span>
+    </div>
+  </nav>
+
+  <main class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8 flex-1">
+    <!-- Header Hero Showcase -->
+    <section class="bg-gradient-to-br from-white via-slate-50 to-blue-50/30 dark:from-slate-950 dark:via-dark-card dark:to-[#0D1524] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-5 sm:p-7 shadow-xs">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2.5">
+            <span class="w-10 h-10 rounded-xl bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-lg shrink-0">
+              🌍
+            </span>
+            <div>
+              <div class="flex items-center gap-2">
+                <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                  Global Country & ISO Codes Directory
+                </h1>
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30 hidden sm:inline-block">
+                  ISO 3166-1
+                </span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+                Standard two-letter (Alpha-2), three-letter (Alpha-3), calling codes, and currency codes for international customs, Amazon FBA shipment labels, and carrier declarations.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Summary Stats -->
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0 self-start md:self-auto flex-wrap">
+          <div class="bg-white/80 dark:bg-white/[0.05] border border-slate-200/80 dark:border-white/10 rounded-xl px-3 py-1.5 shadow-2xs text-center">
+            <span class="text-xs text-slate-400 block font-medium">Countries</span>
+            <span class="text-base font-bold text-slate-900 dark:text-white font-mono">{COUNTRIES.length}</span>
+          </div>
+          <div class="bg-white/80 dark:bg-white/[0.05] border border-slate-200/80 dark:border-white/10 rounded-xl px-3 py-1.5 shadow-2xs text-center">
+            <span class="text-xs text-slate-400 block font-medium">Regions</span>
+            <span class="text-base font-bold text-slate-900 dark:text-white font-mono">4</span>
+          </div>
+          <div class="bg-white/80 dark:bg-white/[0.05] border border-slate-200/80 dark:border-white/10 rounded-xl px-3 py-1.5 shadow-2xs text-center">
+            <span class="text-xs text-slate-400 block font-medium">Currencies</span>
+            <span class="text-base font-bold text-slate-900 dark:text-white font-mono">40+</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search & Region Filters Bar -->
+    <section class="bg-white dark:bg-dark-card border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs space-y-4">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <!-- Live Keyword Search -->
+        <div class="relative flex-1 min-w-0 max-w-md">
+          <input
+            type="search"
+            id="country-search-input"
+            placeholder="Search by country, ISO (e.g. US, CN), dial code (+86), currency..."
+            class="w-full pl-9 pr-4 py-2 text-xs sm:text-sm bg-slate-50 dark:bg-dark-elevated text-slate-900 dark:text-white placeholder-slate-400 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange/30 transition-all"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+
+        <!-- Filter Count Indicator -->
+        <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+          <span>Showing <strong id="filter-match-count" class="text-slate-900 dark:text-white">{COUNTRIES.length}</strong> of {COUNTRIES.length} countries</span>
+          <button
+            type="button"
+            id="reset-filter-btn"
+            class="hidden text-brand-orange hover:underline font-semibold cursor-pointer"
+          >
+            Clear Search
+          </button>
+        </div>
+      </div>
+
+      <!-- Region Filter Tabs -->
+      <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-1 border-t border-slate-100 dark:border-white/[0.05]">
+        <button
+          type="button"
+          data-region="All"
+          class="region-tab-btn active-region-tab px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap bg-brand-orange text-white shadow-xs"
+        >
+          All Regions ({COUNTRIES.length})
+        </button>
+        <button
+          type="button"
+          data-region="Asia-Pacific"
+          class="region-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all cursor-pointer whitespace-nowrap"
+        >
+          🌏 Asia-Pacific ({COUNTRIES.filter((c) => c.region === 'Asia-Pacific').length})
+        </button>
+        <button
+          type="button"
+          data-region="North America"
+          class="region-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all cursor-pointer whitespace-nowrap"
+        >
+          🌎 North America ({COUNTRIES.filter((c) => c.region === 'North America').length})
+        </button>
+        <button
+          type="button"
+          data-region="Europe"
+          class="region-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all cursor-pointer whitespace-nowrap"
+        >
+          🌍 Europe ({COUNTRIES.filter((c) => c.region === 'Europe').length})
+        </button>
+        <button
+          type="button"
+          data-region="Middle East & LATAM"
+          class="region-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all cursor-pointer whitespace-nowrap"
+        >
+          🌐 Middle East & LATAM ({COUNTRIES.filter((c) => c.region === 'Middle East & LATAM').length})
+        </button>
+      </div>
+    </section>
+
+    <!-- Reference Table Container -->
+    <div class="bg-white dark:bg-dark-card border border-slate-200/90 dark:border-white/[0.08] rounded-2xl overflow-hidden shadow-xs">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="bg-slate-50/90 dark:bg-white/[0.03] border-b border-slate-200/80 dark:border-white/[0.06] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider text-[11px]">
+              <th scope="col" class="py-3 px-3.5 sm:px-4">Country / Territory</th>
+              <th scope="col" class="py-3 px-3">ISO-2 (Alpha-2)</th>
+              <th scope="col" class="py-3 px-3">ISO-3 (Alpha-3)</th>
+              <th scope="col" class="py-3 px-3">Dialing Code</th>
+              <th scope="col" class="py-3 px-3">Currency</th>
+              <th scope="col" class="py-3 px-3.5 sm:px-4 hidden md:table-cell">Region & Hub Focus</th>
+            </tr>
+          </thead>
+          <tbody id="country-table-body" class="divide-y divide-slate-100 dark:divide-white/[0.04]">
+            {
+              COUNTRIES.map((country) => {
+                const flagCode = country.code.toLowerCase();
+                const searchKeywords = `${country.name} ${country.code} ${country.iso3} ${country.dial} ${country.currency} ${country.region} ${country.hubType}`.toLowerCase();
+                return (
+                  <tr
+                    class="country-row hover:bg-slate-50/80 dark:hover:bg-white/[0.02] transition-colors group"
+                    data-search={searchKeywords}
+                    data-region={country.region}
+                  >
+                    <!-- Country with Flag -->
+                    <td class="py-3 px-3.5 sm:px-4 font-semibold text-slate-900 dark:text-white">
+                      <div class="flex items-center gap-2.5">
+                        <div class="w-6 h-4 rounded-2xs overflow-hidden shadow-2xs border border-black/10 dark:border-white/10 shrink-0">
+                          <img
+                            src={`https://flagcdn.com/w40/${flagCode}.png`}
+                            srcset={`https://flagcdn.com/w80/${flagCode}.png 2x`}
+                            alt={`${country.name} flag`}
+                            class="w-full h-full object-cover select-none"
+                            loading="lazy"
+                          />
+                        </div>
+                        <span class="text-xs sm:text-sm group-hover:text-brand-orange transition-colors">
+                          {country.name}
+                        </span>
+                        {country.isPopular && (
+                          <span class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 hidden sm:inline-block">
+                            Top Hub
+                          </span>
+                        )}
+                      </div>
+                    </td>
+
+                    <!-- ISO-2 with 1-click copy -->
+                    <td class="py-3 px-3 font-mono font-bold text-slate-800 dark:text-slate-100">
+                      <button
+                        type="button"
+                        class="copy-code-btn inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-slate-100 dark:bg-white/[0.06] hover:bg-brand-orange/15 hover:text-brand-orange dark:hover:bg-brand-orange/20 border border-slate-200/80 dark:border-white/10 transition-all cursor-pointer font-bold text-xs"
+                        data-copy={country.code}
+                        title={`Copy ISO-2 code: ${country.code}`}
+                      >
+                        <span>{country.code}</span>
+                        <svg class="w-3 h-3 text-slate-400 group-hover:text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                      </button>
+                    </td>
+
+                    <!-- ISO-3 with 1-click copy -->
+                    <td class="py-3 px-3 font-mono text-slate-700 dark:text-slate-300">
+                      <button
+                        type="button"
+                        class="copy-code-btn inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-slate-100 dark:bg-white/[0.06] hover:bg-brand-orange/15 hover:text-brand-orange dark:hover:bg-brand-orange/20 border border-slate-200/80 dark:border-white/10 transition-all cursor-pointer font-bold text-xs"
+                        data-copy={country.iso3}
+                        title={`Copy ISO-3 code: ${country.iso3}`}
+                      >
+                        <span>{country.iso3}</span>
+                        <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                      </button>
+                    </td>
+
+                    <!-- Dial Code with 1-click copy -->
+                    <td class="py-3 px-3 font-mono text-slate-600 dark:text-slate-300">
+                      <button
+                        type="button"
+                        class="copy-code-btn inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-slate-100 dark:bg-white/[0.06] hover:bg-brand-orange/15 hover:text-brand-orange dark:hover:bg-brand-orange/20 border border-slate-200/80 dark:border-white/10 transition-all cursor-pointer text-xs"
+                        data-copy={country.dial}
+                        title={`Copy dial code: ${country.dial}`}
+                      >
+                        <span>{country.dial}</span>
+                        <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                      </button>
+                    </td>
+
+                    <!-- Currency Code & Symbol -->
+                    <td class="py-3 px-3">
+                      <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md font-mono text-xs font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                        <span>{country.currency}</span>
+                        <span class="text-slate-400 font-normal">({country.currencySymbol})</span>
+                      </span>
+                    </td>
+
+                    <!-- Region & Hub Focus -->
+                    <td class="py-3 px-3.5 sm:px-4 hidden md:table-cell text-slate-500 dark:text-slate-400 text-xs">
+                      <div>
+                        <span class="font-medium text-slate-700 dark:text-slate-300">{country.region}</span>
+                        <span class="text-[11px] text-slate-400 block truncate">{country.hubType}</span>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- No Results State -->
+      <div id="no-country-results" class="hidden p-8 text-center">
+        <div class="text-3xl mb-2">🔍</div>
+        <h3 class="text-sm font-bold text-slate-900 dark:text-white">No countries found</h3>
+        <p class="text-xs text-slate-400 mt-1">Try searching by country name, ISO code (e.g. US, CN), dial code, or currency.</p>
+      </div>
+    </div>
+
+    <!-- Quick Customs & Logistics Knowledge Section -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-slate-200/80 dark:border-white/[0.08]">
+      <div class="bg-white dark:bg-dark-card border border-slate-200/90 dark:border-white/[0.08] rounded-xl p-4 shadow-2xs">
+        <div class="flex items-center gap-2 mb-2 font-bold text-sm text-slate-900 dark:text-white">
+          <span class="text-brand-orange">📦</span>
+          <span>ISO-2 in Carrier Shipping</span>
+        </div>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+          FedEx, UPS, DHL, and YunExpress shipping labels require standard 2-letter ISO 3166-1 alpha-2 codes (e.g., <code class="font-mono text-brand-orange">US</code>, <code class="font-mono text-brand-orange">DE</code>) for automated address validation.
+        </p>
+      </div>
+
+      <div class="bg-white dark:bg-dark-card border border-slate-200/90 dark:border-white/[0.08] rounded-xl p-4 shadow-2xs">
+        <div class="flex items-center gap-2 mb-2 font-bold text-sm text-slate-900 dark:text-white">
+          <span class="text-blue-500">📄</span>
+          <span>ISO-3 in Customs Declarations</span>
+        </div>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+          Commercial Invoices, Bills of Lading, and customs documentation (US CBP, EU TARIC, UK HMRC) use 3-letter ISO-3 codes (<code class="font-mono text-blue-500">USA</code>, <code class="font-mono text-blue-500">CHN</code>, <code class="font-mono text-blue-500">GBR</code>) to classify country of origin.
+        </p>
+      </div>
+
+      <div class="bg-white dark:bg-dark-card border border-slate-200/90 dark:border-white/[0.08] rounded-xl p-4 shadow-2xs">
+        <div class="flex items-center gap-2 mb-2 font-bold text-sm text-slate-900 dark:text-white">
+          <span class="text-emerald-500">⚡</span>
+          <span>Direct 1-Click Copy</span>
+        </div>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+          Click any ISO-2, ISO-3, or international telephone dial code button to instantly copy the value to your clipboard with immediate visual confirmation.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <!-- Instant Search, Region Tab Filter, and One-Click Copy Tooltip Logic -->
+  <script is:inline>
+    (function () {
+      const searchInput = document.getElementById('country-search-input');
+      const tableBody = document.getElementById('country-table-body');
+      const rows = tableBody ? Array.from(tableBody.querySelectorAll('.country-row')) : [];
+      const matchCountEl = document.getElementById('filter-match-count');
+      const resetBtn = document.getElementById('reset-filter-btn');
+      const noResultsEl = document.getElementById('no-country-results');
+      const regionTabs = document.querySelectorAll('.region-tab-btn');
+
+      let currentRegion = 'All';
+      let currentQuery = '';
+
+      function filterTable() {
+        const query = currentQuery.trim().toLowerCase();
+        let visibleCount = 0;
+
+        rows.forEach((row) => {
+          const rowSearch = row.getAttribute('data-search') || '';
+          const rowRegion = row.getAttribute('data-region') || '';
+
+          const matchesRegion = currentRegion === 'All' || rowRegion === currentRegion;
+          const matchesQuery = !query || rowSearch.includes(query);
+
+          if (matchesRegion && matchesQuery) {
+            row.style.display = '';
+            visibleCount++;
+          } else {
+            row.style.display = 'none';
+          }
+        });
+
+        if (matchCountEl) {
+          matchCountEl.textContent = String(visibleCount);
+        }
+
+        if (noResultsEl) {
+          noResultsEl.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        if (resetBtn) {
+          resetBtn.style.display = query || currentRegion !== 'All' ? 'inline-block' : 'none';
+        }
+      }
+
+      // Search event
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          currentQuery = e.target.value;
+          filterTable();
+        });
+      }
+
+      // Region tab events
+      regionTabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          regionTabs.forEach((t) => {
+            t.classList.remove('active-region-tab', 'bg-brand-orange', 'text-white', 'shadow-xs');
+            t.classList.add('text-slate-600', 'dark:text-slate-300');
+          });
+
+          tab.classList.add('active-region-tab', 'bg-brand-orange', 'text-white', 'shadow-xs');
+          tab.classList.remove('text-slate-600', 'dark:text-slate-300');
+
+          currentRegion = tab.getAttribute('data-region') || 'All';
+          filterTable();
+        });
+      });
+
+      // Reset button
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (searchInput) searchInput.value = '';
+          currentQuery = '';
+          currentRegion = 'All';
+          regionTabs.forEach((t, i) => {
+            if (i === 0) {
+              t.classList.add('active-region-tab', 'bg-brand-orange', 'text-white', 'shadow-xs');
+              t.classList.remove('text-slate-600', 'dark:text-slate-300');
+            } else {
+              t.classList.remove('active-region-tab', 'bg-brand-orange', 'text-white', 'shadow-xs');
+              t.classList.add('text-slate-600', 'dark:text-slate-300');
+            }
+          });
+          filterTable();
+        });
+      }
+
+      // Click to Copy Tooltip Handler
+      const copyButtons = document.querySelectorAll('.copy-code-btn');
+      copyButtons.forEach((btn) => {
+        btn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          const val = btn.getAttribute('data-copy');
+          if (!val) return;
+
+          try {
+            await navigator.clipboard.writeText(val);
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = `<span class="text-emerald-600 dark:text-emerald-400 font-bold">✓ Copied!</span>`;
+            btn.classList.add('ring-2', 'ring-emerald-500/40', 'bg-emerald-50', 'dark:bg-emerald-950/40');
+
+            setTimeout(() => {
+              btn.innerHTML = originalHTML;
+              btn.classList.remove('ring-2', 'ring-emerald-500/40', 'bg-emerald-50', 'dark:bg-emerald-950/40');
+            }, 1400);
+          } catch (err) {
+            console.error('Failed to copy', err);
+          }
+        });
+      });
+    })();
+  </script>
+</BaseLayout>

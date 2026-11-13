@@ -1,5 +1,6 @@
 ---
 import type { DirectoryResource } from '../../data/navigation';
+import { getMonogram, getMonogramGradient } from '../../utils/monogram';
 
 interface Props {
   resource: DirectoryResource;
@@ -68,16 +69,18 @@ const faviconUrl = domain && !isUtilityTool
             alt={resource.name}
             class="w-6 h-6 object-contain rounded-xs"
             loading="lazy"
-            onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
+            onload="if (this.naturalHeight <= 16) { this.style.display='none'; this.nextElementSibling?.classList.remove('hidden'); }"
+            onerror="this.style.display='none'; this.nextElementSibling?.classList.remove('hidden');"
           />
+          <!-- Fallback Monogram Badge -->
+          <div class={`hidden w-6 h-6 rounded-md bg-gradient-to-br ${getMonogramGradient(resource.name)} flex items-center justify-center text-white font-bold text-[10px] select-none`}>
+            {getMonogram(resource.name)}
+          </div>
           {countryFlag && (
             <span class="absolute -bottom-1 -right-1 text-[10px] leading-none select-none drop-shadow-xs">
               {countryFlag}
             </span>
           )}
-          <div class="hidden w-6 h-6 rounded-md bg-slate-100 dark:bg-white/10 items-center justify-center text-slate-800 dark:text-white font-bold text-[11px]">
-            {resource.name.charAt(0)}
-          </div>
         </>
       ) : (
         <>

@@ -5,7 +5,7 @@ import { TOP_NAV_CATEGORIES } from '../../data/navigation';
 
 <header class="sticky top-0 z-40 w-full bg-white/95 dark:bg-dark-card/95 backdrop-blur-md border-b border-slate-200/80 dark:border-white/[0.08] shadow-xs transition-colors">
   <!-- Main Header Row: Logo, Mobile Menu, Global Search, Theme Toggle & CTA -->
-  <div class="w-full max-w-[1820px] mx-auto px-3 sm:px-4 py-2.5 sm:py-3.5 flex items-center justify-between gap-2 min-w-0">
+  <div class="w-full max-w-[1600px] mx-auto px-3 sm:px-4 py-2.5 sm:py-3.5 flex items-center justify-between gap-2 min-w-0">
     <!-- Left: Hamburger (Mobile only) + Brand Logo -->
     <div class="flex items-center gap-2 sm:gap-3 shrink-0">
       <!-- Mobile Menu Hamburger Button -->
@@ -42,14 +42,22 @@ import { TOP_NAV_CATEGORIES } from '../../data/navigation';
     </a>
 
     <!-- Global Search Input (Desktop) -->
-    <form action="/search" method="get" class="flex-1 max-w-lg min-w-0 hidden md:flex items-center">
-      <div class="relative flex w-full min-w-0">
-        <input
-          type="search"
-          name="q"
-          placeholder="Search tools, marketplaces, Amazon calculators, port codes..."
-          class="w-full min-w-0 pl-4 pr-11 py-2 text-xs sm:text-sm bg-slate-100 dark:bg-[#0E131E] text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 border border-slate-300/80 dark:border-white/10 rounded-l-lg focus:outline-none focus:border-brand-orange dark:focus:border-brand-orange transition-colors truncate"
-        />
+    <div id="desktop-search-container" class="relative flex-1 max-w-lg min-w-0 hidden md:block">
+      <form action="/search" method="get" id="desktop-search-form" class="relative flex w-full min-w-0" role="search">
+        <div class="relative flex w-full min-w-0 items-center">
+          <input
+            type="search"
+            id="desktop-search-input"
+            name="q"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="Search 59+ tools, calculators, logistics..."
+            class="w-full min-w-0 pl-4 pr-16 py-2 text-xs sm:text-sm bg-slate-100 dark:bg-[#0E131E] text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 border border-slate-300/80 dark:border-white/10 rounded-l-lg focus:outline-none focus:border-brand-orange dark:focus:border-brand-orange transition-colors truncate"
+          />
+          <kbd class="hidden xl:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono text-slate-400 dark:text-slate-500 bg-white dark:bg-white/[0.06] border border-slate-200 dark:border-white/10 rounded shadow-2xs absolute right-3 pointer-events-none">
+            / or ⌘K
+          </kbd>
+        </div>
         <button
           type="submit"
           aria-label="Search"
@@ -59,8 +67,39 @@ import { TOP_NAV_CATEGORIES } from '../../data/navigation';
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
         </button>
+      </form>
+
+      <!-- Floating Live Results Dropdown -->
+      <div
+        id="desktop-search-dropdown"
+        class="hidden absolute left-0 right-0 top-full mt-2 bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/10 rounded-2xl shadow-2xl overflow-hidden z-50 max-h-[440px] flex flex-col divide-y divide-slate-100 dark:divide-white/[0.06]"
+      >
+        <!-- Dropdown Header Bar -->
+        <div class="px-3.5 py-2 bg-slate-50 dark:bg-white/[0.02] flex items-center justify-between text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+          <span id="desktop-search-count">Directory Results</span>
+          <span class="text-[10px] text-slate-400 font-mono">ESC to dismiss</span>
+        </div>
+
+        <!-- Results Scrollable List -->
+        <div id="desktop-search-list" class="overflow-y-auto max-h-[360px] p-1.5 space-y-0.5 no-scrollbar">
+          <!-- Injected via client script -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="desktop-search-empty" class="hidden p-6 text-center">
+          <div class="text-2xl mb-1.5">🔍</div>
+          <p class="text-xs font-semibold text-slate-800 dark:text-slate-200" id="desktop-empty-text">No matching tools found</p>
+          <p class="text-[11px] text-slate-400 dark:text-slate-500 mt-1">Try searching for Amazon, Helium 10, FBA, or Sourcing</p>
+          <button
+            type="button"
+            data-open-submit-modal
+            class="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-brand-orange hover:text-brand-orangeHover transition-colors cursor-pointer"
+          >
+            <span>+ Submit a Missing Tool</span>
+          </button>
+        </div>
       </div>
-    </form>
+    </div>
 
     <!-- Right Actions: Mobile Search Toggle, Login, Theme Toggle, Submit CTA -->
     <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
@@ -88,34 +127,63 @@ import { TOP_NAV_CATEGORIES } from '../../data/navigation';
 
       <ThemeToggle />
 
-      <a
-        href="#submit"
-        class="hidden sm:inline-flex items-center justify-center bg-brand-orange hover:bg-brand-orangeHover text-white font-bold text-xs uppercase tracking-wider px-3 sm:px-4 py-2 rounded-lg shadow-sm transition-colors shrink-0"
+      <button
+        type="button"
+        data-open-submit-modal
+        aria-label="List a new resource"
+        class="hidden sm:inline-flex items-center justify-center bg-brand-orange hover:bg-brand-orangeHover text-white font-bold text-xs uppercase tracking-wider px-3 sm:px-4 py-2 rounded-lg shadow-sm transition-colors shrink-0 cursor-pointer"
       >
         <span>List Resource</span>
-      </a>
+      </button>
     </div>
   </div>
 
   <!-- Collapsible Mobile Search Row -->
   <div id="mobile-search-panel" class="hidden md:hidden px-3 sm:px-4 pb-2.5 pt-1 border-t border-slate-100 dark:border-white/[0.04]">
-    <form action="/search" method="get" class="flex w-full">
-      <input
-        type="search"
-        name="q"
-        placeholder="Search tools, calculators, ports..."
-        class="w-full pl-3 pr-9 py-2 text-xs bg-slate-100 dark:bg-[#0E131E] text-slate-800 dark:text-slate-100 placeholder-slate-400 rounded-l-lg border border-slate-200 dark:border-white/10 focus:outline-none focus:border-brand-orange"
-      />
-      <button
-        type="submit"
-        aria-label="Submit search"
-        class="bg-brand-orange hover:bg-brand-orangeHover text-white px-3.5 py-2 rounded-r-lg flex items-center justify-center shrink-0 cursor-pointer"
+    <div class="relative w-full">
+      <form action="/search" method="get" id="mobile-panel-search-form" class="flex w-full" role="search">
+        <input
+          type="search"
+          id="mobile-panel-search-input"
+          name="q"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="Search 59+ tools, calculators, ports..."
+          class="w-full pl-3 pr-9 py-2 text-xs bg-slate-100 dark:bg-[#0E131E] text-slate-800 dark:text-slate-100 placeholder-slate-400 rounded-l-lg border border-slate-200 dark:border-white/10 focus:outline-none focus:border-brand-orange"
+        />
+        <button
+          type="submit"
+          aria-label="Submit search"
+          class="bg-brand-orange hover:bg-brand-orangeHover text-white px-3.5 py-2 rounded-r-lg flex items-center justify-center shrink-0 cursor-pointer"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </button>
+      </form>
+
+      <!-- Mobile Panel Results Dropdown -->
+      <div
+        id="mobile-panel-search-dropdown"
+        class="hidden absolute left-0 right-0 top-full mt-2 bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/10 rounded-xl shadow-2xl overflow-hidden z-50 max-h-[340px] flex flex-col divide-y divide-slate-100 dark:divide-white/[0.06]"
       >
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-      </button>
-    </form>
+        <div class="px-3 py-1.5 bg-slate-50 dark:bg-white/[0.02] flex items-center justify-between text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+          <span id="mobile-panel-search-count">Matches</span>
+          <span class="text-[10px] text-slate-400">Tap to view</span>
+        </div>
+        <div id="mobile-panel-search-list" class="overflow-y-auto max-h-[280px] p-1.5 space-y-0.5 no-scrollbar"></div>
+        <div id="mobile-panel-search-empty" class="hidden p-4 text-center">
+          <p class="text-xs font-semibold text-slate-700 dark:text-slate-300">No matching tools found</p>
+          <button
+            type="button"
+            data-open-submit-modal
+            class="mt-2 text-xs font-bold text-brand-orange hover:underline cursor-pointer"
+          >
+            + Submit Tool
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Tier 2: Horizontal Category Navigation Bar (Contained overflow) -->
@@ -123,7 +191,7 @@ import { TOP_NAV_CATEGORIES } from '../../data/navigation';
     aria-label="Main Categories"
     class="w-full bg-slate-50/70 dark:bg-[#0E131E] border-t border-slate-200/60 dark:border-white/[0.05] overflow-hidden"
   >
-    <div class="w-full max-w-[1820px] mx-auto px-2.5 sm:px-4 lg:px-5 overflow-hidden">
+    <div class="w-full max-w-[1600px] mx-auto px-2.5 sm:px-4 lg:px-5 overflow-hidden">
       <ul class="w-full flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar py-1.5 sm:py-2 min-w-0">
         {
           TOP_NAV_CATEGORIES.map((category) => (
@@ -141,12 +209,12 @@ import { TOP_NAV_CATEGORIES } from '../../data/navigation';
               </a>
 
               {category.children && (
-                <div class="hidden group-hover:block absolute left-0 top-full pt-1.5 w-48 z-50">
+                <div class="hidden group-hover:block absolute left-0 group-last:left-auto group-last:right-0 top-full pt-1.5 w-52 z-50">
                   <ul class="bg-white dark:bg-dark-card border border-slate-200/80 dark:border-white/10 rounded-xl shadow-xl py-1.5">
                     {category.children.map((sub) => (
                       <li>
                         <a
-                          href={`/#${sub.slug}`}
+                          href={sub.url || `/#${sub.slug}`}
                           class="block px-3.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-brand-orange/10 hover:text-brand-orange dark:hover:text-brand-orange transition-colors"
                         >
                           {sub.name}
@@ -166,16 +234,281 @@ import { TOP_NAV_CATEGORIES } from '../../data/navigation';
 
 <script is:inline>
   (function () {
+    // Lazy getter for serialized directory search index
+    let cachedIndex = null;
+    function getSearchIndex() {
+      if (!cachedIndex) {
+        const el = document.getElementById('directory-search-index');
+        if (el) {
+          try {
+            cachedIndex = JSON.parse(el.textContent || '[]');
+          } catch (err) {
+            console.error('Error parsing search index:', err);
+            cachedIndex = [];
+          }
+        }
+      }
+      return cachedIndex || [];
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // Filter resources matching multi-token query across name, category, description, pricing
+    function filterResources(query) {
+      const q = query.trim().toLowerCase();
+      if (!q) return [];
+      const tokens = q.split(/\s+/).filter(Boolean);
+      const index = getSearchIndex();
+      return index.filter((item) => {
+        const haystack = `${item.name} ${item.category} ${item.description || ''} ${item.pricing || ''} ${(item.tags || []).join(' ')}`.toLowerCase();
+        return tokens.every((token) => haystack.includes(token));
+      });
+    }
+
+    // Render an individual search result card
+    function renderResultItem(item) {
+      const targetHref = item.internalUrl || (item.hasDetailPage ? `/resources/${item.slug}` : item.url);
+      const isExternal = !item.internalUrl && !item.hasDetailPage;
+      const targetAttr = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
+
+      const pricingClasses = {
+        Free: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20',
+        Freemium: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20',
+        Paid: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20',
+        Promo: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20',
+      }[item.pricing] || 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20';
+
+      const verifiedSvg = item.isVerified
+        ? `<span class="inline-flex items-center text-blue-500 shrink-0" title="Verified Resource">
+             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
+               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"/>
+             </svg>
+           </span>`
+        : '';
+
+      const iconSvg = isExternal
+        ? `<svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-brand-orange transition-colors shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>`
+        : `<svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-brand-orange transition-colors shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>`;
+
+      return `
+        <a
+          href="${targetHref}"
+          ${targetAttr}
+          class="group flex items-start justify-between gap-3 p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-white/[0.05] transition-colors"
+        >
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <span class="font-bold text-xs sm:text-sm text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors">
+                ${escapeHtml(item.name)}
+              </span>
+              ${verifiedSvg}
+              <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded border ${pricingClasses}">
+                ${escapeHtml(item.pricing || 'Free')}
+              </span>
+              <span class="text-[10px] font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/[0.05] px-1.5 py-0.5 rounded truncate max-w-[140px]">
+                ${escapeHtml(item.category)}
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">
+              ${escapeHtml(item.description || '')}
+            </p>
+          </div>
+          ${iconSvg}
+        </a>
+      `;
+    }
+
+    // 1. Desktop Search Setup
+    const desktopContainer = document.getElementById('desktop-search-container');
+    const desktopForm = document.getElementById('desktop-search-form');
+    const desktopInput = document.getElementById('desktop-search-input');
+    const desktopDropdown = document.getElementById('desktop-search-dropdown');
+    const desktopList = document.getElementById('desktop-search-list');
+    const desktopCount = document.getElementById('desktop-search-count');
+    const desktopEmpty = document.getElementById('desktop-search-empty');
+    const desktopEmptyText = document.getElementById('desktop-empty-text');
+
+    function closeDesktopDropdown() {
+      if (desktopDropdown) desktopDropdown.classList.add('hidden');
+    }
+
+    function handleDesktopSearch() {
+      if (!desktopInput || !desktopDropdown || !desktopList || !desktopEmpty) return;
+      const q = desktopInput.value.trim();
+
+      if (!q) {
+        closeDesktopDropdown();
+        return;
+      }
+
+      const results = filterResources(q);
+      desktopDropdown.classList.remove('hidden');
+
+      if (desktopCount) {
+        desktopCount.textContent = `${results.length} tool${results.length === 1 ? '' : 's'} found`;
+      }
+
+      if (results.length > 0) {
+        desktopList.classList.remove('hidden');
+        desktopEmpty.classList.add('hidden');
+        desktopList.innerHTML = results.map(renderResultItem).join('');
+      } else {
+        desktopList.classList.add('hidden');
+        desktopEmpty.classList.remove('hidden');
+        if (desktopEmptyText) {
+          desktopEmptyText.textContent = `No matching tools found for "${q}"`;
+        }
+      }
+    }
+
+    if (desktopInput) {
+      desktopInput.addEventListener('input', handleDesktopSearch);
+      desktopInput.addEventListener('focus', () => {
+        if (desktopInput.value.trim()) handleDesktopSearch();
+      });
+    }
+
+    if (desktopForm) {
+      desktopForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const q = desktopInput?.value.trim() || '';
+        const results = filterResources(q);
+        if (results.length > 0) {
+          const top = results[0];
+          const href = top.internalUrl || (top.hasDetailPage ? `/resources/${top.slug}` : top.url);
+          if (top.internalUrl || top.hasDetailPage) {
+            window.location.href = href;
+          } else {
+            window.open(href, '_blank', 'noopener,noreferrer');
+          }
+        }
+      });
+    }
+
+    // 2. Mobile Search Row Toggle & Setup
     const searchToggle = document.getElementById('header-search-toggle');
     const searchPanel = document.getElementById('mobile-search-panel');
+    const mobilePanelForm = document.getElementById('mobile-panel-search-form');
+    const mobilePanelInput = document.getElementById('mobile-panel-search-input');
+    const mobilePanelDropdown = document.getElementById('mobile-panel-search-dropdown');
+    const mobilePanelList = document.getElementById('mobile-panel-search-list');
+    const mobilePanelCount = document.getElementById('mobile-panel-search-count');
+    const mobilePanelEmpty = document.getElementById('mobile-panel-search-empty');
+
     if (searchToggle && searchPanel) {
       searchToggle.addEventListener('click', () => {
         searchPanel.classList.toggle('hidden');
         if (!searchPanel.classList.contains('hidden')) {
-          const input = searchPanel.querySelector('input');
-          if (input) input.focus();
+          if (mobilePanelInput) mobilePanelInput.focus();
+        } else if (mobilePanelDropdown) {
+          mobilePanelDropdown.classList.add('hidden');
         }
       });
     }
+
+    function handleMobilePanelSearch() {
+      if (!mobilePanelInput || !mobilePanelDropdown || !mobilePanelList || !mobilePanelEmpty) return;
+      const q = mobilePanelInput.value.trim();
+
+      if (!q) {
+        mobilePanelDropdown.classList.add('hidden');
+        return;
+      }
+
+      const results = filterResources(q);
+      mobilePanelDropdown.classList.remove('hidden');
+
+      if (mobilePanelCount) {
+        mobilePanelCount.textContent = `${results.length} match${results.length === 1 ? '' : 'es'}`;
+      }
+
+      if (results.length > 0) {
+        mobilePanelList.classList.remove('hidden');
+        mobilePanelEmpty.classList.add('hidden');
+        mobilePanelList.innerHTML = results.map(renderResultItem).join('');
+      } else {
+        mobilePanelList.classList.add('hidden');
+        mobilePanelEmpty.classList.remove('hidden');
+      }
+    }
+
+    if (mobilePanelInput) {
+      mobilePanelInput.addEventListener('input', handleMobilePanelSearch);
+    }
+
+    if (mobilePanelForm) {
+      mobilePanelForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const q = mobilePanelInput?.value.trim() || '';
+        const results = filterResources(q);
+        if (results.length > 0) {
+          const top = results[0];
+          const href = top.internalUrl || (top.hasDetailPage ? `/resources/${top.slug}` : top.url);
+          if (top.internalUrl || top.hasDetailPage) {
+            window.location.href = href;
+          } else {
+            window.open(href, '_blank', 'noopener,noreferrer');
+          }
+        }
+      });
+    }
+
+    // 3. Global Keyboard Shortcuts & Click Outside Listeners
+    window.addEventListener('keydown', (e) => {
+      // Shortcut "/" or "Ctrl+K" / "Cmd+K"
+      const isSearchShortcut =
+        e.key === '/' ||
+        ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k');
+
+      if (isSearchShortcut) {
+        const active = document.activeElement;
+        const isEditing =
+          active &&
+          (active.tagName === 'INPUT' ||
+            active.tagName === 'TEXTAREA' ||
+            active.tagName === 'SELECT' ||
+            active.isContentEditable);
+
+        // Allow shortcut if not already editing or if using Ctrl+K / Cmd+K
+        if (!isEditing || (e.ctrlKey || e.metaKey)) {
+          e.preventDefault();
+          if (window.innerWidth >= 768 && desktopInput) {
+            desktopInput.focus();
+            desktopInput.select();
+            if (desktopInput.value.trim()) handleDesktopSearch();
+          } else if (searchToggle && searchPanel) {
+            searchPanel.classList.remove('hidden');
+            if (mobilePanelInput) {
+              mobilePanelInput.focus();
+              mobilePanelInput.select();
+            }
+          }
+        }
+      }
+
+      // Shortcut "Escape" closes active dropdowns
+      if (e.key === 'Escape') {
+        closeDesktopDropdown();
+        if (mobilePanelDropdown) mobilePanelDropdown.classList.add('hidden');
+      }
+    });
+
+    // Close desktop dropdown on outside click
+    document.addEventListener('click', (e) => {
+      if (desktopContainer && !desktopContainer.contains(e.target)) {
+        closeDesktopDropdown();
+      }
+      if (searchPanel && !searchPanel.contains(e.target) && searchToggle && !searchToggle.contains(e.target)) {
+        if (mobilePanelDropdown) mobilePanelDropdown.classList.add('hidden');
+      }
+    });
   })();
 </script>

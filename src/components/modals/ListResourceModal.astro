@@ -1,0 +1,351 @@
+---
+const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY || '';
+
+const CATEGORIES = [
+  'Sourcing & B2B Wholesale',
+  'Marketplaces & Store Opening',
+  'Product Research & Analytics',
+  'Everyday Tools & Converters',
+  'Warehouse & FBA Logistics',
+  'Videos & Social Commerce',
+  'Email Marketing & CRM',
+  'Advertising & Paid Media',
+  'Legal Services & Trademark',
+  'Accounting & VAT',
+];
+---
+
+<!-- List Resource Submission Modal -->
+<div
+  id="list-resource-modal"
+  class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 overflow-y-auto"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="submit-modal-title"
+>
+  <!-- Backdrop Overlay -->
+  <div
+    data-close-submit-modal
+    class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity cursor-pointer"
+  ></div>
+
+  <!-- Modal Dialog Container -->
+  <div class="relative w-full max-w-lg bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/10 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden z-10 transition-all my-auto">
+    <!-- Modal Header -->
+    <div class="p-5 sm:p-6 border-b border-slate-100 dark:border-white/[0.06] flex items-start justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="w-10 h-10 rounded-xl bg-brand-orange/15 text-brand-orange flex items-center justify-center text-lg shrink-0">
+          🚀
+        </span>
+        <div>
+          <h3 id="submit-modal-title" class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+            List Your Resource or Tool
+          </h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            Get featured in front of 50,000+ cross-border sellers & agencies.
+          </p>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        data-close-submit-modal
+        aria-label="Close modal"
+        class="p-2 -mr-1 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Modal Form Body -->
+    <form
+      id="list-resource-form"
+      class="p-5 sm:p-6 space-y-4"
+      data-web3-key={WEB3FORMS_KEY}
+    >
+      <!-- 1. Resource Name -->
+      <div>
+        <label for="resource-name" class="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-1">
+          Resource / Platform Name <span class="text-rose-500">*</span>
+        </label>
+        <input
+          type="text"
+          id="resource-name"
+          name="name"
+          required
+          placeholder="e.g. Helium 10, Flexport, Brevo"
+          class="w-full px-3.5 py-2 text-xs sm:text-sm bg-slate-50 dark:bg-dark-elevated text-slate-900 dark:text-white placeholder-slate-400 rounded-xl border border-slate-200 dark:border-white/10 focus:outline-none focus:border-brand-orange dark:focus:border-brand-orange transition-colors"
+        />
+      </div>
+
+      <!-- 2. Website URL -->
+      <div>
+        <label for="resource-url" class="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-1">
+          Official Website URL <span class="text-rose-500">*</span>
+        </label>
+        <input
+          type="url"
+          id="resource-url"
+          name="url"
+          required
+          placeholder="https://example.com"
+          class="w-full px-3.5 py-2 text-xs sm:text-sm bg-slate-50 dark:bg-dark-elevated text-slate-900 dark:text-white placeholder-slate-400 rounded-xl border border-slate-200 dark:border-white/10 focus:outline-none focus:border-brand-orange dark:focus:border-brand-orange transition-colors font-mono"
+        />
+      </div>
+
+      <!-- 3. Category & Pricing (Grid Row) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+        <div>
+          <label for="resource-category" class="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-1">
+            Directory Category <span class="text-rose-500">*</span>
+          </label>
+          <select
+            id="resource-category"
+            name="category"
+            required
+            class="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-dark-elevated text-slate-900 dark:text-white rounded-xl border border-slate-200 dark:border-white/10 focus:outline-none focus:border-brand-orange transition-colors cursor-pointer"
+          >
+            {CATEGORIES.map((cat) => (
+              <option value={cat}>{cat}</option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label for="resource-pricing" class="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-1">
+            Pricing Model <span class="text-rose-500">*</span>
+          </label>
+          <select
+            id="resource-pricing"
+            name="pricing"
+            required
+            class="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-dark-elevated text-slate-900 dark:text-white rounded-xl border border-slate-200 dark:border-white/10 focus:outline-none focus:border-brand-orange transition-colors cursor-pointer"
+          >
+            <option value="Free">Free</option>
+            <option value="Freemium" selected>Freemium</option>
+            <option value="Paid">Paid</option>
+            <option value="Enterprise">Enterprise</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 4. Short Description with Live Character Count -->
+      <div>
+        <div class="flex items-center justify-between mb-1">
+          <label for="resource-description" class="text-xs font-bold text-slate-700 dark:text-slate-200">
+            Short Description <span class="text-rose-500">*</span>
+          </label>
+          <span class="text-[11px] text-slate-400 font-mono">
+            <span id="desc-char-count">0</span>/160
+          </span>
+        </div>
+        <textarea
+          id="resource-description"
+          name="description"
+          required
+          maxlength="160"
+          rows="3"
+          placeholder="Briefly describe what your tool does and why cross-border sellers should use it..."
+          class="w-full px-3.5 py-2 text-xs sm:text-sm bg-slate-50 dark:bg-dark-elevated text-slate-900 dark:text-white placeholder-slate-400 rounded-xl border border-slate-200 dark:border-white/10 focus:outline-none focus:border-brand-orange dark:focus:border-brand-orange transition-colors resize-none leading-relaxed"
+        ></textarea>
+      </div>
+
+      <!-- 5. Work Email -->
+      <div>
+        <label for="resource-email" class="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-1">
+          Your Work Email <span class="text-rose-500">*</span>
+        </label>
+        <input
+          type="email"
+          id="resource-email"
+          name="email"
+          required
+          placeholder="partner@yourcompany.com"
+          class="w-full px-3.5 py-2 text-xs sm:text-sm bg-slate-50 dark:bg-dark-elevated text-slate-900 dark:text-white placeholder-slate-400 rounded-xl border border-slate-200 dark:border-white/10 focus:outline-none focus:border-brand-orange dark:focus:border-brand-orange transition-colors"
+        />
+        <p class="text-[10px] text-slate-400 mt-1">
+          We'll send listing verification details and review updates to this email.
+        </p>
+      </div>
+
+      <!-- Submit CTA Button -->
+      <div class="pt-2">
+        <button
+          type="submit"
+          id="submit-modal-btn"
+          class="w-full py-2.5 px-4 bg-brand-orange hover:bg-brand-orangeHover text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2"
+        >
+          <span>Submit for Editorial Review →</span>
+        </button>
+      </div>
+    </form>
+
+    <!-- Success Confirmation State (Displayed after submit) -->
+    <div id="submit-success-view" class="hidden p-6 sm:p-8 text-center space-y-4">
+      <div class="w-16 h-16 mx-auto rounded-full bg-emerald-500/15 text-emerald-500 flex items-center justify-center text-3xl">
+        ✓
+      </div>
+
+      <div class="space-y-1.5">
+        <h4 class="text-lg font-bold text-slate-900 dark:text-white">
+          Submission Received!
+        </h4>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-300 max-w-sm mx-auto leading-relaxed">
+          Queued for Editorial Review. Our verification team reviews all domain links, pricing tiers, and SSL credentials within 24–48 business hours.
+        </p>
+      </div>
+
+      <div class="p-3 bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/10 rounded-xl text-left text-xs space-y-1">
+        <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Submitted Resource:</div>
+        <div id="success-submitted-name" class="font-bold text-slate-800 dark:text-slate-100"></div>
+        <div id="success-submitted-url" class="text-slate-500 dark:text-slate-400 font-mono text-[11px] truncate"></div>
+      </div>
+
+      <div class="flex items-center gap-3 pt-2">
+        <button
+          type="button"
+          id="submit-another-btn"
+          class="flex-1 py-2 px-3 rounded-xl border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.05] transition-colors cursor-pointer"
+        >
+          Submit Another Tool
+        </button>
+        <button
+          type="button"
+          data-close-submit-modal
+          class="flex-1 py-2 px-3 rounded-xl bg-brand-orange hover:bg-brand-orangeHover text-white text-xs font-bold uppercase tracking-wider shadow-sm transition-colors cursor-pointer"
+        >
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Control Script -->
+<script is:inline>
+  (function () {
+    const modal = document.getElementById('list-resource-modal');
+    if (!modal) return;
+
+    const form = document.getElementById('list-resource-form');
+    const successView = document.getElementById('submit-success-view');
+    const descInput = document.getElementById('resource-description');
+    const charCount = document.getElementById('desc-char-count');
+    const submitBtn = document.getElementById('submit-modal-btn');
+    const anotherBtn = document.getElementById('submit-another-btn');
+    const successName = document.getElementById('success-submitted-name');
+    const successUrl = document.getElementById('success-submitted-url');
+
+    function openModal() {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      const firstInput = form?.querySelector('input');
+      if (firstInput) setTimeout(() => firstInput.focus(), 50);
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    window.openListResourceModal = openModal;
+    window.closeListResourceModal = closeModal;
+
+    // Attach click listeners to all [data-open-submit-modal] triggers
+    document.addEventListener('click', (e) => {
+      const target = e.target instanceof Element ? e.target : e.target?.parentElement;
+      if (!target) return;
+
+      const trigger = target.closest('[data-open-submit-modal]');
+      if (trigger) {
+        e.preventDefault();
+        openModal();
+      }
+
+      const closeTrigger = target.closest('[data-close-submit-modal]');
+      if (closeTrigger) {
+        e.preventDefault();
+        closeModal();
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+
+    // Live Character Counter
+    if (descInput && charCount) {
+      descInput.addEventListener('input', () => {
+        charCount.textContent = String(descInput.value.length);
+      });
+    }
+
+    // Submit handler
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        const originalBtnText = submitBtn ? submitBtn.innerHTML : '';
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<span>Submitting...</span>';
+        }
+
+        const formData = new FormData(form);
+        const nameVal = formData.get('name') || '';
+        const urlVal = formData.get('url') || '';
+        const payload = Object.fromEntries(formData.entries());
+
+        const web3Key = form.getAttribute('data-web3-key');
+        if (web3Key) {
+          try {
+            payload.access_key = web3Key;
+            payload.subject = `New Directory Submission: ${nameVal}`;
+            await fetch('https://api.web3forms.com/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+              body: JSON.stringify(payload),
+            });
+          } catch (err) {
+            console.warn('Web3Forms dispatch error:', err);
+          }
+        }
+
+        // Populate and switch to success view
+        if (successName) successName.textContent = String(nameVal);
+        if (successUrl) successUrl.textContent = String(urlVal);
+
+        form.classList.add('hidden');
+        if (successView) successView.classList.remove('hidden');
+
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnText;
+        }
+      });
+    }
+
+    // Submit another reset
+    if (anotherBtn) {
+      anotherBtn.addEventListener('click', () => {
+        form?.reset();
+        if (charCount) charCount.textContent = '0';
+        successView?.classList.add('hidden');
+        form?.classList.remove('hidden');
+        const firstInput = form?.querySelector('input');
+        if (firstInput) firstInput.focus();
+      });
+    }
+  })();
+</script>

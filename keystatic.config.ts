@@ -11,6 +11,7 @@ export default config({
       path: 'src/content/resources/*',
       format: { data: 'json' },
       schema: {
+        id: fields.text({ label: 'ID' }),
         slug: fields.slug({ name: { label: 'Slug (URL Identifier)' } }),
         name: fields.text({ label: 'Resource Name', validation: { length: { min: 1 } } }),
         category: fields.text({ label: 'Category Name', validation: { length: { min: 1 } } }),

@@ -1,5 +1,6 @@
 ---
 import type { DirectoryResource } from '../../data/navigation';
+import { getMonogram, getMonogramGradient } from '../../utils/monogram';
 
 interface Props {
   resource: DirectoryResource;
@@ -73,6 +74,12 @@ const DOMAIN_OVERRIDES: Record<string, string> = {
   'accounting-xero': 'xero.com',
   'accounting-taxjar': 'taxjar.com',
   'accounting-avalara': 'avalara.com',
+
+  // Chrome Extension & Research Overrides
+  'reviewmeta': 'reviewmeta.com',
+  'fatkun': 'fatkun.com',
+  'instant-data-scraper': 'instantdatascraper.com',
+  'ds-quick-view': 'amazon.com',
 };
 
 // 2. Country Marketplace Flag Map (For Amazon BSR tools)
@@ -87,7 +94,7 @@ const COUNTRY_FLAGS: Record<string, { flag: string; label: string }> = {
 const countryInfo = COUNTRY_FLAGS[resource.id];
 
 // Determine domain for favicon
-let domain = DOMAIN_OVERRIDES[resource.id] || '';
+let domain = resource.iconDomain || DOMAIN_OVERRIDES[resource.id] || DOMAIN_OVERRIDES[resource.slug || ''] || '';
 if (!domain && resource.url && resource.url.startsWith('http')) {
   try {
     domain = new URL(resource.url).hostname.replace(/^www\./, '');
@@ -149,8 +156,14 @@ const faviconUrl = domain && !isUtilityTool
               alt={`${resource.name} logo`}
               class="w-8 h-8 sm:w-8.5 sm:h-8.5 object-contain rounded-md"
               loading="lazy"
-              onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
+              onload="if (this.naturalHeight <= 16) { this.style.display='none'; this.nextElementSibling?.classList.remove('hidden'); }"
+              onerror="this.style.display='none'; this.nextElementSibling?.classList.remove('hidden');"
             />
+
+            {/* Fallback Styled 2-Letter Monogram Badge */}
+            <div class={`hidden w-full h-full rounded-xl bg-gradient-to-br ${getMonogramGradient(resource.name)} flex items-center justify-center font-extrabold text-sm text-white select-none`}>
+              {getMonogram(resource.name)}
+            </div>
 
             {/* Country Flag Overlay Badge for Amazon Marketplaces */}
             {countryInfo && (
@@ -158,11 +171,6 @@ const faviconUrl = domain && !isUtilityTool
                 {countryInfo.flag}
               </span>
             )}
-
-            {/* Fallback Initial Badge if Favicon network drops */}
-            <div class="hidden w-full h-full items-center justify-center text-slate-800 dark:text-white font-extrabold text-sm">
-              {resource.name.charAt(0)}
-            </div>
           </>
         ) : (
           <>
@@ -295,7 +303,7 @@ const faviconUrl = domain && !isUtilityTool
     </div>
 
     {hasDetail ? (
-      <div class="flex items-center gap-1.5">
+      <div class="flex items-center">
         <a
           href={`/resources/${slug}`}
           class="inline-flex items-center gap-1 text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-brand-orange transition-colors"
@@ -306,7 +314,7 @@ const faviconUrl = domain && !isUtilityTool
           href={resource.url}
           target="_blank"
           rel="noopener noreferrer"
-          class="p-1 rounded-md text-slate-400 hover:text-brand-orange hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors shrink-0"
+          class="ml-1.5 pl-2 border-l border-slate-200 dark:border-white/10 p-1 rounded-md text-slate-400 hover:text-brand-orange hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors shrink-0"
           title={`Visit official ${resource.name} website`}
           aria-label={`Open official ${resource.name} site`}
         >
@@ -321,7 +329,7 @@ const faviconUrl = domain && !isUtilityTool
       </span>
     ) : (
       <span class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 group-hover:text-brand-orange transition-colors">
-        <span>Open Site ↗</span>
+        <span>Open Site</span>
         <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
         </svg>

@@ -16,15 +16,26 @@ const TOOLS = [
     icon: 'calculator',
   },
   {
-    id: 'measurement-conversion',
-    title: 'Cross-Border Measurement & CBM Converter',
+    id: 'measurement-converter',
+    title: 'Cross-Border Measurement Converter',
     category: 'Freight & Packaging',
-    description: 'Multi-tab calculator for carton measurements, volumetric weight (DIM / 5000 & 6000), total CBM, weight, and temperature.',
-    href: '/tools/measurement-conversion',
+    description: 'Multi-unit converter for length (in, cm, mm, ft, yd), temperature (°C, °F, K), surface area, Amazon FBA carton limits, and CBM volume.',
+    href: '/tools/measurement-converter',
     badge: 'Freight & Packing',
     badgeColor: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30',
     iconColor: 'from-emerald-500 to-teal-600',
     icon: 'cube',
+  },
+  {
+    id: 'time-converter',
+    title: 'Global Timezone & Supplier Hours Converter',
+    category: 'Communication & Scheduling',
+    description: 'Real-time multi-timezone synchronizer across Shenzhen CST, New York EST, London GMT, Frankfurt CET, Tokyo JST, Sydney, and Mumbai.',
+    href: '/tools/time-converter',
+    badge: 'Time Sync',
+    badgeColor: 'bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30',
+    iconColor: 'from-blue-600 to-indigo-600',
+    icon: 'clock',
   },
   {
     id: 'ip-checker',
@@ -54,19 +65,19 @@ const REFERENCE_TABLES = [
   {
     title: 'Country Codes Directory (ISO 3166)',
     desc: 'Official two-letter country codes, dialing codes, and currency abbreviations for international shipping.',
-    href: 'https://ecomresources.info/country-codes/',
+    href: '/information/country-codes',
     tag: 'ISO Reference',
   },
   {
     title: 'World Port Codes (UN/LOCODE)',
     desc: 'Lookup international seaport codes, airport cargo terminals, and customs clearance facilities worldwide.',
-    href: 'https://ecomresources.info/world-port-codes/',
+    href: '/information/world-port-codes',
     tag: 'Freight Codes',
   },
   {
     title: 'Global Timezone Map & Clock',
     desc: 'Interactive world map tracking standard timezones (EST, PST, GMT, CET, CST, JST) for supplier coordination.',
-    href: 'https://www.amz123.com/tools-worldtime',
+    href: '/information/global-timezone',
     tag: 'Timezone Tool',
   },
 ];
@@ -143,6 +154,11 @@ const REFERENCE_TABLES = [
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 12 2 2 4-4" />
+                    </svg>
+                  )}
+                  {tool.icon === 'clock' && (
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   )}
                   {tool.icon === 'sparkles' && (

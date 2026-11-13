@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
 import MobileDrawer from '../components/navigation/MobileDrawer.astro';
+import ListResourceModal from '../components/modals/ListResourceModal.astro';
+import { DIRECTORY_RESOURCES } from '../data/resources';
 
 interface Props {
   title: string;
@@ -13,6 +15,22 @@ const {
   description = 'Global Cross-Border E-Commerce Resources Directory — Seller tools, wholesale sourcing, logistics, PPC marketing, and calculators.',
   canonical = Astro.url.href,
 } = Astro.props;
+
+// Lightweight search index for instant zero-latency client-side search across all 59+ tools
+const searchIndex = DIRECTORY_RESOURCES.map((r) => ({
+  name: r.name,
+  slug: r.slug || r.id,
+  category: r.category,
+  categorySlug: r.categorySlug,
+  description: r.description,
+  pricing: r.pricing || 'Free',
+  url: r.url,
+  internalUrl: r.internalUrl || (r.hasDetailPage ? `/resources/${r.slug || r.id}` : null),
+  hasDetailPage: Boolean(r.hasDetailPage),
+  isVerified: r.isVerified !== undefined ? Boolean(r.isVerified) : true,
+  badge: r.badge || null,
+  tags: Array.isArray(r.tags) ? r.tags : [],
+}));
 ---
 
 <!doctype html>
@@ -58,5 +76,7 @@ const {
   <body class="min-h-screen flex flex-col bg-slate-50 text-slate-800 dark:bg-dark-bg dark:text-slate-100 font-sans w-full overflow-x-clip">
     <slot />
     <MobileDrawer />
+    <ListResourceModal />
+    <script type="application/json" id="directory-search-index" set:html={JSON.stringify(searchIndex)} />
   </body>
 </html>

@@ -1,13 +1,16 @@
 ---
-import { MARKET_CLOCKS, EXCHANGE_RATES, QUICK_JUMP_PILLS, COUNTRY_MARKETPLACES } from '../../data/navigation';
+import { MARKET_CLOCKS, QUICK_JUMP_PILLS, COUNTRY_MARKETPLACES } from '../../data/navigation';
+import AmazonMarketplaces from '../sections/AmazonMarketplaces.astro';
+
+const now = new Date();
 ---
 
 <div class="space-y-4 sm:space-y-5 w-full min-w-0">
-  <!-- Bento Grid Container (Hero Left + Market/FX Hub Right) -->
+  <!-- Bento Grid Container (Hero Left + Market Clocks Right) -->
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5 w-full min-w-0 items-stretch">
-    <!-- Left Bento: Main Seller Hero Card (lg:col-span-7) -->
+    <!-- Left Bento: Main Seller Hero Card (lg:col-span-6 xl:col-span-7) -->
     <section
-      class="lg:col-span-7 relative rounded-2xl overflow-hidden shadow-xs hover:shadow-sm bg-gradient-to-br from-white via-slate-50 to-orange-50/40 dark:from-slate-950 dark:via-slate-950/95 dark:to-[#101726] flex flex-col justify-between p-6 sm:p-8 lg:p-9 min-h-[300px] sm:min-h-[340px] border border-slate-200/90 dark:border-white/[0.08] transition-colors"
+      class="lg:col-span-6 xl:col-span-7 relative rounded-2xl overflow-hidden shadow-xs hover:shadow-sm bg-gradient-to-br from-white via-slate-50 to-orange-50/40 dark:from-slate-950 dark:via-slate-950/95 dark:to-[#101726] flex flex-col justify-between min-h-[320px] sm:min-h-[350px] p-6 sm:p-8 border border-slate-200/90 dark:border-white/[0.08] transition-colors"
       aria-label="Cross-Border E-Commerce Featured Announcement"
     >
       <!-- Background Logistics Image (Subdued on Desktop, hidden on Mobile for instant <1.5s LCP) -->
@@ -41,7 +44,7 @@ import { MARKET_CLOCKS, EXCHANGE_RATES, QUICK_JUMP_PILLS, COUNTRY_MARKETPLACES }
       </div>
 
       <!-- Headline & Value Prop -->
-      <div class="relative z-10 my-4 sm:my-6 max-w-xl">
+      <div class="relative z-10 my-auto py-2 max-w-xl">
         <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-snug transition-colors">
           The Global Operating System for Cross-Border E-Commerce
         </h1>
@@ -63,7 +66,7 @@ import { MARKET_CLOCKS, EXCHANGE_RATES, QUICK_JUMP_PILLS, COUNTRY_MARKETPLACES }
         </a>
 
         <a
-          href="#amazon-revenue-calculator"
+          href="/tools/amazon-revenue-calculator"
           class="bg-white/90 dark:bg-white/10 hover:bg-white dark:hover:bg-white/15 text-slate-800 dark:text-white border border-slate-200/90 dark:border-white/15 backdrop-blur-sm px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 shadow-2xs hover:shadow-xs"
         >
           <span>FBA Calculators</span>
@@ -74,101 +77,105 @@ import { MARKET_CLOCKS, EXCHANGE_RATES, QUICK_JUMP_PILLS, COUNTRY_MARKETPLACES }
       </div>
     </section>
 
-    <!-- Right Bento: Live Clocks & FX Rates Widget (lg:col-span-5) -->
-    <div class="lg:col-span-5 flex flex-col gap-3.5 sm:gap-4 justify-between">
-      <!-- Bento Sub-Card 1: Live Market Clocks (Compact & Modern) -->
-      <div class="bg-white dark:bg-dark-card border border-slate-200/80 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs flex-1 flex flex-col justify-between transition-colors">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/[0.06]">
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span class="text-xs font-bold text-slate-900 dark:text-white">Live Global Market Clocks</span>
+    <!-- Right Bento: Live Market Clocks (lg:col-span-6 xl:col-span-5) -->
+    <div class="lg:col-span-6 xl:col-span-5 flex flex-col">
+      <div class="bg-white dark:bg-dark-card border border-slate-200/80 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs h-full flex flex-col justify-between transition-colors">
+        <div class="flex items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-white/[0.06]">
+          <div class="flex items-center gap-2 min-w-0">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+            <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white whitespace-nowrap">Live Market Clocks</span>
           </div>
-          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-            UTC Synchronized
-          </span>
+          <a
+            href="#currency-rates"
+            class="text-[10px] sm:text-[11px] font-semibold text-brand-orange bg-brand-orange/10 hover:bg-brand-orange hover:text-white dark:bg-brand-orange/15 dark:hover:bg-brand-orange border border-brand-orange/30 px-2 sm:px-2.5 py-0.5 rounded-full transition-all flex items-center gap-1 shadow-2xs whitespace-nowrap shrink-0 group"
+            title="Jump to Real-Time Currency Exchange Rates & Quick Converter"
+          >
+            <span>Live FX ↓</span>
+          </a>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-2.5 pt-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-3 my-auto">
           {
             MARKET_CLOCKS.map((clock) => {
               const flagCode = clock.flagCode || clock.code.toLowerCase();
+              const serverTime = new Intl.DateTimeFormat('en-US', {
+                timeZone: clock.timezone,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false,
+              }).format(now);
+              const serverDate = new Intl.DateTimeFormat('en-US', {
+                timeZone: clock.timezone,
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric',
+              }).format(now);
+              const serverHour = parseInt(
+                new Intl.DateTimeFormat('en-US', {
+                  timeZone: clock.timezone,
+                  hour: 'numeric',
+                  hour12: false,
+                }).format(now),
+                10
+              );
+              const serverDay = new Intl.DateTimeFormat('en-US', {
+                timeZone: clock.timezone,
+                weekday: 'short',
+              }).format(now);
+              const isBiz = serverDay !== 'Sat' && serverDay !== 'Sun' && serverHour >= 9 && serverHour < 18;
+
               return (
-                <div class="p-2 sm:p-2.5 rounded-xl bg-slate-50 dark:bg-dark-elevated/60 border border-slate-200/60 dark:border-white/[0.04] hover:border-brand-orange/40 hover:bg-slate-100/70 dark:hover:bg-white/[0.03] transition-all flex flex-col justify-between group">
-                  <div class="flex items-center justify-between gap-1 mb-1">
+                <div class="p-2.5 sm:p-3 rounded-xl bg-slate-50 dark:bg-dark-elevated/60 border border-slate-200/60 dark:border-white/[0.04] hover:border-brand-orange/40 hover:bg-slate-100/70 dark:hover:bg-white/[0.03] transition-all flex flex-col justify-between group">
+                  <!-- Row 1: Flag + Country Name on Left, Live Status on Right -->
+                  <div class="flex items-center justify-between gap-1.5">
                     <div class="flex items-center gap-1.5 min-w-0">
-                      <img
-                        src={`https://flagcdn.com/w40/${flagCode}.png`}
-                        srcset={`https://flagcdn.com/w80/${flagCode}.png 2x`}
-                        alt={`${clock.name} flag`}
-                        class="w-4.5 h-3.2 object-cover rounded-xs shadow-2xs border border-black/10 dark:border-white/10 shrink-0 select-none"
-                        loading="eager"
-                      />
-                      <span class="text-[11px] font-bold text-slate-800 dark:text-slate-200 truncate group-hover:text-brand-orange transition-colors">
+                      <div class="w-4.5 h-3 rounded-xs overflow-hidden shadow-2xs border border-black/10 dark:border-white/10 shrink-0">
+                        <img
+                          src={`https://flagcdn.com/w40/${flagCode}.png`}
+                          srcset={`https://flagcdn.com/w80/${flagCode}.png 2x`}
+                          alt={`${clock.name} flag`}
+                          class="w-full h-full object-cover select-none"
+                          loading="eager"
+                        />
+                      </div>
+                      <span class="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-brand-orange transition-colors truncate">
                         {clock.shortName || clock.name}
                       </span>
                     </div>
-                    <span class="text-[9px] font-bold text-brand-orange bg-brand-orange/10 dark:bg-brand-orange/20 px-1 py-0.2 rounded font-mono shrink-0">
+
+                    <span
+                      class={`text-[10px] font-bold px-1.5 py-0.5 rounded-full transition-colors whitespace-nowrap shrink-0 ${isBiz ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25' : 'bg-slate-100 dark:bg-white/[0.06] text-slate-500 dark:text-slate-400 border border-slate-200/60 dark:border-white/[0.06]'}`}
+                      data-clock-status={clock.timezone}
+                    >
+                      {isBiz ? 'Open' : 'Closed'}
+                    </span>
+                  </div>
+
+                  <!-- Row 2: Large Tabular Clock Time on Left, Timezone Code Pill on Right -->
+                  <div class="flex items-baseline justify-between gap-1 my-1 sm:my-1.5">
+                    <div
+                      class="text-lg sm:text-xl font-mono font-bold text-slate-900 dark:text-white tracking-tight clock-display tabular-nums leading-none"
+                      data-clock-tz={clock.timezone}
+                    >
+                      {serverTime}
+                    </div>
+                    <span class="text-[10px] font-bold text-brand-orange bg-brand-orange/10 dark:bg-brand-orange/20 px-1.5 py-0.5 rounded font-mono shrink-0">
                       {clock.tzAbbr || clock.code}
                     </span>
                   </div>
 
-                  <div
-                    class="text-sm sm:text-base font-mono font-bold text-slate-900 dark:text-white tracking-tight clock-display tabular-nums my-0.5"
-                    data-clock-tz={clock.timezone}
-                  >
-                    --:--:--
-                  </div>
-
-                  <div class="text-[10px] text-slate-400 font-medium truncate mt-0.5">
-                    {clock.label || clock.timezone.split('/')[1]}
-                  </div>
-                </div>
-              );
-            })
-          }
-        </div>
-      </div>
-
-      <!-- Bento Sub-Card 2: Real-Time Foreign Exchange Rates Strip -->
-      <div class="bg-white dark:bg-dark-card border border-slate-200/80 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs transition-colors">
-        <div class="flex items-center justify-between pb-2.5 border-b border-slate-100 dark:border-white/[0.06]">
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
-            <span class="text-xs font-bold text-slate-900 dark:text-white">Real-Time Currency Rates</span>
-          </div>
-          <span id="bento-fx-pill" class="text-[10px] font-semibold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/[0.06] border border-slate-200 dark:border-white/10 px-2 py-0.5 rounded-full flex items-center gap-1 transition-colors">
-            <span id="bento-fx-dot" class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
-            <span id="bento-fx-label">Checking FX...</span>
-          </span>
-        </div>
-
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2.5">
-          {
-            EXCHANGE_RATES.slice(0, 4).map((rate) => {
-              const flagCode = rate.toFlagCode || (rate.to === 'CNY' ? 'cn' : rate.to === 'EUR' ? 'eu' : rate.to === 'GBP' ? 'gb' : rate.to === 'JPY' ? 'jp' : 'us');
-              return (
-                <div class="p-2 sm:p-2.5 rounded-xl bg-slate-50 dark:bg-dark-elevated/60 border border-slate-200/60 dark:border-white/[0.04] hover:border-brand-orange/40 hover:bg-slate-100/70 dark:hover:bg-white/[0.03] transition-all flex flex-col justify-between group">
-                  <div class="flex items-center justify-between gap-1 mb-1">
-                    <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 font-mono tracking-tight whitespace-nowrap">
-                      {rate.pair}
+                  <!-- Row 3: City Hub on Left, Short Date on Right -->
+                  <div class="flex items-center justify-between gap-1 text-[10px] sm:text-[11px] font-mono text-slate-400 dark:text-slate-500">
+                    <span class="truncate">
+                      <span class="sm:hidden xl:inline">{clock.label || clock.city}</span>
+                      <span class="hidden sm:inline xl:hidden">{clock.city || clock.label}</span>
                     </span>
-                    <img
-                      src={`https://flagcdn.com/w40/${flagCode}.png`}
-                      srcset={`https://flagcdn.com/w80/${flagCode}.png 2x`}
-                      alt={`${rate.to} flag`}
-                      class="w-4.5 h-3.2 object-cover rounded-xs shadow-2xs border border-black/10 dark:border-white/10 shrink-0 select-none"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div class="text-[15px] sm:text-base font-mono font-bold text-slate-900 dark:text-white tracking-tight my-0.5 tabular-nums" data-fx-pair={rate.pair}>
-                    {rate.rate}
-                  </div>
-                  <div class="flex items-center justify-between gap-1 mt-1 text-[10px]">
-                    <span class={`font-bold px-1.5 py-0.2 rounded text-[10px] shrink-0 ${rate.isPositive ? 'text-emerald-700 dark:text-emerald-300 bg-emerald-500/10' : 'text-rose-700 dark:text-rose-300 bg-rose-500/10'}`}>
-                      {rate.change}
-                    </span>
-                    <span class="text-slate-400 font-medium text-[9px] sm:text-[10px] truncate text-right">
-                      {rate.shortLabel || rate.label}
+                    <span
+                      class="shrink-0"
+                      data-clock-date={clock.timezone}
+                    >
+                      {serverDate}
                     </span>
                   </div>
                 </div>
@@ -180,98 +187,8 @@ import { MARKET_CLOCKS, EXCHANGE_RATES, QUICK_JUMP_PILLS, COUNTRY_MARKETPLACES }
     </div>
   </div>
 
-  <!-- AMZ123-Style Country Marketplace Quick Launchpad -->
-  <section aria-label="Country Marketplace Direct Launchpad" class="bg-white dark:bg-dark-card border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs w-full min-w-0 transition-colors">
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 mb-3 border-b border-slate-100 dark:border-white/[0.06]">
-      <div class="flex items-center gap-2.5">
-        <span class="w-2.5 h-2.5 rounded-full bg-brand-orange animate-pulse"></span>
-        <div>
-          <div class="flex items-center gap-2">
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-              Global Amazon Marketplaces & Direct BSR Access
-            </h3>
-            <span class="text-xs font-semibold text-brand-orange bg-brand-orange/10 dark:bg-brand-orange/20 px-2.5 py-0.5 rounded-full">
-              9 Active Stations
-            </span>
-          </div>
-          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 hidden sm:block">
-            One-click direct portal to hourly-updated Best Seller Lists (Top 100) & marketplace storefronts.
-          </p>
-        </div>
-      </div>
-
-      <div class="flex items-center gap-2 text-xs text-slate-400 shrink-0">
-        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-          <span>Hourly BSR Sync</span>
-        </span>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-2.5 w-full min-w-0">
-      {
-        COUNTRY_MARKETPLACES.map((country) => {
-          const flagCode = country.flagCode || (country.code === 'UK' ? 'gb' : country.code.toLowerCase());
-          return (
-            <div class="p-3 rounded-xl bg-slate-50/80 dark:bg-[#131924]/80 border border-slate-200/80 dark:border-white/[0.06] hover:border-brand-orange/60 dark:hover:border-brand-orange/60 hover:bg-white dark:hover:bg-white/[0.03] hover:shadow-xs hover:-translate-y-0.5 transition-all flex flex-col justify-between group">
-              <!-- Top Row: Real Flag + Country Code Pill -->
-              <div class="flex items-center justify-between gap-1.5 mb-2">
-                <div class="w-6 h-4 rounded-xs overflow-hidden shadow-2xs border border-black/10 dark:border-white/10 shrink-0">
-                  <img
-                    src={`https://flagcdn.com/w40/${flagCode}.png`}
-                    srcset={`https://flagcdn.com/w80/${flagCode}.png 2x`}
-                    alt={`${country.name} flag`}
-                    class="w-full h-full object-cover select-none"
-                    loading="lazy"
-                    onerror="this.style.display='none'"
-                  />
-                </div>
-                <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 font-mono">
-                  {country.code}
-                </span>
-              </div>
-
-              <!-- Middle: Station Title & Domain -->
-              <div class="mb-2.5">
-                <div class="text-xs font-bold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors truncate" title={country.name}>
-                  {country.shortName || country.name}
-                </div>
-                <div class="text-[10px] text-slate-400 font-mono truncate mt-0.5">
-                  {country.domain || country.url.replace('https://www.', '')}
-                </div>
-              </div>
-
-              <!-- Bottom Action Row: BSR (Primary) & Store (Secondary) -->
-              <div class="grid grid-cols-2 gap-1.5 pt-2 border-t border-slate-200/60 dark:border-white/[0.04]">
-                <a
-                  href={country.bsrUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-center font-bold text-[10px] sm:text-[11px] text-brand-orange bg-brand-orange/10 hover:bg-brand-orange hover:text-white py-1 rounded-md transition-all flex items-center justify-center gap-0.5"
-                  title={`Hourly updated Amazon ${country.code} Best Sellers (Top 100)`}
-                >
-                  <span>BSR</span>
-                  <span class="text-[9px]">🔥</span>
-                </a>
-                <a
-                  href={country.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-center font-semibold text-[10px] sm:text-[11px] text-slate-600 dark:text-slate-300 bg-white dark:bg-white/[0.06] hover:bg-slate-200 dark:hover:bg-white/15 border border-slate-200/60 dark:border-white/10 py-1 rounded-md transition-all flex items-center justify-center gap-0.5"
-                  title={`Visit Amazon ${country.name} Marketplace Store`}
-                >
-                  <span>Store</span>
-                  <svg class="w-2.5 h-2.5 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          );
-        })
-      }
-    </div>
-  </section>
+  <!-- Global Amazon Marketplaces & Direct BSR Access Section -->
+  <AmazonMarketplaces />
 
   <!-- Horizontal Category Quick-Jump Pill Dock -->
   <section aria-label="Quick Filter Category Navigation" class="w-full min-w-0 overflow-hidden">
@@ -347,6 +264,42 @@ import { MARKET_CLOCKS, EXCHANGE_RATES, QUICK_JUMP_PILLS, COUNTRY_MARKETPLACES }
           }).format(now);
 
           el.textContent = timeString;
+
+          // Update Day & Date
+          const dateElements = document.querySelectorAll(`[data-clock-date="${timeZone}"]`);
+          dateElements.forEach((dateEl) => {
+            dateEl.textContent = new Intl.DateTimeFormat('en-US', {
+              timeZone,
+              weekday: 'short',
+              month: 'short',
+              day: 'numeric',
+            }).format(now);
+          });
+
+          // Update Business Hours Status (09:00 - 18:00 local time)
+          const statusElements = document.querySelectorAll(`[data-clock-status="${timeZone}"]`);
+          if (statusElements.length > 0) {
+            const hour = parseInt(
+              new Intl.DateTimeFormat('en-US', {
+                timeZone,
+                hour: 'numeric',
+                hour12: false,
+              }).format(now),
+              10
+            );
+            const day = new Intl.DateTimeFormat('en-US', {
+              timeZone,
+              weekday: 'short',
+            }).format(now);
+            const isBiz = day !== 'Sat' && day !== 'Sun' && hour >= 9 && hour < 18;
+
+            statusElements.forEach((statusEl) => {
+              statusEl.textContent = isBiz ? 'Open' : 'Closed';
+              statusEl.className = isBiz
+                ? 'text-[10px] font-bold px-1.5 py-0.5 rounded-full transition-colors whitespace-nowrap shrink-0 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25'
+                : 'text-[10px] font-bold px-1.5 py-0.5 rounded-full transition-colors whitespace-nowrap shrink-0 bg-slate-100 dark:bg-white/[0.06] text-slate-500 dark:text-slate-400 border border-slate-200/60 dark:border-white/[0.06]';
+            });
+          }
         } catch (err) {
           el.textContent = now.toTimeString().split(' ')[0];
         }

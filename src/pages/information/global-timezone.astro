@@ -1,0 +1,577 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+
+interface TimezoneHubItem {
+  id: string;
+  city: string;
+  country: string;
+  countryCode: string;
+  timezone: string; // IANA timezone
+  tzCode: string; // e.g. CST, EST, PST
+  utcOffset: string; // e.g. UTC+8, UTC-5
+  businessWindow: string; // e.g. 09:00 - 18:00
+  businessStartHour: number;
+  businessEndHour: number;
+  region: 'Asia-Pacific' | 'North America' | 'Europe' | 'Middle East & LATAM';
+  hubRole: string;
+  isPrimary?: boolean;
+}
+
+const TIMEZONE_HUBS: TimezoneHubItem[] = [
+  // 1. Asia-Pacific (Factory Sourcing & Regional Marketplaces)
+  { id: 'shenzhen', city: 'Shenzhen & Yiwu', country: 'China', countryCode: 'cn', timezone: 'Asia/Shanghai', tzCode: 'CST', utcOffset: 'UTC+8', businessWindow: '09:00 - 18:00', businessStartHour: 9, businessEndHour: 18, region: 'Asia-Pacific', hubRole: '1688 Sourcing, Yiwu Wholesale & Amazon Logistics', isPrimary: true },
+  { id: 'hongkong', city: 'Hong Kong', country: 'Hong Kong', countryCode: 'hk', timezone: 'Asia/Hong_Kong', tzCode: 'HKT', utcOffset: 'UTC+8', businessWindow: '09:00 - 18:00', businessStartHour: 9, businessEndHour: 18, region: 'Asia-Pacific', hubRole: 'Air Cargo Superhub & Global Banking', isPrimary: true },
+  { id: 'taipei', city: 'Taipei', country: 'Taiwan', countryCode: 'tw', timezone: 'Asia/Taipei', tzCode: 'CST', utcOffset: 'UTC+8', businessWindow: '09:00 - 18:00', businessStartHour: 9, businessEndHour: 18, region: 'Asia-Pacific', hubRole: 'Hardware & Electronics Components' },
+  { id: 'tokyo', city: 'Tokyo', country: 'Japan', countryCode: 'jp', timezone: 'Asia/Tokyo', tzCode: 'JST', utcOffset: 'UTC+9', businessWindow: '09:00 - 18:00', businessStartHour: 9, businessEndHour: 18, region: 'Asia-Pacific', hubRole: 'Amazon Japan & Rakuten Marketplace', isPrimary: true },
+  { id: 'seoul', city: 'Seoul', country: 'South Korea', countryCode: 'kr', timezone: 'Asia/Seoul', tzCode: 'KST', utcOffset: 'UTC+9', businessWindow: '09:00 - 18:00', businessStartHour: 9, businessEndHour: 18, region: 'Asia-Pacific', hubRole: 'Coupang Marketplace & Consumer Trends' },
+  { id: 'singapore', city: 'Singapore', country: 'Singapore', countryCode: 'sg', timezone: 'Asia/Singapore', tzCode: 'SGT', utcOffset: 'UTC+8', businessWindow: '09:00 - 18:00', businessStartHour: 9, businessEndHour: 18, region: 'Asia-Pacific', hubRole: 'Southeast Asia Regional HQ (Shopee, Lazada)', isPrimary: true },
+  { id: 'hochiminh', city: 'Ho Chi Minh City', country: 'Vietnam', countryCode: 'vn', timezone: 'Asia/Ho_Chi_Minh', tzCode: 'ICT', utcOffset: 'UTC+7', businessWindow: '08:30 - 17:30', businessStartHour: 8, businessEndHour: 17, region: 'Asia-Pacific', hubRole: 'Garments, Furniture & Tech Sourcing' },
+  { id: 'bangkok', city: 'Bangkok', country: 'Thailand', countryCode: 'th', timezone: 'Asia/Bangkok', tzCode: 'ICT', utcOffset: 'UTC+7', businessWindow: '08:30 - 17:30', businessStartHour: 8, businessEndHour: 17, region: 'Asia-Pacific', hubRole: 'Automotive & Food Processing Export' },
+  { id: 'kualalumpur', city: 'Kuala Lumpur', country: 'Malaysia', countryCode: 'my', timezone: 'Asia/Kuala_Lumpur', tzCode: 'MYT', utcOffset: 'UTC+8', businessWindow: '09:00 - 18:00', businessStartHour: 9, businessEndHour: 18, region: 'Asia-Pacific', hubRole: 'Regional E-Commerce & Warehousing' },
+  { id: 'mumbai', city: 'Mumbai & New Delhi', country: 'India', countryCode: 'in', timezone: 'Asia/Kolkata', tzCode: 'IST', utcOffset: 'UTC+5:30', businessWindow: '09:30 - 18:30', businessStartHour: 9, businessEndHour: 18, region: 'Asia-Pacific', hubRole: 'Textiles, Home Decor & Amazon IN', isPrimary: true },
+  { id: 'sydney', city: 'Sydney & Melbourne', country: 'Australia', countryCode: 'au', timezone: 'Australia/Sydney', tzCode: 'AEST', utcOffset: 'UTC+11', businessWindow: '09:00 - 17:30', businessStartHour: 9, businessEndHour: 17, region: 'Asia-Pacific', hubRole: 'Amazon Australia Marketplace Hub', isPrimary: true },
+  { id: 'auckland', city: 'Auckland', country: 'New Zealand', countryCode: 'nz', timezone: 'Pacific/Auckland', tzCode: 'NZDT', utcOffset: 'UTC+13', businessWindow: '09:00 - 17:00', businessStartHour: 9, businessEndHour: 17, region: 'Asia-Pacific', hubRole: 'Oceania Cross-Border Consumer Market' },
+
+  // 2. Europe (European Union & United Kingdom E-Commerce)
+  { id: 'london', city: 'London', country: 'United Kingdom', countryCode: 'gb', timezone: 'Europe/London', tzCode: 'GMT', utcOffset: 'UTC+0', businessWindow: '09:00 - 17:30', businessStartHour: 9, businessEndHour: 17, region: 'Europe', hubRole: 'Amazon UK, HMRC VAT & Royal Mail Network', isPrimary: true },
+  { id: 'frankfurt', city: 'Frankfurt & Berlin', country: 'Germany', countryCode: 'de', timezone: 'Europe/Berlin', tzCode: 'CET', utcOffset: 'UTC+1', businessWindow: '09:00 - 17:30', businessStartHour: 9, businessEndHour: 17, region: 'Europe', hubRole: 'Amazon DE (Europe #1) & Pan-EU Logistics', isPrimary: true },
+  { id: 'paris', city: 'Paris', country: 'France', countryCode: 'fr', timezone: 'Europe/Paris', tzCode: 'CET', utcOffset: 'UTC+1', businessWindow: '09:00 - 17:30', businessStartHour: 9, businessEndHour: 17, region: 'Europe', hubRole: 'Amazon FR & Fashion/Cosmetics Marketplace' },
+  { id: 'milan', city: 'Milan & Rome', country: 'Italy', countryCode: 'it', timezone: 'Europe/Rome', tzCode: 'CET', utcOffset: 'UTC+1', businessWindow: '09:00 - 18:00', businessStartHour: 9, businessEndHour: 18, region: 'Europe', hubRole: 'Amazon IT & Southern Europe Distribution' },
+  { id: 'madrid', city: 'Madrid & Barcelona', country: 'Spain', countryCode: 'es', timezone: 'Europe/Madrid', tzCode: 'CET', utcOffset: 'UTC+1', businessWindow: '09:00 - 18:00', businessStartHour: 9, businessEndHour: 18, region: 'Europe', hubRole: 'Amazon ES & Iberian Logistics Hub' },
+  { id: 'amsterdam', city: 'Amsterdam & Rotterdam', country: 'Netherlands', countryCode: 'nl', timezone: 'Europe/Amsterdam', tzCode: 'CET', utcOffset: 'UTC+1', businessWindow: '09:00 - 17:30', businessStartHour: 9, businessEndHour: 17, region: 'Europe', hubRole: 'European Customs Clearance & VAT Postponement', isPrimary: true },
+  { id: 'warsaw', city: 'Warsaw & Wroclaw', country: 'Poland', countryCode: 'pl', timezone: 'Europe/Warsaw', tzCode: 'CET', utcOffset: 'UTC+1', businessWindow: '08:30 - 17:00', businessStartHour: 8, businessEndHour: 17, region: 'Europe', hubRole: 'Allegro Marketplace & Central European FBA Hubs' },
+
+  // 3. North America (Primary Consumer Markets & FBA)
+  { id: 'newyork', city: 'New York & Miami (EST)', country: 'United States', countryCode: 'us', timezone: 'America/New_York', tzCode: 'EST', utcOffset: 'UTC-5', businessWindow: '09:00 - 17:00', businessStartHour: 9, businessEndHour: 17, region: 'North America', hubRole: 'US Financial Capital & East Coast Amazon Hubs', isPrimary: true },
+  { id: 'chicago', city: 'Chicago & Dallas (CST)', country: 'United States', countryCode: 'us', timezone: 'America/Chicago', tzCode: 'CST', utcOffset: 'UTC-6', businessWindow: '08:30 - 17:00', businessStartHour: 8, businessEndHour: 17, region: 'North America', hubRole: 'US Rail Freight & Central Distribution Center' },
+  { id: 'denver', city: 'Denver & Salt Lake (MST)', country: 'United States', countryCode: 'us', timezone: 'America/Denver', tzCode: 'MST', utcOffset: 'UTC-7', businessWindow: '08:30 - 17:00', businessStartHour: 8, businessEndHour: 17, region: 'North America', hubRole: 'Intermountain US Logistics Network' },
+  { id: 'losangeles', city: 'Los Angeles & Seattle (PST)', country: 'United States', countryCode: 'us', timezone: 'America/Los_Angeles', tzCode: 'PST', utcOffset: 'UTC-8', businessWindow: '09:00 - 17:00', businessStartHour: 9, businessEndHour: 17, region: 'North America', hubRole: 'Amazon HQ (Seattle) & West Coast FBA Hub (LA)', isPrimary: true },
+  { id: 'toronto', city: 'Toronto & Montreal', country: 'Canada', countryCode: 'ca', timezone: 'America/Toronto', tzCode: 'EST', utcOffset: 'UTC-5', businessWindow: '09:00 - 17:00', businessStartHour: 9, businessEndHour: 17, region: 'North America', hubRole: 'Amazon Canada East Fulfillment (YYZ Hubs)', isPrimary: true },
+  { id: 'vancouver', city: 'Vancouver', country: 'Canada', countryCode: 'ca', timezone: 'America/Vancouver', tzCode: 'PST', utcOffset: 'UTC-8', businessWindow: '09:00 - 17:00', businessStartHour: 9, businessEndHour: 17, region: 'North America', hubRole: 'Amazon Canada West Coast (YVR Hubs)' },
+
+  // 4. Middle East & LATAM (Fast-Growing Sourcing & Marketplaces)
+  { id: 'dubai', city: 'Dubai & Abu Dhabi', country: 'United Arab Emirates', countryCode: 'ae', timezone: 'Asia/Dubai', tzCode: 'GST', utcOffset: 'UTC+4', businessWindow: '08:30 - 17:30', businessStartHour: 8, businessEndHour: 17, region: 'Middle East & LATAM', hubRole: 'Amazon AE, Noon & Jebel Ali Free Zone', isPrimary: true },
+  { id: 'riyadh', city: 'Riyadh', country: 'Saudi Arabia', countryCode: 'sa', timezone: 'Asia/Riyadh', tzCode: 'AST', utcOffset: 'UTC+3', businessWindow: '09:00 - 18:00', businessStartHour: 9, businessEndHour: 18, region: 'Middle East & LATAM', hubRole: 'Amazon SA & High-Purchasing Power Gulf Hub' },
+  { id: 'mexicocity', city: 'Mexico City', country: 'Mexico', countryCode: 'mx', timezone: 'America/Mexico_City', tzCode: 'CST', utcOffset: 'UTC-6', businessWindow: '09:00 - 18:00', businessStartHour: 9, businessEndHour: 18, region: 'Middle East & LATAM', hubRole: 'Amazon Mexico & US Nearshoring Manufacturing', isPrimary: true },
+  { id: 'saopaulo', city: 'São Paulo', country: 'Brazil', countryCode: 'br', timezone: 'America/Sao_Paulo', tzCode: 'BRT', utcOffset: 'UTC-3', businessWindow: '09:00 - 18:00', businessStartHour: 9, businessEndHour: 18, region: 'Middle East & LATAM', hubRole: 'MercadoLibre & Latin America #1 E-Commerce Hub' },
+];
+
+const now = new Date();
+---
+
+<BaseLayout
+  title="Global Business Timezones & Sourcing Clocks — Ecom Resources"
+  description="Live world business timezone reference for Amazon, Shopify & cross-border sellers. Real-time clocks across Shenzhen, US (EST/PST), London, Frankfurt, Tokyo, and Sydney."
+>
+  <Header />
+
+  <!-- Breadcrumbs -->
+  <nav aria-label="Breadcrumb" class="w-full bg-white dark:bg-[#131924] border-b border-slate-200/80 dark:border-white/[0.06] py-3">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+      <a href="/" class="hover:text-brand-orange transition-colors">Home</a>
+      <span>/</span>
+      <span class="text-slate-400">Information</span>
+      <span>/</span>
+      <span class="text-slate-900 dark:text-white font-semibold">Global Business Timezones</span>
+    </div>
+  </nav>
+
+  <main class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8 flex-1">
+    <!-- Header Hero Showcase -->
+    <section class="bg-gradient-to-br from-white via-slate-50 to-indigo-50/30 dark:from-slate-950 dark:via-dark-card dark:to-[#0D1220] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-5 sm:p-7 shadow-xs">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2.5">
+            <span class="w-10 h-10 rounded-xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-lg shrink-0">
+              ⏰
+            </span>
+            <div>
+              <div class="flex items-center gap-2">
+                <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                  Global Business Timezones & Sourcing Clocks
+                </h1>
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5 hidden sm:inline-flex">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span>Live UTC Sync</span>
+                </span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+                Real-time ticking regional clocks, UTC offsets, and standard business operating windows for cross-border factory communication, freight departures, and supplier coordination.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Summary Stats -->
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0 self-start md:self-auto flex-wrap">
+          <div class="bg-white/80 dark:bg-white/[0.05] border border-slate-200/80 dark:border-white/10 rounded-xl px-3 py-1.5 shadow-2xs text-center">
+            <span class="text-xs text-slate-400 block font-medium">Global Hubs</span>
+            <span class="text-base font-bold text-slate-900 dark:text-white font-mono">{TIMEZONE_HUBS.length}</span>
+          </div>
+          <div class="bg-white/80 dark:bg-white/[0.05] border border-slate-200/80 dark:border-white/10 rounded-xl px-3 py-1.5 shadow-2xs text-center">
+            <span class="text-xs text-slate-400 block font-medium">Active Regions</span>
+            <span class="text-base font-bold text-slate-900 dark:text-white font-mono">4</span>
+          </div>
+          <div class="bg-white/80 dark:bg-white/[0.05] border border-slate-200/80 dark:border-white/10 rounded-xl px-3 py-1.5 shadow-2xs text-center">
+            <span class="text-xs text-slate-400 block font-medium">Tick Frequency</span>
+            <span class="text-base font-bold text-emerald-600 dark:text-emerald-400 font-mono">1s</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search & Region Filters Bar -->
+    <section class="bg-white dark:bg-dark-card border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs space-y-4">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <!-- Live Keyword Search -->
+        <div class="relative flex-1 min-w-0 max-w-md">
+          <input
+            type="search"
+            id="tz-search-input"
+            placeholder="Search city, country, or code (e.g. Shenzhen, CST, EST, London)..."
+            class="w-full pl-9 pr-4 py-2 text-xs sm:text-sm bg-slate-50 dark:bg-dark-elevated text-slate-900 dark:text-white placeholder-slate-400 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange/30 transition-all"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+
+        <!-- Filter Count Indicator -->
+        <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+          <span>Showing <strong id="tz-match-count" class="text-slate-900 dark:text-white">{TIMEZONE_HUBS.length}</strong> of {TIMEZONE_HUBS.length} hubs</span>
+          <button
+            type="button"
+            id="reset-tz-filter-btn"
+            class="hidden text-brand-orange hover:underline font-semibold cursor-pointer"
+          >
+            Clear Search
+          </button>
+        </div>
+      </div>
+
+      <!-- Filter Pills -->
+      <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-1 border-t border-slate-100 dark:border-white/[0.05]">
+        <button
+          type="button"
+          data-filter="all"
+          class="tz-filter-btn active-tz-filter px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap bg-brand-orange text-white shadow-xs"
+        >
+          All Hubs ({TIMEZONE_HUBS.length})
+        </button>
+        <button
+          type="button"
+          data-filter="open-only"
+          class="tz-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all cursor-pointer whitespace-nowrap flex items-center gap-1"
+        >
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span>Open Now</span>
+        </button>
+        <button
+          type="button"
+          data-filter="Asia-Pacific"
+          class="tz-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all cursor-pointer whitespace-nowrap"
+        >
+          🌏 Asia-Pacific ({TIMEZONE_HUBS.filter(h => h.region === 'Asia-Pacific').length})
+        </button>
+        <button
+          type="button"
+          data-filter="North America"
+          class="tz-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all cursor-pointer whitespace-nowrap"
+        >
+          🌎 North America ({TIMEZONE_HUBS.filter(h => h.region === 'North America').length})
+        </button>
+        <button
+          type="button"
+          data-filter="Europe"
+          class="tz-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all cursor-pointer whitespace-nowrap"
+        >
+          🌍 Europe ({TIMEZONE_HUBS.filter(h => h.region === 'Europe').length})
+        </button>
+        <button
+          type="button"
+          data-filter="Middle East & LATAM"
+          class="tz-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all cursor-pointer whitespace-nowrap"
+        >
+          🌐 Middle East & LATAM ({TIMEZONE_HUBS.filter(h => h.region === 'Middle East & LATAM').length})
+        </button>
+      </div>
+    </section>
+
+    <!-- Reference Table Container -->
+    <div class="bg-white dark:bg-dark-card border border-slate-200/90 dark:border-white/[0.08] rounded-2xl overflow-hidden shadow-xs">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="bg-slate-50/90 dark:bg-white/[0.03] border-b border-slate-200/80 dark:border-white/[0.06] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider text-[11px]">
+              <th scope="col" class="py-3 px-3 sm:px-4">Major Hub / City</th>
+              <th scope="col" class="py-3 px-3">Country</th>
+              <th scope="col" class="py-3 px-3">Timezone</th>
+              <th scope="col" class="py-3 px-3">UTC Offset</th>
+              <th scope="col" class="py-3 px-3">Live Local Time</th>
+              <th scope="col" class="py-3 px-3 sm:px-4">Business Window & Status</th>
+            </tr>
+          </thead>
+          <tbody id="tz-table-body" class="divide-y divide-slate-100 dark:divide-white/[0.04]">
+            {
+              TIMEZONE_HUBS.map((hub) => {
+                const flagCode = hub.countryCode.toLowerCase();
+                const searchKeywords = `${hub.city} ${hub.country} ${hub.tzCode} ${hub.utcOffset} ${hub.timezone} ${hub.region} ${hub.hubRole}`.toLowerCase();
+
+                const serverTime = new Intl.DateTimeFormat('en-US', {
+                  timeZone: hub.timezone,
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit',
+                  hour12: false,
+                }).format(now);
+
+                const serverDate = new Intl.DateTimeFormat('en-US', {
+                  timeZone: hub.timezone,
+                  weekday: 'short',
+                  month: 'short',
+                  day: 'numeric',
+                }).format(now);
+
+                const hour = parseInt(
+                  new Intl.DateTimeFormat('en-US', {
+                    timeZone: hub.timezone,
+                    hour: 'numeric',
+                    hour12: false,
+                  }).format(now),
+                  10
+                );
+
+                const day = new Intl.DateTimeFormat('en-US', {
+                  timeZone: hub.timezone,
+                  weekday: 'short',
+                }).format(now);
+
+                const isBiz = day !== 'Sat' && day !== 'Sun' && hour >= hub.businessStartHour && hour < hub.businessEndHour;
+
+                return (
+                  <tr
+                    class="tz-row hover:bg-slate-50/80 dark:hover:bg-white/[0.02] transition-colors group"
+                    data-search={searchKeywords}
+                    data-region={hub.region}
+                    data-is-biz={isBiz ? 'true' : 'false'}
+                    data-tz={hub.timezone}
+                    data-biz-start={hub.businessStartHour}
+                    data-biz-end={hub.businessEndHour}
+                  >
+                    <!-- Major Hub / City -->
+                    <td class="py-3.5 px-3 sm:px-4 font-semibold text-slate-900 dark:text-white">
+                      <div>
+                        <div class="flex items-center gap-1.5">
+                          <span class="text-xs sm:text-sm group-hover:text-brand-orange transition-colors">
+                            {hub.city}
+                          </span>
+                          {hub.isPrimary && (
+                            <span class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 hidden sm:inline-block">
+                              Key Sourcing Hub
+                            </span>
+                          )}
+                        </div>
+                        <span class="text-[11px] text-slate-400 dark:text-slate-500 font-normal block truncate max-w-xs">
+                          {hub.hubRole}
+                        </span>
+                      </div>
+                    </td>
+
+                    <!-- Country with Flag -->
+                    <td class="py-3.5 px-3">
+                      <div class="flex items-center gap-2">
+                        <div class="w-5 h-3.5 rounded-2xs overflow-hidden shadow-2xs border border-black/10 dark:border-white/10 shrink-0">
+                          <img
+                            src={`https://flagcdn.com/w40/${flagCode}.png`}
+                            srcset={`https://flagcdn.com/w80/${flagCode}.png 2x`}
+                            alt={`${hub.country} flag`}
+                            class="w-full h-full object-cover select-none"
+                            loading="lazy"
+                          />
+                        </div>
+                        <span class="text-xs text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                          {hub.country}
+                        </span>
+                      </div>
+                    </td>
+
+                    <!-- Timezone Code Pill -->
+                    <td class="py-3.5 px-3">
+                      <span class="inline-flex items-center px-2 py-0.5 rounded-md font-mono text-xs font-bold bg-brand-orange/10 text-brand-orange border border-brand-orange/20">
+                        {hub.tzCode}
+                      </span>
+                    </td>
+
+                    <!-- UTC Offset -->
+                    <td class="py-3.5 px-3 font-mono text-xs text-slate-500 dark:text-slate-400 font-semibold whitespace-nowrap">
+                      {hub.utcOffset}
+                    </td>
+
+                    <!-- Live Local Clock -->
+                    <td class="py-3.5 px-3">
+                      <div>
+                        <div
+                          class="tz-clock-display text-sm sm:text-base font-mono font-bold text-slate-900 dark:text-white tabular-nums tracking-tight leading-none"
+                          data-live-tz={hub.timezone}
+                        >
+                          {serverTime}
+                        </div>
+                        <span
+                          class="tz-date-display text-[11px] font-mono text-slate-400 block mt-1"
+                          data-live-date={hub.timezone}
+                        >
+                          {serverDate}
+                        </span>
+                      </div>
+                    </td>
+
+                    <!-- Business Window & Live Status -->
+                    <td class="py-3.5 px-3 sm:px-4">
+                      <div class="flex items-center gap-2">
+                        <span
+                          class={`tz-status-badge text-[10px] font-bold px-2 py-0.5 rounded-full transition-colors whitespace-nowrap shrink-0 ${
+                            isBiz
+                              ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25'
+                              : 'bg-slate-100 dark:bg-white/[0.06] text-slate-500 dark:text-slate-400 border border-slate-200/60 dark:border-white/[0.06]'
+                          }`}
+                          data-live-status={hub.timezone}
+                        >
+                          {isBiz ? '● Open Now' : 'Closed'}
+                        </span>
+                        <span class="text-[11px] text-slate-500 dark:text-slate-400 font-mono hidden sm:inline-block whitespace-nowrap">
+                          {hub.businessWindow}
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- No Results State -->
+      <div id="no-tz-results" class="hidden p-8 text-center">
+        <div class="text-3xl mb-2">🔍</div>
+        <h3 class="text-sm font-bold text-slate-900 dark:text-white">No timezone hubs found</h3>
+        <p class="text-xs text-slate-400 mt-1">Try searching by city, country name, or timezone abbreviation (e.g. CST, EST, London).</p>
+      </div>
+    </div>
+
+    <!-- Sourcing Coordination & Shift Overlap Matrix -->
+    <section class="bg-white dark:bg-dark-card border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-5 sm:p-6 shadow-xs space-y-4">
+      <div class="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-white/[0.06]">
+        <span class="w-8 h-8 rounded-xl bg-brand-orange/10 text-brand-orange flex items-center justify-center font-bold text-base shrink-0">
+          🤝
+        </span>
+        <div>
+          <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
+            Cross-Border Sourcing Shift Overlap Guide
+          </h3>
+          <p class="text-xs text-slate-400">
+            How to time your WeChat, Skype, and email outreach to connect with China factories during working hours.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs leading-relaxed">
+        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-dark-elevated/50 border border-slate-200/70 dark:border-white/[0.04]">
+          <span class="font-bold text-slate-900 dark:text-white block mb-1">🇺🇸 US Sellers (EST / PST) → 🇨🇳 China</span>
+          <p class="text-slate-500 dark:text-slate-400">
+            China factories (CST UTC+8) start their day at <strong>09:00 CST</strong>, which corresponds to <strong>20:00 EST / 17:00 PST</strong> the previous evening. Send RFQs and production checks during your evening to get responses within minutes.
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-dark-elevated/50 border border-slate-200/70 dark:border-white/[0.04]">
+          <span class="font-bold text-slate-900 dark:text-white block mb-1">🇬🇧 UK & 🇪🇺 Europe → 🇨🇳 China</span>
+          <p class="text-slate-500 dark:text-slate-400">
+            UK (GMT) has a <strong>7–8 hour</strong> time difference with China. European mornings (08:00–11:00 GMT/CET) overlap directly with the final afternoon hours (15:00–18:00 CST) of Chinese factories and freight forwarders.
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-dark-elevated/50 border border-slate-200/70 dark:border-white/[0.04]">
+          <span class="font-bold text-slate-900 dark:text-white block mb-1">🇦🇺 Australia → 🇨🇳 China & East Asia</span>
+          <p class="text-slate-500 dark:text-slate-400">
+            Sydney (AEST UTC+11) is only <strong>2–3 hours ahead</strong> of China and Southeast Asia. Working schedules align almost perfectly between 11:00 AEST and 19:00 AEST for real-time video calls and factory inspections.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <!-- Live Dynamic Ticking Clock Engine & Search Filter Logic -->
+  <script is:inline>
+    (function () {
+      const searchInput = document.getElementById('tz-search-input');
+      const tableBody = document.getElementById('tz-table-body');
+      const rows = tableBody ? Array.from(tableBody.querySelectorAll('.tz-row')) : [];
+      const matchCountEl = document.getElementById('tz-match-count');
+      const resetBtn = document.getElementById('reset-tz-filter-btn');
+      const noResultsEl = document.getElementById('no-tz-results');
+      const filterPills = document.querySelectorAll('.tz-filter-btn');
+
+      let currentFilter = 'all';
+      let currentQuery = '';
+
+      function filterTable() {
+        const query = currentQuery.trim().toLowerCase();
+        let visibleCount = 0;
+
+        rows.forEach((row) => {
+          const rowSearch = row.getAttribute('data-search') || '';
+          const rowRegion = row.getAttribute('data-region') || '';
+          const isBiz = row.getAttribute('data-is-biz') === 'true';
+
+          let matchesFilter = false;
+          if (currentFilter === 'all') {
+            matchesFilter = true;
+          } else if (currentFilter === 'open-only') {
+            matchesFilter = isBiz;
+          } else {
+            matchesFilter = rowRegion === currentFilter;
+          }
+
+          const matchesQuery = !query || rowSearch.includes(query);
+
+          if (matchesFilter && matchesQuery) {
+            row.style.display = '';
+            visibleCount++;
+          } else {
+            row.style.display = 'none';
+          }
+        });
+
+        if (matchCountEl) {
+          matchCountEl.textContent = String(visibleCount);
+        }
+
+        if (noResultsEl) {
+          noResultsEl.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        if (resetBtn) {
+          resetBtn.style.display = query || currentFilter !== 'all' ? 'inline-block' : 'none';
+        }
+      }
+
+      // Search event
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          currentQuery = e.target.value;
+          filterTable();
+        });
+      }
+
+      // Filter pills
+      filterPills.forEach((pill) => {
+        pill.addEventListener('click', () => {
+          filterPills.forEach((p) => {
+            p.classList.remove('active-tz-filter', 'bg-brand-orange', 'text-white', 'shadow-xs');
+            p.classList.add('text-slate-600', 'dark:text-slate-300');
+          });
+
+          pill.classList.add('active-tz-filter', 'bg-brand-orange', 'text-white', 'shadow-xs');
+          pill.classList.remove('text-slate-600', 'dark:text-slate-300');
+
+          currentFilter = pill.getAttribute('data-filter') || 'all';
+          filterTable();
+        });
+      });
+
+      // Reset button
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (searchInput) searchInput.value = '';
+          currentQuery = '';
+          currentFilter = 'all';
+          filterPills.forEach((p, i) => {
+            if (i === 0) {
+              p.classList.add('active-tz-filter', 'bg-brand-orange', 'text-white', 'shadow-xs');
+              p.classList.remove('text-slate-600', 'dark:text-slate-300');
+            } else {
+              p.classList.remove('active-tz-filter', 'bg-brand-orange', 'text-white', 'shadow-xs');
+              p.classList.add('text-slate-600', 'dark:text-slate-300');
+            }
+          });
+          filterTable();
+        });
+      }
+
+      // Live 1-Second Interval Ticking Clock Engine
+      function updateLiveClocks() {
+        const now = new Date();
+        const clockEls = document.querySelectorAll('[data-live-tz]');
+
+        clockEls.forEach((el) => {
+          const timeZone = el.getAttribute('data-live-tz');
+          if (!timeZone) return;
+
+          try {
+            const timeStr = new Intl.DateTimeFormat('en-US', {
+              timeZone,
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit',
+              hour12: false,
+            }).format(now);
+
+            el.textContent = timeStr;
+
+            // Date element
+            const dateEl = document.querySelector(`[data-live-date="${timeZone}"]`);
+            if (dateEl) {
+              dateEl.textContent = new Intl.DateTimeFormat('en-US', {
+                timeZone,
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric',
+              }).format(now);
+            }
+
+            // Status element & row attribute
+            const row = el.closest('tr');
+            const statusEl = document.querySelector(`[data-live-status="${timeZone}"]`);
+            if (row && statusEl) {
+              const startH = parseInt(row.getAttribute('data-biz-start') || '9', 10);
+              const endH = parseInt(row.getAttribute('data-biz-end') || '18', 10);
+
+              const hour = parseInt(
+                new Intl.DateTimeFormat('en-US', {
+                  timeZone,
+                  hour: 'numeric',
+                  hour12: false,
+                }).format(now),
+                10
+              );
+
+              const day = new Intl.DateTimeFormat('en-US', {
+                timeZone,
+                weekday: 'short',
+              }).format(now);
+
+              const isBiz = day !== 'Sat' && day !== 'Sun' && hour >= startH && hour < endH;
+              row.setAttribute('data-is-biz', isBiz ? 'true' : 'false');
+
+              statusEl.textContent = isBiz ? '● Open Now' : 'Closed';
+              statusEl.className = isBiz
+                ? 'tz-status-badge text-[10px] font-bold px-2 py-0.5 rounded-full transition-colors whitespace-nowrap shrink-0 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25'
+                : 'tz-status-badge text-[10px] font-bold px-2 py-0.5 rounded-full transition-colors whitespace-nowrap shrink-0 bg-slate-100 dark:bg-white/[0.06] text-slate-500 dark:text-slate-400 border border-slate-200/60 dark:border-white/[0.06]';
+            }
+          } catch (e) {
+            el.textContent = now.toTimeString().split(' ')[0];
+          }
+        });
+      }
+
+      updateLiveClocks();
+      setInterval(updateLiveClocks, 1000);
+    })();
+  </script>
+</BaseLayout>

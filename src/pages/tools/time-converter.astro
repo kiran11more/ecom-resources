@@ -1,0 +1,511 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+
+const TIMEZONE_HUBS = [
+  {
+    id: 'shenzhen',
+    city: 'Shenzhen / Shanghai',
+    country: 'China',
+    flag: '🇨🇳',
+    timezone: 'Asia/Shanghai',
+    role: 'Factory Sourcing & 1688 / Yiwu Suppliers',
+    primaryUtc: 'UTC+8',
+  },
+  {
+    id: 'newyork',
+    city: 'New York (US East)',
+    country: 'United States',
+    flag: '🇺🇸',
+    timezone: 'America/New_York',
+    role: 'Amazon US Headquarters & East Coast Buyers',
+    primaryUtc: 'UTC-5 / UTC-4',
+  },
+  {
+    id: 'losangeles',
+    city: 'Los Angeles (US West)',
+    country: 'United States',
+    flag: '🇺🇸',
+    timezone: 'America/Los_Angeles',
+    role: 'Long Beach Port / ONT8 Warehouse Cluster',
+    primaryUtc: 'UTC-8 / UTC-7',
+  },
+  {
+    id: 'london',
+    city: 'London',
+    country: 'United Kingdom',
+    flag: '🇬🇧',
+    timezone: 'Europe/London',
+    role: 'Amazon UK Market & European Financial Hub',
+    primaryUtc: 'UTC+0 / UTC+1',
+  },
+  {
+    id: 'frankfurt',
+    city: 'Frankfurt / Berlin',
+    country: 'Germany',
+    flag: '🇩🇪',
+    timezone: 'Europe/Berlin',
+    role: 'Amazon DE & Pan-EU Fulfillment Core',
+    primaryUtc: 'UTC+1 / UTC+2',
+  },
+  {
+    id: 'tokyo',
+    city: 'Tokyo',
+    country: 'Japan',
+    flag: '🇯🇵',
+    timezone: 'Asia/Tokyo',
+    role: 'Amazon JP Marketplace & East Asia Logistics',
+    primaryUtc: 'UTC+9',
+  },
+  {
+    id: 'sydney',
+    city: 'Sydney',
+    country: 'Australia',
+    flag: '🇦🇺',
+    timezone: 'Australia/Sydney',
+    role: 'Amazon AU Marketplace & Oceania Shipping',
+    primaryUtc: 'UTC+10 / UTC+11',
+  },
+  {
+    id: 'mumbai',
+    city: 'Mumbai / New Delhi',
+    country: 'India',
+    flag: '🇮🇳',
+    timezone: 'Asia/Kolkata',
+    role: 'Amazon Virtual Assistants & Overseas Tech Teams',
+    primaryUtc: 'UTC+5:30',
+  },
+];
+---
+
+<BaseLayout
+  title="Global E-Commerce Time Converter & Business Hours Synchronizer — Ecom Resources"
+  description="Cross-border seller time converter. Synchronize local time and active business hours between Shenzhen, New York, Los Angeles, London, Frankfurt, Tokyo, Sydney, and Mumbai."
+>
+  <Header />
+
+  <!-- Breadcrumbs -->
+  <div class="w-full bg-white dark:bg-[#131924] border-b border-slate-200/80 dark:border-white/[0.06] py-3">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+      <a href="/" class="hover:text-brand-orange transition-colors">Home</a>
+      <span>/</span>
+      <a href="/tools" class="hover:text-brand-orange transition-colors">Tools</a>
+      <span>/</span>
+      <span class="text-slate-900 dark:text-white font-semibold">Time Converter</span>
+    </div>
+  </div>
+
+  <main class="w-full max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8 flex-1">
+    <!-- Tool Header Showcase -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200/90 dark:border-white/[0.08]">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-xl bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-base shrink-0">
+            🕒
+          </span>
+          <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            Global E-Commerce Time Converter
+          </h1>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          Synchronize communication with Chinese factory suppliers, Amazon US/EU support teams, and overseas virtual assistants.
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2 self-start sm:self-auto">
+        <button
+          type="button"
+          id="btn-reset-now"
+          class="px-3.5 py-2 rounded-xl bg-brand-orange text-white text-xs font-bold shadow-xs hover:bg-brand-orangeHover transition-all flex items-center gap-2 cursor-pointer"
+        >
+          <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+          <span>Reset to Current Time</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Controls Container -->
+    <div class="bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-5 sm:p-6 shadow-xs space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-white/[0.05] pb-3">
+        <h2 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <span>⚙️</span>
+          <span>Select Source Date, Time & City / Timezone</span>
+        </h2>
+        <span class="text-xs text-slate-400">Instant client-side calculation using native browser Intl</span>
+      </div>
+
+      <!-- 3-Column Inputs: Date, Time, Source Timezone -->
+      <div class="grid grid-cols-1 sm:grid-cols-12 gap-3.5">
+        <!-- Date Picker -->
+        <div class="sm:col-span-4 space-y-1.5">
+          <label for="src-date" class="text-xs font-bold text-slate-700 dark:text-slate-300 block">Date</label>
+          <input
+            type="date"
+            id="src-date"
+            class="w-full px-3.5 py-2.5 text-sm font-mono font-bold bg-slate-50 dark:bg-dark-elevated rounded-xl border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange cursor-pointer"
+          />
+        </div>
+
+        <!-- Time Picker -->
+        <div class="sm:col-span-3 space-y-1.5">
+          <label for="src-time" class="text-xs font-bold text-slate-700 dark:text-slate-300 block">Time (24-Hour)</label>
+          <input
+            type="time"
+            id="src-time"
+            value="14:00"
+            class="w-full px-3.5 py-2.5 text-sm font-mono font-bold bg-slate-50 dark:bg-dark-elevated rounded-xl border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange cursor-pointer"
+          />
+        </div>
+
+        <!-- Source Timezone Selector -->
+        <div class="sm:col-span-5 space-y-1.5">
+          <label for="src-tz" class="text-xs font-bold text-slate-700 dark:text-slate-300 block">Source Hub / Timezone</label>
+          <select
+            id="src-tz"
+            class="w-full px-3.5 py-2.5 text-sm font-bold bg-slate-50 dark:bg-dark-elevated rounded-xl border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange cursor-pointer truncate"
+          >
+            {TIMEZONE_HUBS.map((hub) => (
+              <option value={hub.timezone} selected={hub.timezone === 'Asia/Shanghai'}>
+                {hub.flag} {hub.city} ({hub.timezone})
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <!-- Quick Working Hour Buttons -->
+      <div class="flex items-center gap-2 flex-wrap pt-1 text-xs">
+        <span class="text-slate-400 font-semibold">Quick Times:</span>
+        <button type="button" data-set-time="09:00" class="quick-time-btn px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-dark-elevated hover:bg-slate-200 dark:hover:bg-white/10 font-mono text-slate-700 dark:text-slate-300 cursor-pointer transition-colors">
+          09:00 (Morning Open)
+        </button>
+        <button type="button" data-set-time="14:00" class="quick-time-btn px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-dark-elevated hover:bg-slate-200 dark:hover:bg-white/10 font-mono text-slate-700 dark:text-slate-300 cursor-pointer transition-colors">
+          14:00 (Afternoon Peak)
+        </button>
+        <button type="button" data-set-time="18:00" class="quick-time-btn px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-dark-elevated hover:bg-slate-200 dark:hover:bg-white/10 font-mono text-slate-700 dark:text-slate-300 cursor-pointer transition-colors">
+          18:00 (Close / Handover)
+        </button>
+        <button type="button" data-set-time="21:00" class="quick-time-btn px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-dark-elevated hover:bg-slate-200 dark:hover:bg-white/10 font-mono text-slate-700 dark:text-slate-300 cursor-pointer transition-colors">
+          21:00 (Supplier WeChat Night Shift)
+        </button>
+      </div>
+    </div>
+
+    <!-- Live Converted Hubs Grid -->
+    <div class="space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <span>🌍</span>
+          <span>Converted Local Time Across All Major E-Commerce Hubs</span>
+        </h2>
+        <span class="text-xs text-slate-400 font-mono">8 Global Hubs</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="hubs-grid">
+        {TIMEZONE_HUBS.map((hub) => (
+          <div
+            class="hub-card bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs flex flex-col justify-between gap-4 transition-all hover:border-brand-orange/40"
+            data-tz={hub.timezone}
+            data-hub-id={hub.id}
+          >
+            <!-- Card Top: City, Flag & Shift Badge -->
+            <div class="space-y-2">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-2xl leading-none">{hub.flag}</span>
+                  <div>
+                    <h3 class="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white leading-tight">
+                      {hub.city}
+                    </h3>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+                      {hub.timezone}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Date Shift Badge -->
+                <span class="shift-badge text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300 shrink-0">
+                  Same Day
+                </span>
+              </div>
+
+              <!-- Primary Role / E-Com Context -->
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">
+                {hub.role}
+              </p>
+            </div>
+
+            <!-- Card Middle: Time & Date Display -->
+            <div class="bg-slate-50 dark:bg-dark-elevated rounded-xl p-3 border border-slate-100 dark:border-white/[0.05] space-y-1">
+              <div class="flex items-baseline justify-between">
+                <span class="hub-time-24 text-2xl font-mono font-black text-slate-900 dark:text-white tracking-tight">
+                  --:--
+                </span>
+                <span class="hub-time-12 text-xs font-mono font-semibold text-slate-500 dark:text-slate-400">
+                  --:-- --
+                </span>
+              </div>
+              <p class="hub-date text-xs font-mono text-slate-600 dark:text-slate-300">
+                ---, --- --, ----
+              </p>
+            </div>
+
+            <!-- Card Bottom: Business Hours Badge & Copy Button -->
+            <div class="flex items-center justify-between gap-2 pt-1 border-t border-slate-100 dark:border-white/[0.05]">
+              <!-- Business Hours Badge -->
+              <span class="status-badge text-[11px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                <span class="status-dot w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                <span class="status-text">Business Hours (9 AM–6 PM)</span>
+              </span>
+
+              <!-- Copy Time Button -->
+              <button
+                type="button"
+                class="copy-hub-btn p-1.5 rounded-lg text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer shrink-0"
+                title="Copy local time"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Golden Communication Windows Reference Guide -->
+    <div class="bg-gradient-to-br from-indigo-500/10 via-purple-500/5 to-transparent border border-indigo-500/25 rounded-2xl p-5 sm:p-6 space-y-3.5">
+      <div class="flex items-center gap-2">
+        <span class="text-xl">⚡</span>
+        <h3 class="text-base font-bold text-slate-900 dark:text-white">
+          Cross-Border Golden Windows for Real-Time Supplier Outreach
+        </h3>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+        Because China is 12–15 hours ahead of the US, the most productive window for live WeChat negotiations and emergency factory calls is <strong>8:00 PM – 11:00 PM EST (9:00 AM – 12:00 PM China next day)</strong>. European sellers enjoy an afternoon overlap between <strong>2:00 PM – 5:00 PM CET (8:00 PM – 11:00 PM China)</strong>.
+      </p>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script is:inline>
+  (() => {
+    const srcDateInput = document.getElementById('src-date');
+    const srcTimeInput = document.getElementById('src-time');
+    const srcTzSelect = document.getElementById('src-tz');
+    const resetNowBtn = document.getElementById('btn-reset-now');
+    const quickTimeBtns = document.querySelectorAll('.quick-time-btn');
+    const hubCards = document.querySelectorAll('.hub-card');
+
+    // Helper: calculate UTC offset in milliseconds for a specific timezone and date
+    function getTimeZoneOffset(date, timeZone) {
+      const dtf = new Intl.DateTimeFormat('en-US', {
+        timeZone,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hourCycle: 'h23',
+      });
+      const parts = dtf.formatToParts(date);
+      const getPart = (type) => parts.find(p => p.type === type)?.value || '0';
+      const asUTC = Date.UTC(
+        parseInt(getPart('year'), 10),
+        parseInt(getPart('month'), 10) - 1,
+        parseInt(getPart('day'), 10),
+        parseInt(getPart('hour'), 10),
+        parseInt(getPart('minute'), 10),
+        parseInt(getPart('second'), 10)
+      );
+      return asUTC - date.getTime();
+    }
+
+    // Convert local string date & time in source timezone to UTC Date
+    function parseSourceToUtc(dateStr, timeStr, sourceTz) {
+      const [year, month, day] = dateStr.split('-').map(Number);
+      const [hours, minutes] = timeStr.split(':').map(Number);
+
+      const targetUtcEstimate = Date.UTC(year, month - 1, day, hours, minutes, 0);
+      const offset = getTimeZoneOffset(new Date(targetUtcEstimate), sourceTz);
+      return new Date(targetUtcEstimate - offset);
+    }
+
+    function updateAllHubs() {
+      if (!srcDateInput || !srcTimeInput || !srcTzSelect) return;
+
+      const dateStr = srcDateInput.value;
+      const timeStr = srcTimeInput.value;
+      const sourceTz = srcTzSelect.value;
+
+      if (!dateStr || !timeStr) return;
+
+      const utcDate = parseSourceToUtc(dateStr, timeStr, sourceTz);
+      const [srcYear, srcMonth, srcDay] = dateStr.split('-').map(Number);
+
+      hubCards.forEach(card => {
+        const destTz = card.getAttribute('data-tz');
+        if (!destTz) return;
+
+        // 1. Format 24-hour time
+        const time24Formatter = new Intl.DateTimeFormat('en-GB', {
+          timeZone: destTz,
+          hour: '2-digit',
+          minute: '2-digit',
+          hourCycle: 'h23',
+        });
+        const time24 = time24Formatter.format(utcDate);
+
+        // 2. Format 12-hour time
+        const time12Formatter = new Intl.DateTimeFormat('en-US', {
+          timeZone: destTz,
+          hour: 'numeric',
+          minute: '2-digit',
+          hour12: true,
+        });
+        const time12 = time12Formatter.format(utcDate);
+
+        // 3. Format Date
+        const dateFormatter = new Intl.DateTimeFormat('en-US', {
+          timeZone: destTz,
+          weekday: 'short',
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric',
+        });
+        const dateFormatted = dateFormatter.format(utcDate);
+
+        // 4. Extract year, month, day, hour, weekday in destination timezone
+        const partsFormatter = new Intl.DateTimeFormat('en-US', {
+          timeZone: destTz,
+          year: 'numeric',
+          month: 'numeric',
+          day: 'numeric',
+          hour: 'numeric',
+          weekday: 'short',
+          hourCycle: 'h23',
+        });
+        const parts = partsFormatter.formatToParts(utcDate);
+        const getPart = (type) => parts.find(p => p.type === type)?.value || '';
+
+        const destYear = parseInt(getPart('year'), 10);
+        const destMonth = parseInt(getPart('month'), 10);
+        const destDay = parseInt(getPart('day'), 10);
+        const destHour = parseInt(getPart('hour'), 10);
+        const destWeekday = getPart('weekday'); // "Mon", "Sat", "Sun", etc.
+
+        // Write to DOM
+        const time24El = card.querySelector('.hub-time-24');
+        const time12El = card.querySelector('.hub-time-12');
+        const dateEl = card.querySelector('.hub-date');
+        const shiftBadge = card.querySelector('.shift-badge');
+        const statusBadge = card.querySelector('.status-badge');
+        const statusDot = card.querySelector('.status-dot');
+        const statusText = card.querySelector('.status-text');
+
+        if (time24El) time24El.textContent = time24;
+        if (time12El) time12El.textContent = time12;
+        if (dateEl) dateEl.textContent = dateFormatted;
+
+        // Calculate Day Shift
+        const srcCalendarDays = srcYear * 365 + srcMonth * 30 + srcDay;
+        const destCalendarDays = destYear * 365 + destMonth * 30 + destDay;
+        const diff = destCalendarDays - srcCalendarDays;
+
+        if (shiftBadge) {
+          if (diff === 0) {
+            shiftBadge.textContent = 'Same Day';
+            shiftBadge.className = 'shift-badge text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300 shrink-0';
+          } else if (diff > 0) {
+            shiftBadge.textContent = `+${diff} Day${diff > 1 ? 's' : ''}`;
+            shiftBadge.className = 'shift-badge text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 shrink-0';
+          } else {
+            shiftBadge.textContent = `${diff} Day${Math.abs(diff) > 1 ? 's' : ''}`;
+            shiftBadge.className = 'shift-badge text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 shrink-0';
+          }
+        }
+
+        // Business Hours Badge calculation (9 AM to 6 PM, i.e., 09:00 - 17:59, Mon-Fri)
+        const isWeekend = destWeekday === 'Sat' || destWeekday === 'Sun';
+        const isBusinessHours = !isWeekend && destHour >= 9 && destHour < 18;
+
+        if (statusBadge && statusDot && statusText) {
+          if (isBusinessHours) {
+            statusBadge.className = 'status-badge text-[11px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1.5 bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30';
+            statusDot.className = 'status-dot w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse';
+            statusText.textContent = 'Business Hours (9 AM–6 PM)';
+          } else {
+            statusBadge.className = 'status-badge text-[11px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1.5 bg-slate-100 dark:bg-white/[0.06] text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-white/10';
+            statusDot.className = 'status-dot w-1.5 h-1.5 rounded-full bg-slate-400';
+            statusText.textContent = isWeekend ? 'Weekend (Off-Hours)' : 'Off-Hours';
+          }
+        }
+      });
+    }
+
+    // Set to Current Time
+    function resetToNow() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+
+      if (srcDateInput) srcDateInput.value = `${year}-${month}-${day}`;
+      if (srcTimeInput) srcTimeInput.value = `${hours}:${minutes}`;
+
+      updateAllHubs();
+    }
+
+    if (resetNowBtn) {
+      resetNowBtn.addEventListener('click', resetToNow);
+    }
+
+    [srcDateInput, srcTimeInput, srcTzSelect].forEach(input => {
+      if (input) {
+        input.addEventListener('change', updateAllHubs);
+        input.addEventListener('input', updateAllHubs);
+      }
+    });
+
+    quickTimeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const time = btn.getAttribute('data-set-time');
+        if (time && srcTimeInput) {
+          srcTimeInput.value = time;
+          updateAllHubs();
+        }
+      });
+    });
+
+    // Copy Hub Time
+    document.querySelectorAll('.copy-hub-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.hub-card');
+        if (!card) return;
+        const city = card.querySelector('h3')?.textContent?.trim() || '';
+        const time24 = card.querySelector('.hub-time-24')?.textContent?.trim() || '';
+        const time12 = card.querySelector('.hub-time-12')?.textContent?.trim() || '';
+        const date = card.querySelector('.hub-date')?.textContent?.trim() || '';
+
+        const textToCopy = `${city}: ${time24} (${time12}), ${date}`;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          btn.innerHTML = `<span class="text-xs font-bold text-emerald-500">✓</span>`;
+          setTimeout(() => {
+            btn.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>`;
+          }, 1500);
+        });
+      });
+    });
+
+    // Initialize with current time
+    resetToNow();
+  })();
+</script>

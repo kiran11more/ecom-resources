@@ -1,5 +1,6 @@
 ---
 import { RECOMMENDED_EXTENSIONS, OFFSITE_DEAL_PLATFORMS } from '../../data/navigation';
+import { getMonogram, getMonogramGradient } from '../../utils/monogram';
 
 // Calculate extension subcategory counts
 const amazonExtCount = RECOMMENDED_EXTENSIONS.filter(e => e.category === 'Amazon Research').length;
@@ -31,7 +32,7 @@ const buyerClubsCount = OFFSITE_DEAL_PLATFORMS.filter(d => d.platformType.includ
           Recommended Browser Extensions & Deals Hub
         </h2>
         <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-brand-orange/15 text-brand-orange border border-brand-orange/30 hidden sm:inline-block">
-          Sitemap Page 2
+          34 Vetted Tools
         </span>
       </div>
       <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
@@ -123,15 +124,16 @@ const buyerClubsCount = OFFSITE_DEAL_PLATFORMS.filter(d => d.platformType.includ
               <!-- 44px-48px Brand Icon Container (Borderless per user rule) -->
               <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white dark:bg-white/[0.06] p-1.5 sm:p-2 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform relative">
                 <img
-                  src={`https://www.google.com/s2/favicons?domain=${ext.domain}&sz=128`}
+                  src={`https://www.google.com/s2/favicons?domain=${ext.iconDomain || ext.domain}&sz=128`}
                   alt={`${ext.name} logo`}
                   class="w-8 h-8 sm:w-8.5 sm:h-8.5 object-contain rounded-md"
                   loading="lazy"
-                  onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
+                  onload="if (this.naturalHeight <= 16) { this.style.display='none'; this.nextElementSibling?.classList.remove('hidden'); }"
+                  onerror="this.style.display='none'; this.nextElementSibling?.classList.remove('hidden');"
                 />
-                <!-- Fallback initial letter -->
-                <div class="hidden w-full h-full items-center justify-center text-slate-800 dark:text-white font-extrabold text-sm">
-                  {ext.name.charAt(0)}
+                <!-- Styled 2-Letter Monogram Badge -->
+                <div class={`hidden w-full h-full rounded-xl bg-gradient-to-br ${getMonogramGradient(ext.name)} flex items-center justify-center font-extrabold text-sm text-white select-none`}>
+                  {getMonogram(ext.name)}
                 </div>
               </div>
 
@@ -255,11 +257,12 @@ const buyerClubsCount = OFFSITE_DEAL_PLATFORMS.filter(d => d.platformType.includ
                   alt={`${deal.platform} logo`}
                   class="w-8 h-8 sm:w-8.5 sm:h-8.5 object-contain rounded-md"
                   loading="lazy"
-                  onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
+                  onload="if (this.naturalHeight <= 16) { this.style.display='none'; this.nextElementSibling?.classList.remove('hidden'); }"
+                  onerror="this.style.display='none'; this.nextElementSibling?.classList.remove('hidden');"
                 />
-                <!-- Fallback initial letter -->
-                <div class="hidden w-full h-full items-center justify-center text-slate-800 dark:text-white font-extrabold text-sm">
-                  {deal.platform.charAt(0)}
+                <!-- Styled 2-Letter Monogram Badge Fallback -->
+                <div class={`hidden w-full h-full rounded-xl bg-gradient-to-br ${getMonogramGradient(deal.platform)} flex items-center justify-center font-extrabold text-sm text-white select-none`}>
+                  {getMonogram(deal.platform)}
                 </div>
               </div>
 

@@ -1,0 +1,926 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+---
+
+<BaseLayout
+  title="Cross-Border Measurement Converter (Length, Temperature, Area, CBM) — Ecom Resources"
+  description="Instant bidirectional e-commerce measurement calculator. Convert inches to cm, feet to meters, Celsius to Fahrenheit, sq ft to m², plus standard Amazon FBA packaging presets."
+>
+  <Header />
+
+  <!-- Breadcrumbs -->
+  <div class="w-full bg-white dark:bg-[#131924] border-b border-slate-200/80 dark:border-white/[0.06] py-3">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+      <a href="/" class="hover:text-brand-orange transition-colors">Home</a>
+      <span>/</span>
+      <a href="/tools" class="hover:text-brand-orange transition-colors">Tools</a>
+      <span>/</span>
+      <span class="text-slate-900 dark:text-white font-semibold">Measurement Converter</span>
+    </div>
+  </div>
+
+  <main class="w-full max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8 flex-1">
+    <!-- Tool Header Showcase -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200/90 dark:border-white/[0.08]">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-base shrink-0">
+            📐
+          </span>
+          <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            Cross-Border Measurement Converter
+          </h1>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          Instant, bidirectional unit conversions for Amazon FBA package dimensions, factory specs, temperature limits, and carton volume.
+        </p>
+      </div>
+
+      <!-- Tab Switcher Navigation -->
+      <div class="flex items-center gap-1 p-1 bg-slate-100 dark:bg-dark-elevated rounded-xl border border-slate-200/80 dark:border-white/[0.05] shrink-0 self-start sm:self-auto text-xs overflow-x-auto no-scrollbar max-w-full">
+        <button
+          type="button"
+          data-conv-tab="tab-length"
+          class="conv-tab-btn conv-tab-active px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer whitespace-nowrap"
+        >
+          📏 Length & Distance
+        </button>
+        <button
+          type="button"
+          data-conv-tab="tab-temp"
+          class="conv-tab-btn px-3 py-1.5 rounded-lg font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer whitespace-nowrap"
+        >
+          🌡️ Temperature
+        </button>
+        <button
+          type="button"
+          data-conv-tab="tab-area"
+          class="conv-tab-btn px-3 py-1.5 rounded-lg font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer whitespace-nowrap"
+        >
+          ⬛ Surface Area
+        </button>
+        <button
+          type="button"
+          data-conv-tab="tab-cbm"
+          class="conv-tab-btn px-3 py-1.5 rounded-lg font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer whitespace-nowrap"
+        >
+          📦 Carton CBM & FBA
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick E-Commerce Presets Bar -->
+    <div class="bg-gradient-to-r from-orange-500/10 via-amber-500/5 to-transparent border border-brand-orange/30 rounded-2xl p-4 sm:p-5 space-y-2.5">
+      <div class="flex items-center justify-between gap-2">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-orange flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          Quick E-Commerce Presets (Click to Load)
+        </span>
+        <span class="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:inline">Amazon FBA limits & warehouse standards</span>
+      </div>
+
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+        <button
+          type="button"
+          data-preset-tab="tab-length"
+          data-preset-unit="in"
+          data-preset-val="18"
+          class="preset-pill px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-[#131924] border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200 hover:border-brand-orange hover:text-brand-orange shadow-2xs transition-all shrink-0 cursor-pointer"
+        >
+          📦 Amazon US Standard Size Max (18 in / 45.72 cm)
+        </button>
+        <button
+          type="button"
+          data-preset-tab="tab-length"
+          data-preset-unit="in"
+          data-preset-val="25"
+          class="preset-pill px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-[#131924] border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200 hover:border-brand-orange hover:text-brand-orange shadow-2xs transition-all shrink-0 cursor-pointer"
+        >
+          📐 Amazon FBA Max Carton Limit (25 in / 63.5 cm)
+        </button>
+        <button
+          type="button"
+          data-preset-tab="tab-length"
+          data-preset-unit="in"
+          data-preset-val="12"
+          class="preset-pill px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-[#131924] border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200 hover:border-brand-orange hover:text-brand-orange shadow-2xs transition-all shrink-0 cursor-pointer"
+        >
+          ✉️ Standard Polybag (12 in / 30.48 cm)
+        </button>
+        <button
+          type="button"
+          data-preset-tab="tab-length"
+          data-preset-unit="in"
+          data-preset-val="72"
+          class="preset-pill px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-[#131924] border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200 hover:border-brand-orange hover:text-brand-orange shadow-2xs transition-all shrink-0 cursor-pointer"
+        >
+          🏗️ Standard Pallet Max Height (72 in / 182.88 cm)
+        </button>
+        <button
+          type="button"
+          data-preset-tab="tab-temp"
+          data-preset-unit="c"
+          data-preset-val="40"
+          class="preset-pill px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-[#131924] border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200 hover:border-brand-orange hover:text-brand-orange shadow-2xs transition-all shrink-0 cursor-pointer"
+        >
+          🔥 Warehouse Heat Threshold (40°C / 104°F)
+        </button>
+        <button
+          type="button"
+          data-preset-tab="tab-temp"
+          data-preset-unit="c"
+          data-preset-val="4"
+          class="preset-pill px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-[#131924] border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200 hover:border-brand-orange hover:text-brand-orange shadow-2xs transition-all shrink-0 cursor-pointer"
+        >
+          ❄️ Cold-Chain Reefer Temp (4°C / 39.2°F)
+        </button>
+        <button
+          type="button"
+          data-preset-tab="tab-area"
+          data-preset-unit="sqft"
+          data-preset-val="13.33"
+          class="preset-pill px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-[#131924] border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200 hover:border-brand-orange hover:text-brand-orange shadow-2xs transition-all shrink-0 cursor-pointer"
+        >
+          🏢 GMA Pallet Footprint (13.33 ft² / 1.24 m²)
+        </button>
+      </div>
+    </div>
+
+    <!-- TAB 1: Length & Distance Converter (Bidirectional 6-Unit Grid) -->
+    <div id="tab-length" class="conv-tab-panel space-y-6">
+      <div class="bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-5 sm:p-6 shadow-xs space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-white/[0.05] pb-3">
+          <div>
+            <h2 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>📏</span>
+              <span>Length / Distance Converter</span>
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              Type in any input box to update all other units simultaneously in real time.
+            </p>
+          </div>
+          <span class="text-xs text-brand-orange font-semibold bg-brand-orange/10 px-2.5 py-1 rounded-full self-start sm:self-auto">
+            Instant Bidirectional Sync
+          </span>
+        </div>
+
+        <!-- 6 Bidirectional Input Rows Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Inches -->
+          <div class="unit-card p-4 rounded-xl bg-slate-50 dark:bg-dark-elevated border border-slate-200/80 dark:border-white/[0.06] focus-within:border-brand-orange transition-all space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Inches (in)</span>
+              <span class="text-[10px] font-mono text-slate-400">US Standard</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                type="number"
+                step="any"
+                id="len-in"
+                data-len-unit="in"
+                value="25"
+                class="len-input w-full px-3 py-2 text-base font-mono font-bold bg-white dark:bg-[#131924] rounded-lg border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange"
+                placeholder="0"
+              />
+              <button
+                type="button"
+                data-copy-target="len-in"
+                class="unit-copy-btn px-2.5 py-2 rounded-lg bg-slate-200/80 dark:bg-white/10 hover:bg-brand-orange hover:text-white text-slate-700 dark:text-slate-200 text-xs font-bold transition-all shrink-0 cursor-pointer"
+                title="Copy Inches"
+              >
+                Copy
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-400 dark:text-slate-500">1 in = 2.54 cm</p>
+          </div>
+
+          <!-- Centimeters -->
+          <div class="unit-card p-4 rounded-xl bg-slate-50 dark:bg-dark-elevated border border-slate-200/80 dark:border-white/[0.06] focus-within:border-brand-orange transition-all space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Centimeters (cm)</span>
+              <span class="text-[10px] font-mono text-slate-400">Metric Factory</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                type="number"
+                step="any"
+                id="len-cm"
+                data-len-unit="cm"
+                value="63.5"
+                class="len-input w-full px-3 py-2 text-base font-mono font-bold bg-white dark:bg-[#131924] rounded-lg border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange"
+                placeholder="0"
+              />
+              <button
+                type="button"
+                data-copy-target="len-cm"
+                class="unit-copy-btn px-2.5 py-2 rounded-lg bg-slate-200/80 dark:bg-white/10 hover:bg-brand-orange hover:text-white text-slate-700 dark:text-slate-200 text-xs font-bold transition-all shrink-0 cursor-pointer"
+                title="Copy Centimeters"
+              >
+                Copy
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-400 dark:text-slate-500">1 cm = 0.3937 in</p>
+          </div>
+
+          <!-- Millimeters -->
+          <div class="unit-card p-4 rounded-xl bg-slate-50 dark:bg-dark-elevated border border-slate-200/80 dark:border-white/[0.06] focus-within:border-brand-orange transition-all space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Millimeters (mm)</span>
+              <span class="text-[10px] font-mono text-slate-400">Precision Specs</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                type="number"
+                step="any"
+                id="len-mm"
+                data-len-unit="mm"
+                value="635"
+                class="len-input w-full px-3 py-2 text-base font-mono font-bold bg-white dark:bg-[#131924] rounded-lg border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange"
+                placeholder="0"
+              />
+              <button
+                type="button"
+                data-copy-target="len-mm"
+                class="unit-copy-btn px-2.5 py-2 rounded-lg bg-slate-200/80 dark:bg-white/10 hover:bg-brand-orange hover:text-white text-slate-700 dark:text-slate-200 text-xs font-bold transition-all shrink-0 cursor-pointer"
+                title="Copy Millimeters"
+              >
+                Copy
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-400 dark:text-slate-500">1 mm = 0.03937 in</p>
+          </div>
+
+          <!-- Meters -->
+          <div class="unit-card p-4 rounded-xl bg-slate-50 dark:bg-dark-elevated border border-slate-200/80 dark:border-white/[0.06] focus-within:border-brand-orange transition-all space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Meters (m)</span>
+              <span class="text-[10px] font-mono text-slate-400">Freight & Ocean</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                type="number"
+                step="any"
+                id="len-m"
+                data-len-unit="m"
+                value="0.635"
+                class="len-input w-full px-3 py-2 text-base font-mono font-bold bg-white dark:bg-[#131924] rounded-lg border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange"
+                placeholder="0"
+              />
+              <button
+                type="button"
+                data-copy-target="len-m"
+                class="unit-copy-btn px-2.5 py-2 rounded-lg bg-slate-200/80 dark:bg-white/10 hover:bg-brand-orange hover:text-white text-slate-700 dark:text-slate-200 text-xs font-bold transition-all shrink-0 cursor-pointer"
+                title="Copy Meters"
+              >
+                Copy
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-400 dark:text-slate-500">1 m = 39.3701 in</p>
+          </div>
+
+          <!-- Feet -->
+          <div class="unit-card p-4 rounded-xl bg-slate-50 dark:bg-dark-elevated border border-slate-200/80 dark:border-white/[0.06] focus-within:border-brand-orange transition-all space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Feet (ft)</span>
+              <span class="text-[10px] font-mono text-slate-400">Pallet & Rack</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                type="number"
+                step="any"
+                id="len-ft"
+                data-len-unit="ft"
+                value="2.0833"
+                class="len-input w-full px-3 py-2 text-base font-mono font-bold bg-white dark:bg-[#131924] rounded-lg border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange"
+                placeholder="0"
+              />
+              <button
+                type="button"
+                data-copy-target="len-ft"
+                class="unit-copy-btn px-2.5 py-2 rounded-lg bg-slate-200/80 dark:bg-white/10 hover:bg-brand-orange hover:text-white text-slate-700 dark:text-slate-200 text-xs font-bold transition-all shrink-0 cursor-pointer"
+                title="Copy Feet"
+              >
+                Copy
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-400 dark:text-slate-500">1 ft = 12 in = 30.48 cm</p>
+          </div>
+
+          <!-- Yards -->
+          <div class="unit-card p-4 rounded-xl bg-slate-50 dark:bg-dark-elevated border border-slate-200/80 dark:border-white/[0.06] focus-within:border-brand-orange transition-all space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Yards (yd)</span>
+              <span class="text-[10px] font-mono text-slate-400">Textile & Fabric</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                type="number"
+                step="any"
+                id="len-yd"
+                data-len-unit="yd"
+                value="0.6944"
+                class="len-input w-full px-3 py-2 text-base font-mono font-bold bg-white dark:bg-[#131924] rounded-lg border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange"
+                placeholder="0"
+              />
+              <button
+                type="button"
+                data-copy-target="len-yd"
+                class="unit-copy-btn px-2.5 py-2 rounded-lg bg-slate-200/80 dark:bg-white/10 hover:bg-brand-orange hover:text-white text-slate-700 dark:text-slate-200 text-xs font-bold transition-all shrink-0 cursor-pointer"
+                title="Copy Yards"
+              >
+                Copy
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-400 dark:text-slate-500">1 yd = 3 ft = 36 in</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: Temperature Converter (Celsius, Fahrenheit, Kelvin) -->
+    <div id="tab-temp" class="conv-tab-panel hidden space-y-6">
+      <div class="bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-5 sm:p-6 shadow-xs space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-white/[0.05] pb-3">
+          <div>
+            <h2 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>🌡️</span>
+              <span>Temperature Converter</span>
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              Instant bidirectional conversion between Celsius (°C), Fahrenheit (°F), and Kelvin (K).
+            </p>
+          </div>
+          <span class="text-xs text-brand-orange font-semibold bg-brand-orange/10 px-2.5 py-1 rounded-full self-start sm:self-auto">
+            Cold-Chain & Warehouse Safety
+          </span>
+        </div>
+
+        <!-- 3 Temperature Input Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Celsius -->
+          <div class="unit-card p-4 rounded-xl bg-slate-50 dark:bg-dark-elevated border border-slate-200/80 dark:border-white/[0.06] focus-within:border-brand-orange transition-all space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Celsius (°C)</span>
+              <span class="text-[10px] font-mono text-slate-400">Global Metric</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                type="number"
+                step="any"
+                id="temp-c"
+                data-temp-unit="c"
+                value="20"
+                class="temp-input w-full px-3 py-2 text-base font-mono font-bold bg-white dark:bg-[#131924] rounded-lg border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange"
+                placeholder="0"
+              />
+              <button
+                type="button"
+                data-copy-target="temp-c"
+                class="unit-copy-btn px-2.5 py-2 rounded-lg bg-slate-200/80 dark:bg-white/10 hover:bg-brand-orange hover:text-white text-slate-700 dark:text-slate-200 text-xs font-bold transition-all shrink-0 cursor-pointer"
+                title="Copy Celsius"
+              >
+                Copy
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-400 dark:text-slate-500">Water freezes: 0°C | Boils: 100°C</p>
+          </div>
+
+          <!-- Fahrenheit -->
+          <div class="unit-card p-4 rounded-xl bg-slate-50 dark:bg-dark-elevated border border-slate-200/80 dark:border-white/[0.06] focus-within:border-brand-orange transition-all space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Fahrenheit (°F)</span>
+              <span class="text-[10px] font-mono text-slate-400">US Standard</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                type="number"
+                step="any"
+                id="temp-f"
+                data-temp-unit="f"
+                value="68"
+                class="temp-input w-full px-3 py-2 text-base font-mono font-bold bg-white dark:bg-[#131924] rounded-lg border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange"
+                placeholder="32"
+              />
+              <button
+                type="button"
+                data-copy-target="temp-f"
+                class="unit-copy-btn px-2.5 py-2 rounded-lg bg-slate-200/80 dark:bg-white/10 hover:bg-brand-orange hover:text-white text-slate-700 dark:text-slate-200 text-xs font-bold transition-all shrink-0 cursor-pointer"
+                title="Copy Fahrenheit"
+              >
+                Copy
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-400 dark:text-slate-500">Water freezes: 32°F | Boils: 212°F</p>
+          </div>
+
+          <!-- Kelvin -->
+          <div class="unit-card p-4 rounded-xl bg-slate-50 dark:bg-dark-elevated border border-slate-200/80 dark:border-white/[0.06] focus-within:border-brand-orange transition-all space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Kelvin (K)</span>
+              <span class="text-[10px] font-mono text-slate-400">Scientific Base</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                type="number"
+                step="any"
+                id="temp-k"
+                data-temp-unit="k"
+                value="293.15"
+                class="temp-input w-full px-3 py-2 text-base font-mono font-bold bg-white dark:bg-[#131924] rounded-lg border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange"
+                placeholder="273.15"
+              />
+              <button
+                type="button"
+                data-copy-target="temp-k"
+                class="unit-copy-btn px-2.5 py-2 rounded-lg bg-slate-200/80 dark:bg-white/10 hover:bg-brand-orange hover:text-white text-slate-700 dark:text-slate-200 text-xs font-bold transition-all shrink-0 cursor-pointer"
+                title="Copy Kelvin"
+              >
+                Copy
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-400 dark:text-slate-500">Absolute zero: 0 K (-273.15°C)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: Surface Area Converter (cm², m², in², ft²) -->
+    <div id="tab-area" class="conv-tab-panel hidden space-y-6">
+      <div class="bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-5 sm:p-6 shadow-xs space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-white/[0.05] pb-3">
+          <div>
+            <h2 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>⬛</span>
+              <span>Surface Area Converter</span>
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              Bidirectional calculation for warehouse floor storage, pallet footprint, and packaging label surface.
+            </p>
+          </div>
+          <span class="text-xs text-brand-orange font-semibold bg-brand-orange/10 px-2.5 py-1 rounded-full self-start sm:self-auto">
+            Pallet & Warehousing Area
+          </span>
+        </div>
+
+        <!-- 4 Area Input Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Sq Feet -->
+          <div class="unit-card p-4 rounded-xl bg-slate-50 dark:bg-dark-elevated border border-slate-200/80 dark:border-white/[0.06] focus-within:border-brand-orange transition-all space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Sq Feet (ft²)</span>
+              <span class="text-[10px] font-mono text-slate-400">US Warehouse</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                type="number"
+                step="any"
+                id="area-sqft"
+                data-area-unit="sqft"
+                value="13.33"
+                class="area-input w-full px-3 py-2 text-base font-mono font-bold bg-white dark:bg-[#131924] rounded-lg border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange"
+                placeholder="0"
+              />
+              <button
+                type="button"
+                data-copy-target="area-sqft"
+                class="unit-copy-btn px-2.5 py-2 rounded-lg bg-slate-200/80 dark:bg-white/10 hover:bg-brand-orange hover:text-white text-slate-700 dark:text-slate-200 text-xs font-bold transition-all shrink-0 cursor-pointer"
+                title="Copy Sq Feet"
+              >
+                Copy
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-400 dark:text-slate-500">1 ft² = 144 in² = 0.0929 m²</p>
+          </div>
+
+          <!-- Sq Meters -->
+          <div class="unit-card p-4 rounded-xl bg-slate-50 dark:bg-dark-elevated border border-slate-200/80 dark:border-white/[0.06] focus-within:border-brand-orange transition-all space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Sq Meters (m²)</span>
+              <span class="text-[10px] font-mono text-slate-400">Metric Standard</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                type="number"
+                step="any"
+                id="area-sqm"
+                data-area-unit="sqm"
+                value="1.2384"
+                class="area-input w-full px-3 py-2 text-base font-mono font-bold bg-white dark:bg-[#131924] rounded-lg border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange"
+                placeholder="0"
+              />
+              <button
+                type="button"
+                data-copy-target="area-sqm"
+                class="unit-copy-btn px-2.5 py-2 rounded-lg bg-slate-200/80 dark:bg-white/10 hover:bg-brand-orange hover:text-white text-slate-700 dark:text-slate-200 text-xs font-bold transition-all shrink-0 cursor-pointer"
+                title="Copy Sq Meters"
+              >
+                Copy
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-400 dark:text-slate-500">1 m² = 10.7639 ft² = 10,000 cm²</p>
+          </div>
+
+          <!-- Sq Inches -->
+          <div class="unit-card p-4 rounded-xl bg-slate-50 dark:bg-dark-elevated border border-slate-200/80 dark:border-white/[0.06] focus-within:border-brand-orange transition-all space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Sq Inches (in²)</span>
+              <span class="text-[10px] font-mono text-slate-400">Packaging & Labels</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                type="number"
+                step="any"
+                id="area-sqin"
+                data-area-unit="sqin"
+                value="1919.52"
+                class="area-input w-full px-3 py-2 text-base font-mono font-bold bg-white dark:bg-[#131924] rounded-lg border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange"
+                placeholder="0"
+              />
+              <button
+                type="button"
+                data-copy-target="area-sqin"
+                class="unit-copy-btn px-2.5 py-2 rounded-lg bg-slate-200/80 dark:bg-white/10 hover:bg-brand-orange hover:text-white text-slate-700 dark:text-slate-200 text-xs font-bold transition-all shrink-0 cursor-pointer"
+                title="Copy Sq Inches"
+              >
+                Copy
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-400 dark:text-slate-500">1 in² = 6.4516 cm²</p>
+          </div>
+
+          <!-- Sq Centimeters -->
+          <div class="unit-card p-4 rounded-xl bg-slate-50 dark:bg-dark-elevated border border-slate-200/80 dark:border-white/[0.06] focus-within:border-brand-orange transition-all space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Sq Centimeters (cm²)</span>
+              <span class="text-[10px] font-mono text-slate-400">Factory Blueprint</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                type="number"
+                step="any"
+                id="area-sqcm"
+                data-area-unit="sqcm"
+                value="12384"
+                class="area-input w-full px-3 py-2 text-base font-mono font-bold bg-white dark:bg-[#131924] rounded-lg border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange"
+                placeholder="0"
+              />
+              <button
+                type="button"
+                data-copy-target="area-sqcm"
+                class="unit-copy-btn px-2.5 py-2 rounded-lg bg-slate-200/80 dark:bg-white/10 hover:bg-brand-orange hover:text-white text-slate-700 dark:text-slate-200 text-xs font-bold transition-all shrink-0 cursor-pointer"
+                title="Copy Sq Centimeters"
+              >
+                Copy
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-400 dark:text-slate-500">1 cm² = 0.155 in²</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: Carton CBM & FBA Volumetric Weight -->
+    <div id="tab-cbm" class="conv-tab-panel hidden space-y-6">
+      <div class="bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-5 sm:p-6 shadow-xs space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-white/[0.05] pb-3">
+          <h2 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <span>📦</span>
+            <span>Master Carton CBM & FBA Dimensional Weight Calculator</span>
+          </h2>
+          <span class="text-xs text-slate-400 font-mono">L × W × H / Divisor</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-slate-700 dark:text-slate-300">Length (cm)</label>
+            <input type="number" id="cbm-len" value="50" step="any" class="w-full px-3 py-2 text-sm font-mono font-bold bg-slate-50 dark:bg-dark-elevated rounded-xl border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:border-brand-orange focus:outline-none" />
+          </div>
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-slate-700 dark:text-slate-300">Width (cm)</label>
+            <input type="number" id="cbm-wid" value="40" step="any" class="w-full px-3 py-2 text-sm font-mono font-bold bg-slate-50 dark:bg-dark-elevated rounded-xl border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:border-brand-orange focus:outline-none" />
+          </div>
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-slate-700 dark:text-slate-300">Height (cm)</label>
+            <input type="number" id="cbm-hgt" value="30" step="any" class="w-full px-3 py-2 text-sm font-mono font-bold bg-slate-50 dark:bg-dark-elevated rounded-xl border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:border-brand-orange focus:outline-none" />
+          </div>
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-slate-700 dark:text-slate-300">Carton Count</label>
+            <input type="number" id="cbm-qty" value="10" step="1" min="1" class="w-full px-3 py-2 text-sm font-mono font-bold bg-slate-50 dark:bg-dark-elevated rounded-xl border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:border-brand-orange focus:outline-none" />
+          </div>
+        </div>
+
+        <!-- Calculated CBM & Dim Weight Output -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+          <div class="p-4 rounded-xl bg-orange-500/10 border border-brand-orange/30">
+            <span class="text-[11px] font-bold text-brand-orange block">Total Volume (CBM)</span>
+            <span id="cbm-result-cbm" class="text-2xl font-mono font-black text-slate-900 dark:text-white">0.600 m³</span>
+            <span class="text-[11px] text-slate-400 block mt-1">Single: 0.060 m³ / carton</span>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 dark:bg-dark-elevated border border-slate-200/80 dark:border-white/[0.06]">
+            <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 block">Air Express Dim Wt (Div 5000)</span>
+            <span id="cbm-result-air" class="text-2xl font-mono font-black text-slate-900 dark:text-white">120.0 kg</span>
+            <span class="text-[11px] text-slate-400 block mt-1">12.0 kg / carton (DHL/FedEx)</span>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 dark:bg-dark-elevated border border-slate-200/80 dark:border-white/[0.06]">
+            <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 block">Amazon US FBA Vol Wt (Div 139)</span>
+            <span id="cbm-result-fba" class="text-2xl font-mono font-black text-slate-900 dark:text-white">264.5 lbs</span>
+            <span class="text-[11px] text-slate-400 block mt-1">26.5 lbs / carton (Inches / 139)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .conv-tab-active {
+    background-color: #F25A2B !important;
+    color: #ffffff !important;
+    box-shadow: 0 1px 3px rgba(242, 90, 43, 0.35);
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    // ------------------------------------------------------------------------
+    // TAB NAVIGATION
+    // ------------------------------------------------------------------------
+    const tabButtons = document.querySelectorAll('.conv-tab-btn');
+    const tabPanels = document.querySelectorAll('.conv-tab-panel');
+
+    function switchTab(targetTabId) {
+      tabButtons.forEach(btn => {
+        const isActive = btn.getAttribute('data-conv-tab') === targetTabId;
+        btn.classList.toggle('conv-tab-active', isActive);
+        if (!isActive) {
+          btn.classList.remove('text-white');
+          btn.classList.add('text-slate-600', 'dark:text-slate-300');
+        } else {
+          btn.classList.remove('text-slate-600', 'dark:text-slate-300');
+          btn.classList.add('text-white');
+        }
+      });
+
+      tabPanels.forEach(panel => {
+        panel.classList.toggle('hidden', panel.id !== targetTabId);
+      });
+    }
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tabId = btn.getAttribute('data-conv-tab');
+        if (tabId) switchTab(tabId);
+      });
+    });
+
+    // ------------------------------------------------------------------------
+    // COPY TO CLIPBOARD HELPER
+    // ------------------------------------------------------------------------
+    document.querySelectorAll('.unit-copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-copy-target');
+        const input = document.getElementById(targetId);
+        if (!input) return;
+
+        const val = input.value;
+        navigator.clipboard.writeText(val).then(() => {
+          const originalText = btn.textContent;
+          btn.textContent = '✓ Copied';
+          btn.classList.add('bg-emerald-600', 'text-white');
+          setTimeout(() => {
+            btn.textContent = originalText;
+            btn.classList.remove('bg-emerald-600', 'text-white');
+          }, 1500);
+        });
+      });
+    });
+
+    // ------------------------------------------------------------------------
+    // TAB 1: LENGTH BIDIRECTIONAL CONVERTER
+    // Base unit: Meters (m)
+    // ------------------------------------------------------------------------
+    const lenFactors = {
+      m: 1,
+      cm: 0.01,
+      mm: 0.001,
+      in: 0.0254,
+      ft: 0.3048,
+      yd: 0.9144
+    };
+
+    const lenInputs = {
+      m: document.getElementById('len-m'),
+      cm: document.getElementById('len-cm'),
+      mm: document.getElementById('len-mm'),
+      in: document.getElementById('len-in'),
+      ft: document.getElementById('len-ft'),
+      yd: document.getElementById('len-yd')
+    };
+
+    function updateLengthFrom(sourceUnit, val) {
+      if (isNaN(val) || val === '') {
+        Object.keys(lenInputs).forEach(u => {
+          if (u !== sourceUnit && lenInputs[u]) lenInputs[u].value = '';
+        });
+        return;
+      }
+
+      const num = parseFloat(val);
+      const meters = num * lenFactors[sourceUnit];
+
+      Object.keys(lenInputs).forEach(u => {
+        if (u !== sourceUnit && lenInputs[u]) {
+          const converted = meters / lenFactors[u];
+          // Round nicely: avoid exponential and floating artifacts
+          const rounded = parseFloat(converted.toFixed(6));
+          lenInputs[u].value = rounded;
+        }
+      });
+    }
+
+    Object.keys(lenInputs).forEach(unit => {
+      const el = lenInputs[unit];
+      if (el) {
+        el.addEventListener('input', (e) => {
+          updateLengthFrom(unit, e.target.value);
+        });
+      }
+    });
+
+    // ------------------------------------------------------------------------
+    // TAB 2: TEMPERATURE BIDIRECTIONAL CONVERTER
+    // ------------------------------------------------------------------------
+    const tempInputs = {
+      c: document.getElementById('temp-c'),
+      f: document.getElementById('temp-f'),
+      k: document.getElementById('temp-k')
+    };
+
+    function updateTempFrom(sourceUnit, val) {
+      if (isNaN(val) || val === '') {
+        Object.keys(tempInputs).forEach(u => {
+          if (u !== sourceUnit && tempInputs[u]) tempInputs[u].value = '';
+        });
+        return;
+      }
+
+      const num = parseFloat(val);
+      let celsius = 0;
+
+      if (sourceUnit === 'c') {
+        celsius = num;
+      } else if (sourceUnit === 'f') {
+        celsius = (num - 32) * (5 / 9);
+      } else if (sourceUnit === 'k') {
+        celsius = num - 273.15;
+      }
+
+      if (sourceUnit !== 'c' && tempInputs.c) {
+        tempInputs.c.value = parseFloat(celsius.toFixed(4));
+      }
+      if (sourceUnit !== 'f' && tempInputs.f) {
+        const f = celsius * (9 / 5) + 32;
+        tempInputs.f.value = parseFloat(f.toFixed(4));
+      }
+      if (sourceUnit !== 'k' && tempInputs.k) {
+        const k = celsius + 273.15;
+        tempInputs.k.value = parseFloat(k.toFixed(4));
+      }
+    }
+
+    Object.keys(tempInputs).forEach(unit => {
+      const el = tempInputs[unit];
+      if (el) {
+        el.addEventListener('input', (e) => {
+          updateTempFrom(unit, e.target.value);
+        });
+      }
+    });
+
+    // ------------------------------------------------------------------------
+    // TAB 3: SURFACE AREA BIDIRECTIONAL CONVERTER
+    // Base unit: Square Meters (sqm)
+    // ------------------------------------------------------------------------
+    const areaFactors = {
+      sqm: 1,
+      sqcm: 0.0001,
+      sqft: 0.09290304,
+      sqin: 0.00064516
+    };
+
+    const areaInputs = {
+      sqm: document.getElementById('area-sqm'),
+      sqcm: document.getElementById('area-sqcm'),
+      sqft: document.getElementById('area-sqft'),
+      sqin: document.getElementById('area-sqin')
+    };
+
+    function updateAreaFrom(sourceUnit, val) {
+      if (isNaN(val) || val === '') {
+        Object.keys(areaInputs).forEach(u => {
+          if (u !== sourceUnit && areaInputs[u]) areaInputs[u].value = '';
+        });
+        return;
+      }
+
+      const num = parseFloat(val);
+      const sqMeters = num * areaFactors[sourceUnit];
+
+      Object.keys(areaInputs).forEach(u => {
+        if (u !== sourceUnit && areaInputs[u]) {
+          const converted = sqMeters / areaFactors[u];
+          areaInputs[u].value = parseFloat(converted.toFixed(6));
+        }
+      });
+    }
+
+    Object.keys(areaInputs).forEach(unit => {
+      const el = areaInputs[unit];
+      if (el) {
+        el.addEventListener('input', (e) => {
+          updateAreaFrom(unit, e.target.value);
+        });
+      }
+    });
+
+    // ------------------------------------------------------------------------
+    // PRESETS BAR CLICK HANDLERS
+    // ------------------------------------------------------------------------
+    document.querySelectorAll('.preset-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        const targetTab = pill.getAttribute('data-preset-tab');
+        const unit = pill.getAttribute('data-preset-unit');
+        const val = pill.getAttribute('data-preset-val');
+
+        if (targetTab) switchTab(targetTab);
+
+        if (targetTab === 'tab-length' && lenInputs[unit]) {
+          lenInputs[unit].value = val;
+          updateLengthFrom(unit, val);
+          lenInputs[unit].focus();
+        } else if (targetTab === 'tab-temp' && tempInputs[unit]) {
+          tempInputs[unit].value = val;
+          updateTempFrom(unit, val);
+          tempInputs[unit].focus();
+        } else if (targetTab === 'tab-area' && areaInputs[unit]) {
+          areaInputs[unit].value = val;
+          updateAreaFrom(unit, val);
+          areaInputs[unit].focus();
+        }
+      });
+    });
+
+    // ------------------------------------------------------------------------
+    // TAB 4: CARTON CBM CALCULATOR
+    // ------------------------------------------------------------------------
+    const cbmLen = document.getElementById('cbm-len');
+    const cbmWid = document.getElementById('cbm-wid');
+    const cbmHgt = document.getElementById('cbm-hgt');
+    const cbmQty = document.getElementById('cbm-qty');
+
+    const resCbm = document.getElementById('cbm-result-cbm');
+    const resAir = document.getElementById('cbm-result-air');
+    const resFba = document.getElementById('cbm-result-fba');
+
+    function calculateCbm() {
+      if (!cbmLen || !cbmWid || !cbmHgt || !cbmQty) return;
+      const l = parseFloat(cbmLen.value) || 0;
+      const w = parseFloat(cbmWid.value) || 0;
+      const h = parseFloat(cbmHgt.value) || 0;
+      const qty = parseInt(cbmQty.value, 10) || 1;
+
+      // 1 carton CBM = (l * w * h) / 1,000,000
+      const singleCbm = (l * w * h) / 1000000;
+      const totalCbm = singleCbm * qty;
+
+      // Air Express Dim Wt in KG = (l * w * h) / 5000 * qty
+      const airDimKg = ((l * w * h) / 5000) * qty;
+
+      // Amazon FBA US Volumetric Wt in LBS = (L_in * W_in * H_in) / 139 * qty
+      const lIn = l / 2.54;
+      const wIn = w / 2.54;
+      const hIn = h / 2.54;
+      const fbaDimLbs = ((lIn * wIn * hIn) / 139) * qty;
+
+      if (resCbm) resCbm.textContent = `${totalCbm.toFixed(3)} m³`;
+      if (resAir) resAir.textContent = `${airDimKg.toFixed(1)} kg`;
+      if (resFba) resFba.textContent = `${fbaDimLbs.toFixed(1)} lbs`;
+    }
+
+    [cbmLen, cbmWid, cbmHgt, cbmQty].forEach(input => {
+      if (input) input.addEventListener('input', calculateCbm);
+    });
+
+    // Initial calculations on load
+    updateLengthFrom('in', '25');
+    updateTempFrom('c', '20');
+    updateAreaFrom('sqft', '13.33');
+    calculateCbm();
+  })();
+</script>

@@ -2,7 +2,7 @@
 ---
 
 <footer class="w-full border-t border-slate-200/80 dark:border-white/[0.08] bg-white dark:bg-dark-card mt-12 sm:mt-16 transition-colors">
-  <div class="max-w-[1820px] mx-auto px-3 sm:px-4 lg:px-5 py-10 sm:py-14">
+  <div class="max-w-[1600px] mx-auto px-3 sm:px-4 lg:px-5 py-10 sm:py-14">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
       <!-- Col 1: Brand & Live Status (lg:col-span-2) -->
       <div class="lg:col-span-2 space-y-4">
@@ -27,11 +27,13 @@
           Popular Tools
         </h4>
         <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-400">
-          <li><a href="#amazon-revenue-calculator" class="hover:text-brand-orange transition-colors">Amazon Revenue Calculator</a></li>
-          <li><a href="#currency-exchange-rates" class="hover:text-brand-orange transition-colors">Currency Exchange Rates</a></li>
-          <li><a href="#product-research" class="hover:text-brand-orange transition-colors">Amazon Best Seller Lists</a></li>
-          <li><a href="#world-port-codes" class="hover:text-brand-orange transition-colors">World Port Codes (UN/LOCODE)</a></li>
-          <li><a href="#chatgpt-prompts" class="hover:text-brand-orange transition-colors">E-Commerce AI Prompts</a></li>
+          <li><a href="/tools/measurement-converter" class="hover:text-brand-orange transition-colors">Measurement Converter</a></li>
+          <li><a href="/information/global-timezone" class="hover:text-brand-orange transition-colors">Global Business Timezones</a></li>
+          <li><a href="/information/country-codes" class="hover:text-brand-orange transition-colors">Country & ISO Codes</a></li>
+          <li><a href="/information/world-port-codes" class="hover:text-brand-orange transition-colors">World Port Codes</a></li>
+          <li><a href="/tools/chatgpt-prompts" class="hover:text-brand-orange transition-colors">ChatGPT E-Commerce Prompts</a></li>
+          <li><a href="/tools/amazon-revenue-calculator" class="hover:text-brand-orange transition-colors">Amazon Revenue Calculator</a></li>
+          <li><a href="/tools/ip-checker" class="hover:text-brand-orange transition-colors">IP Proxy Checker</a></li>
         </ul>
       </div>
 
@@ -57,12 +59,13 @@
         <p class="text-xs text-slate-500 dark:text-slate-400">
           Have a verified seller tool or cross-border agency? Join our curated directory.
         </p>
-        <a
-          href="#submit"
-          class="inline-block w-full text-center bg-brand-orange hover:bg-brand-orangeHover text-white text-xs font-bold uppercase tracking-wider py-2 px-3 rounded-lg shadow-sm transition-colors"
+        <button
+          type="button"
+          data-open-submit-modal
+          class="inline-block w-full text-center bg-brand-orange hover:bg-brand-orangeHover text-white text-xs font-bold uppercase tracking-wider py-2 px-3 rounded-lg shadow-sm transition-colors cursor-pointer"
         >
           Submit Resource
-        </a>
+        </button>
       </div>
     </div>
 
