@@ -8,12 +8,15 @@ import { MARKET_CLOCKS, QUICK_JUMP_PILLS } from '../../data/navigation';
     class="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-sm bg-gradient-to-br from-white via-slate-50 to-orange-50/40 dark:from-slate-950 dark:via-slate-950/95 dark:to-[#101726] border border-slate-200/90 dark:border-white/[0.08] min-h-[240px] sm:min-h-[300px] md:min-h-[340px] flex items-center w-full transition-colors"
     aria-label="Cross-Border E-Commerce Featured Announcement"
   >
-    <!-- Background Logistics Image (Subdued to avoid visual clutter) -->
+    <!-- Background Logistics Image (Subdued to avoid visual clutter, hidden on mobile for instant LCP) -->
     <img
-      src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1600&q=80"
+      src="/images/hero-warehouse.webp"
       alt="Global Logistics & Supply Chain Fulfillment Center"
-      class="absolute inset-0 w-full h-full object-cover object-center opacity-10 dark:opacity-40 mix-blend-multiply dark:mix-blend-normal select-none transition-opacity"
-      loading="eager"
+      width="800"
+      height="533"
+      decoding="async"
+      loading="lazy"
+      class="hidden sm:block absolute inset-0 w-full h-full object-cover object-center opacity-10 dark:opacity-40 mix-blend-multiply dark:mix-blend-normal select-none transition-opacity"
     />
 
     <!-- Theme-Adaptive Gradient Overlay -->
