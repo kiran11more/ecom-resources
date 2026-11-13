@@ -1,0 +1,20 @@
+{
+  "id": "legal-euipo",
+  "slug": "euipo-trademark",
+  "name": "EUIPO European Trademark",
+  "category": "Legal Services",
+  "categorySlug": "legal-services",
+  "description": "Protect your brand across all 27 European Union member states with a single unified trademark registration.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://euipo.europa.eu",
+  "internalUrl": "",
+  "hasDetailPage": false,
+  "badge": "EU Official",
+  "badgeColor": "bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.7,
+  "iconName": "scale"
+}

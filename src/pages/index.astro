@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import CategorySidebar from '../components/navigation/CategorySidebar.astro';
+import BentoDashboard from '../components/banners/BentoDashboard.astro';
+import WholesaleMarketplacesSection from '../components/directory/WholesaleMarketplacesSection.astro';
+import DirectorySection from '../components/directory/DirectorySection.astro';
+import PopularShopLocations from '../components/directory/PopularShopLocations.astro';
+import Footer from '../components/layout/Footer.astro';
+---
+
+<BaseLayout title="Ecom Resources — Global Cross-Border E-Commerce Directory">
+  <Header />
+
+  <!-- 2-Column Desktop Workspace Container (Ultra-Wide AMZ123 Portal Width) -->
+  <div class="w-full max-w-[1820px] mx-auto px-2.5 sm:px-4 lg:px-5 py-3 sm:py-4 lg:py-5 flex items-start gap-6 min-w-0">
+    <!-- Left Category Sidebar (Desktop only) -->
+    <CategorySidebar />
+
+    <!-- Fluid Main Content Column -->
+    <main class="flex-1 min-w-0 w-full overflow-hidden space-y-5 sm:space-y-6">
+      <!-- Above-the-Fold Bento Dashboard: Hero + Clocks + FX Rates + Quick Pill Dock -->
+      <BentoDashboard />
+
+      <!-- Wholesale & Global Marketplaces Section (Top 10 Sourcing & Selling Platforms) -->
+      <WholesaleMarketplacesSection />
+
+      <!-- Verified Seller Resource Stream (Interactive Live Directory) -->
+      <DirectorySection />
+
+      <!-- Popular Shop Locations & Regional Hubs Grid -->
+      <PopularShopLocations />
+    </main>
+  </div>
+
+  <!-- Modern Enterprise Footer -->
+  <Footer />
+</BaseLayout>

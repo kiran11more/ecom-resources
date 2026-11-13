@@ -1,0 +1,26 @@
+{
+  "id": "logistics-flexport",
+  "slug": "flexport",
+  "name": "Flexport Digital Freight",
+  "category": "Warehouse & Logistics",
+  "categorySlug": "warehouse-logistics",
+  "description": "Cloud freight forwarding, customs clearance, real-time container GPS tracking, and ocean/air booking.",
+  "fullDescription": "Flexport combines modern technology and cloud software with global logistics infrastructure. It simplifies cross-border freight forwarding by providing real-time cargo GPS tracking, digital customs clearance, automated SKU inventory forecasting, and direct injection into major retail fulfillment centers.",
+  "features": [
+    "Real-time container tracking with automated vessel arrival notifications",
+    "Digital customs brokerage and automated tariff code classification",
+    "End-to-end multimodal transport: FCL/LCL ocean, air charter, and drayage",
+    "Supply chain visibility software dashboard with SKU-level landed cost metrics",
+    "Direct warehouse injection into Amazon FBA, Walmart WFS, and Shopify hubs"
+  ],
+  "url": "https://www.flexport.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "Digital Forwarder",
+  "badgeColor": "bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30",
+  "isVerified": true,
+  "pricing": "Paid",
+  "discountText": "",
+  "rating": 4.8,
+  "iconName": "truck"
+}

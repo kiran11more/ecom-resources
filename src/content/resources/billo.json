@@ -1,0 +1,26 @@
+{
+  "id": "social-billo",
+  "slug": "billo",
+  "name": "UGC Creators (Billo)",
+  "category": "Videos & Social",
+  "categorySlug": "videos-social",
+  "description": "Custom short-form video ads produced by vetted US/UK creators for TikTok Ads, Meta Reels, and Amazon Product Pages.",
+  "fullDescription": "Billo makes custom User Generated Content (UGC) video production affordable and rapid for direct-to-consumer and Amazon sellers. By connecting brands with thousands of vetted everyday creators across the United States and United Kingdom, brands receive ready-to-launch video ads in under 7 days.",
+  "features": [
+    "Network of over 5,000+ vetted everyday creators across North America and the UK",
+    "Standardized video formats: unboxing, product tutorials, testimonial, 360 showcase",
+    "Full commercial rights and raw footage licenses included with every order",
+    "Average 5-7 business day turnaround from creator product receipt to finished video",
+    "Designed specifically for high-CTR TikTok Spark Ads, Reels, and Amazon Brand Stores"
+  ],
+  "url": "https://billo.app",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "Custom UGC",
+  "badgeColor": "bg-purple-500/15 text-purple-600 dark:text-purple-400 border-purple-500/30",
+  "isVerified": true,
+  "pricing": "Paid",
+  "discountText": "",
+  "rating": 4.7,
+  "iconName": "video"
+}

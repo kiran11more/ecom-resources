@@ -1,0 +1,20 @@
+{
+  "id": "fba-calc",
+  "slug": "amazon-revenue-calculator",
+  "name": "Amazon Revenue & FBA Calculator",
+  "category": "Everyday Tools",
+  "categorySlug": "everyday-tools",
+  "description": "Calculate referral fees, FBA storage, pick & pack costs, and profit margin across US, UK & EU marketplaces.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://sellercentral.amazon.com/hz/fba/profitabilitycalculator",
+  "internalUrl": "/tools/amazon-revenue-calculator",
+  "hasDetailPage": false,
+  "badge": "Popular",
+  "badgeColor": "bg-brand-orange/15 text-brand-orange border-brand-orange/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.9,
+  "iconName": "calculator"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "lemlist",
+  "slug": "lemlist",
+  "name": "Lemlist",
+  "category": "Email Marketing",
+  "categorySlug": "email-marketing",
+  "description": "Cold outreach email software with automated email warm-up and high deliverability for supplier and B2B outreach.",
+  "fullDescription": "Lemlist is specialized sales outreach software engineered for high email deliverability. With its built-in lemwarm engine, cold email warmup prevents domain blacklisting, while personalized image generation and multi-channel outreach make it ideal for contacting overseas manufacturers, wholesale distributors, and retail partners.",
+  "features": [
+    "Automated lemwarm email deliverability and domain warmup system",
+    "Dynamic personalized images and custom video landing pages per lead",
+    "Multi-channel outreach sequences combining Email, LinkedIn, and phone tasks",
+    "Custom tracking domain setup with DMARC, DKIM, and SPF validation",
+    "B2B lead database with 450M+ verified professional email addresses"
+  ],
+  "url": "https://www.lemlist.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "Cold Email",
+  "badgeColor": "bg-purple-500/15 text-purple-600 dark:text-purple-400 border-purple-500/30",
+  "isVerified": true,
+  "pricing": "Paid",
+  "discountText": "",
+  "rating": 4.8,
+  "iconName": "mail"
+}

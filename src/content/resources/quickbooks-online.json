@@ -1,0 +1,26 @@
+{
+  "id": "accounting-quickbooks",
+  "slug": "quickbooks-online",
+  "name": "QuickBooks Online",
+  "category": "Accounting",
+  "categorySlug": "accounting",
+  "description": "Industry standard small business accounting with automatic bank feeds and multi-currency transaction syncing.",
+  "fullDescription": "Intuit QuickBooks Online is the gold standard cloud accounting software for growing e-commerce businesses. Featuring automated bank feeds, robust inventory reconciliation, and multi-currency exchange rate adjustments, it provides clear profit-and-loss statements for tax filing and investor reporting.",
+  "features": [
+    "Automated bank account and corporate credit card transaction feeds",
+    "Multi-currency transaction recording with automated exchange gain/loss splits",
+    "Integration with e-commerce bookkeeping tools like A2X and Webgility",
+    "Comprehensive real-time balance sheet, profit & loss, and cash flow reporting",
+    "Secure multi-user permissions for bookkeepers, accountants, and executives"
+  ],
+  "url": "https://quickbooks.intuit.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "Accounting",
+  "badgeColor": "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30",
+  "isVerified": true,
+  "pricing": "Paid",
+  "discountText": "",
+  "rating": 4.7,
+  "iconName": "calculator"
+}

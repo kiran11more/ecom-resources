@@ -1,0 +1,26 @@
+{
+  "id": "jungle-scout",
+  "slug": "jungle-scout",
+  "name": "Jungle Scout Seller Suite",
+  "category": "Product Research",
+  "categorySlug": "product-research",
+  "description": "Accurate Amazon sales estimations, Supplier Database lookup, Keyword Scout, and automated review requests.",
+  "fullDescription": "Jungle Scout is an established product research and intelligence platform for Amazon merchants. With the industry’s most accurate AccuSales algorithm, it enables sellers to filter through millions of catalog items, inspect factory supplier bill-of-lading shipment records, and monitor competitor inventory levels.",
+  "features": [
+    "Proprietary AccuSales algorithm providing accurate sales volume predictions",
+    "Global Supplier Database uncovering real manufacturer customs shipment records",
+    "Keyword Scout showing high-converting search volume and PPC bid estimates",
+    "Review Automation that sends official in-policy review requests automatically",
+    "Listing Builder with AI-generated title, bullet point, and description copywriting"
+  ],
+  "url": "https://www.junglescout.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "Pro Suite",
+  "badgeColor": "bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30",
+  "isVerified": true,
+  "pricing": "Paid",
+  "discountText": "",
+  "rating": 4.8,
+  "iconName": "chart"
+}

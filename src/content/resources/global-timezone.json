@@ -1,0 +1,20 @@
+{
+  "id": "global-timezone",
+  "slug": "global-timezone",
+  "name": "Global Timezone Map",
+  "category": "Cross-Border Information",
+  "categorySlug": "cross-border-information",
+  "description": "Interactive world map tracking standard timezones (EST, PST, GMT, CET, CST, JST) and daylight saving adjustments.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://www.amz123.com/tools-worldtime",
+  "internalUrl": "/information/global-timezone",
+  "hasDetailPage": false,
+  "badge": "",
+  "badgeColor": "",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.7,
+  "iconName": "clock"
+}

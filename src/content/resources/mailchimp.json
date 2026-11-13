@@ -1,0 +1,26 @@
+{
+  "id": "mailchimp",
+  "slug": "mailchimp",
+  "name": "Mailchimp",
+  "category": "Email Marketing",
+  "categorySlug": "email-marketing",
+  "description": "World leading email marketing & automation platform with pre-built e-commerce templates and Shopify integration.",
+  "fullDescription": "Mailchimp is the benchmark marketing automation and email marketing platform for global e-commerce sellers. It features seamless synchronization with Shopify, WooCommerce, and custom webhooks, allowing sellers to set up abandoned cart recovery, automated post-purchase welcome flows, and intelligent customer lifetime value segmentation.",
+  "features": [
+    "Pre-built e-commerce automation triggers (abandoned cart, order notifications)",
+    "Direct integrations with Shopify, WooCommerce, BigCommerce, and Zapier",
+    "Predictive demographics and smart customer lifetime value segmentation",
+    "AI creative assistant and automated product recommendation modules",
+    "Multi-channel campaign orchestration including email, SMS, and retargeting ads"
+  ],
+  "url": "https://mailchimp.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "Leading CRM",
+  "badgeColor": "bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30",
+  "isVerified": true,
+  "pricing": "Freemium",
+  "discountText": "",
+  "rating": 4.7,
+  "iconName": "mail"
+}

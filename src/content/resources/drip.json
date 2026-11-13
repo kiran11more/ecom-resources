@@ -1,0 +1,26 @@
+{
+  "id": "drip",
+  "slug": "drip",
+  "name": "Drip E-Commerce CRM",
+  "category": "Email Marketing",
+  "categorySlug": "email-marketing",
+  "description": "Built specifically for direct-to-consumer e-commerce: abandoned cart triggers, win-back flows, and VIP rewards.",
+  "fullDescription": "Drip is tailored from the ground up for DTC e-commerce merchants. By capturing comprehensive behavioral signals across your online storefront, Drip empowers brands to craft segmented email and SMS campaigns that drive higher repeat purchase rates and customer lifetime value.",
+  "features": [
+    "DTC-specific revenue analytics and customer lifetime value cohorts",
+    "Point-and-click email builder with dynamic live product block imports",
+    "Automated discount code generation integrated directly with Shopify checkout",
+    "Pre-made workflows for post-purchase upsells, replenishment, and VIP tiers",
+    "Advanced behavioral segment triggers based on viewed products and cart items"
+  ],
+  "url": "https://www.drip.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "DTC Native",
+  "badgeColor": "bg-pink-500/15 text-pink-600 dark:text-pink-400 border-pink-500/30",
+  "isVerified": true,
+  "pricing": "Paid",
+  "discountText": "",
+  "rating": 4.7,
+  "iconName": "mail"
+}

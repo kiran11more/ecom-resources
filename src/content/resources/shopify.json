@@ -1,0 +1,26 @@
+{
+  "id": "store-shopify",
+  "slug": "shopify",
+  "name": "Shopify Global DTC",
+  "category": "Store Opening",
+  "categorySlug": "store-opening",
+  "description": "The world’s premier direct-to-consumer commerce engine for independent branding, custom checkout, and global multichannel sync.",
+  "fullDescription": "Shopify powers millions of businesses in over 175 countries. It provides complete ownership over customer relationships, conversion rates, and branding. From high-converting checkout experiences to multi-currency localization via Shopify Markets, it is the standard platform for independent e-commerce enterprises.",
+  "features": [
+    "Industry-leading Shop Pay 1-click checkout with up to 50% higher conversions",
+    "Shopify Markets for localized multi-currency pricing, languages, and duties",
+    "App store ecosystem featuring over 8,000+ verified tools and extensions",
+    "Unified multi-channel inventory sync across Amazon, TikTok Shop, and Meta",
+    "Extensible headless architecture with Hydrogen and headless storefront APIs"
+  ],
+  "url": "https://www.shopify.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "DTC Standard",
+  "badgeColor": "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30",
+  "isVerified": true,
+  "pricing": "Freemium",
+  "discountText": "",
+  "rating": 4.9,
+  "iconName": "store"
+}

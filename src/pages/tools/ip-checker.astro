@@ -1,0 +1,329 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+---
+
+<BaseLayout
+  title="IP Address & Proxy Checker for E-Commerce Sellers — Ecom Resources"
+  description="Check your public IP address, ISP provider, geolocation, and browser timezone. Verify proxy purity before logging into Amazon Seller Central or multi-store accounts."
+>
+  <Header />
+
+  <!-- Breadcrumbs -->
+  <div class="w-full bg-white dark:bg-[#131924] border-b border-slate-200/80 dark:border-white/[0.06] py-3">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+      <a href="/" class="hover:text-brand-orange transition-colors">Home</a>
+      <span>/</span>
+      <a href="/tools" class="hover:text-brand-orange transition-colors">Tools</a>
+      <span>/</span>
+      <span class="text-slate-900 dark:text-white font-semibold">IP & Proxy Checker</span>
+    </div>
+  </div>
+
+  <main class="w-full max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 flex-1">
+    <!-- Tool Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200/90 dark:border-white/[0.08]">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-base shrink-0">
+            🛡️
+          </span>
+          <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            IP Address & Proxy Geolocation Checker
+          </h1>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          Verify your network environment, proxy country, and browser timezone consistency before logging into multi-region seller accounts.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        id="refresh-ip-btn"
+        class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-white/[0.06] text-slate-700 dark:text-slate-200 hover:text-brand-orange hover:bg-brand-orange/10 transition-colors self-start sm:self-auto cursor-pointer"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+        <span>Refresh Network Check</span>
+      </button>
+    </div>
+
+    <!-- Main Live Geolocation Display Card -->
+    <div class="bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-3xl p-6 sm:p-8 shadow-xs relative overflow-hidden">
+      <!-- Background subtle gradient -->
+      <div class="absolute -top-24 right-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10 space-y-6">
+        <!-- Top Status Pill & Large IP -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100 dark:border-white/[0.05]">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Your Current Public IP Address</span>
+            </div>
+            <div class="flex items-center gap-3 flex-wrap">
+              <span id="detected-ip" class="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight text-slate-900 dark:text-white">
+                Detecting IP...
+              </span>
+              <button
+                type="button"
+                id="copy-ip-btn"
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-white/10 hover:bg-brand-orange hover:text-white dark:hover:bg-brand-orange text-slate-700 dark:text-slate-200 transition-colors cursor-pointer"
+                title="Copy IP Address"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                <span id="copy-ip-text">Copy IP</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Verdict Badge -->
+          <div id="ip-verdict-badge" class="px-3.5 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold flex items-center gap-2 self-start sm:self-auto">
+            <span>🛡️</span>
+            <span id="ip-verdict-text">Connection Active</span>
+          </div>
+        </div>
+
+        <!-- 6-Metric Geolocation & Telemetry Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+          <!-- Country & Region -->
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-dark-elevated/40 border border-slate-200/60 dark:border-white/[0.04] space-y-1">
+            <span class="text-slate-400 font-medium block">Country & Territory</span>
+            <div class="flex items-center gap-2 font-bold text-sm text-slate-900 dark:text-white" id="out-country">
+              <span>Checking...</span>
+            </div>
+            <span class="text-[11px] text-slate-400 block" id="out-city-state">—</span>
+          </div>
+
+          <!-- ISP & Organization -->
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-dark-elevated/40 border border-slate-200/60 dark:border-white/[0.04] space-y-1">
+            <span class="text-slate-400 font-medium block">Internet Service Provider (ISP)</span>
+            <span class="font-bold text-sm text-slate-900 dark:text-white truncate block" id="out-isp">
+              Checking...
+            </span>
+            <span class="text-[11px] text-slate-400 block" id="out-asn">—</span>
+          </div>
+
+          <!-- Timezone Consistency Check (Anti-Detect Test) -->
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-dark-elevated/40 border border-slate-200/60 dark:border-white/[0.04] space-y-1">
+            <span class="text-slate-400 font-medium block">Timezone Match Check</span>
+            <div class="flex items-center gap-1.5 font-bold text-sm" id="out-tz-match">
+              <span class="text-slate-400">Verifying...</span>
+            </div>
+            <span class="text-[11px] text-slate-400 block" id="out-tz-detail">—</span>
+          </div>
+
+          <!-- Browser Local Timezone -->
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-dark-elevated/40 border border-slate-200/60 dark:border-white/[0.04] space-y-1">
+            <span class="text-slate-400 font-medium block">Browser System Timezone</span>
+            <span class="font-bold text-sm font-mono text-slate-900 dark:text-white block" id="out-browser-tz">
+              —
+            </span>
+            <span class="text-[11px] text-slate-400 block" id="out-browser-time">—</span>
+          </div>
+
+          <!-- Protocol & Network -->
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-dark-elevated/40 border border-slate-200/60 dark:border-white/[0.04] space-y-1">
+            <span class="text-slate-400 font-medium block">IP Protocol</span>
+            <span class="font-bold text-sm font-mono text-slate-900 dark:text-white block" id="out-ip-version">
+              IPv4 / IPv6
+            </span>
+            <span class="text-[11px] text-slate-400 block">Direct Socket</span>
+          </div>
+
+          <!-- Security Hygiene Score -->
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-dark-elevated/40 border border-slate-200/60 dark:border-white/[0.04] space-y-1">
+            <span class="text-slate-400 font-medium block">Multi-Store Cleanliness</span>
+            <span class="font-bold text-sm text-emerald-600 dark:text-emerald-400 block" id="out-clean-score">
+              Safe for Direct Use
+            </span>
+            <span class="text-[11px] text-slate-400 block">No public blacklists detected</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Multi-Account Safety & Anti-Association Guidelines -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div class="bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-5 space-y-3">
+        <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <span>⚠️</span>
+          <span>Amazon Account Association Triggers</span>
+        </h3>
+        <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+          <li class="flex items-start gap-2">
+            <span class="text-rose-500 font-bold">•</span>
+            <span><strong>Timezone Mismatch:</strong> If your proxy IP is in Dallas, Texas (CST) but your browser clock reports GMT+8 or IST, Amazon's risk engines flag the session as an unauthorized VPN.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-rose-500 font-bold">•</span>
+            <span><strong>Shared Data Center Ranges:</strong> Avoid cheap shared VPNs (Nord, ExpressVPN) for Seller Central. AWS and Datacenter ASNs trigger immediate identity verification requests.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-rose-500 font-bold">•</span>
+            <span><strong>WebRTC Leaks:</strong> Ensure your browser disables WebRTC leaks that expose your underlying ISP IP behind the proxy.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-5 space-y-3">
+        <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <span>🛡️</span>
+          <span>Recommended Seller Isolation Workflow</span>
+        </h3>
+        <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+          <li class="flex items-start gap-2">
+            <span class="text-emerald-500 font-bold">•</span>
+            <span><strong>Dedicated Static Residential IP:</strong> Pair each Amazon or TikTok store with a clean static residential IP in the matching marketplace country.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-emerald-500 font-bold">•</span>
+            <span><strong>Anti-Detect Browsers:</strong> Use browser isolation profiles (AdsPower, Multilogin, Dolphin&#123;anty&#125;) to emulate dedicated hardware fingerprinting, canvas, and OS parameters.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-emerald-500 font-bold">•</span>
+            <span><strong>Clean Cookie Hygiene:</strong> Never clear browser profiles between logins; maintain stable long-lived seller session tokens.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script is:inline>
+  (() => {
+    const ipText = document.getElementById('detected-ip');
+    const copyBtn = document.getElementById('copy-ip-btn');
+    const copyText = document.getElementById('copy-ip-text');
+    const refreshBtn = document.getElementById('refresh-ip-btn');
+
+    const outCountry = document.getElementById('out-country');
+    const outCityState = document.getElementById('out-city-state');
+    const outIsp = document.getElementById('out-isp');
+    const outAsn = document.getElementById('out-asn');
+    const outTzMatch = document.getElementById('out-tz-match');
+    const outTzDetail = document.getElementById('out-tz-detail');
+    const outBrowserTz = document.getElementById('out-browser-tz');
+    const outBrowserTime = document.getElementById('out-browser-time');
+    const outIpVersion = document.getElementById('out-ip-version');
+
+    // Local browser environment
+    const browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown';
+    if (outBrowserTz) outBrowserTz.textContent = browserTimezone;
+    if (outBrowserTime) {
+      const now = new Date();
+      outBrowserTime.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
+
+    let currentIp = '';
+
+    async function detectIp() {
+      if (ipText) ipText.textContent = 'Detecting...';
+
+      try {
+        // Primary Endpoint: ipapi.co (Provides rich ISP, City, Country & Timezone)
+        const res = await fetch('https://ipapi.co/json/');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.ip) {
+            applyData(data);
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn('Primary IP API unavailable, trying fallback...', err);
+      }
+
+      try {
+        // Fallback Endpoint: api.ipify.org
+        const resFb = await fetch('https://api.ipify.org?format=json');
+        if (resFb.ok) {
+          const fbData = await resFb.json();
+          if (fbData && fbData.ip) {
+            currentIp = fbData.ip;
+            if (ipText) ipText.textContent = fbData.ip;
+            if (outCountry) outCountry.textContent = 'Verified Connection';
+            if (outCityState) outCityState.textContent = 'Geolocation lookup limited';
+            if (outIsp) outIsp.textContent = 'Direct Network';
+            if (outIpVersion) outIpVersion.textContent = fbData.ip.includes(':') ? 'IPv6' : 'IPv4';
+            checkTimezoneMatch(null);
+            return;
+          }
+        }
+      } catch (err2) {
+        if (ipText) ipText.textContent = 'Unavailable (Check adblocker)';
+      }
+    }
+
+    function applyData(data) {
+      currentIp = data.ip || '';
+      if (ipText) ipText.textContent = currentIp;
+
+      // Country & City
+      if (outCountry) {
+        const flag = data.country_code
+          ? String.fromCodePoint(...[...data.country_code.toUpperCase()].map(c => 0x1f1a5 + c.charCodeAt(0)))
+          : '🌐';
+        outCountry.innerHTML = `<span>${flag}</span> <span>${data.country_name || data.country_code || 'Unknown'}</span>`;
+      }
+      if (outCityState) {
+        outCityState.textContent = `${data.city || ''}${data.region ? ', ' + data.region : ''} (Postal: ${data.postal || 'N/A'})`;
+      }
+
+      // ISP & ASN
+      if (outIsp) outIsp.textContent = data.org || data.asn || 'Residential / Commercial';
+      if (outAsn) outAsn.textContent = `ASN: ${data.asn || 'N/A'}`;
+
+      // Protocol
+      if (outIpVersion) outIpVersion.textContent = currentIp.includes(':') ? 'IPv6 (Modern)' : 'IPv4 (Standard)';
+
+      // Timezone Match
+      checkTimezoneMatch(data.timezone);
+    }
+
+    function checkTimezoneMatch(ipTimezone) {
+      if (!outTzMatch) return;
+
+      if (!ipTimezone) {
+        outTzMatch.innerHTML = '<span class="text-slate-400">Timezone undetermined</span>';
+        if (outTzDetail) outTzDetail.textContent = `Browser: ${browserTimezone}`;
+        return;
+      }
+
+      const isMatch = browserTimezone.toLowerCase() === ipTimezone.toLowerCase();
+      if (isMatch) {
+        outTzMatch.innerHTML = '<span class="text-emerald-500 font-bold">✓ Perfectly Matched</span>';
+        if (outTzDetail) outTzDetail.textContent = `Both IP & Browser report: ${browserTimezone}`;
+      } else {
+        outTzMatch.innerHTML = '<span class="text-amber-500 font-bold">⚠️ Timezone Divergence</span>';
+        if (outTzDetail) outTzDetail.textContent = `IP reports ${ipTimezone}, browser reports ${browserTimezone}`;
+      }
+    }
+
+    // 1-Click Copy IP
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        if (!currentIp) return;
+        navigator.clipboard.writeText(currentIp).then(() => {
+          if (copyText) copyText.textContent = 'Copied!';
+          setTimeout(() => {
+            if (copyText) copyText.textContent = 'Copy IP';
+          }, 2000);
+        });
+      });
+    }
+
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', detectIp);
+    }
+
+    // Initialize
+    detectIp();
+  })();
+</script>

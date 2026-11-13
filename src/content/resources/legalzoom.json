@@ -1,0 +1,26 @@
+{
+  "id": "legal-legalzoom",
+  "slug": "legalzoom",
+  "name": "LegalZoom Compliance",
+  "category": "Legal Services",
+  "categorySlug": "legal-services",
+  "description": "Form US LLCs, Delaware C-Corps, obtain EIN tax numbers, and maintain registered agent compliance.",
+  "fullDescription": "LegalZoom is a leading provider of online legal solutions for small business owners and cross-border founders. It helps overseas entrepreneurs establish US business entities (Delaware, Wyoming, Florida LLCs), acquire federal Employer Identification Numbers (EINs), and maintain registered agent legal compliance.",
+  "features": [
+    "Comprehensive US LLC and corporate formation in all 50 states",
+    "Federal Tax ID (EIN) acquisition service for non-US resident founders",
+    "Dedicated Registered Agent service to handle state and court correspondence",
+    "Custom operating agreements, corporate bylaws, and business contracts",
+    "Ongoing annual report compliance and business license advisory services"
+  ],
+  "url": "https://www.legalzoom.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "US Entity",
+  "badgeColor": "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30",
+  "isVerified": true,
+  "pricing": "Paid",
+  "discountText": "",
+  "rating": 4.6,
+  "iconName": "scale"
+}

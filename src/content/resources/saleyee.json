@@ -1,0 +1,26 @@
+{
+  "id": "sourcing-saleyee",
+  "slug": "saleyee",
+  "name": "Saleyee Dropship Wholesale",
+  "category": "Sourcing",
+  "categorySlug": "sourcing",
+  "description": "Cross-border dropshipping wholesale supplier platform with 30,000+ verified products stored in local US/UK/EU warehouses.",
+  "fullDescription": "Saleyee provides a turnkey wholesale dropshipping and supply chain solution for cross-border e-commerce merchants. By stocking over 30,000 fast-selling SKUs directly in local fulfillment centers across the United States, United Kingdom, and Europe, sellers can achieve 2-8 day delivery without holding inventory.",
+  "features": [
+    "Local fulfillment from warehouses in US, UK, Germany, and France",
+    "Zero membership fees and wholesale pricing discounts on volume",
+    "Automated inventory and order synchronization for Amazon, eBay, and Shopify",
+    "Fast 48-hour order dispatch with trackable FedEx, UPS, and DHL labels",
+    "Dedicated account managers and responsive after-sales replacement guarantees"
+  ],
+  "url": "https://www.saleyee.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "Local Warehouses",
+  "badgeColor": "bg-teal-500/15 text-teal-600 dark:text-teal-400 border-teal-500/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.7,
+  "iconName": "factory"
+}

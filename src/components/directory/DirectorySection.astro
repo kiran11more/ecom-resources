@@ -1,0 +1,815 @@
+---
+import { DIRECTORY_RESOURCES, EXCHANGE_RATES, RECOMMENDED_EXTENSIONS, OFFSITE_DEAL_PLATFORMS } from '../../data/navigation';
+import ToolTile from './ToolTile.astro';
+import QuickToolPill from './QuickToolPill.astro';
+import ExtensionsDealsSection from './ExtensionsDealsSection.astro';
+
+// Filter resources for each section based on approved sitemap
+const productResearchTools = DIRECTORY_RESOURCES.filter(r => r.categorySlug === 'product-research');
+const everydayTools = DIRECTORY_RESOURCES.filter(r => r.categorySlug === 'everyday-tools');
+const crossBorderInfo = DIRECTORY_RESOURCES.filter(r => r.categorySlug === 'cross-border-information');
+const emailMarketing = DIRECTORY_RESOURCES.filter(r => r.categorySlug === 'email-marketing');
+const advertisingPlatforms = DIRECTORY_RESOURCES.filter(r => r.categorySlug === 'advertising-platforms');
+const storeOpening = DIRECTORY_RESOURCES.filter(r => r.categorySlug === 'store-opening');
+const sourcing = DIRECTORY_RESOURCES.filter(r => r.categorySlug === 'sourcing');
+const warehouseLogistics = DIRECTORY_RESOURCES.filter(r => r.categorySlug === 'warehouse-logistics');
+const videosSocial = DIRECTORY_RESOURCES.filter(r => r.categorySlug === 'videos-social');
+const legalServices = DIRECTORY_RESOURCES.filter(r => r.categorySlug === 'legal-services');
+const accounting = DIRECTORY_RESOURCES.filter(r => r.categorySlug === 'accounting');
+
+// Combined Common Tools for Module 1 Launcher (AMZ123 Style)
+const commonEverydayTools = [...everydayTools, ...productResearchTools];
+const convertersOnly = everydayTools.filter(r => ['length-converter', 'temperature-converter', 'temp-converter', 'area-volume-converter', 'area-converter', 'global-time-converter', 'time-conversion', 'amazon-revenue-calculator', 'fba-calc', 'ip-address-checker', 'ip-checker', 'chatgpt-prompts'].includes(r.id) || ['length-converter', 'temperature-converter', 'area-volume-converter', 'global-time-converter', 'amazon-revenue-calculator', 'ip-address-checker', 'chatgpt-prompts'].includes(r.slug || ''));
+
+function getFaviconUrl(urlStr: string): string {
+  try {
+    if (!urlStr || !urlStr.startsWith('http')) return '';
+    const host = new URL(urlStr).hostname.replace(/^www\./, '');
+    return `https://www.google.com/s2/favicons?domain=${host}&sz=64`;
+  } catch {
+    return '';
+  }
+}
+---
+
+<div id="directory-stream" class="space-y-8 sm:space-y-10 w-full min-w-0" aria-label="Verified Resource Directory">
+  <!-- Section Quick-Filter & Directory Navigator Bar -->
+  <div class="bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs transition-colors">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 pb-4 border-b border-slate-100 dark:border-white/[0.05]">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <h2 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+            Verified Seller Resource Directory
+          </h2>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-brand-orange/15 text-brand-orange border border-brand-orange/30">
+            {DIRECTORY_RESOURCES.length} Vetted Tools
+          </span>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          Explore vetted cross-border logistics, product research tools, email automation, and PPC ad channels.
+        </p>
+      </div>
+
+      <!-- Live Search / Filter Input -->
+      <div class="relative w-full md:w-80 shrink-0">
+        <input
+          type="search"
+          id="resource-filter-input"
+          placeholder="Filter tools by keyword or name..."
+          class="w-full pl-9 pr-4 py-2 text-xs sm:text-sm bg-slate-100 dark:bg-dark-elevated text-slate-800 dark:text-slate-100 placeholder-slate-400 rounded-xl border border-slate-200 dark:border-white/10 focus:outline-none focus:border-brand-orange transition-colors"
+        />
+        <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Category Jump Links (Anchored to Sections) -->
+    <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-3 text-xs">
+      <a
+        href="#everyday-tools"
+        class="px-3 py-1.5 rounded-lg font-semibold transition-all bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/20 whitespace-nowrap text-xs"
+      >
+        Everyday Tools ({everydayTools.length})
+      </a>
+      <a
+        href="#browser-extensions"
+        class="px-3 py-1.5 rounded-lg font-bold transition-all bg-brand-orange/15 text-brand-orange hover:bg-brand-orange/25 whitespace-nowrap text-xs border border-brand-orange/30"
+      >
+        Extensions & Deals ({(RECOMMENDED_EXTENSIONS?.length || 0) + (OFFSITE_DEAL_PLATFORMS?.length || 0)})
+      </a>
+      <a
+        href="#currency-exchange-rates"
+        class="px-3 py-1.5 rounded-lg font-semibold transition-all bg-teal-500/10 text-teal-700 dark:text-teal-300 hover:bg-teal-500/20 whitespace-nowrap text-xs"
+      >
+        Currency Rates
+      </a>
+      <a
+        href="#product-research"
+        class="px-3 py-1.5 rounded-lg font-semibold transition-all bg-blue-500/10 text-blue-700 dark:text-blue-300 hover:bg-blue-500/20 whitespace-nowrap text-xs"
+      >
+        Product Research ({productResearchTools.length})
+      </a>
+      <a
+        href="#cross-border-information"
+        class="px-3 py-1.5 rounded-lg font-semibold transition-all bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-500/20 whitespace-nowrap text-xs"
+      >
+        Cross-Border Info ({crossBorderInfo.length})
+      </a>
+      <a
+        href="#email-marketing"
+        class="px-3 py-1.5 rounded-lg font-semibold transition-all bg-amber-500/10 text-amber-700 dark:text-amber-300 hover:bg-amber-500/20 whitespace-nowrap text-xs"
+      >
+        Email Marketing ({emailMarketing.length})
+      </a>
+      <a
+        href="#advertising-platforms"
+        class="px-3 py-1.5 rounded-lg font-semibold transition-all bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:bg-rose-500/20 whitespace-nowrap text-xs"
+      >
+        Advertising PPC ({advertisingPlatforms.length})
+      </a>
+      <a
+        href="#directory-matrix"
+        class="px-3 py-1.5 rounded-lg font-semibold transition-all bg-purple-500/10 text-purple-700 dark:text-purple-300 hover:bg-purple-500/20 whitespace-nowrap text-xs"
+      >
+        Services Hub Matrix
+      </a>
+    </div>
+  </div>
+
+  <!-- MODULE 1: Everyday Tools & Measurement Converters (AMZ123 Style Fast Launcher) -->
+  <section id="everyday-tools" class="bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs space-y-4 scroll-mt-36 transition-colors" aria-label="Everyday Tools & Converters">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-100 dark:border-white/[0.06] gap-2.5">
+      <!-- Tabs (AMZ123 Style) -->
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <button
+          type="button"
+          data-tab-target="tab-all-everyday"
+          class="tab-btn tab-btn-active px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer"
+        >
+          Everyday Tools
+        </button>
+        <button
+          type="button"
+          data-tab-target="tab-converters"
+          class="tab-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer"
+        >
+          Measurement Converters
+        </button>
+        <button
+          type="button"
+          data-tab-target="tab-research"
+          class="tab-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer"
+        >
+          Product Research BSR
+        </button>
+      </div>
+
+      <!-- Accent Live Ticker -->
+      <div class="flex items-center gap-2 text-xs font-semibold text-brand-orange bg-brand-orange/10 px-3 py-1.5 rounded-lg">
+        <span class="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
+        <span class="truncate">Instant Seller Calculators & Utilities</span>
+      </div>
+    </div>
+
+    <!-- Tab Panel 1: All Everyday Tools (4-Column Launcher Grid, No Truncation!) -->
+    <div id="tab-all-everyday" class="tab-panel">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 w-full min-w-0">
+        {commonEverydayTools.map((resource) => (
+          <div class="resource-item" data-category={resource.categorySlug} data-name={resource.name.toLowerCase()} data-desc={resource.description.toLowerCase()}>
+            <QuickToolPill resource={resource} />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Tab Panel 2: Converters Only -->
+    <div id="tab-converters" class="tab-panel hidden">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 w-full min-w-0">
+        {convertersOnly.map((resource) => (
+          <div class="resource-item" data-category={resource.categorySlug} data-name={resource.name.toLowerCase()} data-desc={resource.description.toLowerCase()}>
+            <QuickToolPill resource={resource} />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Tab Panel 3: Product Research Only -->
+    <div id="tab-research" class="tab-panel hidden">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 w-full min-w-0">
+        {productResearchTools.map((resource) => (
+          <div class="resource-item" data-category={resource.categorySlug} data-name={resource.name.toLowerCase()} data-desc={resource.description.toLowerCase()}>
+            <QuickToolPill resource={resource} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE: Recommended Browser Extensions & Exclusive Deals Hub (Sitemap Page 2) -->
+  <ExtensionsDealsSection />
+
+  <!-- MODULE 2: Real-Time Currency Exchange & Sourcing Settlement Hub -->
+  <section id="currency-exchange-rates" class="bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs w-full min-w-0 transition-colors scroll-mt-36" aria-label="Real-time Exchange Rate Strip">
+    <!-- Header: Clean Title, Live Indicator & Update Timestamp -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3.5 mb-4 border-b border-slate-100 dark:border-white/[0.06]">
+      <div class="flex items-center gap-3">
+        <span class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-sm shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </span>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              Real-Time Currency Exchange Rates
+            </h3>
+            <span class="text-xs font-semibold text-slate-400 font-mono hidden md:inline">
+              (Live Sourcing & FBA Payout Rates)
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+            Interbank benchmark rates for 1688 factory payments, Pan-EU VAT, and Amazon marketplace disbursements.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full flex items-center gap-1.5 w-fit">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span id="directory-fx-label">Live Market Feed</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Quick Sourcing FX Calculator Bar -->
+    <div class="bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/80 dark:border-white/[0.05] rounded-xl p-3 sm:p-3.5 mb-4 flex flex-col md:flex-row md:items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5">
+        <span class="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider shrink-0 flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+          </svg>
+          Quick Converter:
+        </span>
+        <div class="flex items-center bg-white dark:bg-[#131924] border border-slate-200 dark:border-white/10 rounded-lg px-2.5 py-1 shadow-2xs">
+          <span class="text-xs font-bold text-slate-500 mr-1.5">$</span>
+          <input
+            type="number"
+            id="fx-calc-input"
+            value="1000"
+            min="1"
+            class="w-20 text-xs sm:text-sm font-mono font-bold bg-transparent text-slate-900 dark:text-white focus:outline-none"
+            aria-label="USD amount to convert"
+          />
+          <span class="text-xs font-bold text-brand-orange ml-1">USD</span>
+        </div>
+      </div>
+
+      <!-- Live Calculation Outputs -->
+      <div class="flex items-center gap-2 sm:gap-3 overflow-x-auto no-scrollbar text-xs">
+        <div class="px-2.5 py-1 rounded-lg bg-white dark:bg-[#131924] border border-slate-200/70 dark:border-white/10 flex items-center gap-1.5 shrink-0">
+          <span class="text-xs">🇨🇳</span>
+          <span class="font-mono font-bold text-slate-900 dark:text-white" id="fx-val-cny">7,241.80</span>
+          <span class="text-[10px] text-slate-500">CNY (1688)</span>
+        </div>
+        <div class="px-2.5 py-1 rounded-lg bg-white dark:bg-[#131924] border border-slate-200/70 dark:border-white/10 flex items-center gap-1.5 shrink-0">
+          <span class="text-xs">🇪🇺</span>
+          <span class="font-mono font-bold text-slate-900 dark:text-white" id="fx-val-eur">923.85</span>
+          <span class="text-[10px] text-slate-500">EUR (EU)</span>
+        </div>
+        <div class="px-2.5 py-1 rounded-lg bg-white dark:bg-[#131924] border border-slate-200/70 dark:border-white/10 flex items-center gap-1.5 shrink-0">
+          <span class="text-xs">🇬🇧</span>
+          <span class="font-mono font-bold text-slate-900 dark:text-white" id="fx-val-gbp">772.50</span>
+          <span class="text-[10px] text-slate-500">GBP (UK)</span>
+        </div>
+        <div class="px-2.5 py-1 rounded-lg bg-white dark:bg-[#131924] border border-slate-200/70 dark:border-white/10 flex items-center gap-1.5 shrink-0">
+          <span class="text-xs">🇯🇵</span>
+          <span class="font-mono font-bold text-slate-900 dark:text-white" id="fx-val-jpy">154,620</span>
+          <span class="text-[10px] text-slate-500">JPY (JP)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6-Column Currency Rate Cards (Fintech Style) -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
+      {EXCHANGE_RATES.map((rate) => (
+        <div class="p-3 rounded-xl bg-slate-50/70 dark:bg-dark-elevated/50 border border-slate-200/70 dark:border-white/[0.05] hover:border-brand-orange/40 transition-all flex flex-col justify-between group">
+          <div class="flex items-center justify-between gap-1 mb-1.5">
+            <div class="flex items-center gap-1">
+              <span class="text-xs">{rate.fromFlag}</span>
+              <span class="text-[10px] text-slate-400">→</span>
+              <span class="text-xs">{rate.toFlag}</span>
+            </div>
+            <span class={`text-[10px] font-bold px-1.5 py-0.2 rounded ${rate.isPositive ? 'text-emerald-700 dark:text-emerald-300 bg-emerald-500/10' : 'text-rose-700 dark:text-rose-300 bg-rose-500/10'}`}>
+              {rate.change}
+            </span>
+          </div>
+
+          <div>
+            <div class="text-[11px] font-bold text-slate-600 dark:text-slate-300 truncate">
+              {rate.pair}
+            </div>
+            <div class="text-base sm:text-lg font-mono font-extrabold text-slate-900 dark:text-white tracking-tight mt-0.5" data-fx-pair={rate.pair}>
+              {rate.rate}
+            </div>
+          </div>
+
+          <div class="mt-2 pt-1.5 border-t border-slate-200/60 dark:border-white/[0.04] text-[10px] font-medium text-slate-500 dark:text-slate-400 truncate">
+            {rate.label}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- SECTION 1: Product Research & Best Sellers (Flat Section, 3-Column Clean Cards, NO Nesting!) -->
+  <section id="product-research" class="space-y-4 scroll-mt-36" aria-label="Product Research Section">
+    <!-- Clean Section Header (No Outer Card) -->
+    <div class="flex items-center justify-between pb-2 border-b border-slate-200/90 dark:border-white/[0.08]">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-sm shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </span>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              Product Research & Global Demand
+            </h3>
+            <span class="text-xs font-semibold text-slate-400">({productResearchTools.length})</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+            Official Amazon hourly updated Best Seller rankings across North America, Europe, and Asia-Pacific.
+          </p>
+        </div>
+      </div>
+      <div class="hidden sm:flex items-center gap-1.5 text-xs font-medium text-slate-400">
+        <span>Marketplaces:</span>
+        <span class="text-brand-orange font-bold">US · UK · DE · JP · CA</span>
+      </div>
+    </div>
+
+    <!-- 4-Column Uniform Grid: All Cards Equal Height & Responsive! -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 w-full min-w-0 items-stretch">
+      {productResearchTools.map((resource) => (
+        <div class="resource-item h-full flex flex-col" data-category={resource.categorySlug} data-name={resource.name.toLowerCase()} data-desc={resource.description.toLowerCase()}>
+          <ToolTile resource={resource} />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- SECTION 2: Cross-Border Information & Logistics Codes (Flat Section, 3-Column Clean Cards) -->
+  <section id="cross-border-information" class="space-y-4 scroll-mt-36" aria-label="Cross-Border Information Section">
+    <div class="flex items-center justify-between pb-2 border-b border-slate-200/90 dark:border-white/[0.08]">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-sm shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </span>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              Cross-Border Information & Logistics Codes
+            </h3>
+            <span class="text-xs font-semibold text-slate-400">({crossBorderInfo.length})</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+            ISO international country standards, world timezone maps, and UN/LOCODE seaport & airport freight codes.
+          </p>
+        </div>
+      </div>
+      <span class="text-xs font-semibold text-indigo-700 dark:text-indigo-300 bg-indigo-500/10 px-2.5 py-1 rounded-lg">
+        UN/LOCODE & ISO
+      </span>
+    </div>
+
+    <!-- 4-Column Uniform Grid: All Cards Equal Height & Responsive! -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 w-full min-w-0 items-stretch">
+      {crossBorderInfo.map((resource) => (
+        <div class="resource-item h-full flex flex-col" data-category={resource.categorySlug} data-name={resource.name.toLowerCase()} data-desc={resource.description.toLowerCase()}>
+          <ToolTile resource={resource} />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- SECTION 3: Email Marketing Platforms (Flat Section, 3-Column Clean Cards) -->
+  <section id="email-marketing" class="space-y-4 scroll-mt-36" aria-label="Email Marketing Section">
+    <div class="flex items-center justify-between pb-2 border-b border-slate-200/90 dark:border-white/[0.08]">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-sm shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+        </span>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              Email Marketing & Customer Engagement
+            </h3>
+            <span class="text-xs font-semibold text-slate-400">({emailMarketing.length})</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+            Direct-to-consumer email flows, cart abandonment triggers, and B2B supplier outreach tools.
+          </p>
+        </div>
+      </div>
+      <span class="text-xs font-semibold text-amber-700 dark:text-amber-300 bg-amber-500/10 px-2.5 py-1 rounded-lg">
+        DTC & B2B
+      </span>
+    </div>
+
+    <!-- 4-Column Uniform Grid: All Cards Equal Height & Responsive! -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 w-full min-w-0 items-stretch">
+      {emailMarketing.map((resource) => (
+        <div class="resource-item h-full flex flex-col" data-category={resource.categorySlug} data-name={resource.name.toLowerCase()} data-desc={resource.description.toLowerCase()}>
+          <ToolTile resource={resource} />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- SECTION 4: Advertising Platforms & Paid Traffic (Flat Section, 3-Column Clean Cards) -->
+  <section id="advertising-platforms" class="space-y-4 scroll-mt-36" aria-label="Advertising Platforms Section">
+    <div class="flex items-center justify-between pb-2 border-b border-slate-200/90 dark:border-white/[0.08]">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center font-bold text-sm shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+          </svg>
+        </span>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              Advertising Platforms & PPC Consoles
+            </h3>
+            <span class="text-xs font-semibold text-slate-400">({advertisingPlatforms.length})</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+            Paid acquisition channels across Google Search, Amazon Sponsored Products, Meta Ads & Microsoft Advertising.
+          </p>
+        </div>
+      </div>
+      <span class="text-xs font-semibold text-rose-700 dark:text-rose-300 bg-rose-500/10 px-2.5 py-1 rounded-lg">
+        Paid Media
+      </span>
+    </div>
+
+    <!-- 4-Column Uniform Grid: All Cards Equal Height & Responsive! -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 w-full min-w-0 items-stretch">
+      {advertisingPlatforms.map((resource) => (
+        <div class="resource-item h-full flex flex-col" data-category={resource.categorySlug} data-name={resource.name.toLowerCase()} data-desc={resource.description.toLowerCase()}>
+          <ToolTile resource={resource} />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- MODULE 5: Multi-Row Directory Category Matrix (AMZ123 Style from Page 2) -->
+  <section id="directory-matrix" class="bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs space-y-4 scroll-mt-36 transition-colors" aria-label="E-Commerce Services Hub Matrix">
+    <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/[0.06]">
+      <div class="flex items-center gap-2.5">
+        <span class="w-2.5 h-2.5 rounded-full bg-brand-orange"></span>
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+          Operational Services & Cross-Border Directory Matrix
+        </h3>
+      </div>
+      <span class="text-xs font-semibold text-slate-400 hidden sm:inline">
+        Direct Resource Directory
+      </span>
+    </div>
+
+    <!-- The 6 Matrix Rows (AMZ123 Page 2 Layout, 100% Readable!) -->
+    <div class="divide-y divide-slate-100 dark:divide-white/[0.05] text-xs sm:text-sm">
+      <!-- Row 1: Store Opening -->
+      <div id="store-opening" class="py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 scroll-mt-36">
+        <div class="w-36 shrink-0 font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1.5">
+          <span>Store Opening:</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3 flex-1">
+          {storeOpening.map(r => {
+            const fav = getFaviconUrl(r.url);
+            return (
+              <a href={r.url} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+                {fav && <img src={fav} alt="" class="w-3.5 h-3.5 object-contain rounded-xs shrink-0" loading="lazy" onerror="this.style.display='none'" />}
+                <span>{r.name}</span>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+
+      <!-- Row 2: Sourcing & Factories -->
+      <div id="sourcing" class="py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 scroll-mt-36">
+        <div class="w-36 shrink-0 font-bold text-cyan-600 dark:text-cyan-400 flex items-center gap-1.5">
+          <span>Sourcing Hubs:</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3 flex-1">
+          {sourcing.map(r => {
+            const fav = getFaviconUrl(r.url);
+            return (
+              <a href={r.url} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+                {fav && <img src={fav} alt="" class="w-3.5 h-3.5 object-contain rounded-xs shrink-0" loading="lazy" onerror="this.style.display='none'" />}
+                <span>{r.name}</span>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+
+      <!-- Row 3: Freight & Logistics -->
+      <div id="warehouse-logistics" class="py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 scroll-mt-36">
+        <div class="w-36 shrink-0 font-bold text-orange-600 dark:text-orange-400 flex items-center gap-1.5">
+          <span>Logistics & 3PL:</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3 flex-1">
+          {warehouseLogistics.map(r => {
+            const fav = getFaviconUrl(r.url);
+            return (
+              <a href={r.url} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+                {fav && <img src={fav} alt="" class="w-3.5 h-3.5 object-contain rounded-xs shrink-0" loading="lazy" onerror="this.style.display='none'" />}
+                <span>{r.name}</span>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+
+      <!-- Row 4: Videos & Social Media -->
+      <div id="videos-social" class="py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 scroll-mt-36">
+        <div class="w-36 shrink-0 font-bold text-pink-600 dark:text-pink-400 flex items-center gap-1.5">
+          <span>Videos & UGC:</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3 flex-1">
+          {videosSocial.map(r => {
+            const fav = getFaviconUrl(r.url);
+            return (
+              <a href={r.url} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+                {fav && <img src={fav} alt="" class="w-3.5 h-3.5 object-contain rounded-xs shrink-0" loading="lazy" onerror="this.style.display='none'" />}
+                <span>{r.name}</span>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+
+      <!-- Row 5: Legal & Trademark -->
+      <div id="legal-services" class="py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 scroll-mt-36">
+        <div class="w-36 shrink-0 font-bold text-purple-600 dark:text-purple-400 flex items-center gap-1.5">
+          <span>Legal & IP:</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3 flex-1">
+          {legalServices.map(r => {
+            const fav = getFaviconUrl(r.url);
+            return (
+              <a href={r.url} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+                {fav && <img src={fav} alt="" class="w-3.5 h-3.5 object-contain rounded-xs shrink-0" loading="lazy" onerror="this.style.display='none'" />}
+                <span>{r.name}</span>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+
+      <!-- Row 6: Accounting & Tax -->
+      <div id="accounting" class="py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 scroll-mt-36">
+        <div class="w-36 shrink-0 font-bold text-teal-600 dark:text-teal-400 flex items-center gap-1.5">
+          <span>Accounting & VAT:</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3 flex-1">
+          {accounting.map(r => {
+            const fav = getFaviconUrl(r.url);
+            return (
+              <a href={r.url} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-dark-elevated/70 border border-slate-200/70 dark:border-white/[0.06] hover:text-brand-orange hover:border-brand-orange/50 transition-colors font-medium text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 shadow-2xs">
+                {fav && <img src={fav} alt="" class="w-3.5 h-3.5 object-contain rounded-xs shrink-0" loading="lazy" onerror="this.style.display='none'" />}
+                <span>{r.name}</span>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- No Results Message (Hidden by default) -->
+  <div id="no-filter-results" class="hidden p-8 text-center bg-white dark:bg-[#131924] border border-slate-200 dark:border-white/10 rounded-2xl">
+    <p class="text-sm font-semibold text-slate-600 dark:text-slate-400">
+      No resources found matching your search.
+    </p>
+    <button
+      type="button"
+      id="reset-filter-btn"
+      class="mt-2 px-3.5 py-1.5 text-xs font-bold text-brand-orange hover:underline cursor-pointer"
+    >
+      Clear Search Query
+    </button>
+  </div>
+</div>
+
+<style>
+  /* Inactive Tab Button */
+  .tab-btn {
+    color: #475569;
+    background-color: transparent;
+  }
+  :global(.dark) .tab-btn {
+    color: #94a3b8;
+  }
+  .tab-btn:hover:not(.tab-btn-active) {
+    color: #F25A2B;
+    background-color: rgba(241, 245, 249, 0.9);
+  }
+  :global(.dark) .tab-btn:hover:not(.tab-btn-active) {
+    color: #F25A2B;
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+
+  /* Active Tab Button: Solid Brand Orange with Pure Crisp White Text ALWAYS */
+  .tab-btn.tab-btn-active,
+  .tab-btn.tab-btn-active:hover,
+  .tab-btn.tab-btn-active:focus,
+  .tab-btn.tab-btn-active:active {
+    background-color: #F25A2B !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    box-shadow: 0 1px 3px rgba(242, 90, 43, 0.35) !important;
+  }
+  .tab-btn.tab-btn-active:hover {
+    background-color: #D94618 !important; /* Rich darker orange on active hover, text STILL pure white! */
+  }
+</style>
+
+<!-- Client-side Interactive Tabs & Live Filtering Script -->
+<script is:inline>
+  (function () {
+    // 1. Tab Switching Logic for Module 1
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-tab-target');
+        if (!targetId) return;
+
+        tabButtons.forEach((b) => b.classList.remove('tab-btn-active'));
+        btn.classList.add('tab-btn-active');
+
+        tabPanels.forEach((panel) => {
+          panel.classList.toggle('hidden', panel.id !== targetId);
+        });
+      });
+    });
+
+    // 2. Real-Time Search Filtering
+    const input = document.getElementById('resource-filter-input');
+    const items = document.querySelectorAll('.resource-item');
+    const sections = document.querySelectorAll('#directory-stream section');
+    const noResults = document.getElementById('no-filter-results');
+    const resetBtn = document.getElementById('reset-filter-btn');
+
+    function filterBySearch(query) {
+      const q = query.trim().toLowerCase();
+      let totalVisible = 0;
+
+      sections.forEach((section) => {
+        const sectionItems = section.querySelectorAll('.resource-item');
+        if (sectionItems.length === 0) return;
+
+        let sectionVisible = 0;
+
+        sectionItems.forEach((item) => {
+          const name = item.getAttribute('data-name') || '';
+          const desc = item.getAttribute('data-desc') || '';
+          const matches = !q || name.includes(q) || desc.includes(q);
+
+          item.style.display = matches ? '' : 'none';
+          if (matches) sectionVisible++;
+        });
+
+        if (q && sectionVisible === 0) {
+          section.style.display = 'none';
+        } else {
+          section.style.display = '';
+        }
+
+        totalVisible += sectionVisible;
+      });
+
+      if (noResults) {
+        noResults.classList.toggle('hidden', totalVisible > 0);
+      }
+    }
+
+    if (input) {
+      input.addEventListener('input', (e) => {
+        filterBySearch(e.target.value || '');
+      });
+    }
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        if (input) input.value = '';
+        filterBySearch('');
+      });
+    }
+
+    // 3. Real-Time Currency FX Engine (Live Interbank Feed + Converter)
+    const fxInput = document.getElementById('fx-calc-input');
+    const cnyOutput = document.getElementById('fx-val-cny');
+    const eurOutput = document.getElementById('fx-val-eur');
+    const gbpOutput = document.getElementById('fx-val-gbp');
+    const jpyOutput = document.getElementById('fx-val-jpy');
+    const bentoFxLabel = document.getElementById('bento-fx-label');
+    const directoryFxLabel = document.getElementById('directory-fx-label');
+
+    // Baseline fallback rates
+    const liveFx = {
+      cny: 7.2418,
+      eur: 0.92385, // USD to EUR
+      gbp: 0.7725,  // USD to GBP
+      jpy: 154.62,
+      cad: 1.3850,
+      aud: 1.5280,
+    };
+
+    function updateFxConversion() {
+      if (!fxInput) return;
+      const amount = parseFloat(fxInput.value) || 0;
+      if (cnyOutput) cnyOutput.textContent = (amount * liveFx.cny).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (eurOutput) eurOutput.textContent = (amount * liveFx.eur).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (gbpOutput) gbpOutput.textContent = (amount * liveFx.gbp).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (jpyOutput) jpyOutput.textContent = Math.round(amount * liveFx.jpy).toLocaleString('en-US');
+    }
+
+    function applyLiveRates(rates) {
+      if (!rates) return;
+      if (rates.CNY) liveFx.cny = rates.CNY;
+      if (rates.EUR) liveFx.eur = rates.EUR;
+      if (rates.GBP) liveFx.gbp = rates.GBP;
+      if (rates.JPY) liveFx.jpy = rates.JPY;
+      if (rates.CAD) liveFx.cad = rates.CAD;
+      if (rates.AUD) liveFx.aud = rates.AUD;
+
+      // Update all rate display cards on page (both Bento box and Directory section)
+      const pairMaps = {
+        'USD / CNY': liveFx.cny.toFixed(4),
+        'EUR / USD': (1 / liveFx.eur).toFixed(4),
+        'GBP / USD': (1 / liveFx.gbp).toFixed(4),
+        'USD / JPY': liveFx.jpy.toFixed(2),
+        'USD / CAD': liveFx.cad.toFixed(4),
+        'USD / AUD': liveFx.aud.toFixed(4),
+      };
+
+      Object.entries(pairMaps).forEach(([pair, val]) => {
+        document.querySelectorAll(`[data-fx-pair="${pair}"]`).forEach((el) => {
+          el.textContent = val;
+        });
+      });
+
+      // Recalculate converter values
+      updateFxConversion();
+
+      // Update live status badges with time
+      const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      if (bentoFxLabel) bentoFxLabel.textContent = `Live (${timeStr})`;
+      if (directoryFxLabel) directoryFxLabel.textContent = `Live Market Feed (${timeStr})`;
+    }
+
+    async function fetchLiveExchangeRates() {
+      const CACHE_KEY = 'ecom_live_fx_v1';
+      const CACHE_TIME_KEY = 'ecom_live_fx_time';
+      const now = Date.now();
+      const cached = sessionStorage.getItem(CACHE_KEY);
+      const cachedTime = sessionStorage.getItem(CACHE_TIME_KEY);
+
+      // Use 15-minute cache if available
+      if (cached && cachedTime && (now - parseInt(cachedTime, 10) < 15 * 60 * 1000)) {
+        try {
+          applyLiveRates(JSON.parse(cached));
+          return;
+        } catch (_) {}
+      }
+
+      try {
+        // Primary API: open.er-api.com (No API key, free, fast, CORS enabled)
+        const res = await fetch('https://open.er-api.com/v6/latest/USD');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.rates) {
+            sessionStorage.setItem(CACHE_KEY, JSON.stringify(data.rates));
+            sessionStorage.setItem(CACHE_TIME_KEY, now.toString());
+            applyLiveRates(data.rates);
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn('Primary FX API error, attempting fallback...', err);
+      }
+
+      try {
+        // Fallback API: European Central Bank via frankfurter.dev
+        const resFallback = await fetch('https://api.frankfurter.dev/v1/latest?base=USD');
+        if (resFallback.ok) {
+          const dataFallback = await resFallback.json();
+          if (dataFallback && dataFallback.rates) {
+            sessionStorage.setItem(CACHE_KEY, JSON.stringify(dataFallback.rates));
+            sessionStorage.setItem(CACHE_TIME_KEY, now.toString());
+            applyLiveRates(dataFallback.rates);
+          }
+        }
+      } catch (err2) {
+        console.warn('Fallback FX API unreachable, staying on baseline rates.', err2);
+      }
+    }
+
+    if (fxInput) {
+      fxInput.addEventListener('input', updateFxConversion);
+    }
+
+    // Initialize real-time rates
+    fetchLiveExchangeRates();
+  })();
+</script>

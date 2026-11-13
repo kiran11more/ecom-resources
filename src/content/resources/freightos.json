@@ -1,0 +1,26 @@
+{
+  "id": "logistics-freightos",
+  "slug": "freightos",
+  "name": "Freightos Global Booking",
+  "category": "Warehouse & Logistics",
+  "categorySlug": "warehouse-logistics",
+  "description": "Compare transparent ocean, air, and trucking quotes from dozens of top-rated international forwarders.",
+  "fullDescription": "Freightos is the world’s largest online freight marketplace. Like an Expedia for international shipping, it allows e-commerce importers to instantly compare rates, transit times, and customer reviews from dozens of certified logistics providers for ocean containers, air cargo, and customs bonds.",
+  "features": [
+    "Instant comparison of live ocean FCL, LCL, and air cargo quotes",
+    "Transparent landed cost breakdown including fuel surcharges and terminal fees",
+    "Integrated cargo insurance and single-entry customs bond purchases",
+    "24/7 dedicated logistics tracking and automated shipment document storage",
+    "Specialized Amazon FBA appointment scheduling and prep services"
+  ],
+  "url": "https://www.freightos.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "Rate Comparison",
+  "badgeColor": "bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border-indigo-500/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.7,
+  "iconName": "truck"
+}

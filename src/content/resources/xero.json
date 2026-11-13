@@ -1,0 +1,26 @@
+{
+  "id": "accounting-xero",
+  "slug": "xero",
+  "name": "Xero Cloud Accounting",
+  "category": "Accounting",
+  "categorySlug": "accounting",
+  "description": "E-commerce friendly cloud bookkeeping with seamless A2X integration for accurate Amazon settlement splits.",
+  "fullDescription": "Xero is an intuitive, collaborative cloud accounting system highly acclaimed by modern e-commerce accountants. With unlimited users per organization and deep support for international marketplace settlements through A2X, Xero simplifies complex accrual bookkeeping across global currencies.",
+  "features": [
+    "Unlimited users on standard plans without per-seat licensing penalties",
+    "Native multi-currency conversion supporting over 160 global currencies",
+    "Flawless integration with A2X for Amazon, Shopify, Walmart, and eBay reconciliation",
+    "Automated daily bank reconciliation with machine learning suggestion rules",
+    "Built-in invoice generation, bill payment workflows, and receipt scanning"
+  ],
+  "url": "https://www.xero.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "Cloud Ledger",
+  "badgeColor": "bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border-cyan-500/30",
+  "isVerified": true,
+  "pricing": "Paid",
+  "discountText": "",
+  "rating": 4.8,
+  "iconName": "calculator"
+}

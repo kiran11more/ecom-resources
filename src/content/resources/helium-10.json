@@ -1,0 +1,26 @@
+{
+  "id": "helium-10",
+  "slug": "helium-10",
+  "name": "Helium 10 All-in-One Suite",
+  "category": "Product Research",
+  "categorySlug": "product-research",
+  "description": "The industry-standard software suite for Amazon sellers: Black Box product finder, Cerebro reverse ASIN, and Xray analytics.",
+  "fullDescription": "Helium 10 is the leading all-in-one software ecosystem for Amazon and Walmart sellers. Trusted by over 1 million entrepreneurs worldwide, it provides enterprise-grade data across every stage of the seller lifecycle—from initial niche validation with Black Box and keyword reverse-lookups with Cerebro, to automated financial analytics and PPC bid management.",
+  "features": [
+    "Black Box product database with billions of verified data points and trend filters",
+    "Cerebro reverse ASIN tool to uncover competitors organic and sponsored keywords",
+    "Xray browser extension for real-time revenue and sales velocity estimations",
+    "Frankenstein and Scribbles for listing optimization and keyword indexation checking",
+    "Refund Genie for automated FBA lost inventory reimbursement detection"
+  ],
+  "url": "https://www.helium10.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "Industry Standard",
+  "badgeColor": "bg-brand-orange/15 text-brand-orange border-brand-orange/30",
+  "isVerified": true,
+  "pricing": "Freemium",
+  "discountText": "",
+  "rating": 4.9,
+  "iconName": "chart"
+}

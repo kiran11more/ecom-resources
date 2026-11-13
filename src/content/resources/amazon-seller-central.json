@@ -1,0 +1,20 @@
+{
+  "id": "store-amazon",
+  "slug": "amazon-seller-central",
+  "name": "Amazon Store (Seller Central)",
+  "category": "Store Opening",
+  "categorySlug": "store-opening",
+  "description": "Register and launch your professional seller account across North America, Europe, and Asia-Pacific.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://sell.amazon.com",
+  "internalUrl": "",
+  "hasDetailPage": false,
+  "badge": "Marketplace",
+  "badgeColor": "bg-brand-orange/15 text-brand-orange border-brand-orange/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.9,
+  "iconName": "amazon"
+}

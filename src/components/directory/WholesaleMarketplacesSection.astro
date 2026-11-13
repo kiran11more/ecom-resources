@@ -1,0 +1,132 @@
+---
+import { DIRECTORY_RESOURCES } from '../../data/navigation';
+import ToolTile from './ToolTile.astro';
+
+// Target 10 major wholesale & selling platforms requested
+const TARGET_IDS = [
+  'sourcing-1688',
+  'sourcing-alibaba',
+  'sourcing-saleyee',
+  'sourcing-madeinchina',
+  'sourcing-yiwugo',
+  'store-amazon',
+  'store-walmart',
+  'store-ebay',
+  'store-tiktok',
+  'store-shopify',
+];
+
+const wholesaleMarketplaces = TARGET_IDS
+  .map(id => DIRECTORY_RESOURCES.find(r => r.id === id || r.slug === id || id.endsWith(r.slug || '')))
+  .filter((r): r is NonNullable<typeof r> => Boolean(r));
+
+const sourcingCount = wholesaleMarketplaces.filter(r => r.categorySlug === 'sourcing').length;
+const marketplaceCount = wholesaleMarketplaces.filter(r => r.categorySlug === 'store-opening').length;
+---
+
+<section
+  id="wholesale-marketplaces"
+  class="bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs space-y-4 scroll-mt-36 transition-colors w-full min-w-0"
+  aria-label="Wholesale & Global Marketplaces"
+>
+  <!-- Section Header -->
+  <div class="flex flex-col md:flex-row md:items-center justify-between pb-3.5 border-b border-slate-100 dark:border-white/[0.06] gap-3">
+    <div>
+      <div class="flex items-center gap-2.5">
+        <span class="w-8 h-8 rounded-xl bg-brand-orange/15 text-brand-orange flex items-center justify-center shrink-0">
+          <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+          </svg>
+        </span>
+        <h2 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+          Wholesale & Global Marketplaces
+        </h2>
+        <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-brand-orange/15 text-brand-orange border border-brand-orange/30 hidden sm:inline-block">
+          Essential 10
+        </span>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+        Direct gateways to major factory wholesale hubs and top-tier global retail marketplaces.
+      </p>
+    </div>
+
+    <!-- Quick Segment Filter Tabs -->
+    <div class="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-dark-elevated rounded-xl border border-slate-200/80 dark:border-white/[0.05] shrink-0 self-start md:self-auto text-xs">
+      <button
+        type="button"
+        data-wm-filter="all"
+        class="wm-tab-btn wm-tab-active px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer whitespace-nowrap"
+      >
+        All Platforms ({wholesaleMarketplaces.length})
+      </button>
+      <button
+        type="button"
+        data-wm-filter="sourcing"
+        class="wm-tab-btn px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer whitespace-nowrap text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
+      >
+        Sourcing & B2B ({sourcingCount})
+      </button>
+      <button
+        type="button"
+        data-wm-filter="store-opening"
+        class="wm-tab-btn px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer whitespace-nowrap text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
+      >
+        Marketplaces & DTC ({marketplaceCount})
+      </button>
+    </div>
+  </div>
+
+  <!-- Responsive Grid with Comfortable Breathing Room -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 w-full min-w-0" id="wm-grid">
+    {wholesaleMarketplaces.map((resource) => (
+      <div
+        class="wm-card-item resource-item h-full"
+        data-category={resource.categorySlug}
+        data-name={resource.name.toLowerCase()}
+        data-desc={resource.description.toLowerCase()}
+      >
+        <ToolTile resource={resource} />
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- Scoped Styles for Tab Switcher -->
+<style>
+  .wm-tab-active {
+    background-color: #F25A2B !important;
+    color: #ffffff !important;
+    box-shadow: 0 1px 3px 0 rgba(242, 90, 43, 0.3);
+  }
+</style>
+
+<!-- Client-side Interactive Filter Script -->
+<script is:inline>
+  (() => {
+    const filterBtns = document.querySelectorAll('.wm-tab-btn');
+    const cards = document.querySelectorAll('.wm-card-item');
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-wm-filter');
+        if (!filter) return;
+
+        filterBtns.forEach((b) => {
+          b.classList.remove('wm-tab-active');
+          b.classList.add('text-slate-600', 'dark:text-slate-300');
+        });
+        btn.classList.add('wm-tab-active');
+        btn.classList.remove('text-slate-600', 'dark:text-slate-300');
+
+        cards.forEach((card) => {
+          const category = card.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  })();
+</script>

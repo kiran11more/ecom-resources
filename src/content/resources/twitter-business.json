@@ -1,0 +1,20 @@
+{
+  "id": "social-twitter",
+  "slug": "twitter-business",
+  "name": "Twitter / X for Business",
+  "category": "Videos & Social",
+  "categorySlug": "videos-social",
+  "description": "Real-time brand customer service, product announcements, and e-commerce tech community networking.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://business.x.com",
+  "internalUrl": "",
+  "hasDetailPage": false,
+  "badge": "Community",
+  "badgeColor": "bg-slate-500/15 text-slate-700 dark:text-slate-300 border-slate-500/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.5,
+  "iconName": "video"
+}

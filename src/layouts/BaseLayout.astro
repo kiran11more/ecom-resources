@@ -1,0 +1,51 @@
+---
+import '../styles/global.css';
+import MobileDrawer from '../components/navigation/MobileDrawer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'Global Cross-Border E-Commerce Resources Directory — Seller tools, wholesale sourcing, logistics, PPC marketing, and calculators.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Google Fonts: Plus Jakarta Sans (Modern Directory Sans) & JetBrains Mono (Clocks & Numbers) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Prevent Flash of Unstyled Content (FOUC) on page load -->
+    <script is:inline>
+      (function () {
+        const pref = localStorage.getItem('theme-preference') || 'system';
+        const isDark =
+          pref === 'dark' ||
+          (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col bg-slate-50 text-slate-800 dark:bg-dark-bg dark:text-slate-100 font-sans w-full overflow-x-clip">
+    <slot />
+    <MobileDrawer />
+  </body>
+</html>

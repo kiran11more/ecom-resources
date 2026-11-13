@@ -1,0 +1,20 @@
+{
+  "id": "amazon-ads",
+  "slug": "amazon-ads",
+  "name": "Amazon Advertising Console",
+  "category": "Advertising Platforms",
+  "categorySlug": "advertising-platforms",
+  "description": "Sponsored Products, Sponsored Brands, and Sponsored Display for scaling top-of-search Amazon revenue.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://advertising.amazon.com",
+  "internalUrl": "",
+  "hasDetailPage": false,
+  "badge": "Marketplace PPC",
+  "badgeColor": "bg-brand-orange/15 text-brand-orange border-brand-orange/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.9,
+  "iconName": "amazon"
+}

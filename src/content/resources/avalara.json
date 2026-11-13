@@ -1,0 +1,26 @@
+{
+  "id": "accounting-avalara",
+  "slug": "avalara",
+  "name": "Avalara Cross-Border VAT",
+  "category": "Accounting",
+  "categorySlug": "accounting",
+  "description": "Global VAT & GST compliance, import duty calculations, and OSS/IOSS registration for European selling.",
+  "fullDescription": "Avalara delivers enterprise-grade global tax automation solutions. For cross-border e-commerce merchants selling into Europe, the UK, Australia, and Canada, Avalara handles import customs duty tariffs, cross-border VAT registration, Import One-Stop Shop (IOSS) filings, and global GST remittances.",
+  "features": [
+    "Automated customs duty and import tax calculations for landed-cost accuracy",
+    "European Union VAT registration, OSS, and IOSS compliance filing service",
+    "HS code classification engine using AI to accurately match tariff codes",
+    "Support for value-added tax compliance in over 190 countries globally",
+    "Pre-built integrations with major enterprise ERPs and e-commerce platforms"
+  ],
+  "url": "https://www.avalara.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "Global VAT",
+  "badgeColor": "bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30",
+  "isVerified": true,
+  "pricing": "Paid",
+  "discountText": "",
+  "rating": 4.6,
+  "iconName": "calculator"
+}

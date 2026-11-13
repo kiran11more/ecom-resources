@@ -1,0 +1,26 @@
+{
+  "id": "social-modash",
+  "slug": "modash",
+  "name": "Influencer Discovery (Modash)",
+  "category": "Videos & Social",
+  "categorySlug": "videos-social",
+  "description": "Search and analyze 250M+ Instagram, TikTok, and YouTube creators with fake follower auditing and audience demographics.",
+  "fullDescription": "Modash is the go-to creator discovery and analytics platform for consumer brands. It monitors every creator profile on Instagram, TikTok, and YouTube with over 1,000 followers, giving marketers deep visibility into audience demographics, fake follower percentages, and engagement trends.",
+  "features": [
+    "Comprehensive database of 250M+ creator profiles across IG, TikTok, and YouTube",
+    "Audience location, gender, age, and interest demographic breakdowns",
+    "Proprietary fake follower detection and bot audience percentage scoring",
+    "Automated content monitoring to track when influencers post campaign mentions",
+    "Direct outreach workflow and creator list management exportable to CSV"
+  ],
+  "url": "https://www.modash.io",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "Creator CRM",
+  "badgeColor": "bg-pink-500/15 text-pink-600 dark:text-pink-400 border-pink-500/30",
+  "isVerified": true,
+  "pricing": "Paid",
+  "discountText": "",
+  "rating": 4.8,
+  "iconName": "video"
+}

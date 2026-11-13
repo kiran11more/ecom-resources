@@ -1,0 +1,26 @@
+{
+  "id": "aweber",
+  "slug": "aweber",
+  "name": "AWeber",
+  "category": "Email Marketing",
+  "categorySlug": "email-marketing",
+  "description": "Reliable email marketing and landing page builder with 24/7 support and built-in Canva design tools.",
+  "fullDescription": "AWeber has provided rock-solid email marketing infrastructure for over two decades. Featuring direct integration with Canva for rapid banner creation, automated RSS-to-email broadcasting, and high inbox delivery rates, AWeber is a dependable choice for newsletters and product updates.",
+  "features": [
+    "Built-in Canva image design integration directly within the email builder",
+    "Auto-newsletter feature that broadcasts new blog posts and product releases",
+    "Free plan supporting up to 500 subscribers with core automation features",
+    "Custom landing page creator with integrated Stripe payment processing",
+    "Detailed open rate, click-through, and link tracking analytics"
+  ],
+  "url": "https://www.aweber.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "",
+  "badgeColor": "",
+  "isVerified": true,
+  "pricing": "Freemium",
+  "discountText": "",
+  "rating": 4.5,
+  "iconName": "mail"
+}

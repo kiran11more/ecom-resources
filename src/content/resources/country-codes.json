@@ -1,0 +1,20 @@
+{
+  "id": "country-codes",
+  "slug": "country-codes",
+  "name": "Country Codes Directory",
+  "category": "Cross-Border Information",
+  "categorySlug": "cross-border-information",
+  "description": "Complete list of ISO 2-letter country codes, dialing codes, and currency standards for international logistics & customs.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://ecomresources.info/country-codes/",
+  "internalUrl": "/information/country-codes",
+  "hasDetailPage": false,
+  "badge": "ISO Reference",
+  "badgeColor": "bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.7,
+  "iconName": "globe"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "sourcing-1688",
+  "slug": "1688",
+  "name": "1688 Wholesale Factory",
+  "category": "Sourcing",
+  "categorySlug": "sourcing",
+  "description": "Alibaba domestic wholesale platform offering original OEM/ODM factory prices direct from Chinese manufacturing hubs.",
+  "fullDescription": "1688.com is Alibaba Group’s domestic Chinese wholesale marketplace. It gives global cross-border sellers direct access to primary manufacturing plants in Guangdong, Zhejiang, and Jiangsu without trading company markups. Sellers can source custom product samples, negotiate private label production, and find genuine factory floor cost benchmarks.",
+  "features": [
+    "Direct primary manufacturer listings across 1,000+ industrial product clusters",
+    "Lowest unit cost pricing without intermediary exporter markups",
+    "Real-time supplier operational metrics, dispute rates, and repeat order rates",
+    "Image reverse search support to match Amazon bestsellers to direct suppliers",
+    "Consolidation readiness for cross-border freight forwarders and buying agents"
+  ],
+  "url": "https://www.1688.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "Direct OEM",
+  "badgeColor": "bg-brand-orange/15 text-brand-orange border-brand-orange/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.9,
+  "iconName": "factory"
+}

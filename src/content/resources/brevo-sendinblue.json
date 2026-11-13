@@ -1,0 +1,26 @@
+{
+  "id": "sendinblue",
+  "slug": "brevo-sendinblue",
+  "name": "Brevo (Sendinblue)",
+  "category": "Email Marketing",
+  "categorySlug": "email-marketing",
+  "description": "All-in-one platform for transactional email, SMS notifications, and marketing automation for overseas stores.",
+  "fullDescription": "Brevo (formerly Sendinblue) provides reliable SMTP transactional email relay, multi-channel SMS notifications, and visual marketing automation workflows. It is especially favored by European and cross-border sellers due to strict GDPR compliance and cost-effective pricing based on email volume rather than contact list size.",
+  "features": [
+    "High-deliverability transactional SMTP email relay and API webhooks",
+    "Multi-language customer communication with dynamic content blocks",
+    "Integrated SMS marketing and WhatsApp business messaging channels",
+    "Visual drag-and-drop workflow builder for lead nurturing and cart rescue",
+    "Full GDPR compliance with servers hosted inside the European Union"
+  ],
+  "url": "https://www.brevo.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "SMS & Email",
+  "badgeColor": "bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30",
+  "isVerified": true,
+  "pricing": "Freemium",
+  "discountText": "",
+  "rating": 4.6,
+  "iconName": "mail"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "logistics-yunexpress",
+  "slug": "yunexpress",
+  "name": "YunExpress Cross-Border Line",
+  "category": "Warehouse & Logistics",
+  "categorySlug": "warehouse-logistics",
+  "description": "Specialized DDP air freight and end-to-end direct parcel injection for international B2C e-commerce orders.",
+  "fullDescription": "YunExpress is an international logistics carrier specializing in cross-border B2C parcel shipping. Providing direct postal injection into national courier networks like USPS, Royal Mail, and La Poste, it delivers 4-8 business day shipping from Asian fulfillment centers directly to international consumer doorsteps.",
+  "features": [
+    "Direct DDP parcel injection with prepaid customs duties and VAT",
+    "Fast 4-8 business day transit times from China to US and Europe",
+    "End-to-end tracking integration compatible with Shopify and PayPal delivery confirmation",
+    "Competitive lightweight gram-based tiered pricing ideal for consumer goods",
+    "Local return and re-labeling hubs in North America and Western Europe"
+  ],
+  "url": "https://www.yunexpress.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "Direct Injection",
+  "badgeColor": "bg-orange-500/15 text-orange-600 dark:text-orange-400 border-orange-500/30",
+  "isVerified": true,
+  "pricing": "Paid",
+  "discountText": "",
+  "rating": 4.8,
+  "iconName": "truck"
+}

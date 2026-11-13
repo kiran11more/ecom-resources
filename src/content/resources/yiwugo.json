@@ -1,0 +1,26 @@
+{
+  "id": "sourcing-yiwugo",
+  "slug": "yiwugo",
+  "name": "YiwuGo (Yiwu Market Direct)",
+  "category": "Sourcing",
+  "categorySlug": "sourcing",
+  "description": "Direct digital window to Yiwu International Trade City: 75,000+ booths for small commodities and daily accessories.",
+  "fullDescription": "YiwuGo is the official online gateway to Yiwu International Trade City, the world’s largest wholesale market for small commodities. With 360-degree panoramic virtual storefronts for 75,000 physical stalls, it is the premier platform for sourcing jewelry, toys, hardware, holiday decor, and stationery.",
+  "features": [
+    "Digital showcase of 75,000+ physical vendor booths in Yiwu Trade City",
+    "Direct contact with stall owners via live chat and WeChat translation",
+    "Extremely low minimum order quantities on fast-moving consumer goods",
+    "360-degree virtual reality market map and booth location directories",
+    "Buyer protection services and local inspection assistance programs"
+  ],
+  "url": "https://www.yiwugo.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "Commodities",
+  "badgeColor": "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.7,
+  "iconName": "factory"
+}

@@ -1,0 +1,399 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+
+const PROMPT_CATEGORIES = [
+  'All',
+  'Listing Optimization',
+  'Customer Reviews',
+  'Supplier Negotiation',
+  'PPC & Keywords',
+  'Product Research',
+];
+
+const PROMPTS = [
+  {
+    id: 'amazon-bullet-points',
+    category: 'Listing Optimization',
+    title: 'High-Converting Amazon Bullet Points (5 Feature Hooks)',
+    description: 'Generates 5 conversion-optimized Amazon listing bullet points that balance customer emotional benefits with strict Amazon character limit guidelines.',
+    tags: ['Amazon SEO', 'Copywriting', 'Conversion Rate'],
+    prompt: `Act as a world-class Amazon e-commerce direct-response copywriter. I am launching a private label product in the [Niche / Category] niche.
+
+Product Name: [Product Name]
+Primary Target Audience: [Target Audience, e.g. Busy working moms, fitness enthusiasts]
+Top 3 Core Materials & Specifications: [Specs, e.g. 18/8 food-grade stainless steel, BPA-free, 32oz]
+Main Customer Pain Points It Solves: [Pain Points, e.g. Leaks during transport, hard to clean, poor insulation]
+
+Write 5 distinct Amazon listing bullet points following this formula:
+1. Start each bullet point with a 2-4 word UPPERCASE HOOK highlighting the core benefit.
+2. Follow with 2-3 sentences explaining the tangible feature and how it makes the customer's daily life easier or better.
+3. Keep each bullet point under 220 characters to ensure maximum mobile readability and prevent truncation.
+4. Seamlessly incorporate high-intent search keywords naturally without keyword stuffing or robotic repetition.
+5. End bullet 5 with an explicit reassurance regarding quality inspection, customer satisfaction, or hassle-free replacement.`,
+  },
+  {
+    id: 'backend-search-terms',
+    category: 'Listing Optimization',
+    title: 'Amazon Backend Search Terms & Synonyms Extractor',
+    description: 'Generates clean, deduped 249-byte backend search terms (Generic Keywords) following Amazon Seller Central indexing policies.',
+    tags: ['Amazon SEO', 'Backend Keywords', 'A9 Algorithm'],
+    prompt: `Act as an Amazon A9/COSMO Search Algorithm specialist. I need to generate an optimized string for Amazon's "Generic Keywords" (Backend Search Terms) field.
+
+My Product: [Product Name / Short Description]
+Keywords Already Used in My Title & Bullets (DO NOT repeat these):
+[List of existing title/bullet keywords, e.g. stainless steel water bottle, insulated flask, 32 oz]
+
+Top Customer Use Cases & Misspellings:
+[e.g. gym workout tumbler, hiking thermos, canteen, leakproof sport cup]
+
+Please provide:
+1. Exactly ONE single space-separated string containing unique, high-volume secondary keywords, long-tail synonyms, intended use terms, and audience descriptors.
+2. The entire string MUST BE strictly under 249 bytes (characters).
+3. Do NOT include punctuation (no commas, semicolons, hyphens, or quotes).
+4. Do NOT repeat any words.
+5. Do NOT include competitor brand names, subjective claims ("best", "cheapest"), or ASINs.
+6. Display the exact character count and byte length below the string.`,
+  },
+  {
+    id: 'negative-review-response',
+    category: 'Customer Reviews',
+    title: 'De-escalating 1-Star Negative Review & Return Response',
+    description: 'Polite, empathetic, and Amazon Terms of Service (TOS) compliant message to resolve an unhappy buyer without review manipulation.',
+    tags: ['Customer Support', 'Reputation', 'TOS Compliant'],
+    prompt: `Act as a senior customer experience director for an established e-commerce brand. A customer left a critical 1-star review on our Amazon storefront.
+
+Product: [Product Name]
+Customer Complaint: "[Paste the customer's negative review or message here]"
+Our Resolution Offer: [e.g. Immediate free replacement or full hassle-free refund]
+
+Write a professional, deeply empathetic response following Amazon's Buyer-Seller Messaging policies:
+1. Genuinely acknowledge and validate their frustration without making excuses or blaming shipping carriers.
+2. Express our brand's strict commitment to quality and explain that this isolated issue does not reflect our standard.
+3. Provide a clear, zero-friction path to an immediate full refund or replacement.
+4. Strictly adhere to Amazon Terms of Service: DO NOT explicitly ask the buyer to remove, edit, or alter their review in exchange for compensation.
+5. Keep the tone warm, respectful, concise, and sincere.`,
+  },
+  {
+    id: 'competitor-review-mining',
+    category: 'Product Research',
+    title: 'Competitor Review Sentiment & Defect Mining',
+    description: 'Analyzes competitor 1-star and 2-star reviews to identify recurring product flaws, unmet customer needs, and differentiation angles.',
+    tags: ['Product Research', 'Competitor Analysis', 'Differentiation'],
+    prompt: `Act as an expert product development engineer and e-commerce consumer researcher. Below are several customer reviews extracted from our top 3 competitors in the [Product Niche] market:
+
+Competitor Reviews:
+"""
+[Paste 5 to 15 competitor reviews here, particularly 1-star, 2-star, and 3-star reviews]
+"""
+
+Analyze these reviews and provide a structured briefing:
+1. Top 3 Most Frequent Product Defects or Failures (e.g. zipper breaks, paint chips, inconsistent sizing).
+2. Emotional Frustrations (What is the customer trying to accomplish when the product fails them?).
+3. Specific Engineering or Material Improvements: Exact modifications we can instruct our factory to make (e.g. switch from zinc alloy to 304 stainless steel, add double-stitched reinforcement).
+4. The "Hero Angle" for Our Marketing: A punchy, single-sentence USP (Unique Selling Proposition) that highlights how our product solves their #1 pain point.`,
+  },
+  {
+    id: 'supplier-rfq-negotiation',
+    category: 'Supplier Negotiation',
+    title: 'Professional Supplier RFQ & Pricing Negotiation Email',
+    description: 'Formal Request for Quotation (RFQ) email to Chinese and global manufacturers on 1688, Alibaba, or Made-in-China.',
+    tags: ['1688 Sourcing', 'Alibaba', 'Supplier RFQ'],
+    prompt: `Act as an international supply chain procurement director for an expanding retail brand. I am contacting a prospective manufacturing partner on [Alibaba / 1688 / Made-in-China] for the first time.
+
+Target Product: [Describe product, dimensions, and specifications]
+Initial Trial Order Volume: [e.g. 500 units]
+Follow-up Projected Volume: [e.g. 3,000 units / quarter]
+Target Destination Port / Zip Code: [e.g. Long Beach, CA or DDP to Ontario, CA 91761]
+
+Write a professional, culturally astute inquiry letter to the factory sales manager covering:
+1. Brief introduction of our brand as an established multi-channel seller with strong repeat purchasing volume.
+2. Request for FOB and EXW unit pricing tiers at 500, 1,000, and 3,000 units.
+3. Sample ordering procedure: Cost per sample, customization lead time, and express DHL/FedEx shipping cost.
+4. Master carton packaging specifications: Units per inner/master carton, carton dimensions (cm), gross weight (kg), and pallet configuration.
+5. Standard payment terms (e.g. 30% deposit upon PO, 70% balance post-third-party inspection before bill of lading release).
+6. Request their official company catalog, ISO/BSCI audit certificates, and direct WeChat / WhatsApp contact information.`,
+  },
+  {
+    id: 'factory-defect-claim',
+    category: 'Supplier Negotiation',
+    title: 'Factory Defect Claim & Compensation Request',
+    description: 'Firm yet diplomatic claim letter to an overseas supplier when a batch inspection or customer feedback detects defects.',
+    tags: ['Quality Control', 'Dispute Resolution', 'Supplier Relations'],
+    prompt: `Act as a procurement and quality assurance manager. Our third-party inspection agency (or Amazon warehouse returns) detected quality defects in our recent production run from [Supplier Name].
+
+Order PO Number: [PO #1042]
+Total Batch Size: [e.g. 2,000 units]
+Defect Identified: [Describe defect, e.g. 8% of units exhibit stitching unraveling along the top handle]
+Evidence Available: [e.g. High-res inspection photos, video demonstration, customer return reports]
+Desired Resolution: [e.g. Credit deduction on next order, or replacement units produced free of charge]
+
+Write a respectful, firm, and relationship-preserving letter to the factory manager:
+1. Acknowledge our mutual appreciation for our long-term supplier relationship.
+2. Objectively detail the inspection findings and attach photographic proof.
+3. Explain the business impact on our storefront (Amazon account health risk, return processing fees).
+4. Propose our fair compensation solution (credit or remake) in a collaborative spirit.
+5. Request a Corrective Action Plan (CAP) detailing what changes their production floor will institute to guarantee this never occurs on future runs.`,
+  },
+  {
+    id: 'ppc-negative-keywords',
+    category: 'PPC & Keywords',
+    title: 'Amazon PPC Search Term Audit & Negative Keyword Extractor',
+    description: 'Audits raw Amazon Search Term Reports to identify wasteful, non-converting spend to add as Negative Exact.',
+    tags: ['Amazon PPC', 'ACOS Reduction', 'Negative Keywords'],
+    prompt: `Act as an Amazon PPC Advertising Specialist managing seven-figure Sponsored Products accounts. Below is a sample export from my recent Amazon Search Term Report:
+
+Search Term Data (Customer Search Term | Clicks | Spend | Orders | Sales):
+"""
+[Paste your raw PPC search term rows here, e.g.:
+travel mug large | 24 | $38.50 | 0 | $0.00
+camping thermos | 18 | $29.00 | 0 | $0.00
+yeti replacement lid | 12 | $19.20 | 0 | $0.00
+"""
+
+Analyze this search term performance and provide:
+1. List of Negative Exact Keywords: Search queries with 8+ clicks and 0 orders that represent clear wasted ad spend.
+2. List of Negative Phrase Keywords: Irrelevant root terms (e.g. brand names of unrelated competitors, incompatible sizes, accessories we don't sell).
+3. Search Intent Mismatch Analysis: Explain why each group of negative keywords is failing to convert based on consumer intent.
+4. Total estimated ad budget saved per month by pruning these terms.`,
+  },
+  {
+    id: 'product-insert-card',
+    category: 'Customer Reviews',
+    title: 'Amazon TOS-Compliant Product Insert Thank-You Card',
+    description: 'Crafts an engaging, brand-building packaging insert card that boosts customer satisfaction and warranty registrations without violating review policies.',
+    tags: ['Packaging Inserts', 'Warranty Registration', 'Brand Loyalty'],
+    prompt: `Act as a branding and packaging designer for a modern direct-to-consumer Amazon brand.
+
+Brand Name: [Brand Name]
+Product: [Product Name]
+Customer Support Email / Website: [Support Link or Warranty URL]
+Warranty / VIP Offer: [e.g. Extended 1-Year Free Warranty registration, VIP Customer Club]
+
+Write the copy for a premium two-sided printed packaging insert card (3.5" × 2"):
+
+Side A (Front - Warm Welcome & Unboxing):
+- A warm, human message thanking the buyer for welcoming our small brand into their home.
+- A quick 1-2-3 tip on getting the best experience out of the product immediately upon unboxing.
+
+Side B (Back - Care, Support & Warranty):
+- Simple steps to activate their complimentary extended warranty via our registration portal.
+- Friendly customer service invitation: "Something not 100% perfect? Before you get frustrated, reach out to our real human support team directly."
+- Strictly adhere to Amazon Terms of Service: Do NOT offer gift cards, rebates, or free gifts in exchange for 5-star reviews. Do NOT direct unhappy buyers to email while telling happy buyers to leave reviews on Amazon. Maintain neutral, helpful support copy.`,
+  },
+];
+---
+
+<BaseLayout
+  title="ChatGPT & AI Prompts Library for E-Commerce Sellers — Ecom Resources"
+  description="Free copy-and-paste ChatGPT prompt templates for Amazon sellers: High-converting bullet points, backend keywords, negative review replies, and factory RFQ negotiations."
+>
+  <Header />
+
+  <!-- Breadcrumbs -->
+  <div class="w-full bg-white dark:bg-[#131924] border-b border-slate-200/80 dark:border-white/[0.06] py-3">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+      <a href="/" class="hover:text-brand-orange transition-colors">Home</a>
+      <span>/</span>
+      <a href="/tools" class="hover:text-brand-orange transition-colors">Tools</a>
+      <span>/</span>
+      <span class="text-slate-900 dark:text-white font-semibold">ChatGPT Prompts Library</span>
+    </div>
+  </div>
+
+  <main class="w-full max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8 flex-1">
+    <!-- Header Showcase -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200/90 dark:border-white/[0.08]">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center font-bold text-base shrink-0">
+            🤖
+          </span>
+          <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            ChatGPT & AI Prompts Library for E-Commerce
+          </h1>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          Copy-and-paste prompt templates engineered for Amazon A9 algorithm indexing, customer dispute resolution, and factory negotiations.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-brand-orange/15 text-brand-orange border border-brand-orange/30 shrink-0 self-start sm:self-auto">
+        <span>{PROMPTS.length} Verified Prompts</span>
+      </div>
+    </div>
+
+    <!-- Search & Category Filter Strip -->
+    <div class="bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs space-y-3.5">
+      <!-- Search Input -->
+      <div class="relative w-full">
+        <input
+          type="search"
+          id="prompt-search-input"
+          placeholder="Search prompts by keyword, Amazon listing, supplier, review..."
+          class="w-full pl-9 pr-4 py-2 text-xs sm:text-sm bg-slate-50 dark:bg-dark-elevated text-slate-900 dark:text-slate-100 placeholder-slate-400 rounded-xl border border-slate-200 dark:border-white/10 focus:outline-none focus:border-brand-orange transition-colors"
+        />
+        <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar pb-1 text-xs">
+        {PROMPT_CATEGORIES.map((cat, idx) => (
+          <button
+            type="button"
+            data-cat-filter={cat}
+            class={`prompt-cat-btn ${idx === 0 ? 'prompt-cat-active' : ''} px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer whitespace-nowrap text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Prompts List Grid -->
+    <div id="prompts-container" class="space-y-5">
+      {PROMPTS.map((p) => (
+        <article
+          class="prompt-card bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-5 sm:p-6 shadow-xs hover:border-brand-orange/50 transition-all space-y-4"
+          data-category={p.category}
+          data-title={p.title.toLowerCase()}
+          data-desc={p.description.toLowerCase()}
+          data-prompt={p.prompt.toLowerCase()}
+        >
+          <!-- Card Header: Title, Category & Copy Button -->
+          <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-3 border-b border-slate-100 dark:border-white/[0.05]">
+            <div class="space-y-1 min-w-0 flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300">
+                  {p.category}
+                </span>
+                {p.tags.map((tag) => (
+                  <span class="text-[10px] font-medium text-slate-400">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+
+              <h2 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+                {p.title}
+              </h2>
+
+              <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                {p.description}
+              </p>
+            </div>
+
+            <button
+              type="button"
+              class="copy-prompt-btn inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-slate-900 dark:bg-white dark:text-slate-900 hover:bg-brand-orange dark:hover:bg-brand-orange dark:hover:text-white shadow-xs transition-all shrink-0 self-start sm:self-auto cursor-pointer"
+              data-clipboard-target={p.id}
+              title="Copy prompt text to clipboard"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+              <span class="btn-copy-label">Copy Prompt</span>
+            </button>
+          </div>
+
+          <!-- Prompt Monospace Code Display -->
+          <div class="relative rounded-xl bg-slate-50 dark:bg-dark-elevated border border-slate-200/70 dark:border-white/[0.05] p-4 text-xs font-mono text-slate-800 dark:text-slate-200 overflow-x-auto leading-relaxed whitespace-pre-wrap select-all">
+            <pre id={`prompt-text-${p.id}`} class="font-mono">{p.prompt}</pre>
+          </div>
+        </article>
+      ))}
+
+      <!-- No Results Placeholder -->
+      <div id="no-prompt-results" class="hidden p-8 text-center bg-white dark:bg-[#131924] border border-slate-200 dark:border-white/10 rounded-2xl">
+        <p class="text-sm font-semibold text-slate-600 dark:text-slate-400">
+          No prompts found matching your search.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .prompt-cat-active {
+    background-color: #F25A2B !important;
+    color: #ffffff !important;
+    box-shadow: 0 1px 3px rgba(242, 90, 43, 0.35);
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    // 1. Copy Prompt to Clipboard
+    const copyButtons = document.querySelectorAll('.copy-prompt-btn');
+
+    copyButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-clipboard-target');
+        const textEl = document.getElementById(`prompt-text-${targetId}`);
+        const label = btn.querySelector('.btn-copy-label');
+        if (!textEl) return;
+
+        navigator.clipboard.writeText(textEl.textContent || '').then(() => {
+          if (label) label.textContent = 'Copied!';
+          btn.classList.add('bg-emerald-600', 'text-white');
+          setTimeout(() => {
+            if (label) label.textContent = 'Copy Prompt';
+            btn.classList.remove('bg-emerald-600', 'text-white');
+          }, 2000);
+        });
+      });
+    });
+
+    // 2. Search & Filter
+    const searchInput = document.getElementById('prompt-search-input');
+    const catButtons = document.querySelectorAll('.prompt-cat-btn');
+    const cards = document.querySelectorAll('.prompt-card');
+    const noResults = document.getElementById('no-prompt-results');
+
+    let currentCategory = 'All';
+
+    function filterPrompts() {
+      const q = (searchInput?.value || '').trim().toLowerCase();
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const cat = card.getAttribute('data-category') || '';
+        const title = card.getAttribute('data-title') || '';
+        const desc = card.getAttribute('data-desc') || '';
+        const prompt = card.getAttribute('data-prompt') || '';
+
+        const catMatches = currentCategory === 'All' || cat === currentCategory;
+        const queryMatches = !q || title.includes(q) || desc.includes(q) || prompt.includes(q);
+
+        if (catMatches && queryMatches) {
+          card.style.display = '';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (noResults) {
+        noResults.classList.toggle('hidden', visibleCount > 0);
+      }
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', filterPrompts);
+    }
+
+    catButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        catButtons.forEach(b => b.classList.remove('prompt-cat-active'));
+        btn.classList.add('prompt-cat-active');
+        currentCategory = btn.getAttribute('data-cat-filter') || 'All';
+        filterPrompts();
+      });
+    });
+  })();
+</script>

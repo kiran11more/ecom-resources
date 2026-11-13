@@ -1,0 +1,374 @@
+---
+import { MARKET_CLOCKS, EXCHANGE_RATES, QUICK_JUMP_PILLS, COUNTRY_MARKETPLACES } from '../../data/navigation';
+---
+
+<div class="space-y-4 sm:space-y-5 w-full min-w-0">
+  <!-- Bento Grid Container (Hero Left + Market/FX Hub Right) -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5 w-full min-w-0 items-stretch">
+    <!-- Left Bento: Main Seller Hero Card (lg:col-span-7) -->
+    <section
+      class="lg:col-span-7 relative rounded-2xl overflow-hidden shadow-xs hover:shadow-sm bg-gradient-to-br from-white via-slate-50 to-orange-50/40 dark:from-slate-950 dark:via-slate-950/95 dark:to-[#101726] flex flex-col justify-between p-6 sm:p-8 lg:p-9 min-h-[300px] sm:min-h-[340px] border border-slate-200/90 dark:border-white/[0.08] transition-colors"
+      aria-label="Cross-Border E-Commerce Featured Announcement"
+    >
+      <!-- Background Logistics Image (Ambient & Subdued) -->
+      <img
+        src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1600&q=80"
+        alt="Logistics Fulfillment Hub"
+        class="absolute inset-0 w-full h-full object-cover object-center opacity-10 dark:opacity-30 mix-blend-multiply dark:mix-blend-normal select-none pointer-events-none transition-opacity"
+        loading="eager"
+      />
+
+      <!-- Theme-Adaptive Gradient Overlay -->
+      <div class="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-transparent dark:from-slate-950 dark:via-slate-950/90 dark:to-slate-950/40 pointer-events-none transition-colors"></div>
+
+      <!-- Top Badge & Metric -->
+      <div class="relative z-10 flex items-center justify-between gap-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-orange/10 dark:bg-brand-orange/15 border border-brand-orange/25 dark:border-brand-orange/30 text-brand-orange text-xs font-semibold tracking-wide backdrop-blur-sm">
+          <span class="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
+          <span>Seller Command Center</span>
+        </div>
+
+        <span class="text-[11px] font-semibold text-slate-600 dark:text-slate-400 bg-white/80 dark:bg-white/5 border border-slate-200 dark:border-white/10 px-2.5 py-0.5 rounded-full backdrop-blur-xs hidden sm:inline-block shadow-2xs">
+          500+ Vetted Tools & Ports
+        </span>
+      </div>
+
+      <!-- Headline & Value Prop -->
+      <div class="relative z-10 my-4 sm:my-6 max-w-xl">
+        <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-snug transition-colors">
+          The Global Operating System for Cross-Border E-Commerce
+        </h1>
+        <p class="mt-2.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-normal leading-relaxed transition-colors">
+          Daily essential toolkit for Amazon, TikTok Shop & Shopify sellers: verified suppliers, real-time FX settlement, live trading clocks, and FBA margin calculators.
+        </p>
+      </div>
+
+      <!-- Bottom CTAs & Quick Filters -->
+      <div class="relative z-10 flex flex-wrap items-center gap-3 pt-2">
+        <a
+          href="#directory-stream"
+          class="bg-brand-orange hover:bg-brand-orangeHover text-white px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all flex items-center gap-2"
+        >
+          <span>Explore Directory</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+          </svg>
+        </a>
+
+        <a
+          href="#amazon-revenue-calculator"
+          class="bg-white/90 dark:bg-white/10 hover:bg-white dark:hover:bg-white/15 text-slate-800 dark:text-white border border-slate-200/90 dark:border-white/15 backdrop-blur-sm px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 shadow-2xs hover:shadow-xs"
+        >
+          <span>FBA Calculators</span>
+          <svg class="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- Right Bento: Live Clocks & FX Rates Widget (lg:col-span-5) -->
+    <div class="lg:col-span-5 flex flex-col gap-3.5 sm:gap-4 justify-between">
+      <!-- Bento Sub-Card 1: Live Market Clocks (Compact & Modern) -->
+      <div class="bg-white dark:bg-dark-card border border-slate-200/80 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs flex-1 flex flex-col justify-between transition-colors">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/[0.06]">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="text-xs font-bold text-slate-900 dark:text-white">Live Global Market Clocks</span>
+          </div>
+          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+            UTC Synchronized
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-2.5 pt-3">
+          {
+            MARKET_CLOCKS.map((clock) => {
+              const flagCode = clock.flagCode || clock.code.toLowerCase();
+              return (
+                <div class="p-2 sm:p-2.5 rounded-xl bg-slate-50 dark:bg-dark-elevated/60 border border-slate-200/60 dark:border-white/[0.04] hover:border-brand-orange/40 hover:bg-slate-100/70 dark:hover:bg-white/[0.03] transition-all flex flex-col justify-between group">
+                  <div class="flex items-center justify-between gap-1 mb-1">
+                    <div class="flex items-center gap-1.5 min-w-0">
+                      <img
+                        src={`https://flagcdn.com/w40/${flagCode}.png`}
+                        srcset={`https://flagcdn.com/w80/${flagCode}.png 2x`}
+                        alt={`${clock.name} flag`}
+                        class="w-4.5 h-3.2 object-cover rounded-xs shadow-2xs border border-black/10 dark:border-white/10 shrink-0 select-none"
+                        loading="eager"
+                      />
+                      <span class="text-[11px] font-bold text-slate-800 dark:text-slate-200 truncate group-hover:text-brand-orange transition-colors">
+                        {clock.shortName || clock.name}
+                      </span>
+                    </div>
+                    <span class="text-[9px] font-bold text-brand-orange bg-brand-orange/10 dark:bg-brand-orange/20 px-1 py-0.2 rounded font-mono shrink-0">
+                      {clock.tzAbbr || clock.code}
+                    </span>
+                  </div>
+
+                  <div
+                    class="text-sm sm:text-base font-mono font-bold text-slate-900 dark:text-white tracking-tight clock-display tabular-nums my-0.5"
+                    data-clock-tz={clock.timezone}
+                  >
+                    --:--:--
+                  </div>
+
+                  <div class="text-[10px] text-slate-400 font-medium truncate mt-0.5">
+                    {clock.label || clock.timezone.split('/')[1]}
+                  </div>
+                </div>
+              );
+            })
+          }
+        </div>
+      </div>
+
+      <!-- Bento Sub-Card 2: Real-Time Foreign Exchange Rates Strip -->
+      <div class="bg-white dark:bg-dark-card border border-slate-200/80 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs transition-colors">
+        <div class="flex items-center justify-between pb-2.5 border-b border-slate-100 dark:border-white/[0.06]">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
+            <span class="text-xs font-bold text-slate-900 dark:text-white">Real-Time Currency Rates</span>
+          </div>
+          <span class="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            <span id="bento-fx-label">Live Rates</span>
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2.5">
+          {
+            EXCHANGE_RATES.slice(0, 4).map((rate) => {
+              const flagCode = rate.toFlagCode || (rate.to === 'CNY' ? 'cn' : rate.to === 'EUR' ? 'eu' : rate.to === 'GBP' ? 'gb' : rate.to === 'JPY' ? 'jp' : 'us');
+              return (
+                <div class="p-2 sm:p-2.5 rounded-xl bg-slate-50 dark:bg-dark-elevated/60 border border-slate-200/60 dark:border-white/[0.04] hover:border-brand-orange/40 hover:bg-slate-100/70 dark:hover:bg-white/[0.03] transition-all flex flex-col justify-between group">
+                  <div class="flex items-center justify-between gap-1 mb-1">
+                    <span class="text-[11px] font-bold text-slate-700 dark:text-slate-200 font-mono tracking-tight">
+                      {rate.pair}
+                    </span>
+                    <img
+                      src={`https://flagcdn.com/w40/${flagCode}.png`}
+                      srcset={`https://flagcdn.com/w80/${flagCode}.png 2x`}
+                      alt={`${rate.to} flag`}
+                      class="w-4.5 h-3.2 object-cover rounded-xs shadow-2xs border border-black/10 dark:border-white/10 shrink-0 select-none"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="text-[15px] sm:text-base font-mono font-bold text-slate-900 dark:text-white tracking-tight my-0.5 tabular-nums" data-fx-pair={rate.pair}>
+                    {rate.rate}
+                  </div>
+                  <div class="flex items-center justify-between gap-1 mt-1 text-[10px]">
+                    <span class={`font-bold px-1.5 py-0.2 rounded text-[10px] shrink-0 ${rate.isPositive ? 'text-emerald-700 dark:text-emerald-300 bg-emerald-500/10' : 'text-rose-700 dark:text-rose-300 bg-rose-500/10'}`}>
+                      {rate.change}
+                    </span>
+                    <span class="text-slate-400 font-medium text-[9px] sm:text-[10px] truncate text-right">
+                      {rate.shortLabel || rate.label}
+                    </span>
+                  </div>
+                </div>
+              );
+            })
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AMZ123-Style Country Marketplace Quick Launchpad -->
+  <section aria-label="Country Marketplace Direct Launchpad" class="bg-white dark:bg-dark-card border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs w-full min-w-0 transition-colors">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 mb-3 border-b border-slate-100 dark:border-white/[0.06]">
+      <div class="flex items-center gap-2.5">
+        <span class="w-2.5 h-2.5 rounded-full bg-brand-orange animate-pulse"></span>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              Global Amazon Marketplaces & Direct BSR Access
+            </h3>
+            <span class="text-xs font-semibold text-brand-orange bg-brand-orange/10 dark:bg-brand-orange/20 px-2.5 py-0.5 rounded-full">
+              9 Active Stations
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 hidden sm:block">
+            One-click direct portal to hourly-updated Best Seller Lists (Top 100) & marketplace storefronts.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 text-xs text-slate-400 shrink-0">
+        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          <span>Hourly BSR Sync</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-2.5 w-full min-w-0">
+      {
+        COUNTRY_MARKETPLACES.map((country) => {
+          const flagCode = country.flagCode || (country.code === 'UK' ? 'gb' : country.code.toLowerCase());
+          return (
+            <div class="p-3 rounded-xl bg-slate-50/80 dark:bg-[#131924]/80 border border-slate-200/80 dark:border-white/[0.06] hover:border-brand-orange/60 dark:hover:border-brand-orange/60 hover:bg-white dark:hover:bg-white/[0.03] hover:shadow-xs hover:-translate-y-0.5 transition-all flex flex-col justify-between group">
+              <!-- Top Row: Real Flag + Country Code Pill -->
+              <div class="flex items-center justify-between gap-1.5 mb-2">
+                <div class="w-6 h-4 rounded-xs overflow-hidden shadow-2xs border border-black/10 dark:border-white/10 shrink-0">
+                  <img
+                    src={`https://flagcdn.com/w40/${flagCode}.png`}
+                    srcset={`https://flagcdn.com/w80/${flagCode}.png 2x`}
+                    alt={`${country.name} flag`}
+                    class="w-full h-full object-cover select-none"
+                    loading="lazy"
+                    onerror="this.style.display='none'"
+                  />
+                </div>
+                <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 font-mono">
+                  {country.code}
+                </span>
+              </div>
+
+              <!-- Middle: Station Title & Domain -->
+              <div class="mb-2.5">
+                <div class="text-xs font-bold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors truncate" title={country.name}>
+                  {country.shortName || country.name}
+                </div>
+                <div class="text-[10px] text-slate-400 font-mono truncate mt-0.5">
+                  {country.domain || country.url.replace('https://www.', '')}
+                </div>
+              </div>
+
+              <!-- Bottom Action Row: BSR (Primary) & Store (Secondary) -->
+              <div class="grid grid-cols-2 gap-1.5 pt-2 border-t border-slate-200/60 dark:border-white/[0.04]">
+                <a
+                  href={country.bsrUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-center font-bold text-[10px] sm:text-[11px] text-brand-orange bg-brand-orange/10 hover:bg-brand-orange hover:text-white py-1 rounded-md transition-all flex items-center justify-center gap-0.5"
+                  title={`Hourly updated Amazon ${country.code} Best Sellers (Top 100)`}
+                >
+                  <span>BSR</span>
+                  <span class="text-[9px]">🔥</span>
+                </a>
+                <a
+                  href={country.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-center font-semibold text-[10px] sm:text-[11px] text-slate-600 dark:text-slate-300 bg-white dark:bg-white/[0.06] hover:bg-slate-200 dark:hover:bg-white/15 border border-slate-200/60 dark:border-white/10 py-1 rounded-md transition-all flex items-center justify-center gap-0.5"
+                  title={`Visit Amazon ${country.name} Marketplace Store`}
+                >
+                  <span>Store</span>
+                  <svg class="w-2.5 h-2.5 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </section>
+
+  <!-- Horizontal Category Quick-Jump Pill Dock -->
+  <section aria-label="Quick Filter Category Navigation" class="w-full min-w-0 overflow-hidden">
+    <div class="flex items-center gap-2 bg-slate-100/70 dark:bg-dark-card/60 border border-slate-200/80 dark:border-white/[0.08] p-1.5 sm:p-2 rounded-xl shadow-xs w-full min-w-0">
+      <!-- Left Scroll Button -->
+      <button
+        type="button"
+        id="pill-scroll-left"
+        aria-label="Scroll categories left"
+        class="bg-white dark:bg-dark-elevated hover:bg-brand-orange dark:hover:bg-brand-orange text-slate-600 dark:text-slate-300 hover:text-white dark:hover:text-white border border-slate-200 dark:border-white/10 p-1.5 sm:p-2 rounded-lg shadow-xs shrink-0 flex items-center justify-center transition-all cursor-pointer"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <!-- Scrollable Container -->
+      <div
+        id="pill-scroll-container"
+        class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar scroll-smooth flex-1 min-w-0 py-0.5 px-0.5"
+      >
+        {
+          QUICK_JUMP_PILLS.map((pill) => (
+            <a
+              href={`#${pill.slug}`}
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap bg-white dark:bg-dark-elevated/70 border border-slate-200/80 dark:border-white/[0.08] text-slate-700 dark:text-slate-200 hover:border-brand-orange hover:text-brand-orange dark:hover:border-brand-orange dark:hover:text-brand-orange shadow-xs transition-colors shrink-0"
+            >
+              <span>{pill.name}</span>
+              {pill.badge && (
+                <span class="px-1.5 py-0.2 rounded-full text-[9px] font-bold uppercase bg-brand-orange/15 text-brand-orange dark:bg-brand-orange/20 dark:text-brand-orange border border-brand-orange/30">
+                  {pill.badge}
+                </span>
+              )}
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- Right Scroll Button -->
+      <button
+        type="button"
+        id="pill-scroll-right"
+        aria-label="Scroll categories right"
+        class="bg-white dark:bg-dark-elevated hover:bg-brand-orange dark:hover:bg-brand-orange text-slate-600 dark:text-slate-300 hover:text-white dark:hover:text-white border border-slate-200 dark:border-white/10 p-1.5 sm:p-2 rounded-lg shadow-xs shrink-0 flex items-center justify-center transition-all cursor-pointer"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  </section>
+</div>
+
+<!-- Lightweight Client-Side Script for Live Time Clocks & Pill Scroll Controls -->
+<script is:inline>
+  (function () {
+    // 1. Live Regional Market Time Clocks
+    function updateMarketClocks() {
+      const now = new Date();
+      const clockElements = document.querySelectorAll('[data-clock-tz]');
+
+      clockElements.forEach((el) => {
+        const timeZone = el.getAttribute('data-clock-tz');
+        if (!timeZone) return;
+
+        try {
+          const timeString = new Intl.DateTimeFormat('en-US', {
+            timeZone,
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false,
+          }).format(now);
+
+          el.textContent = timeString;
+        } catch (err) {
+          el.textContent = now.toTimeString().split(' ')[0];
+        }
+      });
+    }
+
+    updateMarketClocks();
+    setInterval(updateMarketClocks, 1000);
+
+    // 2. Horizontal Scroll Pill Bar Controls
+    function setupPillScroll() {
+      const container = document.getElementById('pill-scroll-container');
+      const leftBtn = document.getElementById('pill-scroll-left');
+      const rightBtn = document.getElementById('pill-scroll-right');
+
+      if (container && leftBtn && rightBtn) {
+        leftBtn.addEventListener('click', () => {
+          container.scrollBy({ left: -220, behavior: 'smooth' });
+        });
+        rightBtn.addEventListener('click', () => {
+          container.scrollBy({ left: 220, behavior: 'smooth' });
+        });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupPillScroll);
+    } else {
+      setupPillScroll();
+    }
+  })();
+</script>

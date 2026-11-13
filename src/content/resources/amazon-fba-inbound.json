@@ -1,0 +1,20 @@
+{
+  "id": "logistics-fba",
+  "slug": "amazon-fba-inbound",
+  "name": "Amazon FBA Inbound Freight",
+  "category": "Warehouse & Logistics",
+  "categorySlug": "warehouse-logistics",
+  "description": "Send inventory directly to Amazon distribution hubs with Amazon Global Logistics (AGL) and partner carriers.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://sellercentral.amazon.com/gp/help/201021820",
+  "internalUrl": "",
+  "hasDetailPage": false,
+  "badge": "FBA Direct",
+  "badgeColor": "bg-brand-orange/15 text-brand-orange border-brand-orange/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.9,
+  "iconName": "truck"
+}

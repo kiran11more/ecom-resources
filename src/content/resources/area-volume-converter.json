@@ -1,0 +1,20 @@
+{
+  "id": "area-converter",
+  "slug": "area-volume-converter",
+  "name": "Area & Volume Converter",
+  "category": "Everyday Tools",
+  "categorySlug": "everyday-tools",
+  "description": "Convert square feet, square meters, CBM (cubic meters), and cubic feet for warehouse storage and container loading.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://www.amz123.com/tools-mianji",
+  "internalUrl": "/tools/measurement-conversion",
+  "hasDetailPage": false,
+  "badge": "Utility",
+  "badgeColor": "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.8,
+  "iconName": "cube"
+}

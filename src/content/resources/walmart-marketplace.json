@@ -1,0 +1,26 @@
+{
+  "id": "store-walmart",
+  "slug": "walmart-marketplace",
+  "name": "Walmart Marketplace",
+  "category": "Store Opening",
+  "categorySlug": "store-opening",
+  "description": "America’s leading retail giant marketplace reaching 120M+ monthly shoppers with official Walmart Fulfillment Services (WFS).",
+  "fullDescription": "Walmart Marketplace grants vetted third-party sellers direct access to over 120 million monthly digital shoppers across the United States. Sellers benefit from low seller-to-shopper competition compared to Amazon, 2-day nationwide fulfillment through Walmart Fulfillment Services (WFS), and seamless omnichannel brand presence.",
+  "features": [
+    "Access to 120M+ active unique monthly digital visitors across the US",
+    "Walmart Fulfillment Services (WFS) with guaranteed 2-day delivery badges",
+    "No monthly recurring account subscription fee (pay-per-sale referral only)",
+    "Rich product listing features including Pro Seller badge recognition",
+    "Walmart Connect sponsored product and sponsored video advertising suite"
+  ],
+  "url": "https://marketplace.walmart.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "US Retail Leader",
+  "badgeColor": "bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.7,
+  "iconName": "store"
+}

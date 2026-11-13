@@ -1,0 +1,20 @@
+{
+  "id": "amazon-bsr-uk",
+  "slug": "amazon-bsr-uk",
+  "name": "Amazon Best Seller List UK",
+  "category": "Product Research",
+  "categorySlug": "product-research",
+  "description": "Track United Kingdom marketplace demand, top-selling seasonal trends, and new product releases.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://www.amazon.co.uk/gp/bestsellers",
+  "internalUrl": "",
+  "hasDetailPage": false,
+  "badge": "Official",
+  "badgeColor": "bg-brand-orange/15 text-brand-orange border-brand-orange/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.9,
+  "iconName": "amazon"
+}

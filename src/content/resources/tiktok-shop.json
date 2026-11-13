@@ -1,0 +1,20 @@
+{
+  "id": "store-tiktok",
+  "slug": "tiktok-shop",
+  "name": "TikTok Shop Seller Center",
+  "category": "Store Opening",
+  "categorySlug": "store-opening",
+  "description": "Fastest-growing social commerce channel with in-app video shopping and creator affiliate marketing.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://seller.tiktok.com",
+  "internalUrl": "",
+  "hasDetailPage": false,
+  "badge": "Viral Commerce",
+  "badgeColor": "bg-pink-500/15 text-pink-600 dark:text-pink-400 border-pink-500/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.8,
+  "iconName": "store"
+}

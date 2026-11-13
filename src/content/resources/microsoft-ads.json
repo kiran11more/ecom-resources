@@ -1,0 +1,20 @@
+{
+  "id": "microsoft-ads",
+  "slug": "microsoft-ads",
+  "name": "Microsoft Advertising (Bing Ads)",
+  "category": "Advertising Platforms",
+  "categorySlug": "advertising-platforms",
+  "description": "Reach high-purchasing-power desktop shoppers on Bing Search and Yahoo network with lower CPCs than Google.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://about.ads.microsoft.com",
+  "internalUrl": "",
+  "hasDetailPage": false,
+  "badge": "Lower CPC",
+  "badgeColor": "bg-teal-500/15 text-teal-600 dark:text-teal-400 border-teal-500/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.6,
+  "iconName": "microsoft"
+}

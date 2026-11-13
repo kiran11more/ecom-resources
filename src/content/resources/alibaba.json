@@ -1,0 +1,26 @@
+{
+  "id": "sourcing-alibaba",
+  "slug": "alibaba",
+  "name": "Alibaba.com Global B2B",
+  "category": "Sourcing",
+  "categorySlug": "sourcing",
+  "description": "Verified suppliers with Trade Assurance protection, custom prototyping, and bulk ocean container quotes.",
+  "fullDescription": "Alibaba.com is the world’s largest international B2B sourcing portal, connecting buyers with vetted manufacturers and trading companies. It features robust buyer protection through Trade Assurance, verified inspection reports by SGS/TÜV Rheinland, and flexible payment terms for full container loads.",
+  "features": [
+    "Trade Assurance escrow protection for production deadlines and product quality",
+    "Verified Supplier badges backed by third-party on-site audit videos",
+    "Request for Quotation (RFQ) marketplace to get competitive supplier bids fast",
+    "Customizable product molds, packaging, and private label engraving options",
+    "Integrated ocean freight and air express quotes directly at checkout"
+  ],
+  "url": "https://www.alibaba.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "Trade Assurance",
+  "badgeColor": "bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.8,
+  "iconName": "factory"
+}

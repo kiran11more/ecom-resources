@@ -1,0 +1,20 @@
+{
+  "id": "amazon-bsr-ca",
+  "slug": "amazon-bsr-ca",
+  "name": "Amazon Best Seller List CA",
+  "category": "Product Research",
+  "categorySlug": "product-research",
+  "description": "Canadian marketplace best-seller rankings, hot new releases, and most-wished-for products.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://www.amazon.ca/gp/bestsellers",
+  "internalUrl": "",
+  "hasDetailPage": false,
+  "badge": "Official",
+  "badgeColor": "bg-brand-orange/15 text-brand-orange border-brand-orange/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.8,
+  "iconName": "amazon"
+}

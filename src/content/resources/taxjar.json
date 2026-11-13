@@ -1,0 +1,26 @@
+{
+  "id": "accounting-taxjar",
+  "slug": "taxjar",
+  "name": "TaxJar Automated Sales Tax",
+  "category": "Accounting",
+  "categorySlug": "accounting",
+  "description": "Automate US state sales tax nexus calculations, economic thresholds, and auto-filing for multi-channel sellers.",
+  "fullDescription": "TaxJar (a Stripe company) takes the complexity out of US state sales tax compliance. By aggregating multi-channel transaction data across Amazon, Shopify, and Walmart, TaxJar monitors economic nexus thresholds in every state and automates return filings to prevent costly penalties.",
+  "features": [
+    "Real-time economic nexus tracker monitoring state sales and transaction limits",
+    "Automated AutoFile service submitting state tax returns and remittances on time",
+    "Multi-channel transaction rollup categorizing marketplace facilitator sales",
+    "High-speed calculation API for custom cart checkouts with 99.99% uptime",
+    "Comprehensive audit-ready reports organized by jurisdiction and tax district"
+  ],
+  "url": "https://www.taxjar.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "US Sales Tax",
+  "badgeColor": "bg-teal-500/15 text-teal-600 dark:text-teal-400 border-teal-500/30",
+  "isVerified": true,
+  "pricing": "Paid",
+  "discountText": "",
+  "rating": 4.8,
+  "iconName": "calculator"
+}

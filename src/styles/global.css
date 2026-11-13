@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-800 dark:bg-dark-bg dark:text-slate-100 transition-colors duration-200 text-sm;
+    overflow-x: clip;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Hide scrollbars on horizontal category strips */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

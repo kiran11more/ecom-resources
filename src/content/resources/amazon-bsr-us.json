@@ -1,0 +1,20 @@
+{
+  "id": "amazon-bsr-us",
+  "slug": "amazon-bsr-us",
+  "name": "Amazon Best Seller List USA",
+  "category": "Product Research",
+  "categorySlug": "product-research",
+  "description": "Official real-time hourly updated top 100 best-selling products across all US Amazon categories.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://www.amazon.com/gp/bestsellers",
+  "internalUrl": "",
+  "hasDetailPage": false,
+  "badge": "Official",
+  "badgeColor": "bg-brand-orange/15 text-brand-orange border-brand-orange/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 5,
+  "iconName": "amazon"
+}

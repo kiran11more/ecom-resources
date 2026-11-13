@@ -1,0 +1,26 @@
+{
+  "id": "constant-contact",
+  "slug": "constant-contact",
+  "name": "Constant Contact",
+  "category": "Email Marketing",
+  "categorySlug": "email-marketing",
+  "description": "Intuitive drag-and-drop newsletter builder, list management, and social media ad integration for store owners.",
+  "fullDescription": "Constant Contact is an approachable, reliable email and digital marketing tool tailored for small business owners and cross-border startups. It offers intuitive drag-and-drop email design, simple contact list segmenting, and integrated social post scheduling.",
+  "features": [
+    "User-friendly drag-and-drop template editor with responsive mobile layouts",
+    "Automated email resend to non-openers with customizable subject lines",
+    "Built-in social media ad manager for Facebook, Instagram, and Google",
+    "Contact list growth tools including pop-up modals and QR code lead forms",
+    "Award-winning telephone and live chat support for onboarding assistance"
+  ],
+  "url": "https://www.constantcontact.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "",
+  "badgeColor": "",
+  "isVerified": true,
+  "pricing": "Paid",
+  "discountText": "",
+  "rating": 4.5,
+  "iconName": "mail"
+}

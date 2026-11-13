@@ -1,0 +1,20 @@
+{
+  "id": "google-trends",
+  "slug": "google-trends",
+  "name": "Google Trends & Search Demand",
+  "category": "Product Research",
+  "categorySlug": "product-research",
+  "description": "Analyze real-time search interest, seasonal spikes, and emerging product demand across 50+ countries.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://trends.google.com/trends/",
+  "internalUrl": "",
+  "hasDetailPage": false,
+  "badge": "Demand Analytics",
+  "badgeColor": "bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.9,
+  "iconName": "google"
+}

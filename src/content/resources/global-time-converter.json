@@ -1,0 +1,20 @@
+{
+  "id": "time-conversion",
+  "slug": "global-time-converter",
+  "name": "Global Time Conversion",
+  "category": "Everyday Tools",
+  "categorySlug": "everyday-tools",
+  "description": "Multi-timezone converter for scheduling supplier calls, Amazon lightning deals, and overseas PPC bid schedules.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://www.amz123.com/tools-timeconversion",
+  "internalUrl": "/tools/measurement-conversion",
+  "hasDetailPage": false,
+  "badge": "Utility",
+  "badgeColor": "bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border-indigo-500/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.8,
+  "iconName": "clock"
+}

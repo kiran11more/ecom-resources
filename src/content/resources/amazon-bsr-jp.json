@@ -1,0 +1,20 @@
+{
+  "id": "amazon-bsr-jp",
+  "slug": "amazon-bsr-jp",
+  "name": "Amazon Best Seller List Japan",
+  "category": "Product Research",
+  "categorySlug": "product-research",
+  "description": "Discover trending consumer goods, electronics, and household rankings on Amazon Japan.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://www.amazon.co.jp/gp/bestsellers",
+  "internalUrl": "",
+  "hasDetailPage": false,
+  "badge": "Official",
+  "badgeColor": "bg-brand-orange/15 text-brand-orange border-brand-orange/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.8,
+  "iconName": "amazon"
+}

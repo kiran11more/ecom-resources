@@ -1,0 +1,221 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+
+const TOOLS = [
+  {
+    id: 'amazon-revenue-calculator',
+    title: 'Amazon Revenue & FBA Calculator',
+    category: 'Profitability & Margins',
+    description: 'Instant calculation of Amazon referral fees, FBA storage, pick & pack costs, net profit margin, and estimated monthly profit.',
+    href: '/tools/amazon-revenue-calculator',
+    badge: 'Core Utility',
+    badgeColor: 'bg-brand-orange/15 text-brand-orange border-brand-orange/30',
+    iconColor: 'from-amber-500 to-orange-600',
+    icon: 'calculator',
+  },
+  {
+    id: 'measurement-conversion',
+    title: 'Cross-Border Measurement & CBM Converter',
+    category: 'Freight & Packaging',
+    description: 'Multi-tab calculator for carton measurements, volumetric weight (DIM / 5000 & 6000), total CBM, weight, and temperature.',
+    href: '/tools/measurement-conversion',
+    badge: 'Freight & Packing',
+    badgeColor: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30',
+    iconColor: 'from-emerald-500 to-teal-600',
+    icon: 'cube',
+  },
+  {
+    id: 'ip-checker',
+    title: 'IP Address & Proxy Checker',
+    category: 'Account Security & Isolation',
+    description: 'Inspect public IP, ISP provider, geolocation, and browser timezone to verify proxy purity before logging into multi-region seller accounts.',
+    href: '/tools/ip-checker',
+    badge: 'Account Security',
+    badgeColor: 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border-indigo-500/30',
+    iconColor: 'from-indigo-500 to-purple-600',
+    icon: 'shield',
+  },
+  {
+    id: 'chatgpt-prompts',
+    title: 'ChatGPT E-Commerce Prompts Library',
+    category: 'AI Listing & Copywriting',
+    description: 'Searchable repository of battle-tested copy-and-paste prompts for Amazon bullet points, review responses, and supplier negotiations.',
+    href: '/tools/chatgpt-prompts',
+    badge: 'AI Prompts',
+    badgeColor: 'bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border-cyan-500/30',
+    iconColor: 'from-cyan-500 to-blue-600',
+    icon: 'sparkles',
+  },
+];
+
+const REFERENCE_TABLES = [
+  {
+    title: 'Country Codes Directory (ISO 3166)',
+    desc: 'Official two-letter country codes, dialing codes, and currency abbreviations for international shipping.',
+    href: 'https://ecomresources.info/country-codes/',
+    tag: 'ISO Reference',
+  },
+  {
+    title: 'World Port Codes (UN/LOCODE)',
+    desc: 'Lookup international seaport codes, airport cargo terminals, and customs clearance facilities worldwide.',
+    href: 'https://ecomresources.info/world-port-codes/',
+    tag: 'Freight Codes',
+  },
+  {
+    title: 'Global Timezone Map & Clock',
+    desc: 'Interactive world map tracking standard timezones (EST, PST, GMT, CET, CST, JST) for supplier coordination.',
+    href: 'https://www.amz123.com/tools-worldtime',
+    tag: 'Timezone Tool',
+  },
+];
+---
+
+<BaseLayout
+  title="E-Commerce Seller Tools & Calculators Hub — Ecom Resources"
+  description="Built-in interactive utilities for cross-border sellers: Amazon FBA fee calculators, carton CBM freight estimators, IP proxy checkers, and ChatGPT prompts."
+>
+  <Header />
+
+  <!-- Breadcrumbs Bar -->
+  <div class="w-full bg-white dark:bg-[#131924] border-b border-slate-200/80 dark:border-white/[0.06] py-3">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+      <a href="/" class="hover:text-brand-orange transition-colors">Home</a>
+      <span>/</span>
+      <span class="text-slate-900 dark:text-white font-semibold">Seller Tools & Calculators</span>
+    </div>
+  </div>
+
+  <main class="w-full max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-10 flex-1">
+    <!-- Header Showcase -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-slate-200/90 dark:border-white/[0.08]">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <span class="w-10 h-10 rounded-2xl bg-brand-orange/15 text-brand-orange flex items-center justify-center font-bold text-lg shrink-0">
+            🧮
+          </span>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            E-Commerce Seller Tools & Calculators
+          </h1>
+        </div>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-2 max-w-2xl leading-relaxed">
+          High-precision interactive tools designed to calculate landed profitability, carton dimensional freight, proxy hygiene, and listing copy without external dependencies.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-3.5 py-1.5 rounded-xl border border-emerald-500/20 self-start md:self-auto shrink-0">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>100% Client-Side & Private</span>
+      </div>
+    </div>
+
+    <!-- 4 Primary Interactive Built-in Tools Grid -->
+    <section class="space-y-4">
+      <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
+        <span>Interactive Calculators & Utilities</span>
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        {TOOLS.map((tool) => (
+          <a
+            href={tool.href}
+            class="bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] hover:border-brand-orange/60 dark:hover:border-brand-orange/60 rounded-2xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group text-left relative overflow-hidden"
+          >
+            <div>
+              <!-- Top Row: Icon + Badge -->
+              <div class="flex items-center justify-between gap-2 mb-3.5">
+                <div class={`w-12 h-12 rounded-xl bg-gradient-to-br ${tool.iconColor} text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform`}>
+                  {tool.icon === 'calculator' && (
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                  )}
+                  {tool.icon === 'cube' && (
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                      <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                      <line x1="12" y1="22.08" x2="12" y2="12" />
+                    </svg>
+                  )}
+                  {tool.icon === 'shield' && (
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 12 2 2 4-4" />
+                    </svg>
+                  )}
+                  {tool.icon === 'sparkles' && (
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                    </svg>
+                  )}
+                </div>
+
+                <span class={`text-[11px] font-bold px-2.5 py-0.5 rounded-full border ${tool.badgeColor}`}>
+                  {tool.badge}
+                </span>
+              </div>
+
+              <!-- Title & Category -->
+              <span class="text-xs text-slate-400 font-medium block">
+                {tool.category}
+              </span>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors mt-0.5">
+                {tool.title}
+              </h3>
+
+              <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 line-clamp-3 mt-2 leading-relaxed">
+                {tool.description}
+              </p>
+            </div>
+
+            <!-- Bottom CTA Link -->
+            <div class="mt-5 pt-3.5 border-t border-slate-100 dark:border-white/[0.05] flex items-center justify-between text-xs font-bold text-slate-800 dark:text-slate-100 group-hover:text-brand-orange transition-colors">
+              <span>Launch Calculator</span>
+              <span class="group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Cross-Border Reference Tables Hub -->
+    <section class="space-y-4 pt-4 border-t border-slate-200/90 dark:border-white/[0.08]">
+      <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+        <span>Cross-Border Logistics & Trade References</span>
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {REFERENCE_TABLES.map((ref) => (
+          <a
+            href={ref.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="p-4 rounded-2xl bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] hover:border-brand-orange/60 transition-all group flex flex-col justify-between"
+          >
+            <div>
+              <span class="text-[10px] font-bold text-blue-600 dark:text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded">
+                {ref.tag}
+              </span>
+              <h4 class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors mt-2">
+                {ref.title}
+              </h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                {ref.desc}
+              </p>
+            </div>
+
+            <div class="mt-4 pt-2.5 border-t border-slate-100 dark:border-white/[0.05] flex items-center justify-between text-xs font-semibold text-slate-600 dark:text-slate-300 group-hover:text-brand-orange">
+              <span>Open Reference</span>
+              <span>↗</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

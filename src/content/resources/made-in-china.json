@@ -1,0 +1,26 @@
+{
+  "id": "sourcing-madeinchina",
+  "slug": "made-in-china",
+  "name": "Made-in-China.com",
+  "category": "Sourcing",
+  "categorySlug": "sourcing",
+  "description": "Comprehensive directory for industrial machinery, hardware, electronics, and audited Chinese manufacturers.",
+  "fullDescription": "Made-in-China.com is an authoritative B2B platform focused on Chinese industrial equipment, hardware components, building materials, and heavy manufacturing. With rigorous third-party supplier audits by Bureau Veritas and SGS, it is highly trusted by institutional and large-scale commercial buyers.",
+  "features": [
+    "Comprehensive audit reports verified by Bureau Veritas and SGS",
+    "Strong focus on industrial hardware, machinery, consumer electronics, and tools",
+    "Virtual 3D factory tours showing real operating lines and assembly robotics",
+    "Secured trading services with escrow payment protection",
+    "Multilingual customer support in English, Spanish, Portuguese, and French"
+  ],
+  "url": "https://www.made-in-china.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "Audited Factory",
+  "badgeColor": "bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.6,
+  "iconName": "factory"
+}

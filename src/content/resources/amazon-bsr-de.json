@@ -1,0 +1,20 @@
+{
+  "id": "amazon-bsr-de",
+  "slug": "amazon-bsr-de",
+  "name": "Amazon Best Seller List DE",
+  "category": "Product Research",
+  "categorySlug": "product-research",
+  "description": "Top seller rankings in Germany, Europe’s largest e-commerce consumer market.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://www.amazon.de/gp/bestsellers",
+  "internalUrl": "",
+  "hasDetailPage": false,
+  "badge": "Official",
+  "badgeColor": "bg-brand-orange/15 text-brand-orange border-brand-orange/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.9,
+  "iconName": "amazon"
+}

@@ -1,0 +1,461 @@
+---
+import { RECOMMENDED_EXTENSIONS, OFFSITE_DEAL_PLATFORMS } from '../../data/navigation';
+
+// Calculate extension subcategory counts
+const amazonExtCount = RECOMMENDED_EXTENSIONS.filter(e => e.category === 'Amazon Research').length;
+const scrapingExtCount = RECOMMENDED_EXTENSIONS.filter(e => e.category === 'Scraping & Images').length;
+const productivityExtCount = RECOMMENDED_EXTENSIONS.filter(e => e.category === 'Seller Productivity').length;
+const videoExtCount = RECOMMENDED_EXTENSIONS.filter(e => e.category === 'Video & Social').length;
+
+// Calculate deal platform subcategory counts
+const usDealsCount = OFFSITE_DEAL_PLATFORMS.filter(d => d.targetRegion === 'United States').length;
+const euDealsCount = OFFSITE_DEAL_PLATFORMS.filter(d => d.targetRegion === 'Europe & UK').length;
+const buyerClubsCount = OFFSITE_DEAL_PLATFORMS.filter(d => d.platformType.includes('Buyer Club') || d.platformType.includes('Cashback')).length;
+---
+
+<section
+  id="browser-extensions"
+  class="bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs space-y-4 scroll-mt-36 transition-colors w-full min-w-0"
+  aria-label="Recommended Browser Extensions & Deals Hub"
+>
+  <!-- Section Header: AMZ123 Style Main Tabs + Standardized Typography -->
+  <div class="flex flex-col md:flex-row md:items-center justify-between pb-3.5 border-b border-slate-100 dark:border-white/[0.06] gap-3">
+    <div>
+      <div class="flex items-center gap-2.5">
+        <span class="w-8 h-8 rounded-xl bg-brand-orange/15 text-brand-orange flex items-center justify-center shrink-0">
+          <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+          </svg>
+        </span>
+        <h2 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+          Recommended Browser Extensions & Deals Hub
+        </h2>
+        <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-brand-orange/15 text-brand-orange border border-brand-orange/30 hidden sm:inline-block">
+          Sitemap Page 2
+        </span>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+        Vetted Chrome extensions for live BSR analytics, supplier reverse-lookups, and external clearance deal platforms.
+      </p>
+    </div>
+
+    <!-- Primary Dual-Mode Tab Switcher (AMZ123 推荐插件 | Deals平台) -->
+    <div class="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-dark-elevated rounded-xl border border-slate-200/80 dark:border-white/[0.05] shrink-0 self-start md:self-auto">
+      <button
+        type="button"
+        id="ext-tab-btn-extensions"
+        data-hub-tab="tab-extensions"
+        class="hub-main-tab hub-main-tab-active px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center gap-1.5"
+      >
+        <span>🧩 Top Chrome Extensions</span>
+        <span class="text-[11px] px-1.5 py-0.2 rounded-full bg-brand-orange/20 text-brand-orange font-bold font-mono">
+          {RECOMMENDED_EXTENSIONS.length}
+        </span>
+      </button>
+
+      <button
+        type="button"
+        id="ext-tab-btn-deals"
+        data-hub-tab="tab-deals"
+        class="hub-main-tab px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer flex items-center gap-1.5 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
+      >
+        <span>🏷️ Off-Site Deals Platforms</span>
+        <span class="text-[11px] px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold font-mono">
+          {OFFSITE_DEAL_PLATFORMS.length}
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- TAB PANEL 1: Recommended Browser Extensions (推荐插件) -->
+  <div id="tab-extensions" class="hub-tab-panel space-y-4">
+    <!-- Subcategory Quick Filter Pills -->
+    <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar pb-1 text-xs">
+      <button
+        type="button"
+        data-ext-filter="all"
+        class="ext-filter-btn ext-filter-active px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer whitespace-nowrap"
+      >
+        All Extensions ({RECOMMENDED_EXTENSIONS.length})
+      </button>
+      <button
+        type="button"
+        data-ext-filter="Amazon Research"
+        class="ext-filter-btn px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer whitespace-nowrap text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.04]"
+      >
+        Amazon Research ({amazonExtCount})
+      </button>
+      <button
+        type="button"
+        data-ext-filter="Scraping & Images"
+        class="ext-filter-btn px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer whitespace-nowrap text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.04]"
+      >
+        Scraping & 1688 Images ({scrapingExtCount})
+      </button>
+      <button
+        type="button"
+        data-ext-filter="Seller Productivity"
+        class="ext-filter-btn px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer whitespace-nowrap text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.04]"
+      >
+        Productivity ({productivityExtCount})
+      </button>
+      <button
+        type="button"
+        data-ext-filter="Video & Social"
+        class="ext-filter-btn px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer whitespace-nowrap text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.04]"
+      >
+        Video & YouTube SEO ({videoExtCount})
+      </button>
+    </div>
+
+    <!-- Responsive Grid for Extensions (Spacious Breathing Room) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 w-full min-w-0" id="extensions-grid">
+      {RECOMMENDED_EXTENSIONS.map((ext) => (
+        <div
+          class="ext-card-item resource-item h-full w-full bg-slate-50/70 dark:bg-dark-elevated/40 border border-slate-200/90 dark:border-white/[0.08] hover:border-brand-orange/60 dark:hover:border-brand-orange/60 rounded-2xl p-4 sm:p-4.5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group min-w-0 text-left relative"
+          data-category={ext.category}
+          data-name={ext.name.toLowerCase()}
+          data-desc={ext.description.toLowerCase()}
+        >
+          <div class="flex flex-col flex-1">
+            <!-- Row 1: Logo (Left) + Badge (Right) -->
+            <div class="flex items-center justify-between gap-2 mb-3 min-w-0">
+              <!-- 44px-48px Brand Icon Container (Borderless per user rule) -->
+              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white dark:bg-white/[0.06] p-1.5 sm:p-2 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform relative">
+                <img
+                  src={`https://www.google.com/s2/favicons?domain=${ext.domain}&sz=128`}
+                  alt={`${ext.name} logo`}
+                  class="w-8 h-8 sm:w-8.5 sm:h-8.5 object-contain rounded-md"
+                  loading="lazy"
+                  onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
+                />
+                <!-- Fallback initial letter -->
+                <div class="hidden w-full h-full items-center justify-center text-slate-800 dark:text-white font-extrabold text-sm">
+                  {ext.name.charAt(0)}
+                </div>
+              </div>
+
+              <!-- Top Badge -->
+              {ext.badge && (
+                <span class={`px-2 py-0.5 rounded text-[11px] font-semibold tracking-wide border shrink-0 ${ext.badgeColor || 'bg-brand-orange/15 text-brand-orange border-brand-orange/30'}`}>
+                  {ext.badge}
+                </span>
+              )}
+            </div>
+
+            <!-- Row 2: Full-width Title & Category -->
+            <div class="mb-2 min-w-0">
+              <div class="flex items-center gap-1.5 min-w-0">
+                <h3 class="text-base font-bold text-slate-900 dark:text-white leading-snug line-clamp-1 group-hover:text-brand-orange transition-colors">
+                  {ext.name}
+                </h3>
+                <span class="text-emerald-500 shrink-0" title="Verified Extension">
+                  <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                </span>
+              </div>
+              <div class="flex items-center gap-2 mt-0.5">
+                <span class="text-xs text-slate-500 dark:text-slate-400 font-medium truncate">
+                  {ext.category}
+                </span>
+                <span class="text-slate-300 dark:text-slate-600">•</span>
+                <span class="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
+                  {ext.usersCount}
+                </span>
+              </div>
+            </div>
+
+            <!-- Description (Standardized 40px Height via h-10 line-clamp-2) -->
+            <p class="text-xs sm:text-[13px] text-slate-600 dark:text-slate-400 line-clamp-2 h-10 leading-relaxed overflow-hidden mt-1">
+              {ext.description}
+            </p>
+          </div>
+
+          <!-- Bottom Row: Pricing, Rating & Direct Install CTA -->
+          <div class="mt-4 pt-3 border-t border-slate-200/80 dark:border-white/[0.06] flex items-center justify-between text-xs shrink-0">
+            <div class="flex items-center gap-2">
+              <span class="text-[11px] font-semibold text-slate-600 dark:text-slate-300 bg-slate-200/60 dark:bg-white/[0.06] px-2 py-0.5 rounded">
+                {ext.pricing}
+              </span>
+              <span class="text-[11px] font-medium text-amber-500 flex items-center gap-0.5">
+                ★ {ext.rating}
+              </span>
+            </div>
+
+            <a
+              href={ext.chromeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold text-white bg-brand-orange hover:bg-brand-orange/90 shadow-2xs transition-all group-hover:scale-102"
+              title={`Install ${ext.name} on Chrome Web Store`}
+            >
+              <span>Add to Chrome</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- TAB PANEL 2: Pure Off-Site Deals Platforms (站外Deal平台) -->
+  <div id="tab-deals" class="hub-tab-panel hidden space-y-4">
+    <!-- Subcategory Filter Pills for Deals -->
+    <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar pb-1 text-xs">
+      <button
+        type="button"
+        data-deal-filter="all"
+        class="deal-filter-btn deal-filter-active px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer whitespace-nowrap"
+      >
+        All Deal Sites ({OFFSITE_DEAL_PLATFORMS.length})
+      </button>
+      <button
+        type="button"
+        data-deal-filter="United States"
+        class="deal-filter-btn px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer whitespace-nowrap text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.04]"
+      >
+        United States 🇺🇸 ({usDealsCount})
+      </button>
+      <button
+        type="button"
+        data-deal-filter="Europe & UK"
+        class="deal-filter-btn px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer whitespace-nowrap text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.04]"
+      >
+        Europe & UK 🇪🇺 ({euDealsCount})
+      </button>
+      <button
+        type="button"
+        data-deal-filter="Buyer Clubs"
+        class="deal-filter-btn px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer whitespace-nowrap text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.04]"
+      >
+        Buyer Clubs & Cashback 🛒 ({buyerClubsCount})
+      </button>
+    </div>
+
+    <!-- Responsive Grid for Pure Off-Site Deals Platforms (Spacious Breathing Room) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 w-full min-w-0" id="deals-grid">
+      {OFFSITE_DEAL_PLATFORMS.map((deal) => (
+        <div
+          class="deal-card-item resource-item h-full w-full bg-slate-50/70 dark:bg-dark-elevated/40 border border-slate-200/90 dark:border-white/[0.08] hover:border-brand-orange/60 dark:hover:border-brand-orange/60 rounded-2xl p-4 sm:p-4.5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group min-w-0 text-left relative"
+          data-deal-region={deal.targetRegion}
+          data-deal-type={deal.platformType}
+          data-name={deal.name.toLowerCase()}
+          data-desc={deal.description.toLowerCase()}
+        >
+          <div class="flex flex-col flex-1">
+            <!-- Row 1: Logo (Left) + Badge (Right) -->
+            <div class="flex items-center justify-between gap-2 mb-3 min-w-0">
+              <!-- 44px-48px Brand Icon Container (Borderless per user rule) -->
+              <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white dark:bg-white/[0.06] p-1.5 sm:p-2 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform relative">
+                <img
+                  src={`https://www.google.com/s2/favicons?domain=${deal.domain}&sz=128`}
+                  alt={`${deal.platform} logo`}
+                  class="w-8 h-8 sm:w-8.5 sm:h-8.5 object-contain rounded-md"
+                  loading="lazy"
+                  onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
+                />
+                <!-- Fallback initial letter -->
+                <div class="hidden w-full h-full items-center justify-center text-slate-800 dark:text-white font-extrabold text-sm">
+                  {deal.platform.charAt(0)}
+                </div>
+              </div>
+
+              <!-- Top Badge -->
+              {deal.badge && (
+                <span class={`px-2 py-0.5 rounded text-[11px] font-semibold tracking-wide border shrink-0 ${deal.badgeColor || 'bg-brand-orange/15 text-brand-orange border-brand-orange/30'}`}>
+                  {deal.badge}
+                </span>
+              )}
+            </div>
+
+            <!-- Row 2: Full-width Title & Platform Info -->
+            <div class="mb-2 min-w-0">
+              <div class="flex items-center gap-1.5 min-w-0">
+                <h3 class="text-base font-bold text-slate-900 dark:text-white leading-snug line-clamp-1 group-hover:text-brand-orange transition-colors">
+                  {deal.name}
+                </h3>
+                {deal.verified && (
+                  <span class="text-emerald-500 shrink-0" title="Verified Platform">
+                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                  </span>
+                )}
+              </div>
+              <div class="flex items-center gap-1.5 mt-0.5 text-xs text-slate-500 dark:text-slate-400 font-medium truncate">
+                <span>{deal.regionFlag}</span>
+                <span class="truncate">{deal.platformType}</span>
+              </div>
+            </div>
+
+            <!-- Description (Standardized 40px Height via h-10 line-clamp-2) -->
+            <p class="text-xs sm:text-[13px] text-slate-600 dark:text-slate-400 line-clamp-2 h-10 leading-relaxed overflow-hidden mt-1">
+              {deal.description}
+            </p>
+
+            <!-- Audience / Reach Metric Highlight (Replaces fake promo codes) -->
+            <div class="mt-3 p-2 rounded-xl bg-white dark:bg-[#131924] border border-slate-200/70 dark:border-white/[0.06] flex items-center justify-between gap-2 shadow-2xs">
+              <span class="flex items-center gap-1.5 text-xs font-semibold text-slate-600 dark:text-slate-300">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                <span>Audience Reach:</span>
+              </span>
+              <span class="text-xs font-bold text-slate-900 dark:text-white font-mono">
+                {deal.trafficMetric}
+              </span>
+            </div>
+          </div>
+
+          <!-- Bottom Row: Verification Status & Visit Platform CTA -->
+          <div class="mt-4 pt-3 border-t border-slate-200/80 dark:border-white/[0.06] flex items-center justify-between text-xs shrink-0">
+            <span class="text-[11px] font-medium text-slate-500 dark:text-slate-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <span>Off-Site Launchpad</span>
+            </span>
+
+            <a
+              href={deal.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold text-white bg-slate-900 dark:bg-white dark:text-slate-900 hover:bg-brand-orange dark:hover:bg-brand-orange dark:hover:text-white shadow-2xs transition-all group-hover:scale-102"
+              title={`Visit ${deal.name}`}
+            >
+              <span>Visit Platform</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Scoped Styles for Tab & Filter Buttons -->
+<style>
+  /* Active Main Tab (AMZ123 Style) */
+  .hub-main-tab-active {
+    background-color: #F25A2B !important;
+    color: #ffffff !important;
+    box-shadow: 0 1px 3px 0 rgba(242, 90, 43, 0.3);
+  }
+  .hub-main-tab-active span.font-mono {
+    background-color: rgba(255, 255, 255, 0.25) !important;
+    color: #ffffff !important;
+  }
+
+  /* Active Extension Filter Button */
+  .ext-filter-active {
+    background-color: rgba(242, 90, 43, 0.15) !important;
+    color: #F25A2B !important;
+    border: 1px solid rgba(242, 90, 43, 0.3) !important;
+  }
+  :global(.dark) .ext-filter-active {
+    background-color: rgba(242, 90, 43, 0.2) !important;
+    color: #ff7a50 !important;
+    border-color: rgba(242, 90, 43, 0.4) !important;
+  }
+
+  /* Active Deal Filter Button */
+  .deal-filter-active {
+    background-color: rgba(16, 185, 129, 0.15) !important;
+    color: #059669 !important;
+    border: 1px solid rgba(16, 185, 129, 0.3) !important;
+  }
+  :global(.dark) .deal-filter-active {
+    background-color: rgba(16, 185, 129, 0.2) !important;
+    color: #34d399 !important;
+    border-color: rgba(16, 185, 129, 0.4) !important;
+  }
+</style>
+
+<!-- Client-side Interactive Tab & Sub-Filter Script -->
+<script is:inline>
+  (() => {
+    // 1. Primary Hub Tab Switching (Extensions vs. Deals)
+    const hubTabButtons = document.querySelectorAll('.hub-main-tab');
+    const hubTabPanels = document.querySelectorAll('.hub-tab-panel');
+
+    hubTabButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-hub-tab');
+        if (!targetId) return;
+
+        hubTabButtons.forEach((b) => {
+          b.classList.remove('hub-main-tab-active');
+          b.classList.add('text-slate-600', 'dark:text-slate-300');
+        });
+        btn.classList.add('hub-main-tab-active');
+        btn.classList.remove('text-slate-600', 'dark:text-slate-300');
+
+        hubTabPanels.forEach((panel) => {
+          panel.classList.toggle('hidden', panel.id !== targetId);
+        });
+      });
+    });
+
+    // 2. Extension Subcategory Filter
+    const extFilterButtons = document.querySelectorAll('.ext-filter-btn');
+    const extCards = document.querySelectorAll('.ext-card-item');
+
+    extFilterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-ext-filter');
+        if (!filter) return;
+
+        extFilterButtons.forEach((b) => {
+          b.classList.remove('ext-filter-active');
+          b.classList.add('text-slate-600', 'dark:text-slate-400');
+        });
+        btn.classList.add('ext-filter-active');
+        btn.classList.remove('text-slate-600', 'dark:text-slate-400');
+
+        extCards.forEach((card) => {
+          const category = card.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // 3. Off-Site Deal Platforms Subcategory Filter
+    const dealFilterButtons = document.querySelectorAll('.deal-filter-btn');
+    const dealCards = document.querySelectorAll('.deal-card-item');
+
+    dealFilterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-deal-filter');
+        if (!filter) return;
+
+        dealFilterButtons.forEach((b) => {
+          b.classList.remove('deal-filter-active');
+          b.classList.add('text-slate-600', 'dark:text-slate-400');
+        });
+        btn.classList.add('deal-filter-active');
+        btn.classList.remove('text-slate-600', 'dark:text-slate-400');
+
+        dealCards.forEach((card) => {
+          const region = card.getAttribute('data-deal-region');
+          const type = card.getAttribute('data-deal-type') || '';
+          
+          let matches = false;
+          if (filter === 'all') {
+            matches = true;
+          } else if (filter === 'Buyer Clubs') {
+            matches = type.includes('Buyer Club') || type.includes('Cashback');
+          } else {
+            matches = region === filter;
+          }
+
+          card.style.display = matches ? '' : 'none';
+        });
+      });
+    });
+  })();
+</script>

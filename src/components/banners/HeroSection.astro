@@ -1,0 +1,308 @@
+---
+import { MARKET_CLOCKS, QUICK_JUMP_PILLS } from '../../data/navigation';
+---
+
+<div class="space-y-4 sm:space-y-6 sm:space-y-7 w-full min-w-0 overflow-hidden">
+  <!-- Top Main Content Hero Banner -->
+  <section
+    class="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-sm bg-gradient-to-br from-white via-slate-50 to-orange-50/40 dark:from-slate-950 dark:via-slate-950/95 dark:to-[#101726] border border-slate-200/90 dark:border-white/[0.08] min-h-[240px] sm:min-h-[300px] md:min-h-[340px] flex items-center w-full transition-colors"
+    aria-label="Cross-Border E-Commerce Featured Announcement"
+  >
+    <!-- Background Logistics Image (Subdued to avoid visual clutter) -->
+    <img
+      src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1600&q=80"
+      alt="Global Logistics & Supply Chain Fulfillment Center"
+      class="absolute inset-0 w-full h-full object-cover object-center opacity-10 dark:opacity-40 mix-blend-multiply dark:mix-blend-normal select-none transition-opacity"
+      loading="eager"
+    />
+
+    <!-- Theme-Adaptive Gradient Overlay -->
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-transparent dark:from-slate-950 dark:via-slate-950/90 dark:to-slate-950/40 pointer-events-none transition-colors"
+    >
+    </div>
+
+    <!-- Banner Content (Airy, well-spaced typography) -->
+    <div class="relative z-10 px-4 sm:px-8 lg:px-12 py-6 sm:py-10 md:py-12 max-w-2xl min-w-0">
+      <div
+        class="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-brand-orange/10 dark:bg-brand-orange/15 border border-brand-orange/25 dark:border-brand-orange/30 text-brand-orange text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-2.5 sm:mb-4 backdrop-blur-sm"
+      >
+        <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-brand-orange animate-pulse"></span>
+        <span>Global Seller Intelligence</span>
+      </div>
+
+      <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-snug sm:leading-tight transition-colors">
+        Cross-Border E-Commerce Directory & Seller Toolkit
+      </h1>
+
+      <p class="mt-2 sm:mt-3 text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-300 font-normal leading-relaxed max-w-xl transition-colors">
+        Connecting 10,000+ verified Amazon calculators, freight forwarders, wholesale factories, PPC automation platforms, and global customs data in one centralized hub.
+      </p>
+
+      <div class="mt-4 sm:mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3.5">
+        <a
+          href="#product-research"
+          class="bg-brand-orange hover:bg-brand-orangeHover text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
+        >
+          <span>Explore Product Research</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+
+        <a
+          href="#everyday-tools"
+          class="bg-white/90 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 text-slate-800 dark:text-white border border-slate-200/90 dark:border-white/20 backdrop-blur-sm px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all text-center shadow-2xs hover:shadow-xs"
+        >
+          Everyday Calculators
+        </a>
+      </div>
+    </div>
+
+    <!-- Slider Arrows (Visible on sm+ screens) -->
+    <button
+      type="button"
+      id="hero-slider-prev"
+      aria-label="Previous banner slide"
+      class="hidden sm:flex absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/40 hover:bg-brand-orange text-white items-center justify-center backdrop-blur-md border border-white/15 transition-all z-20 cursor-pointer shadow-md"
+    >
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+
+    <button
+      type="button"
+      id="hero-slider-next"
+      aria-label="Next banner slide"
+      class="hidden sm:flex absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/40 hover:bg-brand-orange text-white items-center justify-center backdrop-blur-md border border-white/15 transition-all z-20 cursor-pointer shadow-md"
+    >
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+
+    <!-- Slider Indicators -->
+    <div class="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 sm:gap-2 z-20">
+      <span class="w-5 sm:w-6 h-1.5 rounded-full bg-brand-orange"></span>
+      <span class="w-1.5 sm:w-2 h-1.5 rounded-full bg-white/40"></span>
+      <span class="w-1.5 sm:w-2 h-1.5 rounded-full bg-white/40"></span>
+    </div>
+  </section>
+
+  <!-- 6-Column Regional Market / Live World Clock Strip -->
+  <section aria-label="Regional Market Live World Clocks" class="w-full min-w-0">
+    <div class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-2.5 sm:gap-3.5 w-full min-w-0">
+      {
+        MARKET_CLOCKS.map((clock) => (
+          <div
+            class="bg-white dark:bg-dark-card border border-slate-200/80 dark:border-white/[0.08] rounded-xl p-2.5 sm:p-3.5 md:p-4 shadow-sm hover:border-brand-orange/40 dark:hover:border-brand-orange/40 transition-all flex flex-col justify-between min-w-0"
+          >
+            <div class="flex items-center justify-between gap-1 mb-1 sm:mb-1.5">
+              <div class="flex items-center gap-1.5 sm:gap-2 min-w-0">
+                {/* SVG Flag Badges */}
+                {clock.code === 'CN' && (
+                  <svg viewBox="0 0 640 480" class="w-3.5 sm:w-4 h-2.5 sm:h-3 rounded-xs shadow-xs shrink-0">
+                    <path fill="#de2910" d="M0 0h640v480H0z" />
+                    <path fill="#ffde00" d="M120 160l-37.6-27.3-37.6 27.3 14.4-44.2L21.6 88.5l46.5-.1L82.4 44.2l14.4 44.2 46.5.1-37.6 27.3z" />
+                  </svg>
+                )}
+                {clock.code === 'US' && (
+                  <svg viewBox="0 0 640 480" class="w-3.5 sm:w-4 h-2.5 sm:h-3 rounded-xs shadow-xs shrink-0">
+                    <path fill="#bd3d44" d="M0 0h640v480H0z" />
+                    <path stroke="#fff" stroke-width="37" d="M0 55.4h640m0 73.8H0m0 73.8h640m0 74H0m0 73.8h640m0 73.8H0" />
+                    <path fill="#192f5d" d="M0 0h256v258.5H0z" />
+                  </svg>
+                )}
+                {clock.code === 'UK' && (
+                  <svg viewBox="0 0 640 480" class="w-3.5 sm:w-4 h-2.5 sm:h-3 rounded-xs shadow-xs shrink-0">
+                    <path fill="#012169" d="M0 0h640v480H0z" />
+                    <path stroke="#fff" stroke-width="60" d="m0 0 640 480m0-480L0 480" />
+                    <path stroke="#c8102e" stroke-width="40" d="m0 0 640 480m0-480L0 480" />
+                    <path stroke="#fff" stroke-width="100" d="M320 0v480M0 240h640" />
+                    <path stroke="#c8102e" stroke-width="60" d="M320 0v480M0 240h640" />
+                  </svg>
+                )}
+                {clock.code === 'EU' && (
+                  <svg viewBox="0 0 640 480" class="w-3.5 sm:w-4 h-2.5 sm:h-3 rounded-xs shadow-xs shrink-0">
+                    <path fill="#039" d="M0 0h640v480H0z" />
+                    <circle cx="320" cy="240" r="140" fill="none" stroke="#fc0" stroke-width="14" stroke-dasharray="14 59" />
+                  </svg>
+                )}
+                {clock.code === 'JP' && (
+                  <svg viewBox="0 0 640 480" class="w-3.5 sm:w-4 h-2.5 sm:h-3 rounded-xs shadow-xs shrink-0 border border-slate-200 dark:border-slate-700">
+                    <path fill="#fff" d="M0 0h640v480H0z" />
+                    <circle cx="320" cy="240" r="144" fill="#bc002d" />
+                  </svg>
+                )}
+                {clock.code === 'AU' && (
+                  <svg viewBox="0 0 640 480" class="w-3.5 sm:w-4 h-2.5 sm:h-3 rounded-xs shadow-xs shrink-0">
+                    <path fill="#00008b" d="M0 0h640v480H0z" />
+                    <path stroke="#fff" stroke-width="40" d="m0 0 320 240m0-240L0 240" />
+                    <path stroke="#c8102e" stroke-width="25" d="m0 0 320 240m0-240L0 240" />
+                    <path stroke="#fff" stroke-width="60" d="M160 0v240M0 120h320" />
+                    <path stroke="#c8102e" stroke-width="36" d="M160 0v240M0 120h320" />
+                    <circle cx="480" cy="120" r="16" fill="#fff" />
+                    <circle cx="440" cy="240" r="14" fill="#fff" />
+                    <circle cx="520" cy="220" r="14" fill="#fff" />
+                    <circle cx="480" cy="340" r="18" fill="#fff" />
+                    <circle cx="160" cy="360" r="30" fill="#fff" />
+                  </svg>
+                )}
+                <span class="text-[11px] sm:text-xs font-bold text-slate-800 dark:text-slate-100 truncate">
+                  {clock.shortName || clock.name}
+                </span>
+              </div>
+              <span class="text-[9px] sm:text-[10px] font-bold text-brand-orange bg-brand-orange/10 dark:bg-brand-orange/20 px-1.5 py-0.5 rounded shrink-0">
+                {clock.tzAbbr || clock.code}
+              </span>
+            </div>
+
+            <!-- Live Clock Display -->
+            <div
+              class="text-sm sm:text-base md:text-lg font-mono font-bold text-slate-900 dark:text-white tabular-nums tracking-tight my-0.5 sm:my-1 clock-display truncate"
+              data-clock-tz={clock.timezone}
+            >
+              --:--:--
+            </div>
+
+            <!-- Sublabel / Market Timezone details -->
+            <div class="flex items-center justify-between text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 pt-1 sm:pt-1.5 border-t border-slate-100 dark:border-white/[0.04]">
+              <span class="clock-date truncate">
+                {clock.label || clock.timezone.split('/')[1]}
+              </span>
+              <span class="inline-flex items-center gap-1 font-semibold text-emerald-600 dark:text-emerald-400 shrink-0">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                Live
+              </span>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Horizontal Scrollable Category Quick-Jump Pill Bar with Contained Overflow -->
+  <section aria-label="Quick Jump Category Navigation" class="w-full min-w-0 overflow-hidden">
+    <div class="flex items-center gap-1.5 sm:gap-2.5 bg-slate-100/70 dark:bg-dark-card/60 border border-slate-200/80 dark:border-white/[0.08] p-1.5 sm:p-2 rounded-xl shadow-xs w-full min-w-0">
+      <!-- Left Scroll Button -->
+      <button
+        type="button"
+        id="pill-scroll-left"
+        aria-label="Scroll categories left"
+        class="bg-white dark:bg-dark-elevated hover:bg-brand-orange dark:hover:bg-brand-orange text-slate-600 dark:text-slate-300 hover:text-white dark:hover:text-white border border-slate-200 dark:border-white/10 p-1.5 sm:p-2 rounded-lg shadow-xs shrink-0 flex items-center justify-center transition-all cursor-pointer"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <!-- Scrollable Container (min-w-0 prevents flex item expansion) -->
+      <div
+        id="pill-scroll-container"
+        class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar scroll-smooth flex-1 min-w-0 py-0.5 px-0.5"
+      >
+        {
+          QUICK_JUMP_PILLS.map((pill) => (
+            <a
+              href={`#${pill.slug}`}
+              class="inline-flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium whitespace-nowrap bg-white dark:bg-dark-elevated/70 border border-slate-200/80 dark:border-white/[0.08] text-slate-700 dark:text-slate-200 hover:border-brand-orange hover:text-brand-orange dark:hover:border-brand-orange dark:hover:text-brand-orange shadow-xs transition-colors shrink-0"
+            >
+              <span>{pill.name}</span>
+              {pill.badge && (
+                <span class="px-1.5 py-0.2 rounded-full text-[9px] font-bold uppercase bg-brand-orange/15 text-brand-orange dark:bg-brand-orange/20 dark:text-brand-orange border border-brand-orange/30">
+                  {pill.badge}
+                </span>
+              )}
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- Right Scroll Button -->
+      <button
+        type="button"
+        id="pill-scroll-right"
+        aria-label="Scroll categories right"
+        class="bg-white dark:bg-dark-elevated hover:bg-brand-orange dark:hover:bg-brand-orange text-slate-600 dark:text-slate-300 hover:text-white dark:hover:text-white border border-slate-200 dark:border-white/10 p-1.5 sm:p-2 rounded-lg shadow-xs shrink-0 flex items-center justify-center transition-all cursor-pointer"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  </section>
+</div>
+
+<!-- Lightweight Client-Side Script for Live Time Clocks & Pill Scroll Controls -->
+<script is:inline>
+  (function () {
+    // 1. Live Regional Market Time Clocks
+    function updateMarketClocks() {
+      const now = new Date();
+      const clockElements = document.querySelectorAll('[data-clock-tz]');
+
+      clockElements.forEach((el) => {
+        const timeZone = el.getAttribute('data-clock-tz');
+        if (!timeZone) return;
+
+        try {
+          // Format 24-hour time HH:mm:ss
+          const timeString = new Intl.DateTimeFormat('en-US', {
+            timeZone,
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false,
+          }).format(now);
+
+          el.textContent = timeString;
+
+          // Format short date
+          const card = el.closest('div');
+          if (card) {
+            const dateEl = card.querySelector('.clock-date');
+            if (dateEl) {
+              const dateString = new Intl.DateTimeFormat('en-US', {
+                timeZone,
+                month: 'short',
+                day: 'numeric',
+              }).format(now);
+              const label = el.getAttribute('data-clock-label');
+              dateEl.textContent = label ? `${label} · ${dateString}` : dateString;
+            }
+          }
+        } catch (err) {
+          // Fallback if timezone not supported
+          el.textContent = now.toTimeString().split(' ')[0];
+        }
+      });
+    }
+
+    // Initial update and 1-second interval
+    updateMarketClocks();
+    setInterval(updateMarketClocks, 1000);
+
+    // 2. Horizontal Scroll Pill Bar Controls
+    function setupPillScroll() {
+      const container = document.getElementById('pill-scroll-container');
+      const leftBtn = document.getElementById('pill-scroll-left');
+      const rightBtn = document.getElementById('pill-scroll-right');
+
+      if (container && leftBtn && rightBtn) {
+        leftBtn.addEventListener('click', () => {
+          container.scrollBy({ left: -220, behavior: 'smooth' });
+        });
+        rightBtn.addEventListener('click', () => {
+          container.scrollBy({ left: 220, behavior: 'smooth' });
+        });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupPillScroll);
+    } else {
+      setupPillScroll();
+    }
+  })();
+</script>

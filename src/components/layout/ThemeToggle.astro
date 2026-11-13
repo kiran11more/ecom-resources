@@ -1,0 +1,114 @@
+---
+// 3-Way Theme Toggle: System | Light | Dark
+---
+
+<div
+  class="inline-flex items-center p-1 rounded-full bg-slate-200/90 dark:bg-[#161B26] border border-slate-300/80 dark:border-slate-800 shadow-inner"
+  role="group"
+  aria-label="Theme toggle"
+>
+  <!-- System Theme Button -->
+  <button
+    type="button"
+    data-theme-btn="system"
+    aria-label="System theme"
+    title="System theme"
+    class="theme-btn w-8 h-8 rounded-full flex items-center justify-center transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+  >
+    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+      <line x1="8" y1="21" x2="16" y2="21"></line>
+      <line x1="12" y1="17" x2="12" y2="21"></line>
+    </svg>
+  </button>
+
+  <!-- Light Theme Button -->
+  <button
+    type="button"
+    data-theme-btn="light"
+    aria-label="Light theme"
+    title="Light theme"
+    class="theme-btn w-8 h-8 rounded-full flex items-center justify-center transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+  >
+    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4"></circle>
+      <path d="M12 2v2"></path>
+      <path d="M12 20v2"></path>
+      <path d="m4.93 4.93 1.41 1.41"></path>
+      <path d="m17.66 17.66 1.41 1.41"></path>
+      <path d="M2 12h2"></path>
+      <path d="M20 12h2"></path>
+      <path d="m6.34 17.66-1.41 1.41"></path>
+      <path d="m19.07 4.93-1.41 1.41"></path>
+    </svg>
+  </button>
+
+  <!-- Dark Theme Button -->
+  <button
+    type="button"
+    data-theme-btn="dark"
+    aria-label="Dark theme"
+    title="Dark theme"
+    class="theme-btn w-8 h-8 rounded-full flex items-center justify-center transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+  >
+    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+      <path d="M19 3v4"></path>
+      <path d="M21 5h-4"></path>
+    </svg>
+  </button>
+</div>
+
+<script>
+  function initThemeToggle() {
+    const buttons = document.querySelectorAll<HTMLButtonElement>('[data-theme-btn]');
+    const activeClasses = ['bg-white', 'text-slate-900', 'shadow-sm', 'dark:bg-[#2B3548]', 'dark:text-white'];
+    const inactiveClasses = ['text-slate-600', 'dark:text-slate-400'];
+
+    function getStoredTheme(): 'system' | 'light' | 'dark' {
+      return (localStorage.getItem('theme-preference') as 'system' | 'light' | 'dark') || 'system';
+    }
+
+    function applyTheme(pref: 'system' | 'light' | 'dark') {
+      const isDark =
+        pref === 'dark' ||
+        (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+      document.documentElement.classList.toggle('dark', isDark);
+
+      buttons.forEach((btn) => {
+        const isCurrent = btn.dataset.themeBtn === pref;
+        if (isCurrent) {
+          btn.classList.add(...activeClasses);
+          btn.classList.remove(...inactiveClasses);
+          btn.setAttribute('aria-pressed', 'true');
+        } else {
+          btn.classList.remove(...activeClasses);
+          btn.classList.add(...inactiveClasses);
+          btn.setAttribute('aria-pressed', 'false');
+        }
+      });
+    }
+
+    // Initialize state
+    applyTheme(getStoredTheme());
+
+    // Handle clicks
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const selected = (btn.dataset.themeBtn as 'system' | 'light' | 'dark') || 'system';
+        localStorage.setItem('theme-preference', selected);
+        applyTheme(selected);
+      });
+    });
+
+    // Listen for OS theme changes when in 'system' mode
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if (getStoredTheme() === 'system') {
+        applyTheme('system');
+      }
+    });
+  }
+
+  initThemeToggle();
+</script>

@@ -1,0 +1,20 @@
+{
+  "id": "google-ads",
+  "slug": "google-ads",
+  "name": "Google Ads & Performance Max",
+  "category": "Advertising Platforms",
+  "categorySlug": "advertising-platforms",
+  "description": "Drive high-intent buyer traffic via Google Search, Shopping, YouTube, and Performance Max global campaigns.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://ads.google.com",
+  "internalUrl": "",
+  "hasDetailPage": false,
+  "badge": "Essential PPC",
+  "badgeColor": "bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.9,
+  "iconName": "google"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "legal-brand-registry",
+  "slug": "amazon-brand-registry",
+  "name": "Amazon Brand Registry",
+  "category": "Legal Services",
+  "categorySlug": "legal-services",
+  "description": "Protect intellectual property, unlock A+ Content, Brand Stores, and automated counterfeit takedown tools.",
+  "fullDescription": "Amazon Brand Registry gives trademark owners powerful tools to safeguard intellectual property, build a branded storefront, and access advanced seller analytics. Registered brands gain access to Brand Analytics, A+ Content modules, Sponsored Brands advertising, and automated IP protection algorithms.",
+  "features": [
+    "Predictive protection algorithms that automatically block infringement before publication",
+    "Report a Violation (RAV) tool with fast-track investigation by Amazon legal",
+    "Access to A+ Enhanced Brand Content and immersive Amazon Brand Stores",
+    "Unlock Amazon Brand Analytics for search query reports and market basket analysis",
+    "Project Zero and Transparency serial code barcode counterfeit defense"
+  ],
+  "url": "https://brandservices.amazon.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "IP Protection",
+  "badgeColor": "bg-brand-orange/15 text-brand-orange border-brand-orange/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.9,
+  "iconName": "shield"
+}

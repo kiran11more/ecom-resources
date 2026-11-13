@@ -1,0 +1,20 @@
+{
+  "id": "store-ebay",
+  "slug": "ebay-seller-portal",
+  "name": "eBay Seller Portal",
+  "category": "Store Opening",
+  "categorySlug": "store-opening",
+  "description": "Global secondary marketplace for consumer goods, collectibles, refurb electronics, and cross-border arbitrage.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://www.ebay.com/sl/sell",
+  "internalUrl": "",
+  "hasDetailPage": false,
+  "badge": "Global Marketplace",
+  "badgeColor": "bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.6,
+  "iconName": "store"
+}

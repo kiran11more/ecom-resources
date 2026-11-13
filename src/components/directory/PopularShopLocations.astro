@@ -1,0 +1,244 @@
+---
+interface RegionalMarket {
+  name: string;
+  url: string;
+}
+
+interface ShopLocation {
+  id: string;
+  name: string;
+  code: string;
+  flagCode: string;
+  region: string;
+  marketSize: string;
+  markets: RegionalMarket[];
+}
+
+const POPULAR_LOCATIONS: ShopLocation[] = [
+  {
+    id: 'loc-us',
+    name: 'United States',
+    code: 'US',
+    flagCode: 'us',
+    region: 'North America',
+    marketSize: '$1.1T E-Com Market',
+    markets: [
+      { name: 'Amazon US', url: 'https://www.amazon.com' },
+      { name: 'Walmart', url: 'https://marketplace.walmart.com' },
+      { name: 'TikTok Shop', url: 'https://seller.tiktok.com' },
+      { name: 'eBay US', url: 'https://www.ebay.com' },
+    ],
+  },
+  {
+    id: 'loc-uk',
+    name: 'United Kingdom',
+    code: 'UK',
+    flagCode: 'gb',
+    region: 'Western Europe',
+    marketSize: '£120B E-Com Market',
+    markets: [
+      { name: 'Amazon UK', url: 'https://www.amazon.co.uk' },
+      { name: 'eBay UK', url: 'https://www.ebay.co.uk' },
+      { name: 'TikTok UK', url: 'https://seller-uk.tiktok.com' },
+    ],
+  },
+  {
+    id: 'loc-de',
+    name: 'Germany',
+    code: 'DE',
+    flagCode: 'de',
+    region: 'Central Europe',
+    marketSize: '€100B E-Com Market',
+    markets: [
+      { name: 'Amazon DE', url: 'https://www.amazon.de' },
+      { name: 'Otto Market', url: 'https://www.otto.market' },
+      { name: 'Kaufland', url: 'https://www.kaufland.de' },
+    ],
+  },
+  {
+    id: 'loc-jp',
+    name: 'Japan',
+    code: 'JP',
+    flagCode: 'jp',
+    region: 'East Asia',
+    marketSize: '¥22T E-Com Market',
+    markets: [
+      { name: 'Amazon JP', url: 'https://www.amazon.co.jp' },
+      { name: 'Rakuten Ichiba', url: 'https://www.rakuten.co.jp' },
+      { name: 'Yahoo! Shopping', url: 'https://shopping.yahoo.co.jp' },
+    ],
+  },
+  {
+    id: 'loc-ca',
+    name: 'Canada',
+    code: 'CA',
+    flagCode: 'ca',
+    region: 'North America',
+    marketSize: '$70B E-Com Market',
+    markets: [
+      { name: 'Amazon CA', url: 'https://www.amazon.ca' },
+      { name: 'Walmart CA', url: 'https://www.walmart.ca' },
+      { name: 'Best Buy CA', url: 'https://www.bestbuy.ca' },
+    ],
+  },
+  {
+    id: 'loc-fr',
+    name: 'France',
+    code: 'FR',
+    flagCode: 'fr',
+    region: 'Western Europe',
+    marketSize: '€65B E-Com Market',
+    markets: [
+      { name: 'Amazon FR', url: 'https://www.amazon.fr' },
+      { name: 'Cdiscount', url: 'https://www.cdiscount.com' },
+      { name: 'Fnac Darty', url: 'https://www.fnac.com' },
+    ],
+  },
+  {
+    id: 'loc-ae',
+    name: 'United Arab Emirates',
+    code: 'UAE',
+    flagCode: 'ae',
+    region: 'Middle East',
+    marketSize: 'Fastest GCC Growth',
+    markets: [
+      { name: 'Amazon AE', url: 'https://www.amazon.ae' },
+      { name: 'Noon Marketplace', url: 'https://www.noon.com' },
+    ],
+  },
+  {
+    id: 'loc-sg',
+    name: 'Singapore',
+    code: 'SG',
+    flagCode: 'sg',
+    region: 'Southeast Asia',
+    marketSize: 'SEA Regional Hub',
+    markets: [
+      { name: 'Shopee SG', url: 'https://shopee.sg' },
+      { name: 'Lazada SG', url: 'https://www.lazada.sg' },
+      { name: 'Amazon SG', url: 'https://www.amazon.sg' },
+    ],
+  },
+  {
+    id: 'loc-au',
+    name: 'Australia',
+    code: 'AU',
+    flagCode: 'au',
+    region: 'Oceania',
+    marketSize: '$50B E-Com Market',
+    markets: [
+      { name: 'Amazon AU', url: 'https://www.amazon.com.au' },
+      { name: 'eBay AU', url: 'https://www.ebay.com.au' },
+      { name: 'Catch.com.au', url: 'https://www.catch.com.au' },
+    ],
+  },
+  {
+    id: 'loc-eu',
+    name: 'European Union',
+    code: 'EU',
+    flagCode: 'eu',
+    region: 'Pan-European',
+    marketSize: 'Single Market (Pan-EU)',
+    markets: [
+      { name: 'Pan-EU FBA', url: 'https://sell.amazon.de/fulfillment-by-amazon/pan-european' },
+      { name: 'Allegro PL', url: 'https://allegro.pl' },
+      { name: 'Bol.com NL', url: 'https://www.bol.com' },
+    ],
+  },
+];
+---
+
+<section
+  id="popular-shop-locations"
+  class="bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs space-y-4 scroll-mt-36 transition-colors w-full min-w-0"
+  aria-label="Popular Shop Locations and Regional Hubs"
+>
+  <!-- Section Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3.5 border-b border-slate-100 dark:border-white/[0.06] gap-3">
+    <div>
+      <div class="flex items-center gap-2.5">
+        <span class="w-8 h-8 rounded-xl bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+          <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </span>
+        <h2 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+          Popular Shop Locations & Regional Hubs
+        </h2>
+        <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30 hidden sm:inline-block">
+          10 Regional Hubs
+        </span>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+        Direct launchpads to dominant regional e-commerce marketplaces and seller central portals worldwide.
+      </p>
+    </div>
+
+    <!-- Live Status Pill -->
+    <div class="flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-lg border border-emerald-500/20 shrink-0 self-start sm:self-auto">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span>Cross-Border Market Access</span>
+    </div>
+  </div>
+
+  <!-- 10-Hub Country Flag Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3.5 sm:gap-4 w-full min-w-0">
+    {POPULAR_LOCATIONS.map((loc) => (
+      <div
+        class="h-full w-full bg-slate-50/70 dark:bg-dark-elevated/40 border border-slate-200/90 dark:border-white/[0.08] hover:border-brand-orange/60 dark:hover:border-brand-orange/60 rounded-2xl p-4 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group min-w-0 text-left relative"
+      >
+        <div>
+          <!-- Country Top Row: Flag + Name + Code -->
+          <div class="flex items-center justify-between gap-2.5 mb-2.5">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <img
+                src={`https://flagcdn.com/w80/${loc.flagCode}.png`}
+                alt={`${loc.name} Flag`}
+                class="w-7 h-5 object-cover rounded shadow-2xs group-hover:scale-105 transition-transform shrink-0"
+                loading="lazy"
+              />
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors truncate">
+                {loc.name}
+              </h3>
+            </div>
+            <span class="px-1.5 py-0.2 rounded font-mono text-[10px] font-bold bg-slate-200/70 dark:bg-white/10 text-slate-700 dark:text-slate-300 shrink-0">
+              {loc.code}
+            </span>
+          </div>
+
+          <!-- Market Size Metric -->
+          <p class="text-[11px] font-medium text-slate-500 dark:text-slate-400 mb-3">
+            {loc.region} • <span class="text-emerald-600 dark:text-emerald-400 font-semibold">{loc.marketSize}</span>
+          </p>
+
+          <!-- Dominant Marketplace Quick Pills -->
+          <div class="flex flex-wrap gap-1.5">
+            {loc.markets.map((m) => (
+              <a
+                href={m.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white dark:bg-[#131924] border border-slate-200/80 dark:border-white/[0.08] hover:border-brand-orange/60 hover:text-brand-orange text-slate-700 dark:text-slate-200 shadow-2xs transition-colors"
+                title={`Open ${m.name}`}
+              >
+                <span>{m.name}</span>
+                <svg class="w-2.5 h-2.5 opacity-40 group-hover:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Bottom Status -->
+        <div class="mt-4 pt-2.5 border-t border-slate-200/70 dark:border-white/[0.05] flex items-center justify-between text-[11px] text-slate-400">
+          <span class="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            Active Hub
+          </span>
+          <span class="font-mono">{loc.markets.length} Channels</span>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

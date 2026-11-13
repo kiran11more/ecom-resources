@@ -1,0 +1,26 @@
+{
+  "id": "activecampaign",
+  "slug": "activecampaign",
+  "name": "ActiveCampaign",
+  "category": "Email Marketing",
+  "categorySlug": "email-marketing",
+  "description": "Advanced marketing automation, customer segmentation, and visual workflow builder for scaling e-commerce brands.",
+  "fullDescription": "ActiveCampaign offers industry-leading marketing automation and CRM capabilities. It allows 7- and 8-figure e-commerce brands to build intricate condition-based customer journeys, sync purchase history from multiple storefronts, and trigger timely repurchase reminders based on individual consumption cycles.",
+  "features": [
+    "Over 900+ pre-built marketing and customer journey automation recipes",
+    "Deep Shopify and WooCommerce purchase history sync with RFM analysis",
+    "Conditional content logic allowing personalized product recommendations",
+    "Built-in CRM with deal tracking, automated sales stages, and win probability",
+    "Comprehensive attribution modeling to measure exact campaign ROI"
+  ],
+  "url": "https://www.activecampaign.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "Automation",
+  "badgeColor": "bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border-cyan-500/30",
+  "isVerified": true,
+  "pricing": "Paid",
+  "discountText": "",
+  "rating": 4.9,
+  "iconName": "mail"
+}

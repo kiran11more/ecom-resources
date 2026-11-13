@@ -1,0 +1,20 @@
+{
+  "id": "world-port-codes",
+  "slug": "world-port-codes",
+  "name": "World Port Codes (UN/LOCODE)",
+  "category": "Cross-Border Information",
+  "categorySlug": "cross-border-information",
+  "description": "Lookup international seaport codes, airport cargo terminals, and customs clearance facilities worldwide.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://ecomresources.info/world-port-codes/",
+  "internalUrl": "/information/world-port-codes",
+  "hasDetailPage": false,
+  "badge": "Freight Code",
+  "badgeColor": "bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.8,
+  "iconName": "anchor"
+}

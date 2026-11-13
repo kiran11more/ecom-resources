@@ -1,0 +1,20 @@
+{
+  "id": "chatgpt-prompts",
+  "slug": "chatgpt-prompts",
+  "name": "ChatGPT E-Com Prompts Library",
+  "category": "Everyday Tools",
+  "categorySlug": "everyday-tools",
+  "description": "Curated repository of prompts for Amazon listing optimization, bullet points, negative review responses, and PPC ad copy.",
+  "fullDescription": "",
+  "features": [],
+  "url": "https://ecomresources.info/prompts",
+  "internalUrl": "/tools/chatgpt-prompts",
+  "hasDetailPage": false,
+  "badge": "AI Powered",
+  "badgeColor": "bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border-cyan-500/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.9,
+  "iconName": "sparkles"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "logistics-shipbob",
+  "slug": "shipbob",
+  "name": "ShipBob 3PL Warehousing",
+  "category": "Warehouse & Logistics",
+  "categorySlug": "warehouse-logistics",
+  "description": "Omnichannel fulfillment for Shopify, Walmart, and TikTok Shop with 50+ warehouses across US, UK, and EU.",
+  "fullDescription": "ShipBob is a premier tech-enabled 3PL that powers fulfillment for fast-growing direct-to-consumer and multi-channel brands. With a distributed network of dozens of fulfillment centers across the United States, Canada, Europe, and Australia, brands can split inventory to achieve 2-day ground shipping nationwide.",
+  "features": [
+    "Distributed inventory network across 50+ fulfillment centers globally",
+    "Native 2-day ground delivery program for Shopify, TikTok Shop, and Walmart",
+    "Proprietary warehouse management software (WMS) with real-time stock levels",
+    "Custom unboxing experiences including branded boxes, stickers, and inserts",
+    "Automated order routing to the closest geographic fulfillment center"
+  ],
+  "url": "https://www.shipbob.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "Omnichannel 3PL",
+  "badgeColor": "bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border-cyan-500/30",
+  "isVerified": true,
+  "pricing": "Paid",
+  "discountText": "",
+  "rating": 4.7,
+  "iconName": "truck"
+}

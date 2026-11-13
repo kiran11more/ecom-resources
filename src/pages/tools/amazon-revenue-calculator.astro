@@ -1,0 +1,405 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+---
+
+<BaseLayout
+  title="Amazon FBA Revenue & Profit Margin Calculator — Ecom Resources"
+  description="Free interactive Amazon FBA revenue calculator. Estimate referral fees, FBA pick & pack costs, net profit margins, ROI, and monthly profitability in real time."
+>
+  <Header />
+
+  <!-- Breadcrumbs -->
+  <div class="w-full bg-white dark:bg-[#131924] border-b border-slate-200/80 dark:border-white/[0.06] py-3">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+      <a href="/" class="hover:text-brand-orange transition-colors">Home</a>
+      <span>/</span>
+      <a href="/tools" class="hover:text-brand-orange transition-colors">Tools</a>
+      <span>/</span>
+      <span class="text-slate-900 dark:text-white font-semibold">Amazon Revenue Calculator</span>
+    </div>
+  </div>
+
+  <main class="w-full max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 flex-1">
+    <!-- Tool Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200/90 dark:border-white/[0.08]">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-base shrink-0">
+            📊
+          </span>
+          <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            Amazon FBA Revenue & Profit Margin Calculator
+          </h1>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          Simulate landed unit economics, Amazon referral fees, and FBA fulfillment deductions to forecast real profit margins.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <button
+          type="button"
+          id="reset-calc-btn"
+          class="px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-orange bg-slate-100 dark:bg-white/[0.05] rounded-lg transition-colors cursor-pointer"
+        >
+          Reset Defaults
+        </button>
+      </div>
+    </div>
+
+    <!-- Calculator Workspace Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <!-- Left Column: Input Form (7 Cols) -->
+      <div class="lg:col-span-7 bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-5 sm:p-6 shadow-xs space-y-5">
+        <h2 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2 border-b border-slate-100 dark:border-white/[0.05] pb-3">
+          <span>⚙️</span>
+          <span>Product Pricing & Cost Inputs</span>
+        </h2>
+
+        <!-- Input 1: Item Selling Price -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-xs">
+            <label for="calc-selling-price" class="font-bold text-slate-800 dark:text-slate-200">
+              Item Selling Price on Amazon ($)
+            </label>
+            <span class="text-slate-400">Retail Listing Price</span>
+          </div>
+          <div class="relative">
+            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-400">$</span>
+            <input
+              type="number"
+              id="calc-selling-price"
+              step="0.01"
+              min="0"
+              value="29.99"
+              class="w-full pl-8 pr-4 py-2 text-sm sm:text-base font-mono font-bold bg-slate-50 dark:bg-dark-elevated rounded-xl border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange transition-colors"
+            />
+          </div>
+        </div>
+
+        <!-- Input 2 & 3: Manufacturing Cost & Inbound Shipping (2-Cols) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="space-y-1.5">
+            <label for="calc-cogs" class="font-bold text-xs text-slate-800 dark:text-slate-200 block">
+              Factory Landed Cost / COGS ($)
+            </label>
+            <div class="relative">
+              <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-400">$</span>
+              <input
+                type="number"
+                id="calc-cogs"
+                step="0.01"
+                min="0"
+                value="7.50"
+                class="w-full pl-8 pr-4 py-2 text-sm font-mono font-bold bg-slate-50 dark:bg-dark-elevated rounded-xl border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange transition-colors"
+              />
+            </div>
+            <span class="text-[11px] text-slate-400 block">Unit sample or wholesale price</span>
+          </div>
+
+          <div class="space-y-1.5">
+            <label for="calc-inbound-shipping" class="font-bold text-xs text-slate-800 dark:text-slate-200 block">
+              Inbound Freight to FBA ($)
+            </label>
+            <div class="relative">
+              <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-400">$</span>
+              <input
+                type="number"
+                id="calc-inbound-shipping"
+                step="0.01"
+                min="0"
+                value="1.80"
+                class="w-full pl-8 pr-4 py-2 text-sm font-mono font-bold bg-slate-50 dark:bg-dark-elevated rounded-xl border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange transition-colors"
+              />
+            </div>
+            <span class="text-[11px] text-slate-400 block">Estimated ocean/air freight per unit</span>
+          </div>
+        </div>
+
+        <!-- Input 4: Amazon Referral Fee % -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-xs">
+            <label for="calc-referral-fee" class="font-bold text-slate-800 dark:text-slate-200">
+              Amazon Referral Fee (%)
+            </label>
+            <span class="text-xs font-mono font-bold text-brand-orange" id="calc-referral-dollar">$4.50 / unit</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <input
+              type="number"
+              id="calc-referral-fee"
+              step="0.5"
+              min="0"
+              max="100"
+              value="15.0"
+              class="w-24 px-3 py-2 text-sm font-mono font-bold bg-slate-50 dark:bg-dark-elevated rounded-xl border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange"
+            />
+            <span class="text-sm font-bold text-slate-400">%</span>
+            <div class="flex items-center gap-1.5 ml-auto text-[11px]">
+              <button type="button" class="preset-ref px-2 py-1 bg-slate-100 dark:bg-white/5 hover:bg-brand-orange/15 rounded text-slate-600 dark:text-slate-300" data-ref="8">Electronics (8%)</button>
+              <button type="button" class="preset-ref px-2 py-1 bg-slate-100 dark:bg-white/5 hover:bg-brand-orange/15 rounded text-slate-600 dark:text-slate-300" data-ref="15">General (15%)</button>
+              <button type="button" class="preset-ref px-2 py-1 bg-slate-100 dark:bg-white/5 hover:bg-brand-orange/15 rounded text-slate-600 dark:text-slate-300" data-ref="17">Apparel (17%)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Input 5: FBA Fulfillment Fee ($) + Size Presets -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between text-xs">
+            <label for="calc-fba-fee" class="font-bold text-slate-800 dark:text-slate-200">
+              Amazon FBA Fulfillment Fee ($)
+            </label>
+            <span class="text-slate-400">Pick, Pack & Weight Fee</span>
+          </div>
+          <div class="relative">
+            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-400">$</span>
+            <input
+              type="number"
+              id="calc-fba-fee"
+              step="0.01"
+              min="0"
+              value="4.75"
+              class="w-full pl-8 pr-4 py-2 text-sm font-mono font-bold bg-slate-50 dark:bg-dark-elevated rounded-xl border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange transition-colors"
+            />
+          </div>
+
+          <!-- Common FBA Tier Quick Buttons -->
+          <div class="flex items-center gap-1.5 flex-wrap pt-1 text-[11px]">
+            <span class="text-slate-400 text-xs mr-1">FBA Tiers:</span>
+            <button type="button" class="preset-fba px-2 py-1 rounded bg-slate-100 dark:bg-white/5 hover:bg-brand-orange/15 text-slate-700 dark:text-slate-300 transition-colors" data-fba="3.22">Small Standard (&lt;16oz: $3.22)</button>
+            <button type="button" class="preset-fba px-2 py-1 rounded bg-slate-100 dark:bg-white/5 hover:bg-brand-orange/15 text-slate-700 dark:text-slate-300 transition-colors" data-fba="4.75">Large Standard 1-2 lb ($4.75)</button>
+            <button type="button" class="preset-fba px-2 py-1 rounded bg-slate-100 dark:bg-white/5 hover:bg-brand-orange/15 text-slate-700 dark:text-slate-300 transition-colors" data-fba="5.40">Large Standard 2-3 lb ($5.40)</button>
+            <button type="button" class="preset-fba px-2 py-1 rounded bg-slate-100 dark:bg-white/5 hover:bg-brand-orange/15 text-slate-700 dark:text-slate-300 transition-colors" data-fba="9.73">Small Oversize ($9.73)</button>
+          </div>
+        </div>
+
+        <!-- Input 6: Monthly Estimated Volume -->
+        <div class="space-y-1.5 pt-2 border-t border-slate-100 dark:border-white/[0.05]">
+          <div class="flex items-center justify-between text-xs">
+            <label for="calc-units-sold" class="font-bold text-slate-800 dark:text-slate-200">
+              Estimated Monthly Sales Volume (Units)
+            </label>
+            <span class="text-slate-400">For aggregate monthly earnings</span>
+          </div>
+          <input
+            type="number"
+            id="calc-units-sold"
+            step="10"
+            min="1"
+            value="300"
+            class="w-full px-4 py-2 text-sm font-mono font-bold bg-slate-50 dark:bg-dark-elevated rounded-xl border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-orange"
+          />
+        </div>
+      </div>
+
+      <!-- Right Column: Live Output Analytics Panel (5 Cols) -->
+      <div class="lg:col-span-5 space-y-5">
+        <!-- Hero Profit Highlight Card -->
+        <div class="bg-gradient-to-br from-emerald-600 via-teal-700 to-slate-900 text-white rounded-2xl p-5 sm:p-6 shadow-md relative overflow-hidden">
+          <div class="relative z-10 space-y-4">
+            <span class="text-xs uppercase font-bold tracking-wider text-emerald-200 block">
+              Net Unit Economics
+            </span>
+
+            <div class="flex items-baseline justify-between">
+              <div>
+                <span class="text-xs text-emerald-100/80 block">Net Profit / Unit</span>
+                <span class="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight" id="out-net-profit">
+                  $11.44
+                </span>
+              </div>
+
+              <div class="text-right">
+                <span class="text-xs text-emerald-100/80 block">Net Margin</span>
+                <span class="text-2xl sm:text-3xl font-extrabold font-mono text-emerald-300" id="out-net-margin">
+                  38.1%
+                </span>
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-white/15 flex items-center justify-between text-xs font-medium text-emerald-100">
+              <span>Return on Investment (ROI):</span>
+              <span class="font-bold font-mono text-white text-sm" id="out-roi">123.0%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detailed Financial Metrics Grid -->
+        <div class="bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-5 shadow-xs space-y-4">
+          <h3 class="text-sm font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-white/[0.05] pb-2.5">
+            Unit Breakdown & Monthly Forecast
+          </h3>
+
+          <div class="space-y-3 text-xs">
+            <div class="flex items-center justify-between">
+              <span class="text-slate-500 dark:text-slate-400">Total Amazon Deductions:</span>
+              <span class="font-bold font-mono text-rose-600 dark:text-rose-400" id="out-total-fees">$9.25</span>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <span class="text-slate-500 dark:text-slate-400">Total Landed Product Cost:</span>
+              <span class="font-bold font-mono text-slate-900 dark:text-white" id="out-landed-cost">$9.30</span>
+            </div>
+
+            <div class="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-white/[0.05]">
+              <span class="font-bold text-slate-700 dark:text-slate-300">Estimated Monthly Gross:</span>
+              <span class="font-bold font-mono text-slate-900 dark:text-white text-sm" id="out-monthly-gross">$8,997.00</span>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-emerald-600 dark:text-emerald-400">Estimated Monthly Net Profit:</span>
+              <span class="font-extrabold font-mono text-emerald-600 dark:text-emerald-400 text-base" id="out-monthly-net">$3,432.00</span>
+            </div>
+          </div>
+
+          <!-- Dynamic Visual Revenue Distribution Meter -->
+          <div class="pt-3 border-t border-slate-100 dark:border-white/[0.05] space-y-2">
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
+              Revenue Allocation
+            </span>
+            <div class="w-full h-3 rounded-full bg-slate-100 dark:bg-white/10 flex overflow-hidden">
+              <div id="bar-cogs" class="bg-blue-500 h-full transition-all" style="width: 25%;" title="COGS"></div>
+              <div id="bar-ship" class="bg-indigo-500 h-full transition-all" style="width: 6%;" title="Inbound Shipping"></div>
+              <div id="bar-fees" class="bg-rose-500 h-full transition-all" style="width: 31%;" title="Amazon Fees"></div>
+              <div id="bar-profit" class="bg-emerald-500 h-full transition-all" style="width: 38%;" title="Net Profit"></div>
+            </div>
+            <div class="flex items-center justify-between text-[10px] text-slate-400 pt-1">
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-blue-500"></span> COGS</span>
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-indigo-500"></span> Inbound</span>
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-500"></span> FBA Fees</span>
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Profit</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reference Guide Note -->
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-dark-elevated/40 border border-slate-200/60 dark:border-white/[0.04] text-xs text-slate-500 dark:text-slate-400 space-y-1">
+          <span class="font-bold text-slate-700 dark:text-slate-200 block">💡 Seller Benchmark</span>
+          <p>Healthy private label products typically target at least <strong>30%+ Net Profit Margin</strong> and <strong>100%+ ROI</strong> to buffer against seasonal ad CPC spikes and periodic promotional discounts.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script is:inline>
+  (() => {
+    // Inputs
+    const priceInput = document.getElementById('calc-selling-price');
+    const cogsInput = document.getElementById('calc-cogs');
+    const shippingInput = document.getElementById('calc-inbound-shipping');
+    const referralInput = document.getElementById('calc-referral-fee');
+    const fbaInput = document.getElementById('calc-fba-fee');
+    const unitsInput = document.getElementById('calc-units-sold');
+    const resetBtn = document.getElementById('reset-calc-btn');
+
+    // Outputs
+    const refDollarText = document.getElementById('calc-referral-dollar');
+    const outNetProfit = document.getElementById('out-net-profit');
+    const outNetMargin = document.getElementById('out-net-margin');
+    const outRoi = document.getElementById('out-roi');
+    const outTotalFees = document.getElementById('out-total-fees');
+    const outLandedCost = document.getElementById('out-landed-cost');
+    const outMonthlyGross = document.getElementById('out-monthly-gross');
+    const outMonthlyNet = document.getElementById('out-monthly-net');
+
+    // Bars
+    const barCogs = document.getElementById('bar-cogs');
+    const barShip = document.getElementById('bar-ship');
+    const barFees = document.getElementById('bar-fees');
+    const barProfit = document.getElementById('bar-profit');
+
+    function calculate() {
+      const price = parseFloat(priceInput.value) || 0;
+      const cogs = parseFloat(cogsInput.value) || 0;
+      const ship = parseFloat(shippingInput.value) || 0;
+      const refPct = (parseFloat(referralInput.value) || 0) / 100;
+      const fba = parseFloat(fbaInput.value) || 0;
+      const units = parseInt(unitsInput.value, 10) || 0;
+
+      const refFee = price * refPct;
+      const totalAmazonFees = refFee + fba;
+      const totalLandedCost = cogs + ship;
+      const netProfitUnit = price - totalAmazonFees - totalLandedCost;
+      const netMargin = price > 0 ? (netProfitUnit / price) * 100 : 0;
+      const roi = totalLandedCost > 0 ? (netProfitUnit / totalLandedCost) * 100 : 0;
+
+      const monthlyGross = price * units;
+      const monthlyNet = netProfitUnit * units;
+
+      // Update text outputs
+      if (refDollarText) refDollarText.textContent = `$${refFee.toFixed(2)} / unit`;
+      if (outNetProfit) {
+        outNetProfit.textContent = `${netProfitUnit < 0 ? '-' : ''}$${Math.abs(netProfitUnit).toFixed(2)}`;
+        outNetProfit.className = `text-3xl sm:text-4xl font-extrabold font-mono tracking-tight ${netProfitUnit < 0 ? 'text-rose-300' : 'text-white'}`;
+      }
+      if (outNetMargin) outNetMargin.textContent = `${netMargin.toFixed(1)}%`;
+      if (outRoi) outRoi.textContent = `${roi.toFixed(1)}%`;
+      if (outTotalFees) outTotalFees.textContent = `$${totalAmazonFees.toFixed(2)}`;
+      if (outLandedCost) outLandedCost.textContent = `$${totalLandedCost.toFixed(2)}`;
+      if (outMonthlyGross) outMonthlyGross.textContent = `$${monthlyGross.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      if (outMonthlyNet) {
+        outMonthlyNet.textContent = `${monthlyNet < 0 ? '-' : ''}$${Math.abs(monthlyNet).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      }
+
+      // Update progress bar distribution
+      if (price > 0 && netProfitUnit > 0) {
+        const cogsPct = Math.min(100, Math.max(0, (cogs / price) * 100));
+        const shipPct = Math.min(100, Math.max(0, (ship / price) * 100));
+        const feesPct = Math.min(100, Math.max(0, (totalAmazonFees / price) * 100));
+        const profPct = Math.min(100, Math.max(0, (netProfitUnit / price) * 100));
+
+        if (barCogs) barCogs.style.width = `${cogsPct}%`;
+        if (barShip) barShip.style.width = `${shipPct}%`;
+        if (barFees) barFees.style.width = `${feesPct}%`;
+        if (barProfit) barProfit.style.width = `${profPct}%`;
+      }
+    }
+
+    [priceInput, cogsInput, shippingInput, referralInput, fbaInput, unitsInput].forEach((el) => {
+      if (el) el.addEventListener('input', calculate);
+    });
+
+    // Preset Referral buttons
+    document.querySelectorAll('.preset-ref').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const val = btn.getAttribute('data-ref');
+        if (referralInput && val) {
+          referralInput.value = val;
+          calculate();
+        }
+      });
+    });
+
+    // Preset FBA buttons
+    document.querySelectorAll('.preset-fba').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const val = btn.getAttribute('data-fba');
+        if (fbaInput && val) {
+          fbaInput.value = val;
+          calculate();
+        }
+      });
+    });
+
+    // Reset button
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        if (priceInput) priceInput.value = '29.99';
+        if (cogsInput) cogsInput.value = '7.50';
+        if (shippingInput) shippingInput.value = '1.80';
+        if (referralInput) referralInput.value = '15.0';
+        if (fbaInput) fbaInput.value = '4.75';
+        if (unitsInput) unitsInput.value = '300';
+        calculate();
+      });
+    }
+
+    // Initialize
+    calculate();
+  })();
+</script>

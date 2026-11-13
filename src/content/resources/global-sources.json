@@ -1,0 +1,26 @@
+{
+  "id": "sourcing-globalsources",
+  "slug": "global-sources",
+  "name": "Global Sources B2B",
+  "category": "Sourcing",
+  "categorySlug": "sourcing",
+  "description": "High-end verified suppliers, trade shows, consumer electronics, and smart hardware sourcing.",
+  "fullDescription": "Global Sources connects international buyers with premium, verified Asian manufacturers through its omnichannel B2B platform and world-renowned Hong Kong trade shows. It specializes in consumer electronics, mobile accessories, lifestyle goods, and smart hardware.",
+  "features": [
+    "Curated network of verified suppliers and export-oriented OEM/ODM factories",
+    "Flagship Hong Kong trade show match-making and VIP buyer summits",
+    "In-depth industry research and product trend forecasting whitepapers",
+    "Sample order support with certified international safety compliance testing",
+    "Direct communication channel with engineering teams for custom development"
+  ],
+  "url": "https://www.globalsources.com",
+  "internalUrl": "",
+  "hasDetailPage": true,
+  "badge": "Smart Hardware",
+  "badgeColor": "bg-purple-500/15 text-purple-600 dark:text-purple-400 border-purple-500/30",
+  "isVerified": true,
+  "pricing": "Free",
+  "discountText": "",
+  "rating": 4.7,
+  "iconName": "factory"
+}
