@@ -3,9 +3,12 @@ import path from 'node:path';
 
 console.log('=== Verifying Header Menu Links, News Ticker, List Resource & Login Modals ===\n');
 
-const distIndex = path.resolve('dist/index.html');
+let distIndex = path.resolve('dist/client/index.html');
 if (!fs.existsSync(distIndex)) {
-  console.error('Error: dist/index.html not found! Run npm run build first.');
+  distIndex = path.resolve('dist/index.html');
+}
+if (!fs.existsSync(distIndex)) {
+  console.error('Error: dist/client/index.html or dist/index.html not found! Run npm run build first.');
   process.exit(1);
 }
 
@@ -227,7 +230,11 @@ if (html.includes('34 Vetted Tools') && html.includes('whitespace-nowrap shrink-
   process.exit(1);
 }
 
-const subpageHtml = fs.readFileSync(path.resolve('dist/information/country-codes/index.html'), 'utf8');
+let subpagePath = path.resolve('dist/client/information/country-codes/index.html');
+if (!fs.existsSync(subpagePath)) {
+  subpagePath = path.resolve('dist/information/country-codes/index.html');
+}
+const subpageHtml = fs.readFileSync(subpagePath, 'utf8');
 if (html.includes('id="global-back-to-top"') && subpageHtml.includes('id="global-back-to-top"')) {
   console.log('✓ Global Back-to-Top button (#global-back-to-top) present across homepage and subpages');
 } else {

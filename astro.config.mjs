@@ -1,15 +1,17 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import keystatic from '@keystatic/astro';
-
-// Mount react() and keystatic() ONLY in development mode so production static builds stay clean
-const isDev = process.env.NODE_ENV === 'development';
+import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
-  site: 'https://ecomresources.info',
+  site: 'https://ecom-resources.pages.dev',
   output: 'static',
-  integrations: isDev ? [react(), keystatic()] : [],
+  adapter: cloudflare({
+    prerenderEnvironment: 'node',
+  }),
+  integrations: [react(), keystatic()],
   devToolbar: {
     enabled: false,
   },
 });
+

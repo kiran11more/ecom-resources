@@ -1,9 +1,12 @@
 import { config, fields, collection } from '@keystatic/core';
 
 export default config({
-  storage: {
-    kind: 'local',
-  },
+  storage: import.meta.env.DEV
+    ? { kind: 'local' }
+    : {
+        kind: 'github',
+        repo: 'kiran11more/ecom-resources',
+      },
   collections: {
     resources: collection({
       label: 'Directory Resources',
