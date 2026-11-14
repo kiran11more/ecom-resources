@@ -86,45 +86,45 @@ const FLAG_URLS: Record<string, string> = {
             target="_blank"
             rel="noopener noreferrer"
             data-ip-type={portal.type}
-            class="ip-portal-card group flex flex-col justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-dark-elevated/60 border border-slate-200/70 dark:border-white/[0.06] hover:border-purple-500/50 hover:bg-slate-100/70 dark:hover:bg-white/[0.04] transition-all shadow-2xs hover:shadow-xs min-h-[148px]"
+            class="ip-portal-card group flex flex-col justify-between p-4 sm:p-4.5 rounded-xl bg-slate-50 dark:bg-dark-elevated/60 border border-slate-200/70 dark:border-white/[0.06] hover:border-purple-500/50 hover:bg-slate-100/70 dark:hover:bg-white/[0.04] transition-all shadow-2xs hover:shadow-xs min-h-[172px]"
           >
             <!-- Top: Icon & Badge -->
             <div>
-              <div class="flex items-center justify-between gap-2">
-                <div class="w-7 h-7 rounded-lg overflow-hidden bg-white dark:bg-white/10 border border-black/10 dark:border-white/10 flex items-center justify-center shrink-0 shadow-2xs">
+              <div class="flex items-center justify-between gap-2 mb-2.5">
+                <div class="w-10 h-10 rounded-xl overflow-hidden bg-white dark:bg-white/10 border border-slate-200/80 dark:border-white/10 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
                   <img
                     src={faviconUrl}
                     alt=""
-                    class="w-4 h-4 object-contain select-none"
+                    class="w-5.5 h-5.5 object-contain select-none"
                     loading="lazy"
                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                   />
-                  <span class="hidden text-[10px] font-extrabold text-purple-600 dark:text-purple-400 select-none">
+                  <span class="hidden text-xs sm:text-sm font-extrabold text-purple-600 dark:text-purple-400 select-none">
                     {monogram}
                   </span>
                 </div>
 
-                <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-300 border border-purple-500/20 shrink-0">
+                <span class="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-300 border border-purple-500/20 shrink-0 tracking-wide">
                   {portal.badge}
                 </span>
               </div>
 
-              <!-- Title & Description -->
-              <h3 class="text-xs font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors line-clamp-2 mt-2 leading-snug">
+              <!-- Title & Description (Consistent font sizes with ToolTile & ExtensionsDeals) -->
+              <h3 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors line-clamp-1 leading-snug">
                 {portal.name}
               </h3>
-              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+              <p class="text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 mt-1.5 line-clamp-2 leading-relaxed min-h-[2.5rem]">
                 {portal.description}
               </p>
             </div>
 
             <!-- Card Footer: Country Flag / Jurisdiction & External Arrow -->
-            <div class="pt-2.5 mt-2 border-t border-slate-200/50 dark:border-white/[0.04] flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
+            <div class="pt-3 mt-3 border-t border-slate-200/60 dark:border-white/[0.05] flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
               <span class="flex items-center gap-1.5 font-medium truncate">
                 <img
                   src={flagSrc}
                   alt={portal.jurisdiction}
-                  class="w-3.5 h-2.5 object-cover rounded-2xs border border-black/10 dark:border-white/10 shrink-0"
+                  class="w-4 h-3 object-cover rounded-2xs border border-black/10 dark:border-white/10 shrink-0"
                   loading="lazy"
                 />
                 <span class="truncate">{portal.jurisdiction}</span>

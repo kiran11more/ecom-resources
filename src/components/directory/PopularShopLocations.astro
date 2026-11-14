@@ -197,7 +197,7 @@ const POPULAR_LOCATIONS: ShopLocation[] = [
                 class="w-7 h-5 object-cover rounded shadow-2xs group-hover:scale-105 transition-transform shrink-0"
                 loading="lazy"
               />
-              <h3 class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors truncate">
+              <h3 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors truncate">
                 {loc.name}
               </h3>
             </div>
@@ -207,7 +207,7 @@ const POPULAR_LOCATIONS: ShopLocation[] = [
           </div>
 
           <!-- Market Size Metric -->
-          <p class="text-[11px] font-medium text-slate-500 dark:text-slate-400 mb-3">
+          <p class="text-xs sm:text-[13px] font-medium text-slate-500 dark:text-slate-400 mb-3">
             {loc.region} • <span class="text-emerald-600 dark:text-emerald-400 font-semibold">{loc.marketSize}</span>
           </p>
 
@@ -218,7 +218,7 @@ const POPULAR_LOCATIONS: ShopLocation[] = [
                 href={m.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white dark:bg-[#131924] border border-slate-200/80 dark:border-white/[0.08] hover:border-brand-orange/60 hover:text-brand-orange text-slate-700 dark:text-slate-200 shadow-2xs transition-colors"
+                class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-white dark:bg-[#131924] border border-slate-200/80 dark:border-white/[0.08] hover:border-brand-orange/60 hover:text-brand-orange text-slate-700 dark:text-slate-200 shadow-2xs transition-colors"
                 title={`Open ${m.name}`}
               >
                 <span>{m.name}</span>
@@ -231,7 +231,7 @@ const POPULAR_LOCATIONS: ShopLocation[] = [
         </div>
 
         <!-- Bottom Status -->
-        <div class="mt-4 pt-2.5 border-t border-slate-200/70 dark:border-white/[0.05] flex items-center justify-between text-[11px] text-slate-400">
+        <div class="mt-4 pt-2.5 border-t border-slate-200/70 dark:border-white/[0.05] flex items-center justify-between text-xs text-slate-400">
           <span class="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-medium">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
             Active Hub
