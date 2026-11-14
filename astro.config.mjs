@@ -7,6 +7,7 @@ export default defineConfig({
   site: 'https://ecom-resources.pages.dev',
   output: 'static',
   adapter: cloudflare({
+    imageService: 'compile',
     prerenderEnvironment: 'node',
   }),
   integrations: [react(), keystatic()],
@@ -14,4 +15,3 @@ export default defineConfig({
     enabled: false,
   },
 });
-

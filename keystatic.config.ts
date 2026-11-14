@@ -1,11 +1,33 @@
 import { config, fields, collection } from '@keystatic/core';
 
+// Safely resolve environment variables across Node, Vite, and Cloudflare Pages runtimes
+function getEnv(key: string): string | undefined {
+  try {
+    if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env[key]) {
+      return import.meta.env[key];
+    }
+  } catch {}
+  try {
+    if (typeof process !== 'undefined' && process.env && process.env[key]) {
+      return process.env[key];
+    }
+  } catch {}
+  return undefined;
+}
+
+const isDev = Boolean(
+  (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.DEV) ||
+  (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'development')
+);
+
+const repo = (getEnv('KEYSTATIC_REPO') || getEnv('PUBLIC_KEYSTATIC_REPO') || 'kiran11more/ecom-resources') as `${string}/${string}`;
+
 export default config({
-  storage: import.meta.env.DEV
+  storage: isDev
     ? { kind: 'local' }
     : {
         kind: 'github',
-        repo: 'kiran11more/ecom-resources',
+        repo,
       },
   collections: {
     resources: collection({
