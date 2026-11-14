@@ -39,6 +39,9 @@ const BOT_PROTECTED_DOMAINS = [
   'twitter.com',
   'camelcamelcamel.com',
   'tiktok.com',
+  'espacenet.com',
+  'cnipa.gov.cn',
+  'inpit.go.jp',
 ];
 
 function isBotProtected(urlStr) {
@@ -152,6 +155,21 @@ function gatherUrls() {
         });
       }
     }
+
+    // Extract TRADEMARKS_PATENTS_PORTALS
+    const ipBlock = content.match(/export const TRADEMARKS_PATENTS_PORTALS[\s\S]*?\];/)?.[0] || '';
+    const ipRegex = /name:\s*['"]([^'"]+)['"][\s\S]*?url:\s*['"]([^'"]+)['"]/g;
+    while ((match = ipRegex.exec(ipBlock)) !== null) {
+      const [, name, url] = match;
+      if (url && url.startsWith('http')) {
+        items.push({
+          source: 'src/data/navigation.ts (TRADEMARKS_PATENTS_PORTALS)',
+          name: `IP Portal: ${name}`,
+          field: 'url',
+          url,
+        });
+      }
+    }
   }
 
   return items;
@@ -230,7 +248,7 @@ async function auditUrl(item) {
 
     // B. Check standard HTTP statuses and Bot-protected gates
     if (status >= 400) {
-      if ((status === 403 || status === 429 || status === 400) && isBotProtected(url)) {
+      if ((status === 403 || status === 412 || status === 429 || status === 400) && isBotProtected(url)) {
         return {
           ...item,
           status,
@@ -257,6 +275,15 @@ async function auditUrl(item) {
     };
   } catch (err) {
     clearTimeout(timeoutId);
+    if (isBotProtected(url)) {
+      return {
+        ...item,
+        status: err.name === 'AbortError' ? 'TIMEOUT' : 'ERR',
+        finalUrl: url,
+        verdict: '403-WARN',
+        reason: `Bot gate / WAF challenge (${err.message})`,
+      };
+    }
     if (err.name === 'AbortError') {
       return {
         ...item,

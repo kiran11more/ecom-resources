@@ -5,6 +5,7 @@ import ListResourceModal from '../components/modals/ListResourceModal.astro';
 import NewsModal from '../components/modals/NewsModal.astro';
 import LoginModal from '../components/modals/LoginModal.astro';
 import { DIRECTORY_RESOURCES } from '../data/resources';
+import { TRADEMARKS_PATENTS_PORTALS } from '../data/navigation';
 
 interface Props {
   title: string;
@@ -18,21 +19,50 @@ const {
   canonical = Astro.url.href,
 } = Astro.props;
 
-// Lightweight search index for instant zero-latency client-side search across all 59+ tools
-const searchIndex = DIRECTORY_RESOURCES.map((r) => ({
-  name: r.name,
-  slug: r.slug || r.id,
-  category: r.category,
-  categorySlug: r.categorySlug,
-  description: r.description,
-  pricing: r.pricing || 'Free',
-  url: r.url,
-  internalUrl: r.internalUrl || (r.hasDetailPage ? `/resources/${r.slug || r.id}` : null),
-  hasDetailPage: Boolean(r.hasDetailPage),
-  isVerified: r.isVerified !== undefined ? Boolean(r.isVerified) : true,
-  badge: r.badge || null,
-  tags: Array.isArray(r.tags) ? r.tags : [],
-}));
+// Lightweight search index for instant zero-latency client-side search across all 77+ tools & IP registries
+const searchIndex = [
+  ...DIRECTORY_RESOURCES.map((r) => ({
+    name: r.name,
+    slug: r.slug || r.id,
+    category: r.category,
+    categorySlug: r.categorySlug,
+    description: r.description,
+    pricing: r.pricing || 'Free',
+    url: r.url,
+    internalUrl: r.internalUrl || (r.hasDetailPage ? `/resources/${r.slug || r.id}` : null),
+    hasDetailPage: Boolean(r.hasDetailPage),
+    isVerified: r.isVerified !== undefined ? Boolean(r.isVerified) : true,
+    badge: r.badge || null,
+    tags: Array.isArray(r.tags) ? r.tags : [],
+  })),
+  ...TRADEMARKS_PATENTS_PORTALS.map((p) => ({
+    name: p.name,
+    slug: p.id,
+    category: 'Trademarks & Patents',
+    categorySlug: 'trademarks-patents',
+    description: p.description,
+    pricing: 'Free',
+    url: p.url,
+    internalUrl: null,
+    hasDetailPage: false,
+    isVerified: true,
+    badge: p.badge || 'Official Registry',
+    tags: [
+      'uspto',
+      'wipo',
+      'patent',
+      'patents',
+      'copyright',
+      'trademark',
+      'trademarks',
+      'ip',
+      'intellectual property',
+      p.jurisdiction.toLowerCase(),
+      p.domain.toLowerCase(),
+      ...(p.tags || []),
+    ],
+  })),
+];
 ---
 
 <!doctype html>

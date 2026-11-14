@@ -1,0 +1,178 @@
+---
+import { TRADEMARKS_PATENTS_PORTALS } from '../../data/navigation';
+import { getMonogram } from '../../utils/monogram';
+
+const FLAG_URLS: Record<string, string> = {
+  us: 'https://flagcdn.com/w40/us.png',
+  eu: 'https://flagcdn.com/w40/eu.png',
+  gb: 'https://flagcdn.com/w40/gb.png',
+  jp: 'https://flagcdn.com/w40/jp.png',
+  cn: 'https://flagcdn.com/w40/cn.png',
+  un: 'https://flagcdn.com/w40/un.png',
+};
+---
+
+<div id="trademark" class="scroll-mt-36 pointer-events-none"></div>
+<section
+  id="trademarks-patents"
+  class="bg-white dark:bg-[#131924] border border-slate-200/90 dark:border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-xs space-y-4 scroll-mt-36 transition-colors w-full min-w-0"
+  aria-label="Trademarks And Patents Official Registries"
+>
+  <!-- Section Header -->
+  <div class="flex flex-col md:flex-row md:items-center justify-between pb-3.5 border-b border-slate-100 dark:border-white/[0.06] gap-3">
+    <div>
+      <div class="flex items-center gap-2.5">
+        <span class="w-8 h-8 rounded-xl bg-purple-500/15 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
+          <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+        </span>
+        <h2 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+          Trademarks And Patents
+        </h2>
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30 shrink-0">
+          18 Official Registries
+        </span>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+        Official government trademark, patent, and copyright databases across the US, EU, UK, Japan, China, and WIPO.
+      </p>
+    </div>
+
+    <!-- Interactive Filter Pills -->
+    <div class="flex items-center gap-1 p-1 bg-slate-100 dark:bg-dark-elevated rounded-xl border border-slate-200/80 dark:border-white/[0.05] shrink-0 self-start md:self-auto text-xs overflow-x-auto no-scrollbar">
+      <button
+        type="button"
+        data-ip-filter="all"
+        class="ip-filter-btn px-2.5 py-1 rounded-lg font-bold bg-white dark:bg-white/10 text-slate-900 dark:text-white shadow-2xs transition-all cursor-pointer whitespace-nowrap"
+      >
+        All ({TRADEMARKS_PATENTS_PORTALS.length})
+      </button>
+      <button
+        type="button"
+        data-ip-filter="Trademark"
+        class="ip-filter-btn px-2.5 py-1 rounded-lg font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer whitespace-nowrap"
+      >
+        Trademarks
+      </button>
+      <button
+        type="button"
+        data-ip-filter="Patent"
+        class="ip-filter-btn px-2.5 py-1 rounded-lg font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer whitespace-nowrap"
+      >
+        Patents
+      </button>
+      <button
+        type="button"
+        data-ip-filter="Tutorial"
+        class="ip-filter-btn px-2.5 py-1 rounded-lg font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer whitespace-nowrap"
+      >
+        Guides & Tutorials
+      </button>
+    </div>
+  </div>
+
+  <!-- 5-Column Desktop Grid (grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3) -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3" id="ip-portals-grid">
+    {
+      TRADEMARKS_PATENTS_PORTALS.map((portal) => {
+        const flagSrc = FLAG_URLS[portal.flagCode] || FLAG_URLS.un;
+        const faviconUrl = `https://www.google.com/s2/favicons?domain=${portal.domain}&sz=64`;
+        const monogram = getMonogram(portal.name);
+
+        return (
+          <a
+            href={portal.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-ip-type={portal.type}
+            class="ip-portal-card group flex flex-col justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-dark-elevated/60 border border-slate-200/70 dark:border-white/[0.06] hover:border-purple-500/50 hover:bg-slate-100/70 dark:hover:bg-white/[0.04] transition-all shadow-2xs hover:shadow-xs min-h-[148px]"
+          >
+            <!-- Top: Icon & Badge -->
+            <div>
+              <div class="flex items-center justify-between gap-2">
+                <div class="w-7 h-7 rounded-lg overflow-hidden bg-white dark:bg-white/10 border border-black/10 dark:border-white/10 flex items-center justify-center shrink-0 shadow-2xs">
+                  <img
+                    src={faviconUrl}
+                    alt=""
+                    class="w-4 h-4 object-contain select-none"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  />
+                  <span class="hidden text-[10px] font-extrabold text-purple-600 dark:text-purple-400 select-none">
+                    {monogram}
+                  </span>
+                </div>
+
+                <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-300 border border-purple-500/20 shrink-0">
+                  {portal.badge}
+                </span>
+              </div>
+
+              <!-- Title & Description -->
+              <h3 class="text-xs font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors line-clamp-2 mt-2 leading-snug">
+                {portal.name}
+              </h3>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+                {portal.description}
+              </p>
+            </div>
+
+            <!-- Card Footer: Country Flag / Jurisdiction & External Arrow -->
+            <div class="pt-2.5 mt-2 border-t border-slate-200/50 dark:border-white/[0.04] flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
+              <span class="flex items-center gap-1.5 font-medium truncate">
+                <img
+                  src={flagSrc}
+                  alt={portal.jurisdiction}
+                  class="w-3.5 h-2.5 object-cover rounded-2xs border border-black/10 dark:border-white/10 shrink-0"
+                  loading="lazy"
+                />
+                <span class="truncate">{portal.jurisdiction}</span>
+              </span>
+
+              <svg
+                class="w-3.5 h-3.5 text-slate-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </div>
+          </a>
+        );
+      })
+    }
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    const filterBtns = document.querySelectorAll('.ip-filter-btn');
+    const cards = document.querySelectorAll('.ip-portal-card');
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-ip-filter');
+
+        // Update active button styling
+        filterBtns.forEach((b) => {
+          b.classList.remove('bg-white', 'dark:bg-white/10', 'text-slate-900', 'dark:text-white', 'shadow-2xs', 'font-bold');
+          b.classList.add('font-medium', 'text-slate-600', 'dark:text-slate-400');
+        });
+        btn.classList.add('bg-white', 'dark:bg-white/10', 'text-slate-900', 'dark:text-white', 'shadow-2xs', 'font-bold');
+        btn.classList.remove('font-medium', 'text-slate-600', 'dark:text-slate-400');
+
+        // Filter cards
+        cards.forEach((card) => {
+          const type = card.getAttribute('data-ip-type');
+          if (filter === 'all' || type === filter) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  })();
+</script>

@@ -2,9 +2,12 @@ import fs from 'fs';
 import path from 'path';
 
 console.log('--- Verifying Bento Dashboard Layout Fixes ---');
-const htmlPath = path.resolve('dist/index.html');
+let htmlPath = path.resolve('dist/index.html');
 if (!fs.existsSync(htmlPath)) {
-  console.error('dist/index.html does not exist!');
+  htmlPath = path.resolve('dist/client/index.html');
+}
+if (!fs.existsSync(htmlPath)) {
+  console.error('Neither dist/index.html nor dist/client/index.html exists!');
   process.exit(1);
 }
 const html = fs.readFileSync(htmlPath, 'utf8');

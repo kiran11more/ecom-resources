@@ -21,20 +21,22 @@ const buyerClubsCount = OFFSITE_DEAL_PLATFORMS.filter(d => d.platformType.includ
   aria-label="Recommended Browser Extensions & Deals Hub"
 >
   <!-- Section Header: AMZ123 Style Main Tabs + Standardized Typography -->
-  <div class="flex flex-col md:flex-row md:items-center justify-between pb-3.5 border-b border-slate-100 dark:border-white/[0.06] gap-3">
-    <div>
-      <div class="flex flex-wrap items-center gap-2 sm:gap-2.5 min-w-0">
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between pb-3.5 border-b border-slate-100 dark:border-white/[0.06] gap-3.5">
+    <div class="min-w-0">
+      <div class="flex items-center gap-2.5 flex-wrap">
         <span class="w-8 h-8 rounded-xl bg-brand-orange/15 text-brand-orange flex items-center justify-center shrink-0">
           <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
           </svg>
         </span>
-        <h2 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-          Recommended Browser Extensions & Deals Hub
-        </h2>
-        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-brand-orange/15 text-brand-orange border border-brand-orange/30 whitespace-nowrap shrink-0">
-          34 Vetted Tools
-        </span>
+        <div class="flex items-center gap-2 sm:gap-2.5 flex-wrap min-w-0">
+          <h2 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+            Recommended Browser Extensions & Deals Hub
+          </h2>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-brand-orange/15 text-brand-orange border border-brand-orange/30 whitespace-nowrap shrink-0 inline-flex items-center">
+            34 Vetted Tools
+          </span>
+        </div>
       </div>
       <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
         Vetted Chrome extensions for live BSR analytics, supplier reverse-lookups, and external clearance deal platforms.
@@ -42,7 +44,7 @@ const buyerClubsCount = OFFSITE_DEAL_PLATFORMS.filter(d => d.platformType.includ
     </div>
 
     <!-- Primary Dual-Mode Tab Switcher (AMZ123 推荐插件 | Deals平台) -->
-    <div class="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-dark-elevated rounded-xl border border-slate-200/80 dark:border-white/[0.05] shrink-0 self-start md:self-auto">
+    <div class="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-dark-elevated rounded-xl border border-slate-200/80 dark:border-white/[0.05] shrink-0 self-start lg:self-auto overflow-x-auto max-w-full">
       <button
         type="button"
         id="ext-tab-btn-extensions"
